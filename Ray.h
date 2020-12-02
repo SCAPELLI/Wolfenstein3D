@@ -1,5 +1,9 @@
 #include "Ray.h"
 
 class Ray{
-	Vector origin;
+	Vector direction;
+
+	public:
+		Ray(Vector direction);
+		~Ray();
 }

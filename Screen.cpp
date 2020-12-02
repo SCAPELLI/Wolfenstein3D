@@ -8,7 +8,11 @@ void Screen::updateCamera(UpdateEvent event){
 }
 
 void Screen::draw(){
-	
+	Vector mapPosition = camera.getPosition().scale()
+	for (int x = 0; x < w; x++){
+		double cameraX = 2 * x / (double) w - 1;
+		Ray ray((camera.getPosition() + camera.getPlanePosition()) * cameraX);
+	}
 }
 
 Screen::~Screen(){}
