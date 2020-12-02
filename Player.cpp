@@ -1,31 +1,36 @@
 #include "Player.h"
 #include <functional>
 #include <iostream>
+#include "Vector.h"
+#define FULL_HEALTH 100
+#define FULL_LIFE 3
+#define INIT_ANGLE 0
+#define RADIUS 2
 
-Player::Player(std::string name)
-: id(), life(), position(Position(0, 0))
+
+Player::Player(int parsed_id, int init_x, int init_y)
+:   id(parsed_id),
+    lifes(FULL_LIFE),
+    health(FULL_HEALTH),
+    radius(RADIUS),
+    angle(INIT_ANGLE),
+    position(Vector(init_x, init_y))
 {}
-bool Player::isTouched(Position& other_position){
-    return position.collide(other_position);
-}
+// bool Player::isTouched(Vector& other_position){
+//     return this->collide(other_position);
+// }
 
 void Player::move(int dx, int dy){ // faltaria checkear si lo puede hacer o no
     position.add(dx, dy);
 }
 
-Position& Player::getPosition(){
-    return position;
+bool Player::collideWith(Player& other_player) {
+    int dist = position.distance(other_player.getPosition());
+    return dist < radius + other_player.radius;
 }
 
 
-int main(){
-    Player p1("lu");
-    Player p2 ("juani");
-    p1.move(1, 1);
-    std::cout<< p2.getPosition().x << p2.getPosition().y ;
-    std::cout<< p1.getPosition().x << p1.getPosition().y ;
-    std::cout<< p1.isTouched(p2.getPosition());
+Vector& Player::getPosition(){
+    return position;
+}
 
-
-
-};
