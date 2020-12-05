@@ -4,14 +4,17 @@
 #include <yaml-cpp/yaml.h>
 #include <iostream>
 
+#define MENU_SCREEN 0
+
 #define PLAYER 1
 #define WALL 2
 
 const void createYaml(const std::string name, const std::string length, const std::string width);
 
-NewMapWindow::NewMapWindow(QWidget *parent)
+NewMapWindow::NewMapWindow(QWidget *parent, SceneManager *sceneManager)
         : QMainWindow(parent), ui(new Ui::NewMapWindow) {
     this->ui->setupUi(this);
+    this->sceneManager = sceneManager;
     connectEvents();
 }
 
@@ -22,6 +25,9 @@ NewMapWindow::~NewMapWindow() {
 void NewMapWindow::connectEvents() {
     QPushButton* acceptButton = findChild<QPushButton*>("acceptButton");
     QObject::connect(acceptButton, &QPushButton::clicked, this, &NewMapWindow::createMap);
+
+    QPushButton* cancelButton = findChild<QPushButton*>("cancelButton");
+    QObject::connect(cancelButton, &QPushButton::clicked, this, &NewMapWindow::previousScene);
 }
 
 void NewMapWindow::createMap() {
@@ -32,7 +38,10 @@ void NewMapWindow::createMap() {
     std::string lenghtText = lenght->text().toUtf8().constData();
     std::string widthText = width->text().toUtf8().constData();
     createYaml(nameText, lenghtText, widthText);
+}
 
+void NewMapWindow::previousScene() {
+    this->sceneManager->changeScene(MENU_SCREEN);
 }
 
 const void createYaml(const std::string name, const std::string length, const std::string width) {
@@ -48,7 +57,7 @@ const void createYaml(const std::string name, const std::string length, const st
     int i, j;
     for (i = 0; i < matrix.size(); i++) {
         for (j = 0; j < matrix[i].size(); j++) {
-            if (i == 0 || i == matrix.size() - 1 || j == 0 || j == matrix[i].size()) {
+            if (i == 0 || i == matrix.size() - 1 || j == 0 || j == matrix[i].size() - 1) {
                 matrix[i][j] = WALL;
             }
         }
@@ -64,14 +73,6 @@ const void createYaml(const std::string name, const std::string length, const st
         }
         _map["map"].push_back(row);
     }
-
-    YAML::Node info = _map["info"];
-    YAML::Node player = info["player"];
-    player["id"] = PLAYER;
-    player["sprite"] = "ruta de sprite";
-    YAML::Node wall = info["wall"];
-    wall["id"] = WALL;
-    wall["sprite"] = "ruta de sprite";
 
     archive << _map;
 }

@@ -2,6 +2,7 @@
 #define EDITOR_MENUWINDOW_H
 
 #include "../include/NewMapWindow.h"
+#include "SceneManager.h"
 #include <QMainWindow>
 #include <QWidget>
 
@@ -14,10 +15,11 @@ class MenuWindow : public QMainWindow {
 
     private:
         Ui::MenuWindow *ui;
-        NewMapWindow *newMapWindow;
+        //NewMapWindow *newMapWindow;
+        SceneManager *sceneManager;
 
     public:
-        explicit MenuWindow(QWidget *parent = 0);
+        MenuWindow(QWidget *parent = 0, SceneManager *sceneManager = NULL);
         ~MenuWindow();
 
     private:
