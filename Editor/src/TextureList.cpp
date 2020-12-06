@@ -13,18 +13,17 @@ TextureList::TextureList(QWidget *parent)
     this->addTexture("../sprites/prueba.png");
     this->addTexture("../sprites/prueba1.png");
     this->addTexture("../sprites/logo.png");
-
-
-    //this->addItem("hello");
 }
 
 TextureList::~TextureList() {
-
+    int i;
+    for (i = 0; i < this->count(); i++) {
+        QListWidgetItem *item = this->takeItem(i);
+        delete item;
+    }
 }
 
 void TextureList::addTexture(std::string texturePath) {
-    //QListWidgetItem *tile = new QListWidgetItem("holis");
-    //QListWidgetItem *tile = new QListWidgetItem(QIcon("../sprites/prueba.png"), NULL);
     QString aux = QString::fromStdString(texturePath);
     QListWidgetItem *tile = new QListWidgetItem(QIcon(aux), aux);
     this->addItem(tile);

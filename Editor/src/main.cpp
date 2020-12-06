@@ -6,6 +6,7 @@
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <SceneManager.h>
+#include <EditorScene.h>
 
 int main(int argc, char *argv[]) {
     /*
@@ -15,9 +16,12 @@ int main(int argc, char *argv[]) {
     return app.exec();
      */
 
+
     QApplication app(argc, argv);
     SceneManager scene;
     scene.show();
     return app.exec();
+
+
 
 }

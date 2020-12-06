@@ -7,6 +7,7 @@ EditorScene::EditorScene(QWidget *parent, SceneManager *sceneManager)
     this->sceneManager = sceneManager;
     QListWidget *textureList = findChild<QListWidget*>("textureList");
     this->textureList = new TextureList(textureList);
+
 }
 
 EditorScene::~EditorScene() {
