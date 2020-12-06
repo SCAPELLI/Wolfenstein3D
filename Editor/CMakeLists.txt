@@ -14,7 +14,8 @@ include_directories(${YAML_CPP_INCLUDE_DIRS})
 qt5_wrap_ui(UIS_HEADERS
         ui/MenuWindow.ui
         ui/NewMapWindow.ui
-        ui/SceneManager.ui)
+        ui/SceneManager.ui
+        ui/EditorScene.ui)
 
 message("Agregando '${PROJECT_BINARY_DIR}' como directorio de includes")
 include_directories(${PROJECT_BINARY_DIR})
@@ -23,6 +24,6 @@ message("Headers generados: ${UIS_HEADERS}")
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Editor ${UIS_HEADERS} src/main.cpp src/MenuWindow.cpp include/MenuWindow.h src/NewMapWindow.cpp include/NewMapWindow.h src/SceneManager.cpp include/SceneManager.h src/Editor.cpp include/Editor.h)
+add_executable(Editor ${UIS_HEADERS} src/main.cpp src/MenuWindow.cpp include/MenuWindow.h src/NewMapWindow.cpp include/NewMapWindow.h src/SceneManager.cpp include/SceneManager.h src/Editor.cpp include/Editor.h src/EditorScene.cpp include/EditorScene.h src/TextureList.cpp include/TextureList.h)
 
 target_link_libraries(Editor Qt5::Widgets ${YAML_CPP_LIBRARIES})

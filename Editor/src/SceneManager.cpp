@@ -1,5 +1,6 @@
 #include <MenuWindow.h>
 #include <iostream>
+#include <EditorScene.h>
 #include "../include/SceneManager.h"
 #include "ui_SceneManager.h"
 
@@ -9,7 +10,8 @@ SceneManager::SceneManager(QWidget *parent)
     this->stack =findChild<QStackedWidget*>("stack");
     this->stack->addWidget(new MenuWindow(0, this));
     this->stack->addWidget(new NewMapWindow(0, this));
-    this->stack->setCurrentIndex(0);
+    this->stack->addWidget(new EditorScene(0, this));
+    this->stack->setCurrentIndex(2);
 }
 
 SceneManager::~SceneManager() {
