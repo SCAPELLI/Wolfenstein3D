@@ -2,9 +2,10 @@
 #include <yaml-cpp/yaml.h>
 #include <iostream>
 #include <fstream>
-#include "LoadMap.cpp"
+#include "MapLoader.h"
 
 int main(){
-    readYaml();
+    MapLoader map2;
+    map2.readYaml();
     return 0;
 }

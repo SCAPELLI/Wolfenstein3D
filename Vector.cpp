@@ -4,11 +4,30 @@
 
 Vector::Vector(int x, int y) : x(x), y(y){}
 
-int Vector::distance(Vector& other_vector) {
-    return abs(x - other_vector.x) + abs(y - other_vector.y);
+Vector::Vector() : x(0), y(0){}
+
+
+Vector::Vector(Vector &&other): x(other.x), y(other.y){}
+
+int Vector::distance(Vector& otherVector) {
+    return abs(x - otherVector.x) + abs(y - otherVector.y);
 }
 
-void Vector::add(int dx, int dy){
-    x += dx;
-    y += dy;
+Vector& Vector::operator+=(Vector& otherPos){
+    x += otherPos.x;
+    y += otherPos.y;
+    return *this;
+}
+
+Vector& Vector::operator+(Vector& otherPos){
+    x += otherPos.x;
+    y += otherPos.y;
+    return *this;
+}
+
+int Vector::getX(){
+    return x;
+}
+int Vector::getY(){
+    return y;
 }

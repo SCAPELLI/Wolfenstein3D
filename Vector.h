@@ -7,10 +7,15 @@ class Vector {
 public:
     int x;
     int y;
-    int distance(Vector& other_vector);
+    int distance(Vector& otherVector);
 public:
     Vector(int x, int y);
-    void add(int dx, int dy);// sobrecargar operador +
+    Vector();
+    Vector(Vector &&other);
+    Vector& operator+=(Vector& otherPos);
+    Vector& operator+(Vector& otherPos);
+    int getX();
+    int getY();
 };
 
 

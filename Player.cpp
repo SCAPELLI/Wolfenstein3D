@@ -8,21 +8,20 @@
 #define RADIUS 2
 
 
-Player::Player(int parsed_id, int init_x, int init_y)
+Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
     lifes(FULL_LIFE),
     health(FULL_HEALTH),
     radius(RADIUS),
     angle(INIT_ANGLE),
-    position(Vector(init_x, init_y))
+    position(std::move(position))
 {}
-// bool Player::isTouched(Vector& other_position){
-//     return this->collide(other_position);
-// }
 
-void Player::move(int dx, int dy){ // faltaria checkear si lo puede hacer o no
-    position.add(dx, dy);
+
+void Player::move(Vector& newPos){
+        position += newPos;
 }
+
 
 bool Player::collideWith(Player& other_player) {
     int dist = position.distance(other_player.getPosition());

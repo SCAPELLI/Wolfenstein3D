@@ -11,11 +11,14 @@ class Player {
     int angle;
     Vector position;
 public:
-    Player(int parsed_id, int init_x, int init_y);
-    bool isTouched(Vector& other_position);
-    void move(int dx, int dy);
+    Player(int parsed_id, Vector position);
+    Player();
+//    Player(Player&& otherPlayer);
+//    Player& operator=(Player&& other)noexcept;
+    bool isTouched(Vector& otherPosition);
+    void move(Vector& newPos);
     Vector& getPosition();
-    bool collideWith(Player& other_player);
+    bool collideWith(Player& otherPlayer);
 };
 
 #endif //WOLFENSTEIN3D_PLAYER_H
