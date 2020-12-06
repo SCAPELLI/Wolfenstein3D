@@ -3,13 +3,13 @@
 
 #include <QtWidgets/QListWidget>
 
-class TextureList : QListWidget {
+class TextureList {
 
     private:
         QListWidget *textureList;
 
     public:
-        TextureList(QWidget *parent = 0);
+        TextureList(QListWidget *textureList);
         ~TextureList();
         void addTexture(std::string texturePath);
 
