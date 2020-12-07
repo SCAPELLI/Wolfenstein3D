@@ -8,7 +8,7 @@ class Screen{
 	public:
 
 		Screen(double x, double y, double fov);
-		void updateCamera(UpdateEvent event);
+		//void updateCamera(UpdateEvent event);
 		void draw(Map &map);
 		~Screen();
 }
