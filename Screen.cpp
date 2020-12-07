@@ -8,9 +8,10 @@ void Screen::updateCamera(UpdateEvent event){
 }
 
 void Screen::draw(Map &map){
-	for (int x = 0; x < w; x++){
+	for (int x = 0; x < w; x++){ // w deberia ser el largo de la pantalla
 		double cameraX = 2 * x / (double) w - 1;
 		Ray ray(this->camera, cameraX);
+		ray.draw(map);
 	}
 }
 

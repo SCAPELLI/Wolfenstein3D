@@ -9,7 +9,7 @@ Ray::Ray(Camera &camera, double cameraX):
 		this.initialize();
 	}
 
-Ray::initialize(){
+void Ray::initialize(){
 	if (direction.x < 0){
 		this->stepX = -1;
 		this->sideDistX = (camera.getPosition().x - camera.getPosition().scale().x) 
@@ -51,6 +51,8 @@ double Ray::distanceToWall(Map &map){
 			(mapY - camera.getPosition().y + (1 - stepY) / 2) / direction.y;
 }
 
-
+void Ray::draw(Map &map){
+	double distance = this.distanceToWall(map);
+}
 
 Ray::~Ray(){}

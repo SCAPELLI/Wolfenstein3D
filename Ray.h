@@ -3,9 +3,10 @@
 class Ray{
 	Camera &camera;
 	Vector direction;
-
+	void initialize();
+	double distanceToWall(Map &map);
 	public:
 		Ray(Camera &camera, double cameraX);
-		double distanceToWall(Map &map);
+		void draw(Map &map);
 		~Ray();
 }

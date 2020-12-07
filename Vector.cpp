@@ -13,7 +13,7 @@ Vector Vector::operator*(double z){
 }
 
 Vector Vector::scale(){ // Only scale positions
-	return Vector(int(this->x / 32), int(this->y / 32)); // 32 hardcodeado
+	return Vector(int(this->x / 32), int(this->y / 32)); // 32 hardcodeado, es tamanio de sprite
 }
 
 Vector::~Vector(){}
