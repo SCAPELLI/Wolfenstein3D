@@ -1,9 +1,11 @@
 #include "Ray.h"
 
 class Ray{
+	Camera &camera;
 	Vector direction;
 
 	public:
-		Ray(Vector direction);
+		Ray(Camera &camera, double cameraX);
+		double distanceToWall(Map &map);
 		~Ray();
 }
