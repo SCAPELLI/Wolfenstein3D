@@ -3,16 +3,18 @@
 
 #include <QtWidgets/QListWidget>
 
-class TextureList {
+class TextureList : public QListWidget {
 
     private:
-        QListWidget *textureList;
 
     public:
-        TextureList(QListWidget *textureList);
+        TextureList(QWidget *parent = 0);
         ~TextureList();
         void addTexture(std::string texturePath);
 
+    protected:
+        void dragEnterEvent(QDragEnterEvent *event) override;
+        void mousePressEvent(QMouseEvent *event) override;
 };
 
 
