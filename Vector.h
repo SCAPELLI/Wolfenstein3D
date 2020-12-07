@@ -1,4 +1,5 @@
-
+#ifndef WOLFENSTEIN3D_VECTOR_H
+#define WOLFENSTEIN3D_VECTOR_H
 
 class Vector{
 
@@ -11,3 +12,5 @@ class Vector{
 		Vector scale();
 		~Vector();
 }
+
+#endif

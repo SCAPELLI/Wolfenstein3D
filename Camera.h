@@ -1,3 +1,5 @@
+#ifndef WOLFENSTEIN3D_CAMERA_H
+#define WOLFENSTEIN3D_CAMERA_H
 #include "Vector.h"
 
 class Camera{
@@ -14,3 +16,5 @@ class Camera{
 		Vector& getFacingPosition();
 		~Camera();
 }
+
+#endif

@@ -1,4 +1,7 @@
+#ifndef WOLFENSTEIN3D_RAY_H
+#define WOLFENSTEIN3D_RAY_H
 #include "Ray.h"
+#include "Vector.h"
 
 class Ray{
 	Camera &camera;
@@ -10,3 +13,5 @@ class Ray{
 		void draw(Map &map);
 		~Ray();
 }
+
+#endif

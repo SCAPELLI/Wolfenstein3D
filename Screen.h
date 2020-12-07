@@ -1,3 +1,5 @@
+#ifndef WOLFENSTEIN3D_SCREEN_H
+#define WOLFENSTEIN3D_SCREEN_H
 #include "Camera.h"
 
 class Screen{
@@ -10,3 +12,5 @@ class Screen{
 		void draw(Map &map);
 		~Screen();
 }
+
+#endif
