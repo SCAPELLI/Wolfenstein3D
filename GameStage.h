@@ -1,5 +1,6 @@
 #ifndef GAMESTAGE_H
 #define GAMESTAGE_H
+
 /*
 Peligro!
 No incluir así:
@@ -7,12 +8,15 @@ No incluir así:
 #include "TurnEvent.h"
 */
 
-
+class ProtectedEventsQueue;
 class MovementEvent;
 class TurnEvent;
 
 class GameStage {
+    ProtectedEventsQueue& updateEvents;
 public:
+    explicit GameStage(ProtectedEventsQueue& updateEvents):
+            updateEvents(updateEvents) {}
     void processEvent(TurnEvent& event);
     void processEvent(MovementEvent& event);
 };

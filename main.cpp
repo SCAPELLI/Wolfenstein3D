@@ -1,19 +1,15 @@
 #include <SDL2/SDL.h>
+#include <atomic>
 #include "SDLContext.h"
 #include "Window.h"
 #include "EventsCatcher.h"
 #include "GameStage.h"
-#include "ProtectedEventQueue.h"
+#include "ProtectedEventsQueue.h"
+#include "Server.h"
 
-/*
-class Server {
-    ProtectedEventQueue& events;
-public:
-    explicit Server(ProtectedEventQueue& events): events(events) {}
-    void operator()() {
+#include <thread>
 
-    }
-};*/
+#include "Renderer.h"
 
 int main() {
     try {
@@ -21,32 +17,35 @@ int main() {
         Window window;
         EventsCatcher eventsCatcher;
 
-        GameStage gameStage;
-        ProtectedEventQueue events;
-        bool quit = false;
-        //lanzar hilo server
-        //std::thread t {Server(protectedEventQueue, quit)}
+        /*-----------------*/
+        ProtectedEventsQueue userEvents;
+        ProtectedEventsQueue updateEvents;
+        std::atomic<bool> quit(false);
+        /*-----------------*/
+        Renderer renderer;
+        /*-----------------*/
+
+        std::thread t (Server(userEvents, updateEvents, quit));;
 
         while (!quit) {
-            events.insertEvents(eventsCatcher);
+            userEvents.insertEvents(eventsCatcher);
 
-            // Serializar y enviar al server
+            // Serializar eventos de usuario y enviar al server.
+            // Recibir Eventos de server serializados.
 
-            // lado server
-            while (!events.empty()) {
+            // Se carga el updateEvents
 
-                Event event = std::move(events.pop());
-                event.runHandler(gameStage);
-                if (event.thisIsTheQuitEvent()) quit = true;
+            // Renderizar actualizaciones
+
+            while (!updateEvents.empty()) {
+                Event event = std::move(updateEvents.pop());
+                event.runHandler(renderer);
             }
-            // serializar y enviar al client
-
-            // volver al lado client
-            // recibir la actualizacion y renderizar
 
             SDL_Delay(200);
         }
-        // joinear hilo server
+
+        t.join();
     } catch (std::exception& exception) {
         exception.what();
     }

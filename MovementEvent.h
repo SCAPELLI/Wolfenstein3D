@@ -10,7 +10,7 @@ class MovementEvent: public AbstractEvent {
     MovementDirection direction;
 
 public:
-    MovementEvent(MovementDirection direction): direction(direction){}
+    explicit MovementEvent(MovementDirection direction): direction(direction) {}
     void runHandler(GameStage& gameStage) override;
 };
 

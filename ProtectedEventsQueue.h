@@ -7,13 +7,14 @@
 class Event;
 class EventsCatcher;
 
-class ProtectedEventQueue {
+class ProtectedEventsQueue {
     std::queue<Event> events{};
     std::mutex mutex{};
 public:
     void insertEvents(EventsCatcher& eventsCatcher);
     Event pop();
     bool empty();
+    void push(Event& event);
 };
 
 #endif
