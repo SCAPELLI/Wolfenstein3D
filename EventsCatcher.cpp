@@ -1,11 +1,11 @@
 #include <SDL_events.h>
-#include "EventQueue.h"
+#include "EventsCatcher.h"
 
-std::queue<Event> EventQueue::getEvents() {
+std::queue<Event> EventsCatcher::getEvents() {
     std::queue<Event> eventQueue;
     SDL_Event sdlEvent;
     while( SDL_PollEvent( &sdlEvent ) != 0 ) {
-        eventQueue.emplace(sdlEvent);
+            eventQueue.emplace(sdlEvent);
     }
     return eventQueue;
 }

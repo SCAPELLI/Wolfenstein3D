@@ -4,7 +4,7 @@
 #include <queue>
 #include "Event.h"
 
-class EventQueue {
+class EventsCatcher {
 public:
     std::queue<Event> getEvents();
 };

@@ -5,7 +5,7 @@
 
 class QuitEvent: public AbstractEvent {
 public:
-    void runHandler() override;
+    void runHandler(GameStage& gameStage) override;
     bool thisIsTheQuitEvent() override;
 };
 

@@ -1,9 +1,7 @@
 #include "Event.h"
 #include "QuitEvent.h"
-#include "KeyUpEvent.h"
-#include "KeyDownEvent.h"
-#include "KeyLeftEvent.h"
-#include "KeyRightEvent.h"
+#include "MovementEvent.h"
+#include "TurnEvent.h"
 
 Event::Event(SDL_Event& sdlEvent) {
     switch (sdlEvent.type) {
@@ -21,19 +19,23 @@ Event::Event(SDL_Event& sdlEvent) {
 AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
     switch (sdlEvent.key.keysym.sym) {
         case SDLK_UP:
-            return new KeyUpEvent;
+            return new MovementEvent(FOWARD);
         case SDLK_DOWN:
-            return new KeyDownEvent;
+            return new MovementEvent(BACKWARD);
         case SDLK_LEFT:
-            return new KeyLeftEvent;
+            return new TurnEvent(ANTICLOCKWISE);;
         case SDLK_RIGHT:
-            return new KeyRightEvent;
+            return new TurnEvent(CLOCKWISE);
         default:
             return nullptr;
     }
 }
-void Event::runHandler() {
-    if (event != nullptr) event->runHandler();
+Event::Event(Event&& originalEvent) noexcept {
+    event = originalEvent.event;
+    originalEvent.event = nullptr;
+}
+void Event::runHandler(GameStage& gameStage) {
+    if (event != nullptr) event->runHandler(gameStage);
 }
 bool Event::thisIsTheQuitEvent() {
     if (event != nullptr) return event->thisIsTheQuitEvent();
