@@ -1,11 +1,11 @@
 #include "../include/EditorScene.h"
 #include "ui_EditorScene.h"
 
-EditorScene::EditorScene(QWidget *parent, SceneManager *sceneManager)
+EditorScene::EditorScene(QWidget *parent, ScreenManager *screenManager)
     : QMainWindow(parent), ui(new Ui::EditorScene) {
 
     this->ui->setupUi(this);
-    this->sceneManager = sceneManager;
+    this->screenManager = screenManager;
     QVBoxLayout *layout = findChild<QVBoxLayout*>("textureListLayout");
     this->textureList = new TextureList();
     layout->addWidget(this->textureList);

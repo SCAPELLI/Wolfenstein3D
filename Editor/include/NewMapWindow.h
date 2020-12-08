@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QWidget>
-#include "SceneManager.h"
+#include "ScreenManager.h"
 
 namespace Ui {
     class NewMapWindow;
@@ -14,16 +14,17 @@ class NewMapWindow : public QMainWindow {
 
     private:
         Ui::NewMapWindow *ui;
-        SceneManager *sceneManager;
+        ScreenManager *screenManager;
 
     public:
-        NewMapWindow(QWidget *parent = 0, SceneManager *sceneManager = NULL);
+        NewMapWindow(QWidget *parent = 0, ScreenManager *screenManager = NULL);
         ~NewMapWindow();
 
     private:
         void connectEvents();
         void createMap();
-        void previousScene();
+        void previousScreen();
+        void nextScreen();
 };
 
 #endif //EDITOR_NEWMAPWINDOW_H

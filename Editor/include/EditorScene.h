@@ -1,7 +1,7 @@
 #ifndef EDITOR_EDITORSCENE_H
 #define EDITOR_EDITORSCENE_H
 
-#include "SceneManager.h"
+#include "ScreenManager.h"
 #include "TextureList.h"
 #include "Tilemap.h"
 #include <QMainWindow>
@@ -16,12 +16,12 @@ class EditorScene : public QMainWindow {
 
     private:
         Ui::EditorScene *ui;
-        SceneManager *sceneManager;
+        ScreenManager *screenManager;
         TextureList *textureList;
         Tilemap *tilemap;
 
     public:
-        EditorScene(QWidget *parent = 0, SceneManager *sceneManager = NULL);
+        EditorScene(QWidget *parent = 0, ScreenManager *screenManager = NULL);
         ~EditorScene();
 
 };

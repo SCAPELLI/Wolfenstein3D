@@ -5,10 +5,10 @@
 
 #define NEW_MAP 1
 
-MenuWindow::MenuWindow(QWidget *parent, SceneManager *sceneManager)
+MenuWindow::MenuWindow(QWidget *parent, ScreenManager *screenManager)
     : QMainWindow(parent), ui(new Ui::MenuWindow) {
     this->ui->setupUi(this);
-    this->sceneManager = sceneManager;
+    this->screenManager = screenManager;
     connectEvents();
 }
 
@@ -22,5 +22,5 @@ void MenuWindow::connectEvents() {
 }
 
 void MenuWindow::openCreateMapWindow() {
-    this->sceneManager->changeScene(NEW_MAP);
+    this->screenManager->changeScreen(NEW_MAP);
 }

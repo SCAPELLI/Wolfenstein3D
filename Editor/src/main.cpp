@@ -5,7 +5,7 @@
 #include <Editor.h>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QVBoxLayout>
-#include <SceneManager.h>
+#include <ScreenManager.h>
 #include <EditorScene.h>
 
 int main(int argc, char *argv[]) {
@@ -18,8 +18,8 @@ int main(int argc, char *argv[]) {
 
 
     QApplication app(argc, argv);
-    SceneManager scene;
-    scene.show();
+    ScreenManager screenManager;
+    screenManager.show();
     return app.exec();
 
 

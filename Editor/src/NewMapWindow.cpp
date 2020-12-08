@@ -5,16 +5,17 @@
 #include <iostream>
 
 #define MENU_SCREEN 0
+#define EDITOR_SCREEN 2
 
 #define PLAYER 1
 #define WALL 2
 
 const void createYaml(const std::string name, const std::string length, const std::string width);
 
-NewMapWindow::NewMapWindow(QWidget *parent, SceneManager *sceneManager)
+NewMapWindow::NewMapWindow(QWidget *parent, ScreenManager *screenManager)
         : QMainWindow(parent), ui(new Ui::NewMapWindow) {
     this->ui->setupUi(this);
-    this->sceneManager = sceneManager;
+    this->screenManager = screenManager;
     connectEvents();
 }
 
@@ -27,7 +28,7 @@ void NewMapWindow::connectEvents() {
     QObject::connect(acceptButton, &QPushButton::clicked, this, &NewMapWindow::createMap);
 
     QPushButton* cancelButton = findChild<QPushButton*>("cancelButton");
-    QObject::connect(cancelButton, &QPushButton::clicked, this, &NewMapWindow::previousScene);
+    QObject::connect(cancelButton, &QPushButton::clicked, this, &NewMapWindow::previousScreen);
 }
 
 void NewMapWindow::createMap() {
@@ -38,10 +39,15 @@ void NewMapWindow::createMap() {
     std::string lenghtText = lenght->text().toUtf8().constData();
     std::string widthText = width->text().toUtf8().constData();
     createYaml(nameText, lenghtText, widthText);
+    this->nextScreen();
 }
 
-void NewMapWindow::previousScene() {
-    this->sceneManager->changeScene(MENU_SCREEN);
+void NewMapWindow::previousScreen() {
+    this->screenManager->changeScreen(MENU_SCREEN);
+}
+
+void NewMapWindow::nextScreen() {
+    this->screenManager->changeScreen(EDITOR_SCREEN);
 }
 
 const void createYaml(const std::string name, const std::string length, const std::string width) {
@@ -75,4 +81,5 @@ const void createYaml(const std::string name, const std::string length, const st
     }
 
     archive << _map;
+
 }
