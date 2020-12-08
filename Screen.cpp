@@ -19,7 +19,7 @@ void Screen::draw(){//Map &map){
         SDL_Window* window = NULL;
         SDL_Renderer* renderer = NULL;
 
-        if (SDL_CreateWindowAndRenderer(h, w, 0, &window, &renderer) == 0) {
+        if (SDL_CreateWindowAndRenderer(w, h, 0, &window, &renderer) == 0) {
             SDL_bool done = SDL_FALSE;
 
             while (!done) {
