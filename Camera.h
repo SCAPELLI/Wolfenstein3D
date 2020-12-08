@@ -8,13 +8,13 @@ class Camera{
 	Vector facingPosition;
 
 	public:
-		Camera(Vector cameraPosition, double fov);
+		Camera(double x, double y, double fov);
 		void move(Vector direction);
-		void rotate(double grades);
+		void rotate(double degrees);
 		Vector& getPosition();
 		Vector& getPlanePosition();
 		Vector& getFacingPosition();
 		~Camera();
-}
+};
 
 #endif

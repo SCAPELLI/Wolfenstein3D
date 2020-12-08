@@ -1,7 +1,7 @@
 #include "Screen.h"
 
-int main(int argc, char const *argv[]){
-	Screen screen(22,12,0.66);
+int main(){
+	Screen screen(96 / 2, 96 / 2,0.66);
 	screen.draw();
 	return 0;
 }
