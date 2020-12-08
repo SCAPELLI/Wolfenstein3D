@@ -10,12 +10,11 @@
 Tilemap::Tilemap(QWidget *parent) {
     this->resize(ROWS * BITS, COLUMNS * BITS);
     this->scene = new QGraphicsScene;
-    //this->scene->addText("Holis");
     int x, y;
 
     this->setGrid();
-    QLabel *uwu = new QLabel("holis");
-    this->scene->addWidget(uwu);
+    //QLabel *uwu = new QLabel("holis");
+    //this->scene->addWidget(uwu);
 
     this->setScene(this->scene);
     this->show();
@@ -44,9 +43,14 @@ void Tilemap::setGrid() {
 }
 
 void Tilemap::mousePressEvent(QMouseEvent *event) {
+    /*
     QLabel *child = static_cast<QLabel*>(childAt(event->pos()));
     if (!child) {
         return;
+    } else {
+        QGraphicsItem *item = itemAt(event->pos());
+        this->scene->removeItem(item);
     }
     std::cout << "a child";
+*/
 }
