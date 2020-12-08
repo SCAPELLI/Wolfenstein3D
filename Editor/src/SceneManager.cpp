@@ -17,7 +17,7 @@ SceneManager::SceneManager(QWidget *parent)
 SceneManager::~SceneManager() {
     // Elimino los widgets almacenados en el stack
     int i;
-    for (int i = this->stack->count(); i >= 0; i--) {
+    for (int i = this->stack->count() - 1; i >= 0; i--) {
        QWidget *widget = stack->widget(i);
        stack->removeWidget(widget);
        delete widget;

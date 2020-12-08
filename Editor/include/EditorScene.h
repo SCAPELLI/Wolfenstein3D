@@ -3,6 +3,7 @@
 
 #include "SceneManager.h"
 #include "TextureList.h"
+#include "Tilemap.h"
 #include <QMainWindow>
 #include <QWidget>
 
@@ -17,6 +18,7 @@ class EditorScene : public QMainWindow {
         Ui::EditorScene *ui;
         SceneManager *sceneManager;
         TextureList *textureList;
+        Tilemap *tilemap;
 
     public:
         EditorScene(QWidget *parent = 0, SceneManager *sceneManager = NULL);

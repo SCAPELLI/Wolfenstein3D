@@ -29,11 +29,3 @@ void TextureList::addTexture(std::string texturePath) {
     QListWidgetItem *tile = new QListWidgetItem(QIcon(aux), aux);
     this->addItem(tile);
 }
-
-void TextureList::dragEnterEvent(QDragEnterEvent *event) {
-
-}
-
-void TextureList::mousePressEvent(QMouseEvent *event) {
-    std::cout << "presionado!\n";
-}
