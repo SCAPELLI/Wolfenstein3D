@@ -8,10 +8,17 @@ ScreenManager::ScreenManager(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::ScreenManager) {
     this->ui->setupUi(this);
     this->stack =findChild<QStackedWidget*>("stack");
-    this->stack->addWidget(new MenuWindow(0, this));
-    this->stack->addWidget(new NewMapWindow(0, this));
-    this->stack->addWidget(new EditorScene(0, this));
-    this->stack->setCurrentIndex(2);
+
+    this->menuWindow = new MenuWindow(0, this);
+    this->stack->addWidget(this->menuWindow);
+
+    this->newMapWindow = new NewMapWindow(0, this);
+    this->stack->addWidget(this->newMapWindow);
+
+    this->editorScene = new EditorScene(0, this);
+    this->stack->addWidget(this->editorScene);
+
+    this->stack->setCurrentIndex(0);
 }
 
 ScreenManager::~ScreenManager() {
@@ -20,9 +27,11 @@ ScreenManager::~ScreenManager() {
     for (int i = this->stack->count() - 1; i >= 0; i--) {
        QWidget *widget = stack->widget(i);
        stack->removeWidget(widget);
-       delete widget;
     }
     delete this->ui;
+    delete this->menuWindow;
+    delete this->newMapWindow;
+    delete this->editorScene;
 }
 
 void ScreenManager::changeScreen(int scene) {

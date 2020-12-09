@@ -17,8 +17,8 @@ Tilemap::Tilemap(QWidget *parent) {
     //QLabel *uwu = new QLabel("holis");
     //this->scene->addWidget(uwu);
 
-    Tile *tile = new Tile();
-    this->scene->addItem(tile);
+    //Tile *tile = new Tile();
+    //this->scene->addItem(tile);
 
     this->setScene(this->scene);
     this->show();

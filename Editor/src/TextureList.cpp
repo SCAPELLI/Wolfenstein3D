@@ -7,13 +7,13 @@ TextureList::TextureList(QWidget *parent) {
     //this->textureList = textureList;
     //this->textureList->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
     this->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
-    this->addTexture("../sprites/prueba.png");
-    this->addTexture("../sprites/prueba1.png");
-    this->addTexture("../sprites/prueba.png");
-    this->addTexture("../sprites/prueba1.png");
-    this->addTexture("../sprites/prueba.png");
-    this->addTexture("../sprites/prueba1.png");
-    this->addTexture("../sprites/logo.png");
+    this->addTexture("../sprites/texture0.png");
+    this->addTexture("../sprites/texture1.png");
+    this->addTexture("../sprites/texture2.png");
+    this->addTexture("../sprites/texture3.png");
+    this->addTexture("../sprites/texture4.png");
+    this->addTexture("../sprites/texture5.png");
+    this->addTexture("../sprites/texture6.png");
 }
 
 TextureList::~TextureList() {

@@ -5,6 +5,10 @@
 #include <QWidget>
 #include <QtWidgets/QStackedWidget>
 
+class MenuWindow;
+class NewMapWindow;
+class EditorScene;
+
 namespace Ui {
     class ScreenManager;
 }
@@ -15,6 +19,9 @@ class ScreenManager : public QMainWindow {
     private:
         Ui::ScreenManager *ui;
         QStackedWidget *stack;
+        MenuWindow *menuWindow;
+        NewMapWindow *newMapWindow;
+        EditorScene *editorScene;
 
     public:
         ScreenManager(QWidget *parent = 0);
