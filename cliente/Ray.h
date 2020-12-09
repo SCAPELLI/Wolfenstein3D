@@ -5,7 +5,7 @@
 
 class Ray{
 	int x;
-	Camera &camera;
+	Camera* camera;
 	Vector direction;
 	double deltaDistX, deltaDistY, sideDistX, sideDistY;
 	int stepX, stepY;
@@ -14,7 +14,7 @@ class Ray{
 	public:
 		int findCollisionSide();
 		double distanceToWall();
-		Ray(Camera &camera, double cameraX, int x);
+		Ray(Camera* camera, double cameraX, int x);
 		void draw();//Map &map);
 		~Ray();
 };
