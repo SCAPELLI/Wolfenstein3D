@@ -49,7 +49,7 @@ void Screen::draw(){//Map &map){
                         done = SDL_TRUE;
                     }
                 }
-                this->camera.rotate(0.001);
+                this->camera.rotate(0.01);
             }
         }
 
