@@ -2,7 +2,6 @@
 #include <QtWidgets/QApplication>
 #include <MenuWindow.h>
 #include <NewMapWindow.h>
-#include <Editor.h>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <ScreenManager.h>

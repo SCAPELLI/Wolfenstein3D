@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Tilemap.h"
 #include <QMouseEvent>
+#include <Tile.h>
 
 #define ROWS 10
 #define COLUMNS 15
@@ -15,6 +16,9 @@ Tilemap::Tilemap(QWidget *parent) {
     this->setGrid();
     //QLabel *uwu = new QLabel("holis");
     //this->scene->addWidget(uwu);
+
+    Tile *tile = new Tile();
+    this->scene->addItem(tile);
 
     this->setScene(this->scene);
     this->show();
@@ -53,4 +57,6 @@ void Tilemap::mousePressEvent(QMouseEvent *event) {
     }
     std::cout << "a child";
 */
+    std::cout << "a child";
+
 }

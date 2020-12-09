@@ -11,7 +11,7 @@ ScreenManager::ScreenManager(QWidget *parent)
     this->stack->addWidget(new MenuWindow(0, this));
     this->stack->addWidget(new NewMapWindow(0, this));
     this->stack->addWidget(new EditorScene(0, this));
-    this->stack->setCurrentIndex(0);
+    this->stack->setCurrentIndex(2);
 }
 
 ScreenManager::~ScreenManager() {
@@ -27,4 +27,8 @@ ScreenManager::~ScreenManager() {
 
 void ScreenManager::changeScreen(int scene) {
     this->stack->setCurrentIndex(scene);
+}
+
+void ScreenManager::setMapFilePath() {
+    EditorScene editorScene;
 }

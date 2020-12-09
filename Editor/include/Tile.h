@@ -2,10 +2,12 @@
 #define EDITOR_TILE_H
 
 #include <QWidget>
-#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGraphicsItem>
 
-class Tile : public QGraphicsView {
+class Tile : public QGraphicsPixmapItem {
 
+    public:
+        Tile(QWidget *parent = 0);
 
 };
 

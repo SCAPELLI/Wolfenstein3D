@@ -20,6 +20,7 @@ class ScreenManager : public QMainWindow {
         ScreenManager(QWidget *parent = 0);
         ~ScreenManager();
         void changeScreen(int scene);
+        void setMapFilePath();
 
 };
 
