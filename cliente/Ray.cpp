@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
+#include "SDL2/SDL.h"
 
 int worldMap[3][3]=
 { {1,1,1},
@@ -14,7 +15,8 @@ Ray::Ray(Camera* camera, double cameraX, int x):
 	camera(camera),
 	direction(camera->getFacingPosition() + camera->getPlanePosition() * cameraX),
 	deltaDistX(std::abs(1 / direction.x)),
-	deltaDistY(std::abs(1 / direction.y))
+	deltaDistY(std::abs(1 / direction.y)),
+	collisionSide(0)
 	{
 		this->initialize();
 	}
@@ -40,54 +42,37 @@ void Ray::initialize(){
 	}
 }
 
-int Ray::findCollisionSide(){
-	int side;
-	int mapX = camera->getPosition().scale().x;
-	int mapY = camera->getPosition().scale().y;
-	// std::cout << "Starting at (" << mapX << ", " << mapY << ")\n";
-	while (true){
-		if (sideDistX < sideDistY){
-			sideDistX += deltaDistX;
-			mapX += stepX;
-			side = 0;
-			// std::cout << "Updated mapX to" << mapX <<"\n";
-		} else {
-			sideDistY += deltaDistY;
-			mapY += stepY;
-			side = 1;
-			// std::cout << "Updated mapY to" << mapY <<"\n";
-		}
-		if (worldMap[mapX][mapY]){//(map.isWall(mapX, mapY)){
-			break;
-		}
-	}
-	// std::cout << "Collision at (" << mapX << ", " << mapY << ")\n";
-	// std::cout << "Direction from camera was " << direction.x << " " << direction.y << "\n\n";
-	return side;
-}
-
-double Ray::distanceToWall(){//Map &map){
-	int side;
+double Ray::distanceToWall(){
 	int mapX = camera->getPosition().scale().x;
 	int mapY = camera->getPosition().scale().y;
 	while (true){
 		if (sideDistX < sideDistY){
 			sideDistX += deltaDistX;
 			mapX += stepX;
-			side = 0;
+			collisionSide = 0;
 		} else {
 			sideDistY += deltaDistY;
 			mapY += stepY;
-			side = 1;
+			collisionSide = 1;
 		}
-		if (worldMap[mapX][mapY]){//(map.isWall(mapX, mapY)){
+		if (worldMap[mapX][mapY]){ // Guardar puntero a mapa
 			break;
 		}
 	}
-	return side == 0 ? (mapX - camera->getPosition().x + (1 - stepX) / 2) / direction.x:
+	return collisionSide == 0 ? (mapX - camera->getPosition().x + (1 - stepX) / 2) / direction.x:
 	 		(mapY - camera->getPosition().y + (1 - stepY) / 2) / direction.y;
 }
 
-void Ray::draw(){}
+void Ray::draw(SDL_Renderer* renderer, int h){
+	int lineHeight = (int) h * 10 / this->distanceToWall();
+	int drawStart = std::max((h - lineHeight) / 2, 0);
+	int drawEnd = std::min((h + lineHeight) / 2, h - 1);
+	if (collisionSide){
+		SDL_SetRenderDrawColor(renderer, 0, 0, 255, SDL_ALPHA_OPAQUE);
+	} else {
+		SDL_SetRenderDrawColor(renderer, 0, 0, 255 / 2, SDL_ALPHA_OPAQUE);
+	}
+	SDL_RenderDrawLine(renderer, x, drawStart, x, drawEnd);
+}
 
 Ray::~Ray(){}

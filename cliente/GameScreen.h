@@ -1,9 +1,9 @@
-#ifndef WOLFENSTEIN3D_SCREEN_H
-#define WOLFENSTEIN3D_SCREEN_H
+#ifndef WOLFENSTEIN3D_GAMESCREEN_H
+#define WOLFENSTEIN3D_GAMESCREEN_H
 #include "Camera.h"
 #include "SDL2/SDL.h"
 
-class Screen{
+class GameScreen{
 	Camera* camera;
 	int h, w;
 	SDL_Window* window;
@@ -11,9 +11,9 @@ class Screen{
 
 	public:
 
-		Screen(Camera* camera, int h, int w);
+		GameScreen(Camera* camera, int h, int w);
 		void draw();
-		~Screen();
+		~GameScreen();
 };
 
 #endif
