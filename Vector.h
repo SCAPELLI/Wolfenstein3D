@@ -16,6 +16,8 @@ public:
     Vector& operator+(Vector& otherPos);
     int getX();
     int getY();
+    Vector& operator=(Vector&& other)noexcept;
+    //Vector& operator = (const Vector& other) = delete;
 };
 
 

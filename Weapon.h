@@ -5,8 +5,9 @@
 
 class Weapon{
 public:
-    weapon();
+    Weapon();
     virtual void attack() = 0;
+
 };
 
 #endif //WOLFENSTEIN3D_WEAPON_H

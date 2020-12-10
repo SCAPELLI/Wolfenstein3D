@@ -4,12 +4,12 @@
 
 class Map{
     std::vector<int> matrix;
-    Player& player;
+    //Player& player;
 public:
     Map();
-    Map(std::vector<int> matrix, Player& player1);
+    Map(std::vector<int> matrix);
     std::vector<int>& getMatrix();
-    void changePosition(Vector& newPos);
-    bool isOkToMove(Vector& newPos);
+    // void changePosition(Vector& newPos);
+    // bool isOkToMove(Vector& newPos);
 
 };

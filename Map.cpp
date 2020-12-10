@@ -8,8 +8,8 @@
 #define PLAYER_ID 1
 
 
-Map::Map(std::vector<int> matrix, Player& player)
-: matrix(matrix), player(player)
+Map::Map(std::vector<int> matrix)
+: matrix(matrix)
 {}
 
 
@@ -17,14 +17,3 @@ std::vector<int>& Map::getMatrix() {
     return matrix;
 }
 
-bool Map::isOkToMove(Vector& newPos){
-    Vector plyrPos = std::move(player.getPosition());
-    Vector futurePos = std::move(plyrPos + newPos);
-    return matrix[futurePos.getX(), futurePos.getY()] != 0;
-}
-
-void Map::changePosition(Vector& newPos){
-    if(isOkToMove(newPos)){
-        player.move(newPos);
-    }
-}

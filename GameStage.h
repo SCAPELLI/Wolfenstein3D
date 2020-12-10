@@ -11,14 +11,18 @@ No incluir así:
 class ProtectedEventsQueue;
 class MovementEvent;
 class TurnEvent;
+class LifeDecrementEvent;
+class Game;
 
 class GameStage {
+    Game& game;
     ProtectedEventsQueue& updateEvents;
 public:
-    explicit GameStage(ProtectedEventsQueue& updateEvents):
-            updateEvents(updateEvents) {}
+    explicit GameStage(ProtectedEventsQueue& updateEvents, Game& game):
+            updateEvents(updateEvents), game(game) {}
     void processEvent(TurnEvent& event);
     void processEvent(MovementEvent& event);
+    void processEvent(LifeDecrementEvent& event);
 };
 
 #endif

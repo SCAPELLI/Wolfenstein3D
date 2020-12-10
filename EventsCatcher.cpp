@@ -1,4 +1,4 @@
-#include <SDL_events.h>
+#include <SDL2/SDL_events.h>
 #include "EventsCatcher.h"
 
 std::queue<Event> EventsCatcher::getEvents() {

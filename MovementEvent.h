@@ -4,7 +4,7 @@
 #include "AbstractEvent.h"
 #include "GameStage.h"
 
-enum MovementDirection{FOWARD, BACKWARD};
+enum MovementDirection{BACKWARD, FOWARD};
 
 class MovementEvent: public AbstractEvent {
     MovementDirection direction;
@@ -12,6 +12,7 @@ class MovementEvent: public AbstractEvent {
 public:
     explicit MovementEvent(MovementDirection direction): direction(direction) {}
     void runHandler(GameStage& gameStage) override;
+    MovementDirection getDirection();
 };
 
 #endif

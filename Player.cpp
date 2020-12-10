@@ -14,14 +14,47 @@ Player::Player(int parsed_id, Vector position)
     health(FULL_HEALTH),
     radius(RADIUS),
     angle(INIT_ANGLE),
-    position(std::move(position))
-{}
+    position(std::move(position)),
+    weapon(new Gun())
+{
+    
+}
+
+void Player::rotate(int newAngle){
+    angle += newAngle % 360;
+}
 
 
 void Player::move(Vector& newPos){
         position += newPos;
 }
 
+ Player& Player::operator=(Player&& otherPlayer) noexcept{
+     this->id = otherPlayer.id;
+     this->lifes = otherPlayer.lifes;
+     this->health = otherPlayer.health;
+     this->radius = otherPlayer.radius;
+     this->angle = otherPlayer.lifes;
+     this->position = std::move(otherPlayer.position);
+     return *this;
+ }
+
+
+ Player::Player(Player&& otherPlayer)
+     : id(otherPlayer.id),
+     lifes(otherPlayer.lifes),
+     health(otherPlayer.health),
+     radius(otherPlayer.radius),
+     angle(otherPlayer.lifes),
+     position(std::move(otherPlayer.position))
+ { }
+
+void Player::lifeDecrement(int damage){
+    health -= damage;
+    if (health < 0 && lifes > 0){
+        lifes -= 1;
+    }
+}
 
 bool Player::collideWith(Player& other_player) {
     int dist = position.distance(other_player.getPosition());

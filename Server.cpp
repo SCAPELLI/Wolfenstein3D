@@ -1,15 +1,20 @@
 #include "Server.h"
 #include "ProtectedEventsQueue.h"
 #include "GameStage.h"
+#include "Game.h"
 #include "Event.h"
+#include "GameLoader.h"
 #include <unistd.h>
+#include <iostream>
 
 Server::Server(ProtectedEventsQueue& userEvents, ProtectedEventsQueue& updateEvents,
        std::atomic<bool>& quit):
         userEvents(userEvents), updateEvents(updateEvents), quit(quit) {}
 
 void Server::operator()() {
-    GameStage gameStage(updateEvents);
+    GameLoader yaml;
+    Game game  = yaml.readData();
+    GameStage gameStage(updateEvents, game);
     while (!quit) {
         while (!userEvents.empty() && !quit) {
             Event event = std::move(userEvents.pop());

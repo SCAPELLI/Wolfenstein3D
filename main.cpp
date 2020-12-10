@@ -6,7 +6,7 @@
 #include "GameStage.h"
 #include "ProtectedEventsQueue.h"
 #include "Server.h"
-
+#include "GameLoader.h"
 #include <thread>
 
 #include "Renderer.h"
@@ -25,7 +25,7 @@ int main() {
         Renderer renderer;
         /*-----------------*/
 
-        std::thread t (Server(userEvents, updateEvents, quit));;
+        std::thread t (Server(userEvents, updateEvents, quit));
 
         while (!quit) {
             userEvents.insertEvents(eventsCatcher);
