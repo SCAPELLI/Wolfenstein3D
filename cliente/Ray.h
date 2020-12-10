@@ -5,13 +5,12 @@
 #include "SDL2/SDL.h"
 
 class Ray{
-	int x;
+	int xPixel;
 	Camera* camera;
 	Vector direction;
 	double deltaDistX, deltaDistY, sideDistX, sideDistY;
 	int stepX, stepY, collisionSide;
 	void initialize();
-	//Map &map);
 	public:
 		int findCollisionSide();
 		double distanceToWall();

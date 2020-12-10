@@ -1,7 +1,6 @@
 #include "Camera.h"
 #include "Ray.h"
 #include <iostream>
-#include "SDL2/SDL.h"
 
 Camera::Camera(double x, double y, double fov):
 	cameraPosition(x,y),
