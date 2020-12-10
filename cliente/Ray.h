@@ -10,7 +10,7 @@ class Ray{
 	Vector direction;
 	double deltaDistX, deltaDistY, sideDistX, sideDistY;
 	int stepX, stepY, collisionSide;
-	void initialize();
+	void initialize(Vector& position);
 	public:
 		int findCollisionSide();
 		double distanceToWall();

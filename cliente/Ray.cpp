@@ -40,26 +40,26 @@ Ray::Ray(Camera* camera, double cameraX, int x):
 	deltaDistY(std::abs(1 / direction.y)),
 	collisionSide(0)
 	{
-		this->initialize();
+		this->initialize(camera->getPosition());
 	}
 
-void Ray::initialize(){
+void Ray::initialize(Vector& position){
 	if (direction.x < 0){
 		this->stepX = -1;
-		this->sideDistX = (camera->getPosition().x - 32 - camera->getPosition().scale().x * 32) 
+		this->sideDistX = (position.x - 32 - position.scale().x * 32) 
 							/ cos(direction.angle());
 	} else {
 		this->stepX = 1;
-		this->sideDistX = (camera->getPosition().scale().x * 32 + 32 - camera->getPosition().x) 
+		this->sideDistX = (position.scale().x * 32 + 32 - position.x) 
 							/ cos(direction.angle());
 	}
 	if (direction.y < 0){
 		this->stepY = -1;
-		this->sideDistY = (camera->getPosition().y - 32 - camera->getPosition().scale().y * 32) 
+		this->sideDistY = (position.y - 32 - position.scale().y * 32) 
 							/ sin(direction.angle());
 	} else {
 		this->stepY = 1;
-		this->sideDistY = (camera->getPosition().scale().y * 32 + 32 - camera->getPosition().y) 
+		this->sideDistY = (position.scale().y * 32 + 32 - position.y) 
 							/ sin(direction.angle());
 	}
 }
