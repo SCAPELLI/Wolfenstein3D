@@ -1,37 +1,39 @@
 #include "Game.h"
 #include "Vector.h"
+#include "GameLoader.h"
 #include <iostream>
+#include <cmath>
+#define DAMAGE 25
+#define SPEED 5
 
-Game::Game(std::vector<std::vector<int>> map, Player player)
-    : map(map), player(std::move(player)){
-
-    }
-
-Game::Game(Game &&other): map(other.map),player(other.player) {}
-
-Game& Game::operator=(Game &&other)noexcept{
-    this->map = other.map;
-    this->player = std::move(other.player);
-    return *this;
+Game::Game(){
+    GameLoader yaml;
+    yaml.readData(map, players);
 }
-     
 
+
+//Game::Game(Game &&other): map(other.map), players(other.player) {}
+
+//Game& Game::operator=(Game &&other)noexcept{
+//    this->map = other.map;
+//    this->player = other.player;
+//    return *this;
+//}
+//
+Vector Game::calculateDirection(int idPlyr){
+    return Vector(cos(players[idPlyr].getAngle()), sin(players[idPlyr].getAngle())) * SPEED;
+}
 
 void Game::moveAngle(int angle){
-    player.rotate(angle);
+    players[0].rotate(angle);
 }
 
-void Game::changePosition(int dx, int dy){
-    Vector newPos = Vector(dx, dy);
-    Vector plyrPos = std::move(player.getPosition());
-
-    Vector futurePos = std::move(plyrPos + newPos);
-    if (map[futurePos.getX()][futurePos.getY()] == 0){
-        map[plyrPos.getX()][plyrPos.getY()] = 0;
-        map[futurePos.getX()][futurePos.getY()] = 1;
-        player.move(futurePos);
+void Game::changePosition(Vector changeTo){
+    Vector futurePos = (players[0].getPosition() + changeTo).scale();
+    if (map[futurePos.x][futurePos.y] == 0){
+        players[0].move(changeTo);
     }
 }
 void Game::decrementLife() {
-    player.lifeDecrement(25);
+    players[0].lifeDecrement(DAMAGE);
 }

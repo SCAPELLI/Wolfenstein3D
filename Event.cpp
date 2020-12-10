@@ -40,9 +40,9 @@ Event::Event(SDL_Event& sdlEvent) {
 AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
     switch (sdlEvent.key.keysym.sym) {
         case SDLK_UP:
-            return new MovementEvent(FOWARD);
+            return new MovementEvent(FOWARD, 0);
         case SDLK_DOWN:
-            return new MovementEvent(BACKWARD);
+            return new MovementEvent(BACKWARD, 0);
         case SDLK_LEFT:
             return new TurnEvent(ANTICLOCKWISE, 45);
         case SDLK_RIGHT:

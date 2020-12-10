@@ -24,7 +24,8 @@ int main() {
         /*-----------------*/
         Renderer renderer;
         /*-----------------*/
-
+        //GameLoader yaml;
+        // Game game  = yaml.readData();
         std::thread t (Server(userEvents, updateEvents, quit));
 
         while (!quit) {

@@ -1,43 +1,41 @@
 
-#include "Vector.h"
 #include <cstdlib>
 
-Vector::Vector(int x, int y) : x(x), y(y){}
+#include "Vector.h"
+#include <cmath>
 
-Vector::Vector() : x(0), y(0){}
+Vector::Vector(double x, double y):
+        x(x),
+        y(y){}
 
-
-//Vector::Vector(Vector &&other): x(other.x), y(other.y){}
-
-int Vector::distance(Vector& otherVector) {
-    return abs(x - otherVector.x) + abs(y - otherVector.y);
+Vector Vector::operator+(const Vector& v){
+    return Vector(this->x + v.x, this->y + v.y);
 }
 
-Vector& Vector::operator+=(Vector& otherPos){
-    x += otherPos.x;
-    y += otherPos.y;
-    return *this;
+void Vector::operator+=(const Vector& v){
+    this->x += v.x;
+    this->y += v.y;
 }
 
-Vector& Vector::operator+(Vector& otherPos){
-    x += otherPos.x;
-    y += otherPos.y;
-    return *this;
+double Vector::distance(const Vector& v){
+    return pow(pow((this->x - v.x), 2) + pow((this->y - v.y), 2), 0.5);
 }
 
-int Vector::getX(){
-    return x;
-}
-int Vector::getY(){
-    return y;
+double Vector::angle(){
+    atan2(this->y, this->x);
 }
 
- Vector& Vector::operator=(Vector&& other)noexcept{
-     this->x = other.x;
-     this->y = other.y;
-     return *this;
- }
-
-Vector::Vector(Vector&& other)
-  :  x(other.x), y(other.y){
+Vector Vector::operator*(double z){
+    return Vector(this->x * z, this->y * z);
 }
+
+Vector Vector::rotate(double degrees){
+    return Vector(this->x * cos(-degrees) - this->y * sin(-degrees),
+                  this->x * sin(-degrees) + this->y * cos(-degrees));
+}
+
+Vector Vector::scale(){ // Only scale positions
+    return Vector(int(this->x / 32), int(this->y / 32)); // 32 hardcodeado, es tamanio de sprite
+}
+
+Vector::~Vector(){}

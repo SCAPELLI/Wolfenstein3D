@@ -12,9 +12,7 @@ Server::Server(ProtectedEventsQueue& userEvents, ProtectedEventsQueue& updateEve
         userEvents(userEvents), updateEvents(updateEvents), quit(quit) {}
 
 void Server::operator()() {
-    GameLoader yaml;
-    Game game  = yaml.readData();
-    GameStage gameStage(updateEvents, game);
+    GameStage gameStage(updateEvents);
     while (!quit) {
         while (!userEvents.empty() && !quit) {
             Event event = std::move(userEvents.pop());

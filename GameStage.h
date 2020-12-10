@@ -1,5 +1,6 @@
 #ifndef GAMESTAGE_H
 #define GAMESTAGE_H
+#include "Game.h"
 
 /*
 Peligro!
@@ -8,18 +9,18 @@ No incluir así:
 #include "TurnEvent.h"
 */
 
+
 class ProtectedEventsQueue;
 class MovementEvent;
 class TurnEvent;
 class LifeDecrementEvent;
-class Game;
+class GameLoader;
 
 class GameStage {
-    Game& game;
     ProtectedEventsQueue& updateEvents;
+    Game game;
 public:
-    explicit GameStage(ProtectedEventsQueue& updateEvents, Game& game):
-            updateEvents(updateEvents), game(game) {}
+    explicit GameStage(ProtectedEventsQueue& updateEvents);
     void processEvent(TurnEvent& event);
     void processEvent(MovementEvent& event);
     void processEvent(LifeDecrementEvent& event);

@@ -6,14 +6,15 @@
 class Game {
     public:
     std::vector<std::vector<int>> map;
-    Player player;
+    std::vector<Player> players;
 public:
-    Game(std::vector<std::vector<int>> map, Player player);
+    Game();
     Game& operator=(Game &&other)noexcept;
     //Game& operator = (const Game& other) = delete;
     Game(const Game& other) = delete;
     void moveAngle(int angle);
-    void changePosition(int dx, int dy);
+    void changePosition(Vector changeTo);
+    Vector calculateDirection(int idPlyr);
     void decrementLife();
     Game(Game &&other);
 };

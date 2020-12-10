@@ -10,17 +10,18 @@ class Player {
     int lifes;
     int health;
     int radius;
-    int angle;
+    double angle;
     Vector position;
-    Weapon* weapon;
+    Weapon weapon;
 public:
     Player(int parsed_id, Vector position);
-    Player();
+    //Player(Player player);
     void lifeDecrement(int damage);
-    Player(Player&& otherPlayer);
-    Player& operator=(Player&& other)noexcept;
+    //Player(const Player& otherPlayer);
+//    Player& operator=(Player&& other)noexcept;
     //Player& operator = (const Player& other) = delete;
     bool isTouched(Vector& otherPosition);
+    double getAngle();
     void move(Vector& newPos);
     void rotate(int newAngle);
     Vector& getPosition();

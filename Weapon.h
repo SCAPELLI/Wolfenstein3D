@@ -4,9 +4,12 @@
 
 
 class Weapon{
+    int id;
+    int damage;
 public:
-    Weapon();
-    virtual void attack() = 0;
+    Weapon(int id, int damage);
+    void attack();
+    Weapon(Weapon&& other);
 
 };
 

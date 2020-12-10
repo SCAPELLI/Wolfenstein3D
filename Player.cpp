@@ -14,40 +14,44 @@ Player::Player(int parsed_id, Vector position)
     health(FULL_HEALTH),
     radius(RADIUS),
     angle(INIT_ANGLE),
-    position(std::move(position)),
-    weapon(new Gun())
-{
-    
-}
+    position(position),
+    weapon(1, 5)
+{}
 
 void Player::rotate(int newAngle){
     angle += newAngle % 360;
 }
 
+double Player::getAngle(){
+    return angle;
+
+}
 
 void Player::move(Vector& newPos){
         position += newPos;
 }
 
- Player& Player::operator=(Player&& otherPlayer) noexcept{
-     this->id = otherPlayer.id;
-     this->lifes = otherPlayer.lifes;
-     this->health = otherPlayer.health;
-     this->radius = otherPlayer.radius;
-     this->angle = otherPlayer.lifes;
-     this->position = std::move(otherPlayer.position);
-     return *this;
- }
-
-
- Player::Player(Player&& otherPlayer)
-     : id(otherPlayer.id),
-     lifes(otherPlayer.lifes),
-     health(otherPlayer.health),
-     radius(otherPlayer.radius),
-     angle(otherPlayer.lifes),
-     position(std::move(otherPlayer.position))
- { }
+// Player& Player::operator=(Player&& otherPlayer) noexcept{
+//     this->id = otherPlayer.id;
+//     this->lifes = otherPlayer.lifes;
+//     this->health = otherPlayer.health;
+//     this->radius = otherPlayer.radius;
+//     this->angle = otherPlayer.lifes;
+//     this->position = std::move(otherPlayer.position);
+//     this->weapon = otherPlayer.weapon;
+//     return *this;
+// }
+//
+//
+// Player::Player(Player&& otherPlayer)
+//     : id(otherPlayer.id),
+//     lifes(otherPlayer.lifes),
+//     health(otherPlayer.health),
+//     radius(otherPlayer.radius),
+//     angle(otherPlayer.lifes),
+//     position(std::move(otherPlayer.position)),
+//     weapon(otherPlayer.weapon)
+// { }
 
 void Player::lifeDecrement(int damage){
     health -= damage;
