@@ -39,6 +39,8 @@ void NewMapWindow::createMap() {
     std::string lenghtText = lenght->text().toUtf8().constData();
     std::string widthText = width->text().toUtf8().constData();
     createYaml(nameText, lenghtText, widthText);
+    std::string path = "../maps/" + nameText + ".yaml";
+    this->screenManager->setMapFilePath(path);
     this->nextScreen();
 }
 

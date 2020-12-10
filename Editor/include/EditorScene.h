@@ -6,6 +6,7 @@
 #include "Tilemap.h"
 #include <QMainWindow>
 #include <QWidget>
+#include <fstream>
 
 namespace Ui {
     class EditorScene;
@@ -19,10 +20,13 @@ class EditorScene : public QMainWindow {
         ScreenManager *screenManager;
         TextureList *textureList;
         Tilemap *tilemap;
+        std::ofstream mapFilePath;
 
     public:
         EditorScene(QWidget *parent = 0, ScreenManager *screenManager = NULL);
         ~EditorScene();
+        void setMapFilePath(const std::string &path);
+
 
 };
 

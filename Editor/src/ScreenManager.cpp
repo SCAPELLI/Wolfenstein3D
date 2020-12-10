@@ -38,6 +38,6 @@ void ScreenManager::changeScreen(int scene) {
     this->stack->setCurrentIndex(scene);
 }
 
-void ScreenManager::setMapFilePath() {
-    EditorScene editorScene;
+void ScreenManager::setMapFilePath(const std::string &path) {
+    this->editorScene->setMapFilePath(path);
 }
