@@ -35,12 +35,17 @@ void NewMapWindow::createMap() {
     QLineEdit* name = findChild<QLineEdit*>("nameMap");
     QLineEdit* lenght = findChild<QLineEdit*>("lengthMap");
     QLineEdit* width = findChild<QLineEdit*>("widthMap");
+    /*
     std::string nameText = name->text().toUtf8().constData();
     std::string lenghtText = lenght->text().toUtf8().constData();
     std::string widthText = width->text().toUtf8().constData();
     createYaml(nameText, lenghtText, widthText);
     std::string path = "../maps/" + nameText + ".yaml";
-    this->screenManager->setMapFilePath(path);
+     */
+    bool ok;
+    int lenghtNumber = lenght->text().toInt(&ok);
+    int widthNumber = width->text().toInt(&ok);
+    this->screenManager->setMapSize(widthNumber, lenghtNumber);
     this->nextScreen();
 }
 

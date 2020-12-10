@@ -25,8 +25,7 @@ class EditorScene : public QMainWindow {
     public:
         EditorScene(QWidget *parent = 0, ScreenManager *screenManager = NULL);
         ~EditorScene();
-        void setMapFilePath(const std::string &path);
-
+        void setMapSize(size_t rows, size_t columns);
 
 };
 

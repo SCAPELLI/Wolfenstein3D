@@ -20,6 +20,6 @@ EditorScene::~EditorScene() {
     delete this->textureList;
 }
 
-void EditorScene::setMapFilePath(const std::string &path) {
-    this->mapFilePath.open(path, std::ios::out | std::ios::in);
+void EditorScene::setMapSize(size_t rows, size_t columns) {
+    this->tilemap->setMapSize(rows, columns);
 }

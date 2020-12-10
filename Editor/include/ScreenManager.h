@@ -27,7 +27,7 @@ class ScreenManager : public QMainWindow {
         ScreenManager(QWidget *parent = 0);
         ~ScreenManager();
         void changeScreen(int scene);
-        void setMapFilePath(const std::string &path);
+        void setMapSize(size_t rows, size_t columns);
 
 };
 

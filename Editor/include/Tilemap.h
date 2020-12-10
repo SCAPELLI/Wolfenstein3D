@@ -7,10 +7,13 @@
 class Tilemap : public QGraphicsView {
     private:
         QGraphicsScene *scene;
+        size_t rows;
+        size_t columns;
 
     public:
         Tilemap(QWidget *parent = 0);
         ~Tilemap();
+        void setMapSize(size_t rows, size_t columns);
 
     private:
         void setGrid();
