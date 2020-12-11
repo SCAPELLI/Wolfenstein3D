@@ -4,16 +4,22 @@
 #include "MovementEvent.h"
 #include "ProtectedEventsQueue.h"
 #include "Event.h"
+#include "ShootingEvent.h"
+#include "LifeDecrementEvent.h"
 
 void GameStage::processEvent(TurnEvent& event) {
-    Event updateEvent(Shooting);
+
+    ShootingEvent s;
+    Event updateEvent(&s, ShootingEventType);
     updateEvents.push(updateEvent);
 
     std::cout<<"Turn!"<<std::endl;
 }
 void GameStage::processEvent(MovementEvent& event) {
 
-    Event anotherEvent(LifeDecrement);
+    LifeDecrementEvent l;
+
+    Event anotherEvent(&l, LifeDecrementEventType);
     updateEvents.push(anotherEvent);
 
     std::cout<<"Move!"<<std::endl;

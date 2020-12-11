@@ -1,17 +1,16 @@
 #ifndef EVENT_H
 #define EVENT_H
 
-#include <SDL_events.h>
+#include <SDL2/SDL_events.h>
 #include "AbstractEvent.h"
 
 class ProtectedEventsQueue;
-
-enum UpdateEventTypes {LifeDecrement, Shooting};
+enum updateEventType {LifeDecrementEventType, ShootingEventType};
 
 class Event {
     AbstractEvent* event;
 public:
-    explicit Event(UpdateEventTypes eventType);
+    explicit Event(AbstractEvent* updateEvent, updateEventType eventType);
     explicit Event(SDL_Event& sdlEvent);
     Event(Event&& originalEvent) noexcept;
 
