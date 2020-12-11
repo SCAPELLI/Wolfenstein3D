@@ -7,7 +7,7 @@
 #include "GameLoader.h"
 
 
- GameStage::GameStage(ProtectedEventsQueue& updateEvents)
+GameStage::GameStage(ProtectedEventsQueue& updateEvents)
     : updateEvents(updateEvents), game() {
 
 }
@@ -50,5 +50,10 @@ void GameStage::processEvent(MovementEvent& event) {
 }
 
 void GameStage::processEvent(LifeDecrementEvent& event){
-    game.decrementLife();
+    if (game.decrementLife(0) == 0){ //pasarle un ID PLYR
+        Event updateEvent(GameOver);
+        updateEvents.push(updateEvent);
+    }
 }
+
+void processEvent(GameOverEvent& event){}

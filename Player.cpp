@@ -1,25 +1,26 @@
 #include "Player.h"
-#include <functional>
-#include <iostream>
+#include <cmath>
 #include "Vector.h"
-#define FULL_HEALTH 100
-#define FULL_LIFE 3
-#define INIT_ANGLE 0
-#define RADIUS 2
-
+#include "GameLoader.h"
+#include <iostream>
+#define INITIAL_BULLETS 8
 
 Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
-    lifes(FULL_LIFE),
-    health(FULL_HEALTH),
-    radius(RADIUS),
-    angle(INIT_ANGLE),
     position(position),
-    weapon(1, 5)
-{}
+    weapon(1, 5),
+    bullets(INITIAL_BULLETS)
+{
+    GameLoader yaml;
+    yaml.configPlayer(lifes,
+                      health,
+                      radius,
+                      angle);
+}  // agregar bolsa de armas, posicion inicial
 
-void Player::rotate(int newAngle){
-    angle += newAngle % 360;
+void Player::rotate(double newAngle){
+    angle += newAngle;
+    std::cout << angle;
 }
 
 double Player::getAngle(){
@@ -31,33 +32,17 @@ void Player::move(Vector& newPos){
         position += newPos;
 }
 
-// Player& Player::operator=(Player&& otherPlayer) noexcept{
-//     this->id = otherPlayer.id;
-//     this->lifes = otherPlayer.lifes;
-//     this->health = otherPlayer.health;
-//     this->radius = otherPlayer.radius;
-//     this->angle = otherPlayer.lifes;
-//     this->position = std::move(otherPlayer.position);
-//     this->weapon = otherPlayer.weapon;
-//     return *this;
-// }
-//
-//
-// Player::Player(Player&& otherPlayer)
-//     : id(otherPlayer.id),
-//     lifes(otherPlayer.lifes),
-//     health(otherPlayer.health),
-//     radius(otherPlayer.radius),
-//     angle(otherPlayer.lifes),
-//     position(std::move(otherPlayer.position)),
-//     weapon(otherPlayer.weapon)
-// { }
 
-void Player::lifeDecrement(int damage){
+int Player::lifeDecrement(int damage){
     health -= damage;
     if (health < 0 && lifes > 0){
         lifes -= 1;
+        health = 100;
     }
+    if (lifes == 0){
+        return -1;
+    }
+    return damage;
 }
 
 bool Player::collideWith(Player& other_player) {

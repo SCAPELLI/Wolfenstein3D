@@ -5,6 +5,7 @@
 
 /*----------*/
 #include "LifeDecrementEvent.h"
+#include "GameOverEvent.h"
 #include "ShootingEvent.h"
 #include "PositionEvent.h"
 /*----------*/
@@ -19,6 +20,8 @@ Event::Event(UpdateEventTypes eventType) {
             break;
         case Position:
             event = new PositionEvent;
+        case GameOver:
+            event = new GameOverEvent;
         default:
             event = nullptr;
     }
@@ -44,9 +47,9 @@ AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
         case SDLK_DOWN:
             return new MovementEvent(BACKWARD, 0);
         case SDLK_LEFT:
-            return new TurnEvent(ANTICLOCKWISE, 45);
+            return new TurnEvent(ANTICLOCKWISE, 0.785);
         case SDLK_RIGHT:
-            return new TurnEvent(CLOCKWISE, 45);
+            return new TurnEvent(CLOCKWISE, 0.785);
         default:
             return nullptr;
     }

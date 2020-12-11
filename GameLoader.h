@@ -8,8 +8,10 @@ class GameLoader{
 
 public:
     GameLoader();
-    void readData(std::vector<std::vector<int>>& map, std::vector<Player>& players);
-    void mapLoader(std::vector<std::vector<int>>& map, std::vector<Player>& players,
-                                                         YAML::Node& matrix);
+    void configPlayer(int& lifes, int& health, int& radius, double& angle);
+    void readData(std::vector<std::vector<int>>& map,
+                                            std::vector<Player>& players);
+    void mapLoader(std::vector<std::vector<int>>& map,
+                   std::vector<Player>& players, YAML::Node& matrix);
     ~GameLoader();
 };

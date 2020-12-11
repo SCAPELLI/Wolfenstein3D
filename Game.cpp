@@ -1,8 +1,10 @@
 #include "Game.h"
 #include "Vector.h"
 #include "GameLoader.h"
-#include <iostream>
+
 #include <cmath>
+# define M_PIl
+
 #define DAMAGE 25
 #define SPEED 5
 
@@ -24,7 +26,7 @@ Vector Game::calculateDirection(int idPlyr){
     return Vector(cos(players[idPlyr].getAngle()), sin(players[idPlyr].getAngle())) * SPEED;
 }
 
-void Game::moveAngle(int angle){
+void Game::moveAngle(double angle){
     players[0].rotate(angle);
 }
 
@@ -34,6 +36,8 @@ void Game::changePosition(Vector changeTo){
         players[0].move(changeTo);
     }
 }
-void Game::decrementLife() {
-    players[0].lifeDecrement(DAMAGE);
+int Game::decrementLife(int idPlyr) {  //fijarme tipo de arma actual
+    int damage = players[idPlyr].lifeDecrement(DAMAGE);
+    if (damage == -1)
+        return -1;
 }

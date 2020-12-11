@@ -6,7 +6,7 @@
 
 class ProtectedEventsQueue;
 
-enum UpdateEventTypes {LifeDecrement, Shooting, Position};
+enum UpdateEventTypes {LifeDecrement, Shooting, Position, GameOver};
 
 class Event {
     AbstractEvent* event;

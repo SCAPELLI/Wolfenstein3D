@@ -7,23 +7,24 @@
 
 class Player {
     int id;
+    Vector position;
+    Weapon weapon;
+    int bullets;
     int lifes;
     int health;
     int radius;
     double angle;
-    Vector position;
-    Weapon weapon;
 public:
     Player(int parsed_id, Vector position);
     //Player(Player player);
-    void lifeDecrement(int damage);
+    int lifeDecrement(int damage);
     //Player(const Player& otherPlayer);
 //    Player& operator=(Player&& other)noexcept;
     //Player& operator = (const Player& other) = delete;
     bool isTouched(Vector& otherPosition);
     double getAngle();
     void move(Vector& newPos);
-    void rotate(int newAngle);
+    void rotate(double newAngle);
     Vector& getPosition();
     bool collideWith(Player& otherPlayer);
 };

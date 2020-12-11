@@ -12,6 +12,15 @@
 
 GameLoader::GameLoader() {}
 
+void GameLoader::configPlayer(int& lifes, int& health, int& radius,
+                            double& angle){
+    YAML::Node config = YAML::LoadFile("config.yaml");
+    lifes = config["Player"]["lifes"].as<int>();
+    health = config["Player"]["health"].as<int>();
+    radius = config["Player"]["radius"].as<int>();
+    angle = config["Player"]["angle"].as<double>();
+
+}
 
 void GameLoader::readData(std::vector<std::vector<int>>& map,
                           std::vector<Player>& players){

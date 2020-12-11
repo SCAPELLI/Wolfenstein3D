@@ -9,14 +9,13 @@ class Game {
     std::vector<Player> players;
 public:
     Game();
-    Game& operator=(Game &&other)noexcept;
     //Game& operator = (const Game& other) = delete;
     Game(const Game& other) = delete;
-    void moveAngle(int angle);
+    void moveAngle(double angle);
     void changePosition(Vector changeTo);
     Vector calculateDirection(int idPlyr);
-    void decrementLife();
-    Game(Game &&other);
+    int decrementLife(int idPlyr);
+
 };
 
 
