@@ -10,13 +10,13 @@
 #include "PositionEvent.h"
 /*----------*/
 
-Event::Event(UpdateEventTypes eventType) {
+Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
     switch (eventType) {
-        case LifeDecrement:
-            event = new LifeDecrementEvent;
+        case LifeDecrementEventType:
+            event = new LifeDecrementEvent(*(LifeDecrementEvent*)updateEvent);
             break;
-        case Shooting:
-            event = new ShootingEvent;
+        case ShootingEventType:
+            event = new ShootingEvent(*(ShootingEvent*)updateEvent);
             break;
         case Position:
             event = new PositionEvent;

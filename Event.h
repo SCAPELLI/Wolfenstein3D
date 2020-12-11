@@ -6,12 +6,12 @@
 
 class ProtectedEventsQueue;
 
-enum UpdateEventTypes {LifeDecrement, Shooting, Position, GameOver};
+enum updateEventType {LifeDecrementEventType, ShootingEventType, Position, GameOver};
 
 class Event {
     AbstractEvent* event;
 public:
-    explicit Event(UpdateEventTypes eventType);
+    explicit Event(AbstractEvent* updateEvent, updateEventType eventType);
     explicit Event(SDL_Event& sdlEvent);
     Event(Event&& originalEvent) noexcept;
 

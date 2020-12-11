@@ -5,6 +5,8 @@
 #include "ProtectedEventsQueue.h"
 #include "Event.h"
 #include "GameLoader.h"
+#include "ShootingEvent.h"
+#include "LifeDecrementEvent.h"
 
 
 GameStage::GameStage(ProtectedEventsQueue& updateEvents)
@@ -13,6 +15,8 @@ GameStage::GameStage(ProtectedEventsQueue& updateEvents)
 }
 
 void GameStage::processEvent(TurnEvent& event) {
+    ShootingEvent s;
+    Event updateEvent(&s, ShootingEventType);
     switch (event.getSense()) {
         case CLOCKWISE:
             game.moveAngle(event.getDegrees());
@@ -26,10 +30,9 @@ void GameStage::processEvent(TurnEvent& event) {
     //LifeDecrementEvent event(...)
     Event updateEvent(Position);
     //event->assign()
-    updateEvents.push(updateEvent);
 
-    std::cout<<"Turn!"<<std::endl;
 }
+
 void GameStage::processEvent(MovementEvent& event) {
 
     Event anotherEvent(Position);
@@ -44,6 +47,9 @@ void GameStage::processEvent(MovementEvent& event) {
         default:
             break;
     }
+    LifeDecrementEvent l;
+
+    Event anotherEvent(&l, LifeDecrementEventType);
     updateEvents.push(anotherEvent);
     std::cout<<game.players[0].getPosition().x<<std::endl;
     std::cout<<game.players[0].getPosition().y<<std::endl;
