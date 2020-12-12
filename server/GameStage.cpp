@@ -1,12 +1,12 @@
 #include <iostream>
 #include "GameStage.h"
-#include "TurnEvent.h"
-#include "MovementEvent.h"
-#include "ProtectedEventsQueue.h"
-#include "Event.h"
+#include "../common/TurnEvent.h"
+#include "../common/MovementEvent.h"
+#include "../common/ProtectedEventsQueue.h"
+#include "../common/Event.h"
 #include "GameLoader.h"
-#include "ShootingEvent.h"
-#include "LifeDecrementEvent.h"
+#include "../common/ShootingEvent.h"
+#include "../common/LifeDecrementEvent.h"
 
 
 GameStage::GameStage(ProtectedEventsQueue& updateEvents)
@@ -27,15 +27,16 @@ void GameStage::processEvent(TurnEvent& event) {
         default:
             break;
     }
+    LifeDecrementEvent l;
     //LifeDecrementEvent event(...)
-    Event updateEvent(Position);
+    Event anotherEvent(&l, LifeDecrementEventType);
     //event->assign()
 
 }
 
 void GameStage::processEvent(MovementEvent& event) {
 
-    Event anotherEvent(Position);
+    //Event anotherEvent(Position);
     Vector movement = game.calculateDirection(event.idPlyr);
     switch (event.getDirection()) {
         case BACKWARD:
@@ -57,8 +58,10 @@ void GameStage::processEvent(MovementEvent& event) {
 
 void GameStage::processEvent(LifeDecrementEvent& event){
     if (game.decrementLife(0) == 0){ //pasarle un ID PLYR
-        Event updateEvent(GameOver);
-        updateEvents.push(updateEvent);
+        LifeDecrementEvent l;
+        Event anotherEvent(&l, LifeDecrementEventType);
+        //Event updateEvent(GameOver);
+        updateEvents.push(anotherEvent);
     }
 }
 

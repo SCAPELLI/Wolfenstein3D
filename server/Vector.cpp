@@ -22,7 +22,7 @@ double Vector::distance(const Vector& v){
 }
 
 double Vector::angle(){
-    atan2(this->y, this->x);
+    return atan2(this->y, this->x);
 }
 
 Vector Vector::operator*(double z){

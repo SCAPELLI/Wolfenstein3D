@@ -1,5 +1,5 @@
 #include "MovementEvent.h"
-#include "GameStage.h"
+#include "../server/GameStage.h"
 
 void MovementEvent::runHandler(GameStage& gameStage) {
     gameStage.processEvent(*this);

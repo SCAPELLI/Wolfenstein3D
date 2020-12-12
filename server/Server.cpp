@@ -1,9 +1,9 @@
 #include "Server.h"
-#include "ProtectedEventsQueue.h"
+#include "../common/ProtectedEventsQueue.h"
 #include "GameStage.h"
 #include "Game.h"
-#include "Event.h"
-#include "GameLoader.h"
+#include "../common/Event.h"
+#include "GameStage.h"
 #include <unistd.h>
 #include <iostream>
 

@@ -1,15 +1,15 @@
 #include <SDL2/SDL.h>
 #include <atomic>
-#include "SDLContext.h"
-#include "Window.h"
-#include "EventsCatcher.h"
+#include "../common/SDLContext.h"
+#include "../common/Window.h"
+#include "../common/EventsCatcher.h"
 #include "GameStage.h"
-#include "ProtectedEventsQueue.h"
+#include "../common/ProtectedEventsQueue.h"
 #include "Server.h"
 #include "GameLoader.h"
 #include <thread>
 
-#include "Renderer.h"
+#include "../common/Renderer.h"
 
 int main() {
     try {

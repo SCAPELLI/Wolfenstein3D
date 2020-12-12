@@ -1,5 +1,5 @@
 #include "TurnEvent.h"
-#include "GameStage.h"
+#include "../server/GameStage.h"
 #include <iostream>
 
 void TurnEvent::runHandler(GameStage& gameStage) {

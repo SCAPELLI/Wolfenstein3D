@@ -2,7 +2,7 @@
 #define MOVEMENTEVENT_H
 
 #include "AbstractEvent.h"
-#include "GameStage.h"
+#include "../server/GameStage.h"
 
 enum MovementDirection{BACKWARD, FOWARD};
 
