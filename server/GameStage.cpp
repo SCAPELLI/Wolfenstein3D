@@ -7,6 +7,8 @@
 #include "GameLoader.h"
 #include "../common/ShootingEvent.h"
 #include "../common/LifeDecrementEvent.h"
+#include "../common/PositionEvent.h"
+#include "../common/GameOverEvent.h"
 
 
 GameStage::GameStage(ProtectedEventsQueue& updateEvents)
@@ -15,7 +17,7 @@ GameStage::GameStage(ProtectedEventsQueue& updateEvents)
 }
 
 void GameStage::processEvent(TurnEvent& event) {
-    ShootingEvent s;
+    ShootingEvent s(0);
     Event updateEvent(&s, ShootingEventType);
     switch (event.getSense()) {
         case CLOCKWISE:
@@ -27,7 +29,7 @@ void GameStage::processEvent(TurnEvent& event) {
         default:
             break;
     }
-    LifeDecrementEvent l;
+    LifeDecrementEvent l(0, 10);
     //LifeDecrementEvent event(...)
     Event anotherEvent(&l, LifeDecrementEventType);
     //event->assign()
@@ -35,7 +37,7 @@ void GameStage::processEvent(TurnEvent& event) {
 }
 
 void GameStage::processEvent(MovementEvent& event) {
-
+    int x,y;
     //Event anotherEvent(Position);
     Vector movement = game.calculateDirection(event.idPlyr);
     switch (event.getDirection()) {
@@ -48,19 +50,18 @@ void GameStage::processEvent(MovementEvent& event) {
         default:
             break;
     }
-    LifeDecrementEvent l;
+    PositionEvent toSend(game.players[0].getPosition().x, game.players[0].getPosition().y);
 
-    Event anotherEvent(&l, LifeDecrementEventType);
+    Event anotherEvent(&toSend, LifeDecrementEventType);
     updateEvents.push(anotherEvent);
     std::cout<<game.players[0].getPosition().x<<std::endl;
     std::cout<<game.players[0].getPosition().y<<std::endl;
 }
 
 void GameStage::processEvent(LifeDecrementEvent& event){
-    if (game.decrementLife(0) == 0){ //pasarle un ID PLYR
-        LifeDecrementEvent l;
-        Event anotherEvent(&l, LifeDecrementEventType);
-        //Event updateEvent(GameOver);
+    if (game.decrementLife(0) == -1){ //pasarle un ID PLYR
+        GameOverEvent dead(0);
+        Event anotherEvent(&dead, GameOverEventType);
         updateEvents.push(anotherEvent);
     }
 }

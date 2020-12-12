@@ -5,7 +5,8 @@
 
 class GameOverEvent :  public AbstractEvent {
 public:
-    GameOverEvent();
+    GameOverEvent(GameOverEvent& gameOverEvent);
+    GameOverEvent(int idPlayer);
     void runHandler(Renderer& renderer) override;
 };
 

@@ -6,7 +6,11 @@
 class Renderer;
 
 class LifeDecrementEvent: public AbstractEvent {
+    int idPlayer;
+    int damage;
 public:
+    LifeDecrementEvent(int idPlayer, int damage);
+    LifeDecrementEvent(LifeDecrementEvent& lifeDecrementEvent);
     void runHandler(Renderer& renderer) override;
 };
 

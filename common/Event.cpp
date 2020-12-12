@@ -18,10 +18,10 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
         case ShootingEventType:
             event = new ShootingEvent(*(ShootingEvent*)updateEvent);
             break;
-        case Position:
-            event = new PositionEvent;
-        case GameOver:
-            event = new GameOverEvent;
+        case PositionEventType:
+            event = new PositionEvent(*(PositionEvent*)updateEvent);
+        case GameOverEventType:
+            event = new GameOverEvent(*(GameOverEvent*)updateEvent);
         default:
             event = nullptr;
     }
