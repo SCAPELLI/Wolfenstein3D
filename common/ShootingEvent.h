@@ -6,7 +6,10 @@
 class Renderer;
 
 class ShootingEvent: public AbstractEvent {
+    int idPlayer;
 public:
+    ShootingEvent(ShootingEvent& shootingEvent);
+    ShootingEvent(int idPlayer);
     void runHandler(Renderer& renderer) override;
 };
 

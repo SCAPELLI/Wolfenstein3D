@@ -8,6 +8,8 @@ class Renderer;
 class PositionEvent : public AbstractEvent {
 public:
     void runHandler(Renderer& renderer) override;
+    PositionEvent(PositionEvent& updateEvent);
+    PositionEvent(int x, int y);
 };
 
 
