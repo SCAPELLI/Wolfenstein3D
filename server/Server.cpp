@@ -1,8 +1,11 @@
 #include "Server.h"
-#include "ProtectedEventsQueue.h"
+#include "../common/ProtectedEventsQueue.h"
 #include "GameStage.h"
-#include "Event.h"
+#include "Game.h"
+#include "../common/Event.h"
+#include "GameStage.h"
 #include <unistd.h>
+#include <iostream>
 
 Server::Server(ProtectedEventsQueue& userEvents, ProtectedEventsQueue& updateEvents,
        std::atomic<bool>& quit):

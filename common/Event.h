@@ -5,7 +5,8 @@
 #include "AbstractEvent.h"
 
 class ProtectedEventsQueue;
-enum updateEventType {LifeDecrementEventType, ShootingEventType};
+
+enum updateEventType {LifeDecrementEventType, ShootingEventType, Position, GameOver};
 
 class Event {
     AbstractEvent* event;

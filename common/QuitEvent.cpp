@@ -1,5 +1,5 @@
 #include "QuitEvent.h"
-#include "GameStage.h"
+#include "../server/GameStage.h"
 
 void QuitEvent::runHandler(GameStage& gameStage) {}
 
