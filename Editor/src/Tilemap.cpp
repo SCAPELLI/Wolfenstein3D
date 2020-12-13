@@ -30,12 +30,13 @@ Tilemap::Tilemap(QWidget *parent) {
 Tilemap::~Tilemap() {
     QList<QGraphicsItem*> sceneItems = this->scene->items();
     std::cout << sceneItems.count();
-    /*
-    for (int i = sceneItems.size() - 1; i <= 0; i--) {
-        QGraphicsItem *item = sceneItems[i];
-        delete item;
+    if (sceneItems.count() > 0) {
+        int i;
+        for(i = 0; i < sceneItems.count(); i++) {
+            QGraphicsItem *item = sceneItems[i];
+            delete item;
+        }
     }
-     */
     delete this->scene;
 }
 
