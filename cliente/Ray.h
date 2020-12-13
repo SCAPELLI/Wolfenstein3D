@@ -6,7 +6,7 @@
 
 class Ray{
 	int xPixel;
-	Camera* camera;
+	Vector startPosition;
 	Vector direction;
 	double deltaDistX, deltaDistY, sideDistX, sideDistY;
 	int stepX, stepY, collisionSide;
@@ -14,6 +14,7 @@ class Ray{
 	public:
 		int findCollisionSide();
 		double distanceToWall();
+		Ray(Vector startPosition, Vector direction);
 		Ray(Camera* camera, double cameraX, int x);
 		void draw(SDL_Renderer* renderer, int h);
 		~Ray();

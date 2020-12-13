@@ -32,16 +32,27 @@ int worldMap[24][24]=
   {4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
 };
 
+// Crear constructor de rayo que recibe una posicion y una direccion para colisionar (renderizar players)
+
+Ray::Ray(Vector startPoint, Vector direction, int xPixel):
+	xPixel(xPixel), startPoint(startPoint), direction(direction),
+	deltaDistX(std::abs(1 / direction.x)),
+	deltaDistY(std::abs(1 / direction.y)),
+	collisionSide(0)
+	{
+		this->initialize(startPoint);
+}
+
 Ray::Ray(Camera* camera, double cameraX, int x):
 	xPixel(x),
-	camera(camera),
+	startPoint(camera->getPosition()),
 	direction(camera->getFacingPosition() + camera->getPlanePosition() * cameraX),
 	deltaDistX(std::abs(1 / direction.x)),
 	deltaDistY(std::abs(1 / direction.y)),
 	collisionSide(0)
 	{
-		this->initialize(camera->getPosition());
-	}
+		this->initialize(startPoint);
+}
 
 void Ray::initialize(Vector& position){
 	if (direction.x < 0){
@@ -65,8 +76,8 @@ void Ray::initialize(Vector& position){
 }
 
 double Ray::distanceToWall(){
-	int mapX = camera->getPosition().scale().x;
-	int mapY = camera->getPosition().scale().y;
+	int mapX = startPoint.scale().x;
+	int mapY = startPoint.scale().y;
 	while (true){
 		if (sideDistX < sideDistY){
 			sideDistX += deltaDistX;
@@ -81,8 +92,8 @@ double Ray::distanceToWall(){
 			break;
 		}
 	}
-	return collisionSide == 0 ? (mapX - camera->getPosition().x + (1 - stepX) / 2) / direction.x:
-	 		(mapY - camera->getPosition().y + (1 - stepY) / 2) / direction.y;
+	return collisionSide == 0 ? (mapX - startPoint.x + (1 - stepX) / 2) / direction.x:
+	 		(mapY - startPoint.y + (1 - stepY) / 2) / direction.y;
 }
 
 void Ray::draw(SDL_Renderer* renderer, int h){

@@ -12,6 +12,7 @@ class Vector{
 		double distance(const Vector& v);
 		void operator+=(const Vector& v);
 		double angle();
+		double angle(const Vector& v);
 		Vector operator*(double z);
 		Vector scale();
 		~Vector();

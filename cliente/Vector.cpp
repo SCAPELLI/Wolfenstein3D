@@ -22,6 +22,10 @@ double Vector::angle(){
 	atan2(this->y, this->x);
 }
 
+double Vector::angle(const Vector& v){ // Must be versor
+	return acos((x * v.x + y * v.y) / (pow(x*x + y*y, 0.5) * pow(v.x * v.x + v.y * v.y, 0.5)));
+}
+
 Vector Vector::operator*(double z){
 	return Vector(this->x * z, this->y * z);
 }

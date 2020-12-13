@@ -4,8 +4,7 @@
 
 GameScreen::GameScreen(Camera* camera, int h, int w):
 	camera(camera),
-    h(h),
-    w(w){
+    h(h), w(w), game(){
         if (SDL_Init(SDL_INIT_VIDEO) == 0) {
             this->window = NULL;
             this->renderer = NULL;
@@ -14,7 +13,6 @@ GameScreen::GameScreen(Camera* camera, int h, int w):
     }
 
 void GameScreen::draw(){
-
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
     this->camera->draw(renderer, h, w);
