@@ -15,8 +15,13 @@ Tilemap::Tilemap(QWidget *parent) {
     //QLabel *uwu = new QLabel("holis");
     //this->scene->addWidget(uwu);
 
-    this->tile = new Tile();
-    this->scene->addItem(this->tile);
+    //this->tile = new Tile();
+    //this->scene->addItem(this->tile);
+
+    //Coordinate coordinate(0,0);
+    //this->tiles.insert(std::pair<Coordinate, Tile*>(coordinate,
+    //                                                new Tile()));
+    //this->scene->addItem(this->tiles[coordinate]);
 
     this->setScene(this->scene);
     this->show();
@@ -88,4 +93,11 @@ void Tilemap::mousePressEvent(QMouseEvent *event) {
     }
 */
 
+    Tile *tile = new Tile(0, event->x(), event->y());
+    std::cout << "Event->x" << event->x() << '\n';
+    std::cout << "Event->y" << event->y() << '\n';
+    this->tiles.insert(std::pair<Coordinate, Tile*>(
+            tile->getCoordinate(),
+            tile));
+    this->scene->addItem(tile);
 }

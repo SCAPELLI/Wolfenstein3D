@@ -3,13 +3,17 @@
 
 #include <QWidget>
 #include <QtWidgets/QGraphicsItem>
+#include "Coordinate.h"
 
 class Tile : public QGraphicsPixmapItem {
+    private:
+        Coordinate coordinate;
 
     public:
-        Tile(QWidget *parent = 0);
+        Tile(QWidget *parent = 0, size_t xInBits = 0, size_t yInBits = 0);
         ~Tile();
         void changeImage();
+        Coordinate getCoordinate();
 
 };
 

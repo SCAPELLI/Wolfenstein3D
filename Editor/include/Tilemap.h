@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QtWidgets/QGraphicsView>
 #include "Tile.h"
+#include "Coordinate.h"
 
 class Tilemap : public QGraphicsView {
     private:
@@ -11,7 +12,10 @@ class Tilemap : public QGraphicsView {
         size_t rows;
         size_t columns;
 
-        Tile *tile;
+        std::map<Coordinate, Tile*> tiles;
+
+
+    Tile *tile;
 
     public:
         Tilemap(QWidget *parent = 0);
