@@ -2,21 +2,20 @@
 #include <cmath>
 #include "Ray.h"
 
-Renderable::Renderable(double x, double y, int id, std::string sprite):
-	position(x,y), id(id), sprite(sprite){}
+Renderable::Renderable(double x, double y, int id, std::string& path, SDL_Renderer* renderer):
+	position(x,y), id(id), sprite(path, renderer){}
 
-void Renderable::updateSprite(std::string newSprite){
-	this->sprite = newSprite;
-}
 
-void Renderable::drawFrom(Camera& origin){
-	Vector originVector = origin.getPosition();
+void Renderable::drawFrom(Camera* origin, std::vector<std::vector<int>>& map,
+	SDL_Renderer* renderer){
+	Vector originVector = origin->getPosition();
 	double distance = position.distance(originVector); // size
 	Vector direction = position - originVector;
-	double xPixel = direction * cos(position.angle(camera.getPlanePosition())); // quizas falta sumarle un offset
+	if (origin->getPlanePosition().angle(position) > 180) return;
+	double xPixel = (direction * cos(origin->getPlanePosition().angle(position))).size(); // quizas falta sumarle un offset
 	Ray ray(originVector, direction, xPixel);
-	if (ray.distanceToWall() < distance){
-		//draw sprite
+	if (ray.distanceToWall(map) < distance){
+		sprite.draw(renderer, xPixel, (direction * sin(origin->getPlanePosition().angle(position))).size());
 	}
 }
 

@@ -1,6 +1,8 @@
+#include <vector>
+
 class Map{
 	public:
-		std::vector<int> matrix;
+		std::vector<std::vector<int>> matrix;
 		Map();
 		~Map();
 };

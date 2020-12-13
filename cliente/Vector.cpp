@@ -9,9 +9,17 @@ Vector Vector::operator+(const Vector& v){
 	return Vector(this->x + v.x, this->y + v.y);
 }
 
+Vector Vector::operator-(const Vector& v){
+	return Vector(this->x - v.x, this->y - v.y);
+}
+
 void Vector::operator+=(const Vector& v){
 	this->x += v.x;
 	this->y += v.y;
+}
+
+double Vector::size(){
+	return pow(x*x + y*y, 0.5);
 }
 
 double Vector::distance(const Vector& v){

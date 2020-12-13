@@ -75,7 +75,7 @@ void Ray::initialize(Vector& position){
 	}
 }
 
-double Ray::distanceToWall(){
+double Ray::distanceToWall(std::vector<std::vector<int>>& map){
 	int mapX = startPoint.scale().x;
 	int mapY = startPoint.scale().y;
 	while (true){
@@ -88,7 +88,7 @@ double Ray::distanceToWall(){
 			mapY += stepY;
 			collisionSide = 1;
 		}
-		if (worldMap[mapX][mapY]){ // Guardar puntero a mapa
+		if (map[mapX][mapY] != 0){ // Guardar puntero a mapa
 			break;
 		}
 	}
@@ -96,8 +96,8 @@ double Ray::distanceToWall(){
 	 		(mapY - startPoint.y + (1 - stepY) / 2) / direction.y;
 }
 
-void Ray::draw(SDL_Renderer* renderer, int h){
-	int lineHeight = (int) h * 10 / this->distanceToWall();
+void Ray::draw(SDL_Renderer* renderer, int h, std::vector<std::vector<int>>& map){
+	int lineHeight = (int) h * 10 / this->distanceToWall(map);
 	int drawStart = std::max((h - lineHeight) / 2, 0);
 	int drawEnd = std::min((h + lineHeight) / 2, h - 1);
 	if (collisionSide){

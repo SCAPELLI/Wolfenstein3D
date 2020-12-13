@@ -1,16 +1,23 @@
+#ifndef WOLFENSTEIN3D_RENDERABLE_H
+#define WOLFENSTEIN3D_RENDERABLE_H
+
 #include <string>
 #include "Map.h"
 #include "Vector.h"
 #include "SDL2/SDL.h"
+#include "Sprite.h"
+#include "Camera.h"
 
 class Renderable{
 	Vector position;
 	int id;
-	std::string sprite
+	Sprite sprite;
 	public:
-		Renderable(double x, double y, int id, std::string sprite);
-		bool isOnSight(Map& map, Vector& origin);
-		void updateSprite(std::string newSprite);
-		void drawFrom(Camera& origin);
-		~Renderable()
+		Renderable(double x, double y, int id, std::string& path, SDL_Renderer* renderer);
+		void drawFrom(Camera* origin,
+			std::vector<std::vector<int>>& map,
+			SDL_Renderer* renderer);
+		~Renderable();
 };
+
+#endif
