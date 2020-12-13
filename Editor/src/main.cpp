@@ -5,7 +5,7 @@
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <ScreenManager.h>
-#include <EditorScene.h>
+#include <EditorScreen.h>
 #include <Coordinate.h>
 
 int main(int argc, char *argv[]) {

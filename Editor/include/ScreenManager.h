@@ -7,7 +7,7 @@
 
 class MenuWindow;
 class NewMapWindow;
-class EditorScene;
+class EditorScreen;
 
 namespace Ui {
     class ScreenManager;
@@ -21,7 +21,7 @@ class ScreenManager : public QMainWindow {
         QStackedWidget *stack;
         MenuWindow *menuWindow;
         NewMapWindow *newMapWindow;
-        EditorScene *editorScene;
+        EditorScreen *editorScene;
 
     public:
         ScreenManager(QWidget *parent = 0);

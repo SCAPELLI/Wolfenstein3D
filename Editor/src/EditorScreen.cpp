@@ -2,11 +2,12 @@
 #include <iostream>
 #include <QtWidgets/QFileDialog>
 #include <QDir>
-#include "../include/EditorScene.h"
-#include "ui_EditorScene.h"
+#include <QtWidgets/QVBoxLayout>
+#include "../include/EditorScreen.h"
+#include "ui_EditorScreen.h"
 
-EditorScene::EditorScene(QWidget *parent, ScreenManager *screenManager)
-    : QMainWindow(parent), ui(new Ui::EditorScene) {
+EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
+    : QMainWindow(parent), ui(new Ui::EditorScreen) {
 
     this->ui->setupUi(this);
     this->screenManager = screenManager;
@@ -21,22 +22,22 @@ EditorScene::EditorScene(QWidget *parent, ScreenManager *screenManager)
     connectEvents();
 }
 
-EditorScene::~EditorScene() {
+EditorScreen::~EditorScreen() {
     delete this->ui;
     delete this->textureList;
     delete this->tilemap;
 }
 
-void EditorScene::setMapSize(size_t rows, size_t columns) {
+void EditorScreen::setMapSize(size_t rows, size_t columns) {
     this->tilemap->setMapSize(rows, columns);
 }
 
-void EditorScene::connectEvents() {
+void EditorScreen::connectEvents() {
     QPushButton* button = findChild<QPushButton*>("saveButton");
-    QObject::connect(button, &QPushButton::clicked, this, &EditorScene::saveMap);
+    QObject::connect(button, &QPushButton::clicked, this, &EditorScreen::saveMap);
 }
 
-void EditorScene::saveMap() {
+void EditorScreen::saveMap() {
     //Si ya existe, guardo ahi
     if (this->mapFile.is_open()) {
         std::cout << "se guardo el archivo\n";

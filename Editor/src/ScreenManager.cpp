@@ -1,6 +1,6 @@
 #include <MenuWindow.h>
 #include <iostream>
-#include <EditorScene.h>
+#include <EditorScreen.h>
 #include "../include/ScreenManager.h"
 #include "ui_ScreenManager.h"
 
@@ -15,7 +15,7 @@ ScreenManager::ScreenManager(QWidget *parent)
     this->newMapWindow = new NewMapWindow(0, this);
     this->stack->addWidget(this->newMapWindow);
 
-    this->editorScene = new EditorScene(0, this);
+    this->editorScene = new EditorScreen(0, this);
     this->stack->addWidget(this->editorScene);
 
     this->stack->setCurrentIndex(0);

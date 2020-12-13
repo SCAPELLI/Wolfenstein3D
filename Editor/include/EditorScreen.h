@@ -1,5 +1,5 @@
-#ifndef EDITOR_EDITORSCENE_H
-#define EDITOR_EDITORSCENE_H
+#ifndef EDITOR_EDITORSCREEN_H
+#define EDITOR_EDITORSCREEN_H
 
 #include "ScreenManager.h"
 #include "TextureList.h"
@@ -9,22 +9,22 @@
 #include <fstream>
 
 namespace Ui {
-    class EditorScene;
+    class EditorScreen;
 }
 
-class EditorScene : public QMainWindow {
+class EditorScreen : public QMainWindow {
     Q_OBJECT;
 
     private:
-        Ui::EditorScene *ui;
+        Ui::EditorScreen *ui;
         ScreenManager *screenManager;
         TextureList *textureList;
         Tilemap *tilemap;
         std::ofstream mapFile;
 
     public:
-        EditorScene(QWidget *parent = 0, ScreenManager *screenManager = NULL);
-        ~EditorScene();
+        EditorScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);
+        ~EditorScreen();
         void setMapSize(size_t rows, size_t columns);
         void connectEvents();
         void saveMap();
@@ -32,4 +32,4 @@ class EditorScene : public QMainWindow {
 };
 
 
-#endif //EDITOR_EDITORSCENE_H
+#endif //EDITOR_EDITORSCREEN_H
