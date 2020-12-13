@@ -2,7 +2,6 @@
 #include <iostream>
 #include "Tilemap.h"
 #include <QMouseEvent>
-#include <Tile.h>
 
 #define BITS 32
 
@@ -16,14 +15,20 @@ Tilemap::Tilemap(QWidget *parent) {
     //QLabel *uwu = new QLabel("holis");
     //this->scene->addWidget(uwu);
 
-    //Tile *tile = new Tile();
-    //this->scene->addItem(tile);
+    this->tile = new Tile();
+    this->scene->addItem(this->tile);
 
     this->setScene(this->scene);
     this->show();
 }
 
 Tilemap::~Tilemap() {
+    QList<QGraphicsItem*> sceneItems = this->scene->items();
+    std::cout << sceneItems.size();
+    for (int i = sceneItems.size() - 1; i <= 0; i--) {
+        QGraphicsItem *item = sceneItems[i];
+        delete item;
+    }
     delete this->scene;
 }
 
@@ -32,8 +37,6 @@ void Tilemap::setMapSize(size_t rows, size_t columns) {
     this->columns = columns;
     this->resize(this->rows * BITS, this->columns * BITS);
     setGrid();
-    //Tile *tile = new Tile();
-    //this->scene->addItem(tile);
 }
 
 void Tilemap::setGrid() {
@@ -65,6 +68,24 @@ void Tilemap::mousePressEvent(QMouseEvent *event) {
     }
     std::cout << "a child";
 */
-    std::cout << "a child";
+
+    /*
+    QGraphicsItem *item = itemAt(event->pos());
+    if (item) {
+        std::cout << "an item\n";
+        this->tile->changeImage();
+    } else {
+        std::cout << "nothing\n";
+    }
+     */
+
+    /*
+    QGraphicsPixmapItem *item =
+            dynamic_cast<QGraphicsPixmapItem*>(itemAt(event->pos()));
+    if (item) {
+        this->scene->removeItem(item);
+        delete this->tile;
+    }
+*/
 
 }

@@ -3,12 +3,15 @@
 
 #include <QWidget>
 #include <QtWidgets/QGraphicsView>
+#include "Tile.h"
 
 class Tilemap : public QGraphicsView {
     private:
         QGraphicsScene *scene;
         size_t rows;
         size_t columns;
+
+        Tile *tile;
 
     public:
         Tilemap(QWidget *parent = 0);

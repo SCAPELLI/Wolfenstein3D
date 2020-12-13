@@ -8,6 +8,8 @@ class Tile : public QGraphicsPixmapItem {
 
     public:
         Tile(QWidget *parent = 0);
+        ~Tile();
+        void changeImage();
 
 };
 
