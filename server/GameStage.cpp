@@ -12,33 +12,14 @@
 
 
 GameStage::GameStage(ProtectedEventsQueue& updateEvents)
-    : updateEvents(updateEvents), game() {
-
-}
+    : updateEvents(updateEvents) {}
 
 void GameStage::processEvent(TurnEvent& event) {
-    ShootingEvent s(0);
-    Event updateEvent(&s, ShootingEventType);
-    switch (event.getSense()) {
-        case CLOCKWISE:
-            game.moveAngle(event.getDegrees());
-            break;
-        case ANTICLOCKWISE:
-            game.moveAngle(event.getDegrees());
-            break;
-        default:
-            break;
-    }
-    LifeDecrementEvent l(0, 10);
-    //LifeDecrementEvent event(...)
-    Event anotherEvent(&l, LifeDecrementEventType);
-    //event->assign()
-
+    game.moveAngle(event.getDegrees());
+    std::cout<<game.players[0].getAngle()<<std::endl;
 }
 
 void GameStage::processEvent(MovementEvent& event) {
-    int x,y;
-    //Event anotherEvent(Position);
     Vector movement = game.calculateDirection(event.idPlyr);
     switch (event.getDirection()) {
         case BACKWARD:
@@ -51,11 +32,11 @@ void GameStage::processEvent(MovementEvent& event) {
             break;
     }
     PositionEvent toSend(game.players[0].getPosition().x, game.players[0].getPosition().y);
-
-    Event anotherEvent(&toSend, LifeDecrementEventType);
+    Event anotherEvent(&toSend, PositionEventType);
     updateEvents.push(anotherEvent);
-    std::cout<<game.players[0].getPosition().x<<std::endl;
-    std::cout<<game.players[0].getPosition().y<<std::endl;
+
+    std::cout<<(int)game.players[0].getPosition().x<<" ";
+    std::cout<<(int)game.players[0].getPosition().y<<std::endl;
 }
 
 void GameStage::processEvent(LifeDecrementEvent& event){

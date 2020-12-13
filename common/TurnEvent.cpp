@@ -11,6 +11,5 @@ TurningSense TurnEvent::getSense(){
 }
 
 double TurnEvent::getDegrees(){
-    std::cout << degrees;
     return this->degrees;
 }

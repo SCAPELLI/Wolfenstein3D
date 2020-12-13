@@ -40,7 +40,7 @@ void GameLoader::mapLoader(std::vector<std::vector<int>>& map,
             if (elem == PLAYER_ID){
                 players.emplace_back(PLAYER_ID,
                                      Vector (i * TILE, j * TILE));
-
+                row.push_back(0);
             } else if (elem == WALL) {
                 row.push_back(elem);
             } else {

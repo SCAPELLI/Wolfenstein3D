@@ -22,7 +22,7 @@ public:
 //    Player& operator=(Player&& other)noexcept;
     //Player& operator = (const Player& other) = delete;
     bool isTouched(Vector& otherPosition);
-    double getAngle();
+    double getAngle() const;
     void move(Vector& newPos);
     void rotate(double newAngle);
     Vector& getPosition();

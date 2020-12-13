@@ -20,10 +20,9 @@ Player::Player(int parsed_id, Vector position)
 
 void Player::rotate(double newAngle){
     angle += newAngle;
-    std::cout << angle;
 }
 
-double Player::getAngle(){
+double Player::getAngle() const {
     return angle;
 
 }
