@@ -14,8 +14,9 @@ class GameScreen{
 	public:
 
 		GameScreen(Camera* camera, int h, int w);
+		SDL_Renderer* getRenderer();
 		void draw(std::vector<std::vector<int>>& map,
-			std::map<int, Renderable>* renderables,
+			std::map<int, Renderable*>* renderables,
 			std::map<int, Player>* players);
 		~GameScreen();
 };

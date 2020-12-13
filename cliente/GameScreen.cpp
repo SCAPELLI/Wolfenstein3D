@@ -12,18 +12,21 @@ GameScreen::GameScreen(Camera* camera, int h, int w):
     }
 
 void GameScreen::draw(std::vector<std::vector<int>>& map,
-            std::map<int, Renderable>* renderables,
+            std::map<int, Renderable*>* renderables,
             std::map<int, Player>* players){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
     this->camera->draw(renderer, map);
-    std::map<int, Renderable>::iterator it;
+    std::map<int, Renderable*>::iterator it;
     for (it = renderables->begin(); it != renderables->end(); ++it){
-        it->second.drawFrom(camera, map, renderer);
+        it->second->drawFrom(camera, map, renderer);
     }
     SDL_RenderPresent(renderer);
 }
 
+SDL_Renderer* GameScreen::getRenderer(){
+    return renderer;
+}
 
 GameScreen::~GameScreen(){
     if (renderer) {

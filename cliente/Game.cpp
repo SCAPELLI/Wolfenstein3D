@@ -1,4 +1,6 @@
 #include "Game.h"
+#include <string>
+#include <iostream>
 
 Game::Game(double x, double y, double fov):
 	activePlayer(x, y, fov, 0),
@@ -34,9 +36,23 @@ void Game::draw(){
 	screen.draw(map, &renderables, &players);
 }
 
+void Game::rotate(double degrees){
+	activePlayer.rotate(degrees);
+}
+
+void Game::spawnRenderable(){
+	renderables.emplace(1, new Renderable(230/2, 100/2, std::string("prueba.bmp"), screen.getRenderer()));
+	renderables.emplace(2, new Renderable(300/2, 300/2, std::string("prueba.bmp"), screen.getRenderer()));
+}
+
 //void Game::processEvent(SpawnPlayerEvent& event){}
 //void Game::processEvent(SpawnWallEvent& event){}
 //void Game::processEvent(SpawnRenderableEvent& event){}
 //void Game::processEvent(UpdatePositionEvent& event){}
 
-Game::~Game(){}
+Game::~Game(){
+    std::map<int, Renderable*>::iterator it;
+    for (it = renderables.begin(); it != renderables.end(); ++it){
+        delete it->second;
+    }
+}

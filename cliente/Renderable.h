@@ -10,10 +10,9 @@
 
 class Renderable{
 	Vector position;
-	int id;
 	Sprite sprite;
 	public:
-		Renderable(double x, double y, int id, std::string& path, SDL_Renderer* renderer);
+		Renderable(double x, double y, std::string path, SDL_Renderer* renderer);
 		void drawFrom(Camera* origin,
 			std::vector<std::vector<int>>& map,
 			SDL_Renderer* renderer);

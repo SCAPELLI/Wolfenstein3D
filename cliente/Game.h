@@ -3,18 +3,21 @@
 
 #include "GameScreen.h"
 #include "Player.h"
+#include "Renderable.h"
 #include <map>
 
 class Game{
 	Player activePlayer;
 	GameScreen screen;
 	std::vector<std::vector<int>> map;
-	std::map<int, Renderable> renderables;
+	std::map<int, Renderable*> renderables;
 	std::map<int, Player> players;
 
 	public:
 		Game(double x, double y, double fov);
 		void draw();
+		void rotate(double degrees);
+		void spawnRenderable();
 		//void processEvent(SpawnPlayerEvent& event);
 		//void processEvent(SpawnWallEvent& event);
 		//void processEvent(SpawnRenderableEvent& event);
