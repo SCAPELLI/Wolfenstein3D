@@ -15,7 +15,7 @@ GameStage::GameStage(ProtectedEventsQueue& updateEvents)
     : updateEvents(updateEvents) {}
 
 void GameStage::processEvent(TurnEvent& event) {
-    game.moveAngle(event.getDegrees());
+    game.moveAngle(event.getDegrees(), event.player);
     std::cout<<game.players[0].getAngle()<<std::endl;
 }
 

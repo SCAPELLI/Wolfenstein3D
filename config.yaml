@@ -1,0 +1,32 @@
+Player:
+  lifes: 3
+  health: 100
+  angle: 0
+  radius: 2
+Weapons:
+  Knife:
+    damage: 1
+    bullets: 0
+    minBullets: 0
+    speed: 0
+  Gun:
+    damage: 1
+    bullets: 8
+    minBullets: 1
+    speed: 0
+  MachineGun:
+    damage: 5
+    bullets: 0
+    minBullets: 5
+    speed: 0.3
+  ChainCanon:
+    damage: 6
+    bullets: 0
+    minBullets: 1
+    speed: 0.1
+  Rocket:
+    damage: 1
+    bullets: 0
+    minBullets: 5
+    speed: 0
+

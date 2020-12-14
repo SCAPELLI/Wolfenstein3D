@@ -3,17 +3,17 @@
 #include <string>
 #include "Vector.h"
 #include "Weapon.h"
+#include <map>
 #include "Gun.h"
 
 class Player {
     int id;
     Vector position;
-    Weapon weapon;
-    int bullets;
     int lifes;
     int health;
     int radius;
     double angle;
+    std::map<int, Weapon&> bag;
 public:
     Player(int parsed_id, Vector position);
     //Player(Player player);
@@ -21,7 +21,8 @@ public:
     //Player(const Player& otherPlayer);
 //    Player& operator=(Player&& other)noexcept;
     //Player& operator = (const Player& other) = delete;
-    bool isTouched(Vector& otherPosition);
+   // bool isTouched(Vector& otherPosition);
+    bool hits(Player& player);
     double getAngle() const;
     void move(Vector& newPos);
     void rotate(double newAngle);

@@ -6,11 +6,16 @@
 class Weapon{
     int id;
     int damage;
-public:
-    Weapon(int id, int damage);
-    void attack();
-    Weapon(Weapon&& other);
+    int bullets;
+    int minBullets;
+    int speed;
 
+public:
+    Weapon(int id, int damage, int bullets, int minBullets, int speed);
+    int attack();
+    Weapon(Weapon&& other);
+    void addBullets(int moreBullets);
+    int getSpeed();
 };
 
 #endif //WOLFENSTEIN3D_WEAPON_H

@@ -7,15 +7,14 @@
 
 Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
-    position(position),
-    weapon(1, 5),
-    bullets(INITIAL_BULLETS)
+    position(position)
 {
     GameLoader yaml;
     yaml.configPlayer(lifes,
                       health,
                       radius,
-                      angle);
+                      angle,
+                      bag);
 }  // agregar bolsa de armas, posicion inicial
 
 void Player::rotate(double newAngle){
@@ -30,6 +29,21 @@ double Player::getAngle() const {
 void Player::move(Vector& newPos){
         position += newPos;
 }
+
+bool Player::hits(Player& otherPlayer) {
+    std::cout << otherPlayer.position.x;
+    int distance = position.distance(otherPlayer.position);
+    int d = cos(angle) * distance;
+    return abs(distance - d) < 0;
+}
+//int Player::changeWeaponTo(Weapon weapon){
+//
+//}
+//
+//bool Player::shoot(int idPlayer, int Weapon){
+//
+//
+//}
 
 
 int Player::lifeDecrement(int damage){
