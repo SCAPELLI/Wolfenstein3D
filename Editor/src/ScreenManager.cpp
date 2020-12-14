@@ -22,16 +22,15 @@ ScreenManager::ScreenManager(QWidget *parent)
 }
 
 ScreenManager::~ScreenManager() {
-    // Elimino los widgets almacenados en el stack
     int i;
     for (int i = this->stack->count() - 1; i >= 0; i--) {
        QWidget *widget = stack->widget(i);
        stack->removeWidget(widget);
     }
-    delete this->ui;
     delete this->menuWindow;
     delete this->newMapWindow;
     delete this->editorScene;
+    delete this->ui;
 }
 
 void ScreenManager::changeScreen(int scene) {
