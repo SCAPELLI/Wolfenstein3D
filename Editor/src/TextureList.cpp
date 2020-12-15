@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../include/TextureList.h"
+#include <QMouseEvent>
 
 #define ICON_SIZE 32
 
@@ -28,4 +29,25 @@ void TextureList::addTexture(std::string texturePath) {
     QString aux = QString::fromStdString(texturePath);
     QListWidgetItem *tile = new QListWidgetItem(QIcon(aux), aux);
     this->addItem(tile);
+}
+
+/*
+void TextureList::connectEvents() {
+    QObject::connect(this,
+                     SIGNAL(itemClicked(QListWidgetItem*)),
+                     this,
+                     SLOT(TextureList::setCurrentTexture));
+}
+ */
+
+void TextureList::setCurrentTexture() {
+    std::cout << "uwu\n";
+}
+
+void TextureList::mousePressEvent(QMouseEvent *event) {
+    QListWidgetItem *item = itemAt(event->pos());
+    this->setCurrentItem(item);
+    QModelIndex aux = this->indexFromItem(item);
+    int index = aux.row();
+    std::cout << index;
 }

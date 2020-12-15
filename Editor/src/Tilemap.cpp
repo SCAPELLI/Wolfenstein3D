@@ -36,5 +36,4 @@ void Tilemap::setMapSize(size_t rows, size_t columns) {
     this->columns = columns;
     this->resize(this->rows * BITS, this->columns * BITS);
     this->scene->setMapSize(rows, columns);
-
 }

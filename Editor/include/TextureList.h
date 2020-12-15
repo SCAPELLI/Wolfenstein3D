@@ -12,9 +12,10 @@ class TextureList : public QListWidget {
         ~TextureList();
         void addTexture(std::string texturePath);
 
-    protected:
-        //void dragEnterEvent(QDragEnterEvent *event) override;
-        //void mousePressEvent(QMouseEvent *event) override;
+    private:
+        //void connectEvents();
+        void setCurrentTexture();
+       void mousePressEvent(QMouseEvent *event) override;
 };
 
 

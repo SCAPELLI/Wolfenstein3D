@@ -5,7 +5,8 @@
 
 Tile::Tile(QWidget *parent, size_t xInBits, size_t yInBits)
     : coordinate(Coordinate(xInBits, yInBits)){
-    this->setPixmap(QPixmap("../sprites/texture0.png"));
+    QString texturePath = "../sprites/texture0.png";
+    this->setPixmap(QPixmap(texturePath));
     this->setPos(this->coordinate.get_x() * BITS,
                  this->coordinate.get_y() * BITS);
     std::cout << "Coordenada x: " << this->coordinate.get_x() << '\n';
