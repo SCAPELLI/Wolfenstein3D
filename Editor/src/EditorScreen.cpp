@@ -4,15 +4,16 @@
 #include <QDir>
 #include <QtWidgets/QVBoxLayout>
 #include "../include/EditorScreen.h"
+#include "../include/TextureList.h"
 #include "ui_EditorScreen.h"
 
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
-    : QMainWindow(parent), ui(new Ui::EditorScreen) {
+    : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/texture0.png")) {
 
     this->ui->setupUi(this);
     this->screenManager = screenManager;
     QVBoxLayout *layout = findChild<QVBoxLayout*>("textureListLayout");
-    this->textureList = new TextureList();
+    this->textureList = new TextureList(0, this);
     layout->addWidget(this->textureList);
 
     this->tilemap = new Tilemap();
@@ -60,4 +61,8 @@ void EditorScreen::saveMap() {
             // LRVANTAR UNA VENTANA QUE LO INFORME
         }
     }
+}
+
+void EditorScreen::changeCurrentTexture(Texture newTexture) {
+    this->currentTexture = newTexture;
 }

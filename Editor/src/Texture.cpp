@@ -9,6 +9,10 @@ Texture::~Texture() {
 
 }
 
-void Texture::getTexturePath() {
-    
+QString Texture::getTexturePath() {
+    return this->texturePath;
+}
+
+void Texture::setTexturePath(const QString &texturePath) {
+    this->texturePath = texturePath;
 }

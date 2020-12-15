@@ -2,12 +2,14 @@
 #define EDITOR_EDITORSCREEN_H
 
 #include "ScreenManager.h"
-#include "TextureList.h"
 #include "Tilemap.h"
 #include "Tilemap.h"
+#include "Texture.h"
 #include <QMainWindow>
 #include <QWidget>
 #include <fstream>
+
+class TextureList;
 
 namespace Ui {
     class EditorScreen;
@@ -22,6 +24,7 @@ class EditorScreen : public QMainWindow {
         TextureList *textureList;
         Tilemap *tilemap;
         std::ofstream mapFile;
+        Texture currentTexture;
 
     public:
         EditorScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);
@@ -29,6 +32,7 @@ class EditorScreen : public QMainWindow {
         void setMapSize(size_t rows, size_t columns);
         void connectEvents();
         void saveMap();
+        void changeCurrentTexture(Texture newTexture);
 
 };
 

@@ -2,13 +2,18 @@
 #define EDITOR_TEXTURELIST_H
 
 #include <QtWidgets/QListWidget>
+#include "Texture.h"
+
+class EditorScreen;
 
 class TextureList : public QListWidget {
 
     private:
+        EditorScreen *editorScreen;
+        std::vector<Texture> textures;
 
     public:
-        TextureList(QWidget *parent = 0);
+        TextureList(QWidget *parent = 0, EditorScreen *editorScreen = NULL);
         ~TextureList();
         void addTexture(std::string texturePath);
 
@@ -17,6 +22,5 @@ class TextureList : public QListWidget {
         void setCurrentTexture();
        void mousePressEvent(QMouseEvent *event) override;
 };
-
 
 #endif //EDITOR_TEXTURELIST_H
