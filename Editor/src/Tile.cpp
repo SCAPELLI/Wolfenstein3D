@@ -3,9 +3,9 @@
 
 #define BITS 32
 
-Tile::Tile(QWidget *parent, size_t xInBits, size_t yInBits)
-    : coordinate(Coordinate(xInBits, yInBits)){
-    QString texturePath = "../sprites/texture0.png";
+Tile::Tile(QWidget *parent, size_t xInBits, size_t yInBits, Texture texture)
+    : coordinate(Coordinate(xInBits, yInBits)), texture(texture){
+    QString texturePath = texture.getTexturePath();
     this->setPixmap(QPixmap(texturePath));
     this->setPos(this->coordinate.get_x() * BITS,
                  this->coordinate.get_y() * BITS);

@@ -5,6 +5,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include "../include/EditorScreen.h"
 #include "../include/TextureList.h"
+#include "../include/Tilemap.h"
 #include "ui_EditorScreen.h"
 
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
@@ -16,7 +17,7 @@ EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
     this->textureList = new TextureList(0, this);
     layout->addWidget(this->textureList);
 
-    this->tilemap = new Tilemap();
+    this->tilemap = new Tilemap(0, this);
     QVBoxLayout *tilemapLayout = findChild<QVBoxLayout*>("tilemapLayout");
     tilemapLayout->addWidget(this->tilemap);
 
@@ -65,4 +66,8 @@ void EditorScreen::saveMap() {
 
 void EditorScreen::changeCurrentTexture(Texture newTexture) {
     this->currentTexture = newTexture;
+}
+
+Texture EditorScreen::getCurrentTexture() {
+    return this->currentTexture;
 }

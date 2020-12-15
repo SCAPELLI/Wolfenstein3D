@@ -1,9 +1,11 @@
 #include "TilemapScene.h"
 #include <QGraphicsSceneMouseEvent>
+#include <iostream>
 
 #define BITS 32
 
-TilemapScene::TilemapScene() {
+TilemapScene::TilemapScene(EditorScreen *editorScreen)
+    : editorScreen(editorScreen) {
     this->rows = 0;
     this->columns = 0;
 }
@@ -41,7 +43,7 @@ void TilemapScene::setGrid() {
 }
 
 void TilemapScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    Tile *tile = new Tile(0, event->scenePos().x(), event->scenePos().y());
+    Tile *tile = new Tile(0, event->scenePos().x(), event->scenePos().y(), this->editorScreen->getCurrentTexture());
     this->tiles.insert(std::pair<Coordinate, Tile*>(
             tile->getCoordinate(),
             tile));

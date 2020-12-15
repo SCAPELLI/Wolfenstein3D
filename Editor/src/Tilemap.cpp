@@ -2,11 +2,13 @@
 #include <iostream>
 #include "Tilemap.h"
 #include <QMouseEvent>
+#include "../include/EditorScreen.h"
 
 #define BITS 32
 
-Tilemap::Tilemap(QWidget *parent) {
-    this->scene = new TilemapScene();
+Tilemap::Tilemap(QWidget *parent, EditorScreen *editorScreen)
+    : editorScreen(editorScreen) {
+    this->scene = new TilemapScene(editorScreen);
     this->rows = 0;
     this->columns = 0;
     //this->resize(this->rows * BITS, this->columns * BITS);
