@@ -43,7 +43,14 @@ void TilemapScene::setGrid() {
 }
 
 void TilemapScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    Tile *tile = new Tile(0, event->scenePos().x(), event->scenePos().y(), this->editorScreen->getCurrentTexture());
+    if (event->scenePos().x() < 0 || event->scenePos().y() < 0 ||
+    event->scenePos().x() >= this->rows * BITS || event->scenePos().y() >= this->columns * BITS) {
+        event->ignore();
+        return;
+    }
+
+    Coordinate coordinate(event->scenePos().x(), event->scenePos().y());
+    Tile *tile = new Tile(0, coordinate, this->editorScreen->getCurrentTexture());
     this->tiles.insert(std::pair<Coordinate, Tile*>(
             tile->getCoordinate(),
             tile));

@@ -1,29 +1,15 @@
-#include <QtWidgets/QLabel>
-#include <iostream>
 #include "Tilemap.h"
-#include <QMouseEvent>
-#include "../include/EditorScreen.h"
+
+#include <QtWidgets/QLabel>
 
 #define BITS 32
 
 Tilemap::Tilemap(QWidget *parent, EditorScreen *editorScreen)
     : editorScreen(editorScreen) {
     this->scene = new TilemapScene(editorScreen);
+
     this->rows = 0;
     this->columns = 0;
-    //this->resize(this->rows * BITS, this->columns * BITS);
-
-    //this->setGrid();
-    //QLabel *uwu = new QLabel("holis");
-    //this->scene->addWidget(uwu);
-
-    //this->tile = new Tile();
-    //this->scene->addItem(this->tile);
-
-    //Coordinate coordinate(0,0);
-    //this->tiles.insert(std::pair<Coordinate, Tile*>(coordinate,
-    //                                                new Tile()));
-    //this->scene->addItem(this->tiles[coordinate]);
 
     this->setScene(this->scene);
     this->show();

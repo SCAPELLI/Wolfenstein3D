@@ -12,7 +12,6 @@ class Texture {
         Texture(const QString &texturePath);
         ~Texture();
         QString getTexturePath();
-        void setTexturePath(const QString &texturePath);
 };
 
 
