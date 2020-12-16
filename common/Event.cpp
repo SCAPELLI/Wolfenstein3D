@@ -47,9 +47,9 @@ AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
         case SDLK_DOWN:
             return new MovementEvent(BACKWARD, 0);
         case SDLK_LEFT:
-            return new TurnEvent(ANTICLOCKWISE, 0.785);
+            return new TurnEvent(0, 0.3926990817);
         case SDLK_RIGHT:
-            return new TurnEvent(CLOCKWISE, 0.785);
+            return new TurnEvent(0, -0.3926990817);
         default:
             return nullptr;
     }

@@ -7,12 +7,11 @@
 enum TurningSense {ANTICLOCKWISE, CLOCKWISE};
 
 class TurnEvent: public AbstractEvent {
-    TurningSense sense;
-    double degrees;
 public:
-    explicit TurnEvent(TurningSense sense, double degrees): sense(sense), degrees(degrees) {}
+    int player;
+    double degrees;
+    explicit TurnEvent(int idPlayer, double degrees): player(idPlayer), degrees(degrees) {}
     void runHandler(GameStage& gameStage) override;
-    TurningSense getSense();
     double getDegrees();
 };
 
