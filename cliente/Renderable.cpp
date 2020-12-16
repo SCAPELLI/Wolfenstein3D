@@ -18,10 +18,10 @@ void Renderable::drawFrom(Camera* origin, std::vector<std::vector<int>>& map,
 	double distance = position.distance(originVector);
 	Vector direction = position - originVector;
 	double angle = origin->getFacingPosition().angle(direction);
-	std::cout << "Angle: " << angle << "\n";
-	if (angle > 90) return;
-	double xPixel = std::abs(angle) < 1 ? 240 : (direction * cos(PI * angle / 180.0)).size();
+	//if (angle > 90) return;
+	double xPixel = 320 + 320 * cos(PI * angle / 180.0); // verificar si es visible
 	if (!isLeft(origin->getFacingPosition(), Vector(0,0), direction * (1/direction.size()))) xPixel += 2 * (240 - xPixel);
+    std::cout << xPixel << "\n";
 	Ray ray(originVector, direction, xPixel);
 	if (ray.distanceToWall(map) < distance) sprite.draw(renderer, xPixel, distance);
 }

@@ -6,7 +6,7 @@
 
 class ProtectedEventsQueue;
 
-enum updateEventType {LifeDecrementEventType, ShootingEventType, PositionEventType, GameOverEventType};
+enum updateEventType {LifeDecrementEventType, ShootingEventType, PositionEventType, GameOverEventType, TurnEventType};
 
 class Event {
     AbstractEvent* event;
@@ -21,7 +21,7 @@ public:
     Event& operator = (const Event& anotherEvent) = delete;
 
     void runHandler(GameStage& gameStage);
-    void runHandler(Renderer& renderer);
+    void runHandler(CGame& renderer);
 
     bool thisIsTheQuitEvent();
     bool thisIsAValidEvent();

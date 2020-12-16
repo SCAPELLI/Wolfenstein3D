@@ -7,8 +7,8 @@ Camera::Camera(double x, double y, double fov):
 	planePosition(0, fov),
 	facingPosition(1,0){}
 
-void Camera::move(Vector direction){
-	this->cameraPosition += direction;
+void Camera::moveTo(double x, double y){
+	this->cameraPosition = Vector(x,y);
 }
 
 void Camera::rotate(double degrees){

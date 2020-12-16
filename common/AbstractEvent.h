@@ -2,13 +2,13 @@
 #define ABSTRACTEVENT_H
 
 class GameStage;
-class Renderer;
+class CGame;
 class ProtectedEventsQueue;
 
 class AbstractEvent {
 public:
     virtual void runHandler(GameStage& gameStage) {}
-    virtual void runHandler(Renderer& renderer) {}
+    virtual void runHandler(CGame& game) {}
 
     virtual ~AbstractEvent() = default;
 

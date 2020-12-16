@@ -1,10 +1,7 @@
 #include "PositionEvent.h"
-#include "Renderer.h"
 
-void PositionEvent::runHandler(Renderer& renderer) {
-    renderer.processEvent(*this);
+void PositionEvent::runHandler(CGame& game) {
+    game.processEvent(*this);
 };
-
-PositionEvent::PositionEvent(PositionEvent& updateEvent){}
-
-PositionEvent::PositionEvent(int x, int y){}
+PositionEvent::PositionEvent(double x, double y):
+        x(x), y(y){}

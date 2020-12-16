@@ -8,8 +8,7 @@
 #include "Server.h"
 #include "GameLoader.h"
 #include <thread>
-
-#include "../common/Renderer.h"
+#include "../cliente/CGame.h"
 
 int main() {
     try {
@@ -22,12 +21,10 @@ int main() {
         ProtectedEventsQueue updateEvents;
         std::atomic<bool> quit(false);
         /*-----------------*/
-        Renderer renderer;
+        CGame game(64, 64,0.66);
         /*-----------------*/
-        //GameLoader yaml;
-        // Game game  = yaml.readData();
+        game.spawnRenderable();
         std::thread t (Server(userEvents, updateEvents, quit));
-
         while (!quit) {
             userEvents.insertEvents(eventsCatcher);
 
@@ -40,10 +37,11 @@ int main() {
 
             while (!updateEvents.empty()) {
                 Event event = std::move(updateEvents.pop());
-                event.runHandler(renderer);
+                event.runHandler(game);
             }
+            game.draw();
 
-            SDL_Delay(200);
+            SDL_Delay(33);
         }
 
         t.join();

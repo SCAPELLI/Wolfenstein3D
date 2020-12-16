@@ -40,7 +40,7 @@ void GameLoader::readData(std::vector<std::vector<int>>& map,
     YAML::Node config = YAML::LoadFile("map.yaml");
     YAML::Node matrix = config["map"];
     speed = config["speed"].as<int>();
-    int width = config["width"].as<int>();
+    //int width = config["width"].as<int>();
     mapLoader(map, players, matrix);
 }
 
@@ -54,8 +54,8 @@ void GameLoader::mapLoader(std::vector<std::vector<int>>& map,
                 players.emplace_back(PLAYER_ID,
                                      Vector (i * TILE, j * TILE));
                 row.push_back(0);
-            } else if (elem == WALL) {
-                row.push_back(elem);
+            } else if (elem) {
+                row.push_back(WALL);
             } else {
                 row.push_back(0);
             }

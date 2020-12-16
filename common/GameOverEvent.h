@@ -7,7 +7,7 @@ class GameOverEvent :  public AbstractEvent {
 public:
     GameOverEvent(GameOverEvent& gameOverEvent);
     GameOverEvent(int idPlayer);
-    void runHandler(Renderer& renderer) override;
+    void runHandler(CGame& game) override;
 };
 
 

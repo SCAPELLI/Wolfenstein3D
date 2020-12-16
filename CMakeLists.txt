@@ -10,6 +10,7 @@ include_directories(${PROJECT_SOURCE_DIR}/server)
 include_directories(${PROJECT_SOURCE_DIR}/common)
 include_directories(${PROJECT_SOURCE_DIR})
 
+
 set(SERVER_SOURCE_FILES
         server/main.cpp
         server/GameStage.cpp
@@ -35,12 +36,20 @@ set(SERVER_SOURCE_FILES
         server/Server.cpp
         server/Weapon.cpp
         server/Player.cpp
-        server/Vector.cpp
         server/Map.cpp
         server/GameLoader.cpp
         #        server/Knife.cpp
         #        server/Gun.cpp
         server/Game.cpp
+        cliente/CGame.cpp
+        cliente/CPlayer.cpp
+        cliente/Camera.cpp
+        cliente/GameScreen.cpp
+        cliente/Ray.cpp
+        cliente/Renderable.cpp
+        cliente/Vector.cpp
+        cliente/Sprite.cpp
+
   )
 
 add_executable(Wolf server/main.cpp ${SERVER_SOURCE_FILES})

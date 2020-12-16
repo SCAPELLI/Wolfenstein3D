@@ -8,12 +8,12 @@ GameScreen::GameScreen(Camera* camera, int h, int w):
             this->window = NULL;
             this->renderer = NULL;
         }
-        SDL_CreateWindowAndRenderer(w, h, 0, &this->window, &this->renderer);
+        SDL_CreateWindowAndRenderer(h, w, 0, &this->window, &this->renderer);
     }
 
 void GameScreen::draw(std::vector<std::vector<int>>& map,
             std::map<int, Renderable*>* renderables,
-            std::map<int, Player>* players){
+            std::map<int, CPlayer>* players){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
     this->camera->draw(renderer, map);

@@ -3,14 +3,14 @@
 
 #include "AbstractEvent.h"
 
-class Renderer;
+class CGame;
 
 class ShootingEvent: public AbstractEvent {
     int idPlayer;
 public:
     ShootingEvent(ShootingEvent& shootingEvent);
     ShootingEvent(int idPlayer);
-    void runHandler(Renderer& renderer) override;
+    void runHandler(CGame& renderer) override;
 };
 
 

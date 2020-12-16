@@ -11,7 +11,7 @@ class Camera{
 
 	public:
 		Camera(double x, double y, double fov);
-		void move(Vector direction);
+		void moveTo(double x, double y);
 		void rotate(double degrees);
 		void draw(SDL_Renderer* renderer, std::vector<std::vector<int>>& map);
 		Vector& getPosition();

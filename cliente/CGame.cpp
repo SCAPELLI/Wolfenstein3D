@@ -1,16 +1,19 @@
-#include "Game.h"
+#include "CGame.h"
 #include <string>
 #include <iostream>
+#include "../common/PositionEvent.h"
+#include "../common/TurnEvent.h"
 
-Game::Game(double x, double y, double fov):
+
+CGame::CGame(double x, double y, double fov):
 	activePlayer(x, y, fov, 0),
 	screen(activePlayer.getCamera(), 640, 480),
 	map({
   {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
-  {4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-  {4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-  {4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-  {4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
+  {4,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
+  {4,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
+  {4,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
+  {4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
   {4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},
   {4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},
   {4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
@@ -32,25 +35,30 @@ Game::Game(double x, double y, double fov):
   {4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
 }), renderables(), players(){}
 
-void Game::draw(){
+void CGame::draw(){
 	screen.draw(map, &renderables, &players);
 }
 
-void Game::rotate(double degrees){
+void CGame::rotate(double degrees){
 	activePlayer.rotate(degrees);
 }
 
-void Game::spawnRenderable(){
+void CGame::spawnRenderable(){
 	//renderables.emplace(1, new Renderable(230/2, 100/2, std::string("prueba.bmp"), screen.getRenderer()));
-	renderables.emplace(2, new Renderable(300/2, 300/2, std::string("prueba.bmp"), screen.getRenderer()));
+	renderables.emplace(2, new Renderable(32, 32, std::string("prueba.bmp"), screen.getRenderer()));
 }
 
-//void Game::processEvent(SpawnPlayerEvent& event){}
-//void Game::processEvent(SpawnWallEvent& event){}
-//void Game::processEvent(SpawnRenderableEvent& event){}
-//void Game::processEvent(UpdatePositionEvent& event){}
+void CGame::processEvent(LifeDecrementEvent& event){}
+void CGame::processEvent(ShootingEvent& event){}
+void CGame::processEvent(GameOverEvent& event){}
+void CGame::processEvent(TurnEvent& event) {
+    this->activePlayer.rotate(event.getDegrees());
+}
+void CGame::processEvent(PositionEvent& event){
+    this->activePlayer.moveTo(event.x, event.y);
+}
 
-Game::~Game(){
+CGame::~CGame(){
     std::map<int, Renderable*>::iterator it;
     for (it = renderables.begin(); it != renderables.end(); ++it){
         delete it->second;

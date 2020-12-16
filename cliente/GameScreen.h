@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "SDL2/SDL.h"
 #include "Renderable.h"
-#include "Player.h"
+#include "CPlayer.h"
 #include <map>
 
 class GameScreen{
@@ -17,7 +17,7 @@ class GameScreen{
 		SDL_Renderer* getRenderer();
 		void draw(std::vector<std::vector<int>>& map,
 			std::map<int, Renderable*>* renderables,
-			std::map<int, Player>* players);
+			std::map<int, CPlayer>* players);
 		~GameScreen();
 };
 

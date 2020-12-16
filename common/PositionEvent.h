@@ -2,14 +2,13 @@
 #define GAME_H_POSITIONEVENT_H
 
 #include "AbstractEvent.h"
-
-class Renderer;
+#include "../cliente/CGame.h"
 
 class PositionEvent : public AbstractEvent {
 public:
-    void runHandler(Renderer& renderer) override;
-    PositionEvent(PositionEvent& updateEvent);
-    PositionEvent(int x, int y);
+    double x,y;
+    void runHandler(CGame& game) override;
+    PositionEvent(double x, double y);
 };
 
 
