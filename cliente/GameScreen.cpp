@@ -3,9 +3,7 @@
 #include <iostream>
 
 GameScreen::GameScreen(Camera* camera, int h, int w):
-	camera(camera),
-    h(h),
-    w(w){
+	camera(camera){
         if (SDL_Init(SDL_INIT_VIDEO) == 0) {
             this->window = NULL;
             this->renderer = NULL;
@@ -13,14 +11,22 @@ GameScreen::GameScreen(Camera* camera, int h, int w):
         SDL_CreateWindowAndRenderer(w, h, 0, &this->window, &this->renderer);
     }
 
-void GameScreen::draw(){
-
+void GameScreen::draw(std::vector<std::vector<int>>& map,
+            std::map<int, Renderable*>* renderables,
+            std::map<int, Player>* players){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
-    this->camera->draw(renderer, h, w);
+    this->camera->draw(renderer, map);
+    std::map<int, Renderable*>::iterator it;
+    for (it = renderables->begin(); it != renderables->end(); ++it){
+        it->second->drawFrom(camera, map, renderer);
+    }
     SDL_RenderPresent(renderer);
 }
 
+SDL_Renderer* GameScreen::getRenderer(){
+    return renderer;
+}
 
 GameScreen::~GameScreen(){
     if (renderer) {

@@ -1,19 +1,20 @@
-#include "GameScreen.h"
+#include "Game.h"
 #include <unistd.h>
-#include "Camera.h"
+
+#define PI 3.14159265
 
 int main(){
 	SDL_Event event;
-	Camera camera(96 / 2, 96 / 2,0.66);
-	GameScreen screen(&camera, 640, 480);
+	Game game(500 / 2, 500 / 2,0.66);
 	bool done = false;
+	game.spawnRenderable();
 	while(!done){
-		screen.draw();
+		game.draw();
         while (SDL_PollEvent(&event)) {
     		if (event.type == SDL_QUIT) done = true;
 		}
-		camera.rotate(0.01);
-		usleep(3333);
+		game.rotate(PI/180.0);
+		usleep(33333);
 	}
 	return 0;
 }
