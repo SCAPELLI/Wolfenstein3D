@@ -23,7 +23,7 @@ void Renderable::drawFrom(Camera* origin, std::vector<std::vector<int>>& map,
 	if (!isLeft(origin->getFacingPosition(), Vector(0,0), direction * (1/direction.size()))) xPixel += 2 * (240 - xPixel);
     std::cout << xPixel << "\n";
 	Ray ray(originVector, direction, xPixel);
-	if (ray.distanceToWall(map) < distance) sprite.draw(renderer, xPixel, distance);
+	if (ray.distanceToWall(map) > distance) sprite.draw(renderer, xPixel, distance);
 }
 
 Renderable::~Renderable(){}
