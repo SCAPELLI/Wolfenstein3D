@@ -12,11 +12,12 @@
 
 
 GameStage::GameStage(ProtectedEventsQueue& updateEvents)
-    : updateEvents(updateEvents) {}
+    : updateEvents(updateEvents), game() {}
 
 void GameStage::processEvent(TurnEvent& event) {
     game.moveAngle(event.getDegrees(), event.player);
-    std::cout<<game.players[0].getAngle()<<std::endl;
+
+    std::cout<<game.getDamage(0)<<std::endl;
 }
 
 void GameStage::processEvent(MovementEvent& event) {

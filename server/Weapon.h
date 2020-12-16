@@ -8,14 +8,15 @@ class Weapon{
     int damage;
     int bullets;
     int minBullets;
-    int speed;
+    double speed;
 
 public:
-    Weapon(int id, int damage, int bullets, int minBullets, int speed);
+    int getDamage()const;
+    Weapon(int id, int damage, int bullets, int minBullets, double speed);
     int attack();
-    Weapon(Weapon&& other);
     void addBullets(int moreBullets);
     int getSpeed();
+    bool operator<(const Weapon& t) const;
 };
 
 #endif //WOLFENSTEIN3D_WEAPON_H

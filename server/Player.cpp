@@ -3,7 +3,6 @@
 #include "Vector.h"
 #include "GameLoader.h"
 #include <iostream>
-#define INITIAL_BULLETS 8
 
 Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
@@ -15,7 +14,7 @@ Player::Player(int parsed_id, Vector position)
                       radius,
                       angle,
                       bag);
-}  // agregar bolsa de armas, posicion inicial
+}
 
 void Player::rotate(double newAngle){
     angle += newAngle;
@@ -23,7 +22,14 @@ void Player::rotate(double newAngle){
 
 double Player::getAngle() const {
     return angle;
+}
 
+int Player::damageCurrentWeapon() {
+    for (auto const& arm : bag) {
+        if (arm.second)
+            return arm.first.getDamage();
+    }
+    return 0;
 }
 
 void Player::move(Vector& newPos){
@@ -36,14 +42,16 @@ bool Player::hits(Player& otherPlayer) {
     int d = cos(angle) * distance;
     return abs(distance - d) < 0;
 }
-//int Player::changeWeaponTo(Weapon weapon){
-//
-//}
-//
-//bool Player::shoot(int idPlayer, int Weapon){
-//
-//
-//}
+
+void Player::changeWeaponTo(Weapon weapon){
+    for (auto const& arm : bag){
+        if (arm.second)
+            bag.insert(std::make_pair(arm.first, false));
+    }
+    bag[weapon] = true;  //a checkear
+}
+
+
 
 
 int Player::lifeDecrement(int damage){

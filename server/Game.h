@@ -15,6 +15,7 @@ public:
     void moveAngle(double angle, int idPlayer);
     void changePosition(Vector changeTo);
     Vector calculateDirection(int idPlyr);
+    int getDamage(int idPlyr);
     int shoot(int idPlayer, int idWeapon, Vector& direction);
     int decrementLife(int idPlyr);
 

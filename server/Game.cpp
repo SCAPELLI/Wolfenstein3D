@@ -1,9 +1,8 @@
 #include "Game.h"
 #include "Vector.h"
 #include "GameLoader.h"
-
 #include <cmath>
-# define M_PIl
+#include <iostream>
 
 #define DAMAGE 25
 
@@ -22,14 +21,18 @@ Vector Game::calculateDirection(int idPlyr){
 void Game::moveAngle(double angle, int idPlayer){
     players[idPlayer].rotate(angle);
 }
+int Game::getDamage(int idPlyr){
+    return players[idPlyr].damageCurrentWeapon();
+}
 
 int Game::shoot(int idPlayer, int idWeapon, Vector& direction){
     for (int i = 0; i < players.size(); i++){
         if ( i == idPlayer)
             continue;
         if (players[idPlayer].hits(players[i])){
-            if (players[i].lifeDecrement(DAMAGE) == -1)
-                return i;//si  devuelve -1 es game over de ese jug
+            if (players[i].lifeDecrement(
+                    players[idPlayer].damageCurrentWeapon()) == -1)
+                return i;// devuelve -1 es game over de ese jug
         }
     }
     return -1;

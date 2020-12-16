@@ -1,8 +1,8 @@
 Player:
   lifes: 3
   health: 100
-  angle: 0
   radius: 2
+  angle: 0
 Weapons:
   Knife:
     damage: 1
@@ -28,5 +28,5 @@ Weapons:
     damage: 1
     bullets: 0
     minBullets: 5
-    speed: 0
+    speed: 0.0
 
