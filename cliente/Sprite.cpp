@@ -16,12 +16,13 @@ Sprite::Sprite(const std::string& path, SDL_Renderer* renderer){
 void Sprite::draw(SDL_Renderer* renderer, int x, double distance){
 	int rw, rh;
 	SDL_GetRendererOutputSize(renderer, &rw, &rh);
-	std::cout << x << "\n";
 	distance = 1;
-	SDL_Rect dest = {(x - w / 2) / distance,
-					((rw / 2) - h / 2) / distance, 
-					(x + w / 2) / distance,
-					((rw / 2) + h / 2) / distance};
+	std::cout << x << "\n";
+	std::cout << rh << ", " << rw << "\n";
+	SDL_Rect dest = {x - w / 2,
+					(rh / 2) - h / 2, 
+					x + w / 2,
+					(rh / 2) + h / 2};
 	SDL_RenderCopy(renderer, this->texture, NULL, &dest);
 }
 

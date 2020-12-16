@@ -5,7 +5,7 @@
 
 int main(){
 	SDL_Event event;
-	Game game(96 / 2, 96 / 2,0.66);
+	Game game(500 / 2, 500 / 2,0.66);
 	bool done = false;
 	game.spawnRenderable();
 	while(!done){
@@ -14,7 +14,7 @@ int main(){
     		if (event.type == SDL_QUIT) done = true;
 		}
 		game.rotate(PI/180.0);
-		usleep(3333);
+		usleep(33333);
 	}
 	return 0;
 }

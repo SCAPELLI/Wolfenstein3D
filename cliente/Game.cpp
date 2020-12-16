@@ -41,7 +41,7 @@ void Game::rotate(double degrees){
 }
 
 void Game::spawnRenderable(){
-	renderables.emplace(1, new Renderable(230/2, 100/2, std::string("prueba.bmp"), screen.getRenderer()));
+	//renderables.emplace(1, new Renderable(230/2, 100/2, std::string("prueba.bmp"), screen.getRenderer()));
 	renderables.emplace(2, new Renderable(300/2, 300/2, std::string("prueba.bmp"), screen.getRenderer()));
 }
 
