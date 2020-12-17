@@ -8,6 +8,8 @@
 class Player {
     int id;
     Vector position;
+    Vector initialPosition;
+    bool gameOver = false;
     int lifes;
     int health;
     int radius;
@@ -24,6 +26,9 @@ public:
     int damageCurrentWeapon();
     Vector& getPosition();
     bool collideWith(Player& otherPlayer);
+    void pickupWeapon(Weapon weapon);
+    void resetBagWeapons();
+    void died();
 };
 
 #endif //WOLFENSTEIN3D_PLAYER_H

@@ -6,7 +6,9 @@
 
 Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
-    position(position)
+    position(position),
+    initialPosition(position),
+    gameOver(false)
 {
     GameLoader yaml;
     yaml.configPlayer(lifes,
@@ -43,6 +45,14 @@ bool Player::hits(Player& otherPlayer) {
     return abs(distance - d) < 0;
 }
 
+void Player::pickupWeapon(Weapon weapon){ //dudoxso, cambiar el bag por nro id y el obj como clave y guardar como atributo id y un prev id
+    for (auto const& arm : bag) {
+        if (weapon == arm.first)
+            return;
+    }
+    bag.insert(std::make_pair(weapon, false));
+}
+
 void Player::changeWeaponTo(Weapon weapon){
     for (auto const& arm : bag){
         if (arm.second)
@@ -51,18 +61,28 @@ void Player::changeWeaponTo(Weapon weapon){
     bag[weapon] = true;  //a checkear
 }
 
-
+void Player::resetBagWeapons(){
+    for (auto const& arm : bag) {
+        if (arm.first.id != 0 && arm.first.id != 1)
+            bag.erase(arm.first);
+    }
+}
+void Player::died(){
+    lifes -=1;
+    health = 100;
+    if (lifes <= 0){
+        gameOver = true; // ver si es mejor marcarlo de otra forma--> tener un alive o no que lo marque?
+    }
+    position = initialPosition; //faltaria droppear los items
+    angle = 0;
+    resetBagWeapons();
+}
 
 
 int Player::lifeDecrement(int damage){
     health -= damage;
-    if (health < 0 && lifes > 0){
-        lifes -= 1;
-        health = 100;
-    }
-    if (lifes == 0){
-        return -1;
-    }
+    if (health < 0)
+       died();
     return damage;
 }
 

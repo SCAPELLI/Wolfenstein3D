@@ -4,8 +4,6 @@
 #include <cmath>
 #include <iostream>
 
-#define DAMAGE 25
-
 
 Game::Game(){
     GameLoader yaml;
@@ -47,7 +45,7 @@ void Game::changePosition(Vector changeTo){
     }
 }
 int Game::decrementLife(int idPlyr) {  //fijarme tipo de arma actual o no...
-    int damage = players[idPlyr].lifeDecrement(DAMAGE);
+    int damage = players[idPlyr].lifeDecrement(players[idPlyr].damageCurrentWeapon());
     if (damage == -1)
         return idPlyr;
 }

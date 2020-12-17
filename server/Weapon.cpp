@@ -28,3 +28,6 @@ int Weapon::getSpeed(){
 bool Weapon::operator<(const Weapon& t) const{
     return (this->id < t.id);
 }
+bool Weapon::operator==(const Weapon& t) const{
+    return (this->id == t.id);
+}
