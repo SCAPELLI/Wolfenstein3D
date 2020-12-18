@@ -48,11 +48,17 @@ void TilemapScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         event->ignore();
         return;
     }
-
+    QGraphicsItem *item = this->itemAt(event->scenePos(), QTransform());
+    if (item) {
+        this->removeItem(item);
+        delete item;
+    }
     Coordinate coordinate(event->scenePos().x(), event->scenePos().y());
     Tile *tile = new Tile(0, coordinate, this->editorScreen->getCurrentTexture());
     this->tiles.insert(std::pair<Coordinate, Tile*>(
             tile->getCoordinate(),
             tile));
     this->addItem(tile);
+    QList<QGraphicsItem*> list = this->items();
+    std::cout << "Cantidad de items: " << list.count() << "\n";
 }

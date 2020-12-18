@@ -6,7 +6,6 @@
 #include <Tile.h>
 #include "EditorScreen.h"
 
-
 class TilemapScene : public QGraphicsScene {
     private:
         size_t rows;
