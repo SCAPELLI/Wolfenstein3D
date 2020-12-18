@@ -14,6 +14,7 @@ public:
 public:
     int getDamage()const;
     Weapon(int id, int damage, int bullets, int minBullets, double speed);
+    Weapon();
     int attack();
     void addBullets(int moreBullets);
     int getSpeed();

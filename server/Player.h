@@ -9,17 +9,21 @@ class Player {
     int id;
     Vector position;
     Vector initialPosition;
-    bool gameOver = false;
+    bool gameOver;
+    int coins;
+    int keys;
     int lifes;
     int health;
     int radius;
     double angle;
-    std::map<Weapon, bool> bag;
+    std::map<int, Weapon> bag;
+    int idWeapon;
+    std::map<int, Weapon>items;
 public:
     Player(int parsed_id, Vector position);
-    int lifeDecrement(int damage);
+    void lifeDecrement(int damage);
     bool hits(Player& player);
-    void changeWeaponTo(Weapon weapon);
+    void changeWeaponTo(int idToChange);
     double getAngle() const;
     void move(Vector& newPos);
     void rotate(double newAngle);
@@ -29,6 +33,9 @@ public:
     void pickupWeapon(Weapon weapon);
     void resetBagWeapons();
     void died();
+    bool isGameOver();
+    void getItem(int idItem);
+    bool openDoor();
 };
 
 #endif //WOLFENSTEIN3D_PLAYER_H

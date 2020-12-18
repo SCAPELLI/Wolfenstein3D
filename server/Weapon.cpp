@@ -14,6 +14,7 @@ int Weapon::attack(){
         return 0;
     return damage;
 }
+Weapon::Weapon() {}
 
 void Weapon::addBullets(int moreBullets){
     bullets += moreBullets;

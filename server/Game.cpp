@@ -28,9 +28,9 @@ int Game::shoot(int idPlayer, int idWeapon, Vector& direction){
         if ( i == idPlayer)
             continue;
         if (players[idPlayer].hits(players[i])){
-            if (players[i].lifeDecrement(
-                    players[idPlayer].damageCurrentWeapon()) == -1)
-                return i;// devuelve -1 es game over de ese jug
+            players[i].lifeDecrement(players[idPlayer].damageCurrentWeapon());
+            if (players[i].isGameOver())
+                return i;// activas que se murio ese wacho
         }
     }
     return -1;
@@ -44,8 +44,10 @@ void Game::changePosition(Vector changeTo){
         players[0].move(changeTo);
     }
 }
-int Game::decrementLife(int idPlyr) {  //fijarme tipo de arma actual o no...
-    int damage = players[idPlyr].lifeDecrement(players[idPlyr].damageCurrentWeapon());
-    if (damage == -1)
-        return idPlyr;
+void Game::decrementLife(int idPlyr) {
+    players[idPlyr].lifeDecrement(players[idPlyr].damageCurrentWeapon());
+    if (players[idPlyr].isGameOver())
+        return;
 }
+
+
