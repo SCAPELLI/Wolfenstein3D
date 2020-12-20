@@ -22,6 +22,8 @@ class Tilemap : public QGraphicsView {
         Tilemap(QWidget *parent = 0, EditorScreen *editorScreen = NULL);
         ~Tilemap();
         void setMapSize(size_t rows, size_t columns);
+        void changeToDrawMode();
+        void changeToEraseMode();
 };
 
 #endif //EDITOR_TILEMAP_H

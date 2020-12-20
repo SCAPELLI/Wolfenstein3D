@@ -10,8 +10,9 @@ class Coordinate {
 
     public:
         Coordinate(size_t xInBits, size_t yInBits);
-        bool operator==(const Coordinate &other);
+        bool operator==(const Coordinate &other) const;
         bool operator<(const Coordinate &other) const;
+        bool operator<=(const Coordinate &other) const;
         size_t get_x();
         size_t get_y();
 };

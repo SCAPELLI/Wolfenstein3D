@@ -33,6 +33,8 @@ class EditorScreen : public QMainWindow {
         void saveMap();
         void changeCurrentTexture(Texture newTexture);
         Texture getCurrentTexture();
+        void changeToDrawMode();
+        void changeToEraseMode();
 
 };
 

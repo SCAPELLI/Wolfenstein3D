@@ -37,6 +37,12 @@ void EditorScreen::setMapSize(size_t rows, size_t columns) {
 void EditorScreen::connectEvents() {
     QPushButton* button = findChild<QPushButton*>("saveButton");
     QObject::connect(button, &QPushButton::clicked, this, &EditorScreen::saveMap);
+
+    QPushButton* drawButton = findChild<QPushButton*>("drawButton");
+    QObject::connect(drawButton, &QPushButton::clicked, this, &EditorScreen::changeToDrawMode);
+
+    QPushButton* eraseButton = findChild<QPushButton*>("eraseButton");
+    QObject::connect(eraseButton, &QPushButton::clicked, this, &EditorScreen::changeToEraseMode);
 }
 
 void EditorScreen::saveMap() {
@@ -70,4 +76,12 @@ void EditorScreen::changeCurrentTexture(Texture newTexture) {
 
 Texture EditorScreen::getCurrentTexture() {
     return this->currentTexture;
+}
+
+void EditorScreen::changeToDrawMode() {
+    this->tilemap->changeToDrawMode();
+}
+
+void EditorScreen::changeToEraseMode() {
+    this->tilemap->changeToEraseMode();
 }

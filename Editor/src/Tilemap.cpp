@@ -25,3 +25,11 @@ void Tilemap::setMapSize(size_t rows, size_t columns) {
     this->resize(this->rows * BITS, this->columns * BITS);
     this->scene->setMapSize(rows, columns);
 }
+
+void Tilemap::changeToDrawMode() {
+    this->scene->changeToDrawMode();
+}
+
+void Tilemap::changeToEraseMode() {
+    this->scene->changeToEraseMode();
+}

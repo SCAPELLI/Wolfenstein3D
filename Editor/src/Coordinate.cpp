@@ -16,11 +16,16 @@ size_t Coordinate::get_y() {
     return this->y;
 }
 
-bool Coordinate::operator==(const Coordinate &other) {
-    return this->x == other.x && this->y == other.y;
+bool Coordinate::operator==(const Coordinate &other) const {
+    return (this->x == other.x) && (this->y == other.y);
 }
 
 bool Coordinate::operator<(const Coordinate &other) const {
     return sqrt((this->x) ^ 2 + (this->y) ^ 2) <
             sqrt((other.x) ^ 2 + (other.y) ^ 2);
+}
+
+bool Coordinate::operator<=(const Coordinate &other) const {
+    return sqrt((this->x) ^ 2 + (this->y) ^ 2) <=
+           sqrt((other.x) ^ 2 + (other.y) ^ 2);
 }
