@@ -57,23 +57,9 @@ void TilemapScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
     Coordinate coordinate(event->scenePos().x(), event->scenePos().y());
     QGraphicsItem *item = this->itemAt(event->scenePos(), QTransform());
+    std::cout << "Coordenads en el mapa: (" << event->scenePos().x() << ", " << event->scenePos().y() << ")\n";
+
     this->mode->executeClickResponse(coordinate, item);
-
-
-    /*
-    QGraphicsItem *item = this->itemAt(event->scenePos(), QTransform());
-    if (item) {
-        this->removeItem(item);
-        delete item;
-    }
-    Coordinate coordinate(event->scenePos().x(), event->scenePos().y());
-    Tile *tile = new Tile(0, coordinate, this->editorScreen->getCurrentTexture());
-    this->tiles.insert(std::pair<Coordinate, Tile*>(
-            tile->getCoordinate(),
-            tile));
-    this->addItem(tile);
-    QList<QGraphicsItem*> list = this->items();
-     */
 }
 
 void TilemapScene::changeToDrawMode() {
@@ -95,9 +81,7 @@ void TilemapScene::draw(Coordinate coordinate, QGraphicsItem *item) {
         this->tiles.erase(coordinate);
     }
     Tile *tile = new Tile(0, coordinate, this->editorScreen->getCurrentTexture());
-    this->tiles.insert(std::pair<Coordinate, Tile*>(
-            coordinate,
-            tile));
+    this->tiles[coordinate] = tile;
     this->addItem(tile);
     QList<QGraphicsItem*> list = this->items();
     std::cout << "DRAW cantidad en el map: " << this->tiles.size() << "\n";
@@ -107,6 +91,7 @@ void TilemapScene::draw(Coordinate coordinate, QGraphicsItem *item) {
         Coordinate coor = i->first;
         std::cout << "Coordenadas en el map: (" << coor.get_x() << ", " << coor.get_y() << ")\n";
     }
+    std::cout << "\n";
 }
 
 void TilemapScene::erase(Coordinate coordinate, QGraphicsItem *item) {
@@ -119,6 +104,10 @@ void TilemapScene::erase(Coordinate coordinate, QGraphicsItem *item) {
     QList<QGraphicsItem*> list = this->items();
     std::cout << "ERASE cantidad en el map: " << this->tiles.size() << "\n";
     std::cout << "ERASE cantidad en el scene: " << list.size() << "\n";
-    std::cout << "Coordenadas : (" << coordinate.get_x() << ", " << coordinate.get_y() << ")\n";
-
+    std::cout << "Coordenadas iniciales: (" << coordinate.get_x() << ", " << coordinate.get_y() << ")\n";
+    for (auto i = this->tiles.begin(); i != this->tiles.end(); i++) {
+        Coordinate coor = i->first;
+        std::cout << "Coordenadas en el map: (" << coor.get_x() << ", " << coor.get_y() << ")\n";
+    }
+    std::cout << "\n";
 }
