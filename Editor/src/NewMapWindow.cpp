@@ -3,12 +3,15 @@
 #include "ui_NewMapWindow.h"
 #include <yaml-cpp/yaml.h>
 #include <iostream>
+#include <QtWidgets/QMessageBox>
 
 #define MENU_SCREEN 0
 #define EDITOR_SCREEN 2
 
 #define PLAYER 1
 #define WALL 2
+
+static bool validateInput(const QString &input, int *result);
 
 const void createYaml(const std::string name, const std::string length, const std::string width);
 
@@ -35,18 +38,28 @@ void NewMapWindow::createMap() {
     QLineEdit* lenght = findChild<QLineEdit*>("lengthMap");
     QLineEdit* width = findChild<QLineEdit*>("widthMap");
 
-    bool ok;
-    int lenghtNumber = lenght->text().toInt(&ok);
-    int widthNumber = width->text().toInt(&ok);
-    this->screenManager->setMapSize(widthNumber, lenghtNumber);
-    this->nextScreen();
+    int lenghtNumber;
+    int widthNumber;
+
+    if (validateInput(lenght->text(), &lenghtNumber) && validateInput(width->text(), &widthNumber)) {
+        this->screenManager->setMapSize(widthNumber, lenghtNumber);
+        this->nextScreen();
+        return;
+    }
+
+    QMessageBox badInputMessage;
+    badInputMessage.setText("Ha ingresado mal alguno de los campos");
+    badInputMessage.exec();
+    this->clearScreen();
 }
 
 void NewMapWindow::previousScreen() {
+    this->clearScreen();
     this->screenManager->changeScreen(MENU_SCREEN);
 }
 
 void NewMapWindow::nextScreen() {
+    this->clearScreen();
     this->screenManager->changeScreen(EDITOR_SCREEN);
 }
 
@@ -82,4 +95,24 @@ const void createYaml(const std::string name, const std::string length, const st
 
     archive << _map;
 
+}
+
+void NewMapWindow::clearScreen() {
+    QLineEdit* lenght = findChild<QLineEdit*>("lengthMap");
+    QLineEdit* width = findChild<QLineEdit*>("widthMap");
+    lenght->clear();
+    width->clear();
+}
+
+static bool validateInput(const QString &input, int *result) {
+    bool isInt;
+    int number = input.toInt(&isInt);
+    if (isInt) {
+        if (number > 0) {
+            *result = number;
+            return true;
+        }
+    }
+    *result = -1;
+    return false;
 }

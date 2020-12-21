@@ -25,6 +25,7 @@ class NewMapWindow : public QMainWindow {
         void createMap();
         void previousScreen();
         void nextScreen();
+        void clearScreen();
 };
 
 #endif //EDITOR_NEWMAPWINDOW_H
