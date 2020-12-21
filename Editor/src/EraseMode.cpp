@@ -1,13 +1,9 @@
 #include "EraseMode.h"
 #include "Tilemap.h"
 
-EraseMode::EraseMode(TilemapScene *tilemapScene) : Mode(tilemapScene) {
+EraseMode::EraseMode(TilemapScene *tilemapScene) : Mode(tilemapScene) {}
 
-}
-
-EraseMode::~EraseMode() {
-
-}
+EraseMode::~EraseMode() {}
 
 void EraseMode::executeClickResponse(Coordinate coordinate, QGraphicsItem *item) {
     this->tilemapScene->erase(coordinate, item);

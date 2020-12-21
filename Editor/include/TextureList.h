@@ -18,9 +18,8 @@ class TextureList : public QListWidget {
         void addTexture(std::string texturePath);
 
     private:
-        //void connectEvents();
-        void setCurrentTexture();
        void mousePressEvent(QMouseEvent *event) override;
+
 };
 
 #endif //EDITOR_TEXTURELIST_H

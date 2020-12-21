@@ -31,5 +31,4 @@ class ScreenManager : public QMainWindow {
 
 };
 
-
 #endif //EDITOR_SCREENMANAGER_H

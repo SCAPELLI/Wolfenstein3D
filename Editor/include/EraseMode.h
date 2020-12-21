@@ -11,5 +11,4 @@ class EraseMode : public Mode {
 
 };
 
-
 #endif //EDITOR_ERASEMODE_H

@@ -15,5 +15,4 @@ class Coordinate {
         size_t get_y();
 };
 
-
 #endif //EDITOR_COORDINATE_H

@@ -14,8 +14,6 @@ class EditorScreen;
 class Tilemap : public QGraphicsView {
     private:
         TilemapScene *scene;
-        size_t rows;
-        size_t columns;
         EditorScreen *editorScreen;
 
     public:

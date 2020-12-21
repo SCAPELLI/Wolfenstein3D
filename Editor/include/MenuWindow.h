@@ -1,7 +1,7 @@
 #ifndef EDITOR_MENUWINDOW_H
 #define EDITOR_MENUWINDOW_H
 
-#include "../include/NewMapWindow.h"
+#include "NewMapWindow.h"
 #include "ScreenManager.h"
 #include <QMainWindow>
 #include <QWidget>
@@ -15,7 +15,6 @@ class MenuWindow : public QMainWindow {
 
     private:
         Ui::MenuWindow *ui;
-        //NewMapWindow *newMapWindow;
         ScreenManager *screenManager;
 
     public:
@@ -27,6 +26,5 @@ class MenuWindow : public QMainWindow {
         void connectEvents();
 
 };
-
 
 #endif //EDITOR_MENUWINDOW_H

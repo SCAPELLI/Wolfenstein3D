@@ -17,5 +17,4 @@ class Mode {
 
 };
 
-
 #endif //EDITOR_MODE_H

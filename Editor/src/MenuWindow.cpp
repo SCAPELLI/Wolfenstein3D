@@ -1,9 +1,8 @@
-#include <iostream>
 #include <NewMapWindow.h>
-#include "../include/MenuWindow.h"
+#include "MenuWindow.h"
 #include "ui_MenuWindow.h"
 
-#define NEW_MAP 1
+#define NEW_MAP_SCREEN 1
 
 MenuWindow::MenuWindow(QWidget *parent, ScreenManager *screenManager)
     : QMainWindow(parent), ui(new Ui::MenuWindow) {
@@ -22,5 +21,5 @@ void MenuWindow::connectEvents() {
 }
 
 void MenuWindow::openCreateMapWindow() {
-    this->screenManager->changeScreen(NEW_MAP);
+    this->screenManager->changeScreen(NEW_MAP_SCREEN);
 }

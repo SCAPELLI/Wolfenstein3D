@@ -14,5 +14,4 @@ class Texture {
         QString getTexturePath();
 };
 
-
 #endif //EDITOR_TEXTURE_H

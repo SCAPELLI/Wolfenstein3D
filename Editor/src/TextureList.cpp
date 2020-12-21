@@ -1,6 +1,5 @@
-#include <iostream>
-#include "../include/TextureList.h"
-#include "../include/EditorScreen.h"
+#include "TextureList.h"
+#include "EditorScreen.h"
 #include <QMouseEvent>
 
 #define ICON_SIZE 32
@@ -34,19 +33,6 @@ void TextureList::addTexture(std::string texturePath) {
 
     Texture texture(aux);
     this->textures.push_back(texture);
-}
-
-/*
-void TextureList::connectEvents() {
-    QObject::connect(this,
-                     SIGNAL(itemClicked(QListWidgetItem*)),
-                     this,
-                     SLOT(TextureList::setCurrentTexture));
-}
- */
-
-void TextureList::setCurrentTexture() {
-    std::cout << "uwu\n";
 }
 
 void TextureList::mousePressEvent(QMouseEvent *event) {

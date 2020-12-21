@@ -1,4 +1,3 @@
-#include <tgmath.h>
 #include "Coordinate.h"
 
 #define BITS 32

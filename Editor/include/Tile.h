@@ -17,7 +17,6 @@ class Tile : public QGraphicsPixmapItem {
              Coordinate coordinate = Coordinate(0, 0),
              Texture texture = Texture("../sprites/texture0.png"));
         ~Tile();
-        Coordinate getCoordinate();
 };
 
 #endif //EDITOR_TILE_H

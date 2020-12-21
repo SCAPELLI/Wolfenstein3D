@@ -11,5 +11,4 @@ class DrawMode : public Mode {
 
 };
 
-
 #endif //EDITOR_DRAWMODE_H

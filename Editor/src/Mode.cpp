@@ -2,14 +2,8 @@
 #include "Tilemap.h"
 
 Mode::Mode(TilemapScene *tilemapScene)
-    : tilemapScene(tilemapScene){
+    : tilemapScene(tilemapScene){}
 
-}
+Mode::~Mode() {}
 
-Mode::~Mode() {
-
-}
-
-void Mode::executeClickResponse(Coordinate coordinate, QGraphicsItem *item) {
-
-}
+void Mode::executeClickResponse(Coordinate coordinate, QGraphicsItem *item) {}

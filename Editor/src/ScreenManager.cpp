@@ -7,6 +7,7 @@
 ScreenManager::ScreenManager(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::ScreenManager) {
     this->ui->setupUi(this);
+
     this->stack =findChild<QStackedWidget*>("stack");
 
     this->menuWindow = new MenuWindow(0, this);

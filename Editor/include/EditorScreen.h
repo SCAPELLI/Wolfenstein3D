@@ -24,6 +24,7 @@ class EditorScreen : public QMainWindow {
         Tilemap *tilemap;
         std::ofstream mapFile;
         Texture currentTexture;
+        QTabWidget *tab;
 
     public:
         EditorScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);

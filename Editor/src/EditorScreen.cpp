@@ -13,6 +13,7 @@ EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
 
     this->ui->setupUi(this);
     this->screenManager = screenManager;
+
     QVBoxLayout *layout = findChild<QVBoxLayout*>("textureListLayout");
     this->textureList = new TextureList(0, this);
     layout->addWidget(this->textureList);
@@ -20,6 +21,13 @@ EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
     this->tilemap = new Tilemap(0, this);
     QVBoxLayout *tilemapLayout = findChild<QVBoxLayout*>("tilemapLayout");
     tilemapLayout->addWidget(this->tilemap);
+
+
+    /*
+    QVBoxLayout *aux = findChild<QVBoxLayout*>("auxLayout");
+    this->textureList = new TextureList(0, this);
+    aux->addWidget(textureList);
+     */
 
     connectEvents();
 }

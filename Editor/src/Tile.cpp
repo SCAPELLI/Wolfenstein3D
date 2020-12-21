@@ -10,10 +10,4 @@ Tile::Tile(QWidget *parent, Coordinate coordinate, Texture texture)
                  this->coordinate.get_y() * BITS);
 }
 
-Tile::~Tile() {
-
-}
-
-Coordinate Tile::getCoordinate() {
-    return this->coordinate;
-}
+Tile::~Tile() {}
