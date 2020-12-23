@@ -6,8 +6,6 @@
 
 TextureList::TextureList(QWidget *parent, EditorScreen *editorScreen) :
     editorScreen(editorScreen){
-    //this->textureList = textureList;
-    //this->textureList->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
     this->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
     this->addTexture("../sprites/texture0.png");
     this->addTexture("../sprites/texture1.png");
@@ -16,6 +14,8 @@ TextureList::TextureList(QWidget *parent, EditorScreen *editorScreen) :
     this->addTexture("../sprites/texture4.png");
     this->addTexture("../sprites/texture5.png");
     this->addTexture("../sprites/texture6.png");
+    this->addTexture("../sprites/sprite221.png");
+    this->addTexture("../sprites/sprite000.png");
 }
 
 TextureList::~TextureList() {

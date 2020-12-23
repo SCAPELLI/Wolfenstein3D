@@ -5,7 +5,9 @@
 Tile::Tile(QWidget *parent, Coordinate coordinate, Texture texture)
     : coordinate(coordinate), texture(texture){
     QString texturePath = texture.getTexturePath();
-    this->setPixmap(QPixmap(texturePath));
+    QPixmap aux(texturePath);
+    QPixmap auxScaled = aux.scaled(BITS, BITS);
+    this->setPixmap(auxScaled);
     this->setPos(this->coordinate.get_x() * BITS,
                  this->coordinate.get_y() * BITS);
 }

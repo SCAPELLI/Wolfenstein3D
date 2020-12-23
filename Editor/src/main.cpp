@@ -7,10 +7,16 @@
 #include <ScreenManager.h>
 #include <EditorScreen.h>
 #include <Coordinate.h>
+#include "TextureFileManager.h"
 
 int main(int argc, char *argv[]) {
+    /*
     QApplication app(argc, argv);
     ScreenManager screenManager;
     screenManager.show();
     return app.exec();
+     */
+
+    TextureFileManager manager;
+    manager.createMapFromTextureFile();
 }
