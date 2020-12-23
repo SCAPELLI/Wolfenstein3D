@@ -24,7 +24,6 @@ function PriorityQueue:push(priority, value)
 	end
 end
 
---EN CONSTRUCCION PARA EL 2021
 function PriorityQueue:pop()
 	priorityElement = self.heap[1][1]
 	self.heap[1] = self.heap[#self.heap]

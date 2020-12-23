@@ -30,8 +30,8 @@ function Graph:addNeighbor(node, neighbor)
   self.nodes[neighbor.id][node.id] = 1
 end
 
-function Graph:getNeighbors(node)
-	return self.nodes[node.id]
+function Graph:getNeighbors(nodeId)
+	return self.nodes[nodeId]
 end
 
 function Graph:print()
