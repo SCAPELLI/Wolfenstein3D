@@ -7,9 +7,11 @@ GameScreen::GameScreen(Camera* camera, int h, int w):
         if (SDL_Init(SDL_INIT_VIDEO) == 0) {
             this->window = NULL;
             this->renderer = NULL;
+            SDL_CreateWindowAndRenderer(h, w, 0, &this->window, &this->renderer);
+
         }
-        SDL_CreateWindowAndRenderer(h, w, 0, &this->window, &this->renderer);
-    }
+
+}
 
 void GameScreen::draw(std::vector<std::vector<int>>& map,
             std::map<int, Renderable*>* renderables,

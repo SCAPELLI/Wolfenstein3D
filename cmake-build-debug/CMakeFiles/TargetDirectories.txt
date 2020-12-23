@@ -1,3 +1,0 @@
-/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/CMakeFiles/Wolf.dir
