@@ -1,15 +1,13 @@
 #include <yaml-cpp/node/node.h>
 #include <yaml-cpp/yaml.h>
 #include <iostream>
-#include "TextureFileManager.h"
+#include "SpriteFileManager.h"
 
+SpriteFileManager::SpriteFileManager() {}
 
+SpriteFileManager::~SpriteFileManager() {}
 
-TextureFileManager::TextureFileManager() {}
-
-TextureFileManager::~TextureFileManager() {}
-
-std::map<std::string, std::map<int, std::string>> TextureFileManager::createMapFromTextureFile() {
+std::map<std::string, std::map<int, std::string>> SpriteFileManager::createMapFromTextureFile() {
     std::map <std::string,std::map <int, std::string>> sprites;
 
     YAML::Node node = YAML::LoadFile("../sprites/sprites.yaml");

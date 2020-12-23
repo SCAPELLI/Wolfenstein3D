@@ -7,7 +7,7 @@
 #include <ScreenManager.h>
 #include <EditorScreen.h>
 #include <Coordinate.h>
-#include "TextureFileManager.h"
+#include "SpriteFileManager.h"
 
 int main(int argc, char *argv[]) {
     /*
@@ -17,6 +17,6 @@ int main(int argc, char *argv[]) {
     return app.exec();
      */
 
-    TextureFileManager manager;
+    SpriteFileManager manager;
     manager.createMapFromTextureFile();
 }

@@ -1,10 +1,10 @@
-#ifndef EDITOR_TEXTUREFILEMANAGER_H
-#define EDITOR_TEXTUREFILEMANAGER_H
+#ifndef EDITOR_SPRITEFILEMANAGER_H
+#define EDITOR_SPRITEFILEMANAGER_H
 
-class TextureFileManager {
+class SpriteFileManager {
     public:
-        TextureFileManager();
-        ~TextureFileManager();
+        SpriteFileManager();
+        ~SpriteFileManager();
         /*
          * Devuelve un mapa que contiene un mapa de los sprites.
          * Ejemplo:
@@ -16,4 +16,4 @@ class TextureFileManager {
         std::map<std::string, std::map<int, std::string>> createMapFromTextureFile();
 };
 
-#endif //EDITOR_TEXTUREFILEMANAGER_H
+#endif //EDITOR_SPRITEFILEMANAGER_H
