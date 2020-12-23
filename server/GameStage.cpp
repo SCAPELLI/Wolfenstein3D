@@ -40,7 +40,8 @@ void GameStage::processEvent(MovementEvent& event) {
 }
 
 void GameStage::processEvent(LifeDecrementEvent& event){
-    if (game.decrementLife(0) == -1){ //pasarle un ID PLYR
+    game.decrementLife(0);
+    if (game.players[0].isGameOver()){ //pasarle un ID PLYR
         GameOverEvent dead(0);
         Event anotherEvent(&dead, GameOverEventType);
         updateEvents.push(anotherEvent);

@@ -10,14 +10,13 @@ class Game {
     int speed;
 public:
     Game();
-    //Game& operator = (const Game& other) = delete;
     Game(const Game& other) = delete;
     void moveAngle(double angle, int idPlayer);
     void changePosition(Vector changeTo);
     Vector calculateDirection(int idPlyr);
     int getDamage(int idPlyr);
     int shoot(int idPlayer, int idWeapon, Vector& direction);
-    int decrementLife(int idPlyr);
+    void decrementLife(int idPlyr);
 
 };
 
