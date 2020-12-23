@@ -10,6 +10,8 @@
 #include "PositionEvent.h"
 /*----------*/
 
+#define PI 3.141592
+
 Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
     switch (eventType) {
         case LifeDecrementEventType:
@@ -20,10 +22,15 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
             break;
         case PositionEventType:
             event = new PositionEvent(*(PositionEvent*)updateEvent);
+            break;
         case GameOverEventType:
             event = new GameOverEvent(*(GameOverEvent*)updateEvent);
+            break;
+        case TurnEventType:
+            event = new TurnEvent(*(TurnEvent*)updateEvent);
+            break;
         default:
-            event = nullptr;
+            this->event = nullptr;
     }
 }
 
@@ -47,9 +54,9 @@ AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
         case SDLK_DOWN:
             return new MovementEvent(BACKWARD, 0);
         case SDLK_LEFT:
-            return new TurnEvent(0, 0.3926990817);
+            return new TurnEvent(0, PI/180);
         case SDLK_RIGHT:
-            return new TurnEvent(0, -0.3926990817);
+            return new TurnEvent(0, -PI/180);
         default:
             return nullptr;
     }
@@ -62,8 +69,8 @@ void Event::runHandler(GameStage& gameStage) {
     if (event != nullptr) event->runHandler(gameStage);
 }
 /*-----------*/
-void Event::runHandler(Renderer& renderer) {
-    if (event != nullptr) event->runHandler(renderer);
+void Event::runHandler(CGame& game) {
+    if (event != nullptr) event->runHandler(game);
 }
 /*-----------*/
 bool Event::thisIsTheQuitEvent() {

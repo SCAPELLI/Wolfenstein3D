@@ -10,16 +10,16 @@
 #include "../common/PositionEvent.h"
 #include "../common/GameOverEvent.h"
 
+#define PI 3.141592
 
 GameStage::GameStage(ProtectedEventsQueue& updateEvents)
     : updateEvents(updateEvents), game() {}
 
 void GameStage::processEvent(TurnEvent& event) {
     game.moveAngle(event.getDegrees(), event.player);
-    game.players[0].getItem(3);
-    game.players[0].getItem(4);
-    game.players[0].changeWeaponTo(2);
-    std::cout<<game.getDamage(0)<<std::endl;
+    TurnEvent toSend(0, event.getDegrees());
+    Event anotherEvent(&toSend, TurnEventType);
+    updateEvents.push(anotherEvent);
 }
 
 void GameStage::processEvent(MovementEvent& event) {
@@ -37,9 +37,6 @@ void GameStage::processEvent(MovementEvent& event) {
     PositionEvent toSend(game.players[0].getPosition().x, game.players[0].getPosition().y);
     Event anotherEvent(&toSend, PositionEventType);
     updateEvents.push(anotherEvent);
-
-    std::cout<<(int)game.players[0].getPosition().x<<" ";
-    std::cout<<(int)game.players[0].getPosition().y<<std::endl;
 }
 
 void GameStage::processEvent(LifeDecrementEvent& event){

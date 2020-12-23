@@ -3,7 +3,7 @@
 
 #include "AbstractEvent.h"
 
-class Renderer;
+class CGame;
 
 class LifeDecrementEvent: public AbstractEvent {
     int idPlayer;
@@ -11,7 +11,7 @@ class LifeDecrementEvent: public AbstractEvent {
 public:
     LifeDecrementEvent(int idPlayer, int damage);
     LifeDecrementEvent(LifeDecrementEvent& lifeDecrementEvent);
-    void runHandler(Renderer& renderer) override;
+    void runHandler(CGame& renderer) override;
 };
 
 #endif
