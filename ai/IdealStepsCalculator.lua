@@ -1,26 +1,15 @@
-local map  =
-{
-	{0, 1, 0, 1, 0, 1, 0},
-	{0, 0, 0, 1, 0, 1, 0},
-	{0, 1, 0, 0, 0, 1, 0},
-	{0, 1, 0, 1, 0, 1, 0}
-}
-
 dofile("ExportMapToGraph.lua")
 dofile("priority_queue.lua")
 
 INFINITE = 99999999
 NONE = "this node does not have a father"
 
-graph = exportMapAsGraph(map)
-priorityQueue = PriorityQueue:new()
-
-
 function idealStepsCalculator(graph, sourceNodeId)
 	local distance = {}
 	local father = {}
 	local visited = {}
 	local idealStep = {}
+	local priorityQueue = PriorityQueue:new()
 
 	for nodeId,_ in pairs(graph.nodes) do
 		distance[nodeId] = INFINITE
@@ -57,15 +46,35 @@ function idealStepsCalculator(graph, sourceNodeId)
 	return idealStep
 end
 
-local idealStepsForAllNodes = {}
+function getIdealStepsForAllTiles(map)
+	local idealStepsForAllTiles = {}
+	local graph = exportMapAsGraph(map)
 
-for nodeId,_ in pairs(graph.nodes) do
-	idealStepsForAllNodes[nodeId] = idealStepsCalculator(graph, nodeId)
-end
-
-for nodeId,idealStepsForANode in pairs(idealStepsForAllNodes) do
-	for destinationNodeId,idealStepNodeId in pairs(idealStepsForANode) do
-		print(string.format("El paso ideal para ir desde %s hasta %s es %s",
-			nodeId, destinationNodeId, idealStepNodeId))
+	for nodeId,_ in pairs(graph.nodes) do
+		idealStepsForAllTiles[nodeId] = idealStepsCalculator(graph, nodeId)
 	end
+
+	return idealStepsForAllTiles
 end
+
+--prueba de uso 
+--[[
+local map  =
+{
+	{0, 0, 0, 1},
+	{0, 1, 0, 1}, 
+	{0, 0, 0, 1},
+	{0, 1, 0, 1}
+}
+
+local idealStepsForAllTiles = getIdealStepsForAllTiles(map)
+
+local nodeId = "3,2"
+
+local idealStepsForANode = idealStepsForAllTiles[nodeId]
+
+for destinationNodeId,idealStepNodeId in pairs(idealStepsForANode) do
+	print(string.format("El paso ideal para ir desde %s hasta %s es %s",
+		nodeId, destinationNodeId, idealStepNodeId))
+end
+]]

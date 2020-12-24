@@ -2,6 +2,11 @@ dofile("Graph.lua")
 
 GROUND = 0
 WALL = 1
+LEFT = -1
+RIGHT = 1
+CENTER = 0
+UP = 1
+DOWN = -1
 
 function addAdyacentTileIfItIsValid(graph, map, row, column, rowShifting, columnShifting)
 	if map[row + rowShifting] ~= nil 
@@ -13,10 +18,10 @@ function addAdyacentTileIfItIsValid(graph, map, row, column, rowShifting, column
 end
 
 function searchForAdyacenteTiles(graph, map, row, column)
-	addAdyacentTileIfItIsValid(graph, map, row, column, -1, 0)
-	addAdyacentTileIfItIsValid(graph, map, row, column, 1, 0)
-	addAdyacentTileIfItIsValid(graph, map, row, column, 0, 1)
-	addAdyacentTileIfItIsValid(graph, map, row, column, 0, -1)
+	addAdyacentTileIfItIsValid(graph, map, row, column, LEFT, CENTER)
+	addAdyacentTileIfItIsValid(graph, map, row, column, RIGHT, CENTER)
+	addAdyacentTileIfItIsValid(graph, map, row, column, CENTER, UP)
+	addAdyacentTileIfItIsValid(graph, map, row, column, CENTER, DOWN)
 end
 
 function exportMapAsGraph(map)
@@ -35,5 +40,3 @@ function exportMapAsGraph(map)
 	end
 	return graph
 end
-
---graph:print()
