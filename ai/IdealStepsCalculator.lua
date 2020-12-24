@@ -1,35 +1,10 @@
 local map  =
 {
-	{0, 0, 0},
-	{0, 1, 0},
-	{0, 1, 0},
-	{0, 0, 0}
+	{0, 1, 0, 1, 0, 1, 0},
+	{0, 0, 0, 1, 0, 1, 0},
+	{0, 1, 0, 0, 0, 1, 0},
+	{0, 1, 0, 1, 0, 1, 0}
 }
-
---[[   
-	DIJKSTRA (Grafo G, nodo_fuente s)       
-       para u ∈ V[G] hacer
-           distancia[u] = INFINITO
-           padre[u] = NULL
-		   visto[u] = false
-		   IdealStep[u] = s 
-       distancia[s] = 0
-       adicionar (cola, (s, distancia[s]))
-       mientras que cola no es vacía hacer
-           u = extraer_mínimo(cola)
-           visto[u] = true
-           para todos v ∈ adyacencia[u] hacer
-               si ¬ visto[v]      
-                   si distancia[v] > distancia[u] + peso (u, v) hacer
-                       distancia[v] = distancia[u] + peso (u, v)
-                       padre[v] = u
-					   adicionar(cola,(v, distancia[v]))
-					   
-		for todos v e grafo:
-			pasoIdeal = 
-			while padre[v] != fuente:
-
-					   ]]
 
 dofile("ExportMapToGraph.lua")
 dofile("priority_queue.lua")
@@ -40,20 +15,22 @@ NONE = "this node does not have a father"
 graph = exportMapAsGraph(map)
 priorityQueue = PriorityQueue:new()
 
-distance = {}
-father = {}
-visited = {}
-idealStep = {}
 
-function idealStepsCalculator(graph, sourceNode)
+function idealStepsCalculator(graph, sourceNodeId)
+	local distance = {}
+	local father = {}
+	local visited = {}
+	local idealStep = {}
+
 	for nodeId,_ in pairs(graph.nodes) do
 		distance[nodeId] = INFINITE
 		father[nodeId] = NONE
 		visited[nodeId] = false
-		idealStep[nodeId] = sourceNode.id
+		idealStep[nodeId] = sourceNodeId
 	end
-	distance[sourceNode.id] = 0
-	priorityQueue:push(sourceNode.id, distance[sourceNode.id])
+	distance[sourceNodeId] = 0
+	father[sourceNodeId] = sourceNodeId 
+	priorityQueue:push(sourceNodeId, distance[sourceNodeId])
 	while not priorityQueue:empty() do
 		nodeId = priorityQueue:pop()
 		visited[nodeId] = true
@@ -68,17 +45,27 @@ function idealStepsCalculator(graph, sourceNode)
 			end
 		end
 	end
-
-	
-	
 	for nodeId,_ in pairs(graph.nodes) do
-		print("Nodo: ", nodeId)
-		print("  distance:", distance[nodeId])
-		print("  padre:",father[nodeId])
-		print("  fue visitado:",visited[nodeId])
-		print("  pasoIdeal para llegar a",nodeId,idealStep[nodeId])
+		local aNodeId = father[nodeId]
+		if aNodeId ~= NONE then
+			while (father[aNodeId] ~= sourceNodeId) do
+				aNodeId = father[aNodeId]
+			end
+			idealStep[nodeId] = aNodeId 
+		end
 	end
+	return idealStep
 end
 
-graph:print()
-idealStepsCalculator(graph, Node:new(1, 1))
+local idealStepsForAllNodes = {}
+
+for nodeId,_ in pairs(graph.nodes) do
+	idealStepsForAllNodes[nodeId] = idealStepsCalculator(graph, nodeId)
+end
+
+for nodeId,idealStepsForANode in pairs(idealStepsForAllNodes) do
+	for destinationNodeId,idealStepNodeId in pairs(idealStepsForANode) do
+		print(string.format("El paso ideal para ir desde %s hasta %s es %s",
+			nodeId, destinationNodeId, idealStepNodeId))
+	end
+end
