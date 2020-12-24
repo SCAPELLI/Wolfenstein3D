@@ -3,6 +3,7 @@
 
 #include "ScreenManager.h"
 #include "Texture.h"
+#include "SpriteTabs.h"
 #include <QMainWindow>
 #include <QWidget>
 #include <fstream>
@@ -24,7 +25,8 @@ class EditorScreen : public QMainWindow {
         Tilemap *tilemap;
         std::ofstream mapFile;
         Texture currentTexture;
-        QTabWidget *tab;
+
+        SpriteTabs *spriteTabs;
 
     public:
         EditorScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);

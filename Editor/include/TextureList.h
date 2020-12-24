@@ -3,19 +3,21 @@
 
 #include <QtWidgets/QListWidget>
 #include "Texture.h"
+#include <map>
 
-class EditorScreen;
+class SpriteTabs;
 
 class TextureList : public QListWidget {
 
     private:
-        EditorScreen *editorScreen;
+        SpriteTabs *spriteTabs;
         std::vector<Texture> textures;
 
     public:
-        TextureList(QWidget *parent = 0, EditorScreen *editorScreen = NULL);
+        TextureList(QWidget *parent = 0, SpriteTabs *spriteTabs = NULL);
         ~TextureList();
         void addTexture(std::string texturePath);
+        void setSpriteList(std::map<int, std::string> spriteMap);
 
     private:
        void mousePressEvent(QMouseEvent *event) override;

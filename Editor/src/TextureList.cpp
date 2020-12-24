@@ -1,21 +1,13 @@
 #include "TextureList.h"
-#include "EditorScreen.h"
+#include "SpriteTabs.h"
 #include <QMouseEvent>
+#include <SpriteFileManager.h>
 
 #define ICON_SIZE 32
 
-TextureList::TextureList(QWidget *parent, EditorScreen *editorScreen) :
-    editorScreen(editorScreen){
+TextureList::TextureList(QWidget *parent, SpriteTabs *spriteTabs) :
+    spriteTabs(spriteTabs){
     this->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
-    this->addTexture("../sprites/texture0.png");
-    this->addTexture("../sprites/texture1.png");
-    this->addTexture("../sprites/texture2.png");
-    this->addTexture("../sprites/texture3.png");
-    this->addTexture("../sprites/texture4.png");
-    this->addTexture("../sprites/texture5.png");
-    this->addTexture("../sprites/texture6.png");
-    this->addTexture("../sprites/sprite221.png");
-    this->addTexture("../sprites/sprite000.png");
 }
 
 TextureList::~TextureList() {
@@ -40,5 +32,12 @@ void TextureList::mousePressEvent(QMouseEvent *event) {
     this->setCurrentItem(item);
     QModelIndex aux = this->indexFromItem(item);
     int index = aux.row();
-    this->editorScreen->changeCurrentTexture(this->textures[index]);
+    this->spriteTabs->changeCurrentTexture(this->textures[index]);
+}
+
+void TextureList::setSpriteList(std::map<int, std::string> spriteMap) {
+    for (auto it = spriteMap.begin(); it != spriteMap.end(); it++) {
+        std::string path = "../sprites/sprite" + std::to_string(it->first) + ".png";
+        this->addTexture(path);
+    }
 }

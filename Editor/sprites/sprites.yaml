@@ -51,7 +51,6 @@ textures:
     130: wall
     131: wall
     132: wall
-    133: wall
     134: wall
     135: wall
     136: wall
@@ -81,7 +80,7 @@ textures:
     160: locked door
     161: locked door
     162: wall
-blocking tiles:
+decorations:
     200: object
     201: object
     202: object

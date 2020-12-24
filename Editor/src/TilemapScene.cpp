@@ -75,7 +75,8 @@ void TilemapScene::changeToEraseMode() {
 }
 
 void TilemapScene::draw(Coordinate coordinate, QGraphicsItem *item) {
-    if (item) {
+    QGraphicsLineItem *line = qgraphicsitem_cast<QGraphicsLineItem*>(item);
+    if (item && !line) {
         this->removeItem(item);
         delete item;
         this->tiles.erase(coordinate);
