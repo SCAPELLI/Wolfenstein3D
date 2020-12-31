@@ -2,8 +2,8 @@
 #include "Renderer.h"
 #include "../cliente/CGame.h"
 
-LifeDecrementEvent::LifeDecrementEvent(int idPlayer, int damage)
-    :idPlayer(idPlayer), damage(damage){}
+LifeDecrementEvent::LifeDecrementEvent(int idPlayer)
+    :idPlayer(idPlayer){}
 
 LifeDecrementEvent::LifeDecrementEvent(LifeDecrementEvent& lifeDecrementEvent)
 {}

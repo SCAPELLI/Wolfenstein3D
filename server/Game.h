@@ -11,11 +11,12 @@ class Game {
 public:
     Game();
     Game(const Game& other) = delete;
+    int generateRandom();
     void moveAngle(double angle, int idPlayer);
     void changePosition(Vector changeTo);
     Vector calculateDirection(int idPlyr);
     int getDamage(int idPlyr);
-    int shoot(int idPlayer, int idWeapon, Vector& direction);
+    int shoot(int idPlayer);
     void decrementLife(int idPlyr);
 
 };

@@ -6,10 +6,9 @@
 class CGame;
 
 class LifeDecrementEvent: public AbstractEvent {
-    int idPlayer;
-    int damage;
 public:
-    LifeDecrementEvent(int idPlayer, int damage);
+    int idPlayer;
+    LifeDecrementEvent(int idPlayer);
     LifeDecrementEvent(LifeDecrementEvent& lifeDecrementEvent);
     void runHandler(CGame& renderer) override;
 };
