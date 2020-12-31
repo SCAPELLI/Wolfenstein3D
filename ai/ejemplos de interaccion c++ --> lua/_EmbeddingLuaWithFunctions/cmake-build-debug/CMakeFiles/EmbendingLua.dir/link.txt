@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/EmbendingLua.dir/main.cpp.o  -o EmbendingLua  -llua -ldl 
