@@ -5,6 +5,7 @@
 
 class GameOverEvent :  public AbstractEvent {
 public:
+    int idPlayer;
     GameOverEvent(GameOverEvent& gameOverEvent);
     GameOverEvent(int idPlayer);
     void runHandler(CGame& game) override;

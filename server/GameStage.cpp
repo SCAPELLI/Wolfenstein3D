@@ -16,10 +16,27 @@ GameStage::GameStage(ProtectedEventsQueue& updateEvents)
     : updateEvents(updateEvents), game() {}
 
 void GameStage::processEvent(TurnEvent& event) {
-    game.moveAngle(event.getDegrees(), event.player);
-    TurnEvent toSend(0, event.getDegrees());
+    game.moveAngle(event.getDegrees(), event.idPlayer);
+    TurnEvent toSend(event.idPlayer, event.getDegrees());
     Event anotherEvent(&toSend, TurnEventType);
     updateEvents.push(anotherEvent);
+}
+
+
+void GameStage::processEvent(ShootingEvent& event) {
+    int idHit = game.shoot(event.idPlayer);
+    if ( idHit != -1){
+        if (game.players[idHit].isGameOver()){
+            GameOverEvent dead(idHit);
+            Event anotherEvent(&dead, GameOverEventType);
+            updateEvents.push(anotherEvent);
+            return;
+        }
+        LifeDecrementEvent decreasedLife(idHit);
+        processEvent(decreasedLife);
+        Event anotherEvent(&decreasedLife, LifeDecrementEventType);
+        updateEvents.push(anotherEvent);
+    }
 }
 
 void GameStage::processEvent(MovementEvent& event) {
@@ -40,12 +57,17 @@ void GameStage::processEvent(MovementEvent& event) {
 }
 
 void GameStage::processEvent(LifeDecrementEvent& event){
-    game.decrementLife(0);
-    if (game.players[0].isGameOver()){ //pasarle un ID PLYR
-        GameOverEvent dead(0);
+    game.decrementLife(event.idPlayer);
+    if (game.players[event.idPlayer].isGameOver()){
+        GameOverEvent dead(event.idPlayer);
         Event anotherEvent(&dead, GameOverEventType);
         updateEvents.push(anotherEvent);
+        return;
     }
 }
 
-void processEvent(GameOverEvent& event){}
+void GameStage::processEvent(GameOverEvent& event){
+    GameOverEvent dead(event.idPlayer);
+    Event anotherEvent(&dead, GameOverEventType);
+    updateEvents.push(anotherEvent);
+}

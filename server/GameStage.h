@@ -16,6 +16,7 @@ class TurnEvent;
 class LifeDecrementEvent;
 class GameOverEvent;
 class GameLoader;
+class ShootingEvent;
 
 class GameStage {
     ProtectedEventsQueue& updateEvents;
@@ -25,6 +26,7 @@ public:
     void processEvent(TurnEvent& event);
     void processEvent(MovementEvent& event);
     void processEvent(LifeDecrementEvent& event);
+    void processEvent(ShootingEvent& event);
     void processEvent(GameOverEvent& event);
 };
 

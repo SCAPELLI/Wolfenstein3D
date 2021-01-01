@@ -1,0 +1,16 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+/.idea/
+/cmake-build-debug/CMakeFiles/
+/cmake-build-debug/Makefile
+/cmake-build-debug/Testing/
+/cmake-build-debug/Wolf
+/cmake-build-debug/Wolf.cbp
+/cmake-build-debug/cmake_install.cmake
+/cmake-build-debug/CMakeCache.txt

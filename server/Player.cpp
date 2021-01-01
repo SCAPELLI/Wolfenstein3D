@@ -41,7 +41,10 @@ bool Player::hits(Player& otherPlayer) {
     std::cout << otherPlayer.position.x;
     int distance = position.distance(otherPlayer.position);
     int d = cos(angle) * distance;
-    return abs(distance - d) < 0;
+    if (abs(distance - d) < radius + otherPlayer.radius){
+        return true; //distance???
+    }
+    return false;
 }
 
 void Player::pickupWeapon(Weapon weapon){

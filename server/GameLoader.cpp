@@ -48,13 +48,15 @@ void GameLoader::readData(std::vector<std::vector<int>>& map,
 
 void GameLoader::mapLoader(std::vector<std::vector<int>>& map,
                            std::vector<Player>& players, YAML::Node& matrix){
+    int numOfPlayer = 0;
     for (std::size_t i = 0; i < matrix.size(); i++) {
         std::vector<int> row;
         for (std::size_t j = 0; j < matrix[i].size(); j++) {
             int elem = matrix[i][j].as<int>();
             if (elem == PLAYER_ID){
-                players.emplace_back(PLAYER_ID,
-                                     Vector (i * TILE, j * TILE));
+                players.emplace_back(Player(numOfPlayer,
+                                            Vector (i * TILE, j * TILE)));
+                numOfPlayer++;
                 row.push_back(0);
             } else if (elem) {
                 row.push_back(WALL);

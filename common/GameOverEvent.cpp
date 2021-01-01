@@ -4,7 +4,7 @@
 
 GameOverEvent::GameOverEvent(GameOverEvent& gameOverEvent){}
 
-GameOverEvent::GameOverEvent(int idPlayer){}
+GameOverEvent::GameOverEvent(int idPlayer) : idPlayer(idPlayer){}
 
 void GameOverEvent::runHandler(CGame& game){
 

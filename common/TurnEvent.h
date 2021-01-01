@@ -9,9 +9,9 @@ enum TurningSense {ANTICLOCKWISE, CLOCKWISE};
 
 class TurnEvent: public AbstractEvent {
 public:
-    int player;
+    int idPlayer;
     double degrees;
-    TurnEvent(int idPlayer, double degrees): player(idPlayer), degrees(degrees) {}
+    TurnEvent(int idPlayer, double degrees): idPlayer(idPlayer), degrees(degrees) {}
     void runHandler(GameStage& gameStage) override;
     void runHandler(CGame& game);
     double getDegrees();
