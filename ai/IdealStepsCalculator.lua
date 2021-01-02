@@ -56,25 +56,3 @@ function getIdealStepsForAllTiles(map)
 
 	return idealStepsForAllTiles
 end
-
---prueba de uso 
---[[
-local map  =
-{
-	{0, 0, 0, 1},
-	{0, 1, 0, 1}, 
-	{0, 0, 0, 1},
-	{0, 1, 0, 1}
-}
-
-local idealStepsForAllTiles = getIdealStepsForAllTiles(map)
-
-local nodeId = "3,2"
-
-local idealStepsForANode = idealStepsForAllTiles[nodeId]
-
-for destinationNodeId,idealStepNodeId in pairs(idealStepsForANode) do
-	print(string.format("El paso ideal para ir desde %s hasta %s es %s",
-		nodeId, destinationNodeId, idealStepNodeId))
-end
-]]

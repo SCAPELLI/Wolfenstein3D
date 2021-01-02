@@ -11,7 +11,7 @@ const int ATTACK = 4;
 const int DO_NOTHING = 5;
 
 ////////////////////////////////////////////////////////////////////////
-//Esto se saca en la integracion con server
+//"class Player" se borrará en la integración con server
 class Player {
 public:
     float x;
@@ -34,7 +34,7 @@ public:
     ~AI();
     void execute(int error);
     void initializeGameContext();
-    int getBotAction();
+    int getBotActionId();
     void operator()();
 };
 

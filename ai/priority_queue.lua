@@ -106,34 +106,5 @@ function PriorityQueue:pop()
     return retval
 end
 
---algunos pruebas de uso
---[[
-queue = PriorityQueue:new()
-queue2 = PriorityQueue:new()
-
-queue:push("cosaB", 1)
-queue:push("cosaA", 7)
-queue:push("cosaC", 1)
-
-print("queue is empty", queue:empty())
-print("queue2 is empty", queue2:empty())
-
-print(queue:pop())
-
-print("queue is empty", queue:empty())
-print("queue2 is empty", queue2:empty())
-
-print(queue:pop())
-
-print("queue is empty", queue:empty())
-print("queue2 is empty", queue2:empty())
-
-print(queue:pop())
-
-print("queue is empty", queue:empty())
-print("queue2 is empty", queue2:empty())
-]]
-
-
 
 

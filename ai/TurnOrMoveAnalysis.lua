@@ -84,22 +84,3 @@ function turnOrMoveAnalyzer(bot, idealXPosition, idealYPosition)
     	return turnAnalyzer(botAngle, idealAngle)
 	end
 end
-
---ejemplo de uso
---[[
-players = { 
-    ["1"] = {
-        ["position"] = { ["x"] = 3, ["y"] = 4 },
-        ["angle"] = 0
-    },
-    ["bot"] = {
-
-        ["position"] = { ["x"] = 16 , ["y"] = 48 },
-        ["angle"] = 0
-    }
-}
-
-
-print(turnOrMoveAnalyzer(players["bot"], 14, 14))
-
-]]

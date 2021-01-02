@@ -34,9 +34,7 @@ function exportMapAsGraph(map)
 				graph:addNode(Node:new(rowNumber, columnNumber))
 				searchForAdyacenteTiles(graph, map, rowNumber, columnNumber)
 			end
-			--io.write(string.format("%d,%d ", rowNumber, columnNumber))
 		end
-		--io.write("\n")
 	end
 	return graph
 end

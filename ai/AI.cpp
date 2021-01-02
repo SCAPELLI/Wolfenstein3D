@@ -41,10 +41,8 @@ void AI::initializeGameContext() {
         for (int column = 0; column < map[row].size(); ++column) {
             lua_pushnumber(L, map[row][column]);
             lua_rawseti(L,-2,column+1);
-            //std::cout << map[row][column] << " ";
         }
         lua_rawseti(L,-2,row+1);
-        //std::cout<<std::endl;
     }
 
     //initializeGameContext second parameter
@@ -53,8 +51,8 @@ void AI::initializeGameContext() {
     execute(lua_pcall(L, 2, 0, 0));
 }
 
-int AI::getBotAction() {
-    lua_getglobal(L, "getBotAction");
+int AI::getBotActionId() {
+    lua_getglobal(L, "getBotActionId");
     if (lua_isfunction(L, -1) != 1) throw Exception("Function not found");
 
     //getBotAction first parameter
@@ -82,8 +80,7 @@ int AI::getBotAction() {
 void AI::operator()() {
     initializeGameContext();
     while (!quit) {
-        //cambiar por getBotActionId
-        switch (getBotAction()) {
+        switch (getBotActionId()) {
             case MOVE_FOWARD:
                 std::cout<<"[c++] Foward"<<std::endl;
                 break;

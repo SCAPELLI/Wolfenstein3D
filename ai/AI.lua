@@ -12,30 +12,12 @@ TURN_CLOCKWISE = 3
 ATTACK = 4
 DO_NOTHING = 5
 
-
--------------------------
---Variables inicializadas en preprocesamiento
--------------------------
-
 function initializeGameContext(map, id)
 	botId = id
 	markedPlayerId = NONE_PLAYER
 	idealStepsForAllTiles = getIdealStepsForAllTiles(map)
 	--print("bot id",  id)
 end
-
---[[
-botId = "2"
-local map  =
-{
-	{0, 0, 0, 1},
-	{0, 1, 0, 1}, 
-	{0, 0, 0, 1},
-	{0, 1, 0, 1}
-}
-idealStepsForAllTiles = getIdealStepsForAllTiles(map)
-]]
--------------------------
 
 function distace(botPosition, playerPosition)
 	local x0 = botPosition.x
@@ -62,7 +44,7 @@ function detectPlayersInASightingDistance(players, markedPlayerId)
 	return markedPlayerId
 end
 
-function getBotAction(players)
+function getBotActionId(players)
 
 	markedPlayerId = detectPlayersInASightingDistance(players, markedPlayerId)
 
@@ -105,39 +87,3 @@ function getBotAction(players)
 		return DO_NOTHING
 	end
 end
-
----------------------------
-
-function getBotActionTest(players)
-	for playerId,playerTable in pairs(players) do
-		print(playerId,playerTable)
-		for dataKey,data in pairs(playerTable) do
-			print("__", dataKey,data)
-			if dataKey == "position" then print("______", data["x"], data["y"]) end
-		end
-	end
-end
-
---posiciones de jugadores actualizadas, llegan por parametro
---[[
-local map  =
-{
-	{0, 0, 0, 1},
-	{0, 1, 0, 1}, 
-	{0, 0, 0, 1},
-	{0, 1, 0, 1}
-}
-]]
----------------------------
---[[local players = { 
-    ["1"] = {
-        ["position"] = { ["x"] = 32, ["y"] = 64 },
-        ["angle"] = PI/2
-    },
-    ["2"] = {
-        ["position"] = { ["x"] = 64 , ["y"] = 64 },
-        ["angle"] = PI
-    }
-}]]
-
---getBotAction(players)
