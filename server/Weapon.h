@@ -7,16 +7,14 @@ class Weapon{
 public:
     int id;
     int damage;
-    int bullets;
     int minBullets;
     double speed;
 
 public:
     int getDamage()const;
-    Weapon(int id, int damage, int bullets, int minBullets, double speed);
+    Weapon(int id, int damage, int minBullets, double speed);
     Weapon();
-    int attack();
-    void addBullets(int moreBullets);
+    int attack(int bullets);
     int getSpeed();
     bool operator<(const Weapon& t) const;
     bool operator==(const Weapon& t) const;

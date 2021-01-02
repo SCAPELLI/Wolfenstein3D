@@ -9,6 +9,7 @@
 #include "../common/LifeDecrementEvent.h"
 #include "../common/PositionEvent.h"
 #include "../common/GameOverEvent.h"
+#include "../common/OpenDoorEvent.h"
 
 #define PI 3.141592
 
@@ -71,3 +72,13 @@ void GameStage::processEvent(GameOverEvent& event){
     Event anotherEvent(&dead, GameOverEventType);
     updateEvents.push(anotherEvent);
 }
+
+void GameStage::processEvent(OpenDoorEvent& event){
+    OpenDoorEvent toSend(event.idPlayer, false); //faltaria checkear si es especial o no
+    if (game.openTheDoor(event.idPlayer)) {
+        toSend.changeStatusDoor(true);
+    }
+    Event anotherEvent(&toSend, OpenDoorType);
+    updateEvents.push(anotherEvent);
+}
+

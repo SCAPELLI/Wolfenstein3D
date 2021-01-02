@@ -14,11 +14,13 @@
 GameLoader::GameLoader() {}
 
 void GameLoader::configPlayer(int& lifes, int& health, int& radius,
-                            double& angle, std::map<int, Weapon>& bag, int& idWeapon){
+                            double& angle, std::map<int, Weapon>& bag,
+                            int& idWeapon, int& bullets){
     YAML::Node config = YAML::LoadFile("config.yaml");
     lifes = config["Player"]["lifes"].as<int>();
     health = config["Player"]["health"].as<int>();
     radius = config["Player"]["radius"].as<int>();
+    bullets = config["Player"]["bullets"].as<int>();
     angle = config["Player"]["angle"].as<double>();
     int cont = 0;
     for (YAML::const_iterator it=config["Weapons"].begin();
@@ -28,7 +30,6 @@ void GameLoader::configPlayer(int& lifes, int& health, int& radius,
             YAML::Node data = config["Weapons"][it->first.as<std::string>()];
             bag.insert(std::make_pair(cont,
                     Weapon(cont,data["damage"].as<int>(),
-                    data["bullets"].as<int>(),
                     data["minBullets"].as<int>(),
                     data["speed"].as<double>())));
             idWeapon = cont;

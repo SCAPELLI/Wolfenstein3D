@@ -1,24 +1,23 @@
 #include "Weapon.h"
 #include <bits/stdc++.h>
 
-Weapon::Weapon(int id, int damage, int bullets, int minBullets, double speed)
+Weapon::Weapon(int id, int damage, int minBullets, double speed)
     : id(id),
     damage(damage),
-    bullets(bullets),
     minBullets(minBullets),
     speed(speed)
 {}
 
-int Weapon::attack(){
+int Weapon::attack(int bullets){
     if ((id == 1 || id == 2 || id == 3) && bullets < minBullets)
         return 0;
     return damage;
 }
 Weapon::Weapon() {}
 
-void Weapon::addBullets(int moreBullets){
-    bullets += moreBullets;
-}
+//void Weapon::addBullets(int moreBullets){
+//    bullets += moreBullets;
+//}
 int Weapon::getDamage()const{
     return damage;
 }

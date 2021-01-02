@@ -11,6 +11,7 @@ class GameOverEvent;
 class LifeDecrementEvent;
 class ShootingEvent;
 class TurnEvent;
+class OpenDoorEvent;
 
 class CGame{
 	CPlayer activePlayer;
@@ -29,6 +30,7 @@ class CGame{
         void processEvent(GameOverEvent& event);
 		void processEvent(LifeDecrementEvent& event);
 		void processEvent(PositionEvent& event);
+		void processEvent(OpenDoorEvent& event);
 		~CGame();
 };
 
