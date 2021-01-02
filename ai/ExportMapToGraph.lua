@@ -1,4 +1,4 @@
-dofile("Graph.lua")
+dofile("../Graph.lua")
 
 GROUND = 0
 WALL = 1
@@ -25,7 +25,7 @@ function searchForAdyacenteTiles(graph, map, row, column)
 end
 
 function exportMapAsGraph(map)
-	graph = Graph:new()
+	local graph = Graph:new()
 
 	for rowNumber,row in ipairs(map) do
 		for columnNumber,tile in ipairs(row) do
@@ -34,9 +34,7 @@ function exportMapAsGraph(map)
 				graph:addNode(Node:new(rowNumber, columnNumber))
 				searchForAdyacenteTiles(graph, map, rowNumber, columnNumber)
 			end
-			--io.write(string.format("%d,%d ", rowNumber, columnNumber))
 		end
-		--io.write("\n")
 	end
 	return graph
 end

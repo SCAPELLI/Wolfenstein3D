@@ -1,28 +1,23 @@
-dofile("IdealStepsCalculator.lua")
-dofile("TurnOrMoveAnalysis.lua")
+dofile("../IdealStepsCalculator.lua")
+dofile("../TurnOrMoveAnalysis.lua")
 
 TILE = 32
-
 ATTACK_DISTANCE = 64
 SIGHTING_DISTANCE = 1000
-
 NONE_PLAYER = "none player has been spotted"
 
-markedPlayerId = NONE_PLAYER
+MOVE_FOWARD = 1
+TURN_ANTICLOCKWISE = 2
+TURN_CLOCKWISE = 3
+ATTACK = 4
+DO_NOTHING = 5
 
--------------------------
---Variables inicializadas en preprocesamiento
--------------------------
-botId = "2"
-local map  =
-{
-	{0, 0, 0, 1},
-	{0, 1, 0, 1}, 
-	{0, 0, 0, 1},
-	{0, 1, 0, 1}
-}
-idealStepsForAllTiles = getIdealStepsForAllTiles(map)
--------------------------
+function initializeGameContext(map, id)
+	botId = id
+	markedPlayerId = NONE_PLAYER
+	idealStepsForAllTiles = getIdealStepsForAllTiles(map)
+	--print("bot id",  id)
+end
 
 function distace(botPosition, playerPosition)
 	local x0 = botPosition.x
@@ -49,7 +44,7 @@ function detectPlayersInASightingDistance(players, markedPlayerId)
 	return markedPlayerId
 end
 
-function getBotAction(players)
+function getBotActionId(players)
 
 	markedPlayerId = detectPlayersInASightingDistance(players, markedPlayerId)
 
@@ -69,8 +64,10 @@ function getBotAction(players)
 			idealX = xTile * TILE - TILE/2
 			idealY = yTile * TILE - TILE/2
 
-			print("bot do the action: ", turnOrMoveAnalyzer(players[botId], idealX, idealY))
+			local resultId = turnOrMoveAnalyzer(players[botId], idealX, idealY)
+			print("bot do the action: ", resultId)
 			print("bot next tile: ", xTile, yTile)
+			return resultId
 		else
 			
 			local action = turnOrMoveAnalyzer(
@@ -79,36 +76,14 @@ function getBotAction(players)
 				players[markedPlayerId].position.y)
 			if action == MOVE_FOWARD then
 	      		print ("bot attacks")
+	      		return ATTACK
 	    	else
-	      		print("bot turns to attack: ", action)
+	    		print ("bot turns to attack")
+	      		return action
 	    	end
 		end
 	else
 		print ("bot dont move")
+		return DO_NOTHING
 	end
 end
-
----------------------------
---posiciones de jugadores actualizadas, llegan por parametro
---[[
-local map  =
-{
-	{0, 0, 0, 1},
-	{0, 1, 0, 1}, 
-	{0, 0, 0, 1},
-	{0, 1, 0, 1}
-}
-]]
----------------------------
-local players = { 
-    ["1"] = {
-        ["position"] = { ["x"] = 32, ["y"] = 64 },
-        ["angle"] = PI/2
-    },
-    ["2"] = {
-        ["position"] = { ["x"] = 64 , ["y"] = 64 },
-        ["angle"] = PI
-    }
-}
-
-getBotAction(players)

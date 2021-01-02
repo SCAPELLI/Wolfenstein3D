@@ -1,4 +1,4 @@
-dofile("Node.lua")
+dofile("../Node.lua")
 
 Graph = {}
 
@@ -10,10 +10,8 @@ function Graph:new()
 	graph.nodes = {}
 	return graph
 end
-
---nodes: key = aNode(id), value = table of neighborsFromNode
-
--- nodes[node]: key = aNeighbor(id) value = 1 if exists, nil otherswise
+--nodes: key = aNodeId, value = table of neighborsIdsFromNode
+--  table of neighborsIdsFromNode: key = aNeighborId, value = 1 if exists, nil otherwise
 
 function Graph:addNode(node)
 	if self.nodes[node.id] == nil then
@@ -32,13 +30,4 @@ end
 
 function Graph:getNeighbors(nodeId)
 	return self.nodes[nodeId]
-end
-
-function Graph:print()
-	for k,v in pairs(self.nodes) do
-		print("Nodo: ", k)
-		for k1,v1 in pairs(self.nodes[k]) do
-			print("   Vecino de :", k1)
-		end
-	end
 end
