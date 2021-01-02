@@ -1,8 +1,8 @@
 PI = 3.14159265358979323846
 
-MOVE_FOWARD = "FOWARD"
-TURN_ANTICLOCKWISE =  "ANTICLOCKWISE"
-TURN_CLOCKWISE = "CLOCKWISE"
+MOVE_FOWARD = 1
+TURN_ANTICLOCKWISE = 2
+TURN_CLOCKWISE = 3
 
 function valueIsInRange(value, lowerBound, upperBound)
     return lowerBound <= value and value < upperBound
@@ -84,22 +84,3 @@ function turnOrMoveAnalyzer(bot, idealXPosition, idealYPosition)
     	return turnAnalyzer(botAngle, idealAngle)
 	end
 end
-
---ejemplo de uso
---[[
-players = { 
-    ["1"] = {
-        ["position"] = { ["x"] = 3, ["y"] = 4 },
-        ["angle"] = 0
-    },
-    ["bot"] = {
-
-        ["position"] = { ["x"] = 16 , ["y"] = 48 },
-        ["angle"] = 0
-    }
-}
-
-
-print(turnOrMoveAnalyzer(players["bot"], 14, 14))
-
-]]
