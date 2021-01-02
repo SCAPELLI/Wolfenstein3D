@@ -17,6 +17,7 @@ class LifeDecrementEvent;
 class GameOverEvent;
 class GameLoader;
 class ShootingEvent;
+class OpenDoorEvent;
 
 class GameStage {
     ProtectedEventsQueue& updateEvents;
@@ -28,6 +29,7 @@ public:
     void processEvent(LifeDecrementEvent& event);
     void processEvent(ShootingEvent& event);
     void processEvent(GameOverEvent& event);
+    void processEvent(OpenDoorEvent& event);
 };
 
 #endif

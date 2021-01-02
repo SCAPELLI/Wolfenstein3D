@@ -3,6 +3,7 @@
 #include "Vector.h"
 #include "GameLoader.h"
 #include <iostream>
+#define MAXBULLETS 50
 
 Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
@@ -10,7 +11,8 @@ Player::Player(int parsed_id, Vector position)
     initialPosition(position),
     gameOver(false),
     coins(0),
-    keys(0)
+    keys(0),
+    maxBullets(MAXBULLETS)
 {
     GameLoader yaml;
     yaml.configPlayer(lifes,
@@ -18,7 +20,9 @@ Player::Player(int parsed_id, Vector position)
                       radius,
                       angle,
                       bag,
-                      idWeapon);
+                      idWeapon,
+                      bullets);
+    prevIdWeapon = idWeapon;
 }
 
 void Player::rotate(double newAngle){
@@ -29,7 +33,7 @@ double Player::getAngle() const {
     return angle;
 }
 
-int Player::damageCurrentWeapon() {
+int Player::damageCurrentWeapon() { //borrar?
     return bag[idWeapon].getDamage();
 }
 
@@ -38,7 +42,6 @@ void Player::move(Vector& newPos){
 }
 
 bool Player::hits(Player& otherPlayer) {
-    std::cout << otherPlayer.position.x;
     int distance = position.distance(otherPlayer.position);
     int d = cos(angle) * distance;
     if (abs(distance - d) < radius + otherPlayer.radius){
@@ -47,17 +50,19 @@ bool Player::hits(Player& otherPlayer) {
     return false;
 }
 
-void Player::pickupWeapon(Weapon weapon){
+bool Player::pickupWeapon(Weapon weapon){
     for (auto const& arm : bag) {
         if (weapon == arm.second)
-            return;
+            return false;
     }
     bag.insert(std::make_pair(weapon.id, weapon));
+    return true;
 }
 
 void Player::changeWeaponTo(int idTochange){ //antes recibia weapon no se que es mejor o que se recibe del cliente
     for (auto const& arm : bag){
         if (arm.first == idTochange) {
+            prevIdWeapon = idWeapon;
             idWeapon = idTochange;
         }
     }
@@ -70,7 +75,8 @@ void Player::resetBagWeapons(){
             bag.erase(arm.first);
     }
     idWeapon = 1;
-    bag[1].bullets = 8;
+    prevIdWeapon = 1;
+    bullets = 8;
 }
 void Player::died(){
     lifes -=1;
@@ -111,35 +117,37 @@ bool Player::openDoor(){
     return false;
 }
 
-void Player::getItem(int idItem){
-    //if (health == 100) return;
+bool Player::getItem(int idItem){
+
     switch (idItem) { // es comida
         case 0:
-                health += 10;
+            if (health == 100) return false;
+            health += 10;
             break;
         case 1:     //kit medico
-                health += 20;
+            if (health == 100) return false;
+            health += 20;
             break;
         case 2: // sangre
-                health += 1;
+            if (health >= 10) return false;
+            health += 1;
             break;
         case 3:
-            bag[idWeapon].addBullets(5);
+            if (bullets + 5 > maxBullets) return false;
+            bullets += 5; // fijarme si tiene las balas máximas
             break;
         case 4:
-            pickupWeapon(Weapon(2, 5, 0, 5, 0.3));
-            break;
+            return pickupWeapon(Weapon(2, 5, 5, 0.3));
         case 5:
-            pickupWeapon(Weapon(3, 5, 0, 5, 0.3));
-            break;
+            return pickupWeapon(Weapon(3, 5, 5, 0.3));
         case 6:
-            pickupWeapon(Weapon(4, 5, 0, 5, 0.3));
-            break;
+            return pickupWeapon(Weapon(4, 5, 5, 0.3));
         case 7:
             coins += 10; // ver que tipo de tesoro es
             break;
         case 8:
             keys += 1;
     }
+    return true;
 }
 

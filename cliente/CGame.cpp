@@ -51,6 +51,7 @@ void CGame::spawnRenderable(){
 void CGame::processEvent(LifeDecrementEvent& event){}
 void CGame::processEvent(ShootingEvent& event){}
 void CGame::processEvent(GameOverEvent& event){}
+void CGame::processEvent(OpenDoorEvent& event){}
 void CGame::processEvent(TurnEvent& event) {
     this->activePlayer.rotate(event.getDegrees());
 }

@@ -12,13 +12,15 @@ class Player {
     bool gameOver;
     int coins;
     int keys;
+    int maxBullets;
     int lifes;
     int health;
     int radius;
     double angle;
     std::map<int, Weapon> bag;
     int idWeapon;
-    std::map<int, Weapon>items;
+    int bullets;
+    int prevIdWeapon;
 public:
     Player(int parsed_id, Vector position);
     void lifeDecrement(int damage);
@@ -30,11 +32,11 @@ public:
     int damageCurrentWeapon();
     Vector& getPosition();
     bool collideWith(Player& otherPlayer);
-    void pickupWeapon(Weapon weapon);
+    bool pickupWeapon(Weapon weapon);
     void resetBagWeapons();
     void died();
     bool isGameOver();
-    void getItem(int idItem);
+    bool getItem(int idItem);
     bool openDoor();
 };
 

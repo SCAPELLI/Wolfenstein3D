@@ -5,6 +5,8 @@
 #include <iostream>
 #include <random>
 #define DAMAGEBULLET 1
+#define NORMALDOOR 3
+#define DOOROPEN 4
 
 
 Game::Game(){
@@ -60,4 +62,12 @@ void Game::decrementLife(int idPlayer) {
         return;
 }
 
+bool Game::openTheDoor(int idPlayer){
+    Vector posNow = players[idPlayer].getPosition();
+    if (map[posNow.x][posNow.y] == NORMALDOOR){
+        map[posNow.x][posNow.y] = DOOROPEN;
+        return true;
+    }
+    return players[idPlayer].openDoor();
+}
 

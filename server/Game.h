@@ -18,6 +18,7 @@ public:
     int getDamage(int idPlyr);
     int shoot(int idPlayer);
     void decrementLife(int idPlyr);
+    bool openTheDoor(int idPlayer);
 
 };
 

@@ -50,7 +50,7 @@ set(SERVER_SOURCE_FILES
         cliente/Vector.cpp
         cliente/Sprite.cpp
 
-  )
+        common/OpenDoorEvent.cpp common/OpenDoorEvent.h)
 
 add_executable(Wolf server/main.cpp ${SERVER_SOURCE_FILES})
 
