@@ -1,8 +1,8 @@
 PI = 3.14159265358979323846
 
-MOVE_FOWARD = "FOWARD"
-TURN_ANTICLOCKWISE =  "ANTICLOCKWISE"
-TURN_CLOCKWISE = "CLOCKWISE"
+MOVE_FOWARD = 1
+TURN_ANTICLOCKWISE = 2
+TURN_CLOCKWISE = 3
 
 function valueIsInRange(value, lowerBound, upperBound)
     return lowerBound <= value and value < upperBound
