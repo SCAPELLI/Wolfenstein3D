@@ -9,7 +9,7 @@
 #include "ui_EditorScreen.h"
 
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
-    : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/texture0.png")) {
+    : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/texture0.png", "wall")) {
 
     this->ui->setupUi(this);
     this->screenManager = screenManager;
@@ -17,7 +17,7 @@ EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
     this->tilemap = new Tilemap(0, this);
     QVBoxLayout *tilemapLayout = findChild<QVBoxLayout*>("tilemapLayout");
     tilemapLayout->addWidget(this->tilemap);
-    
+
     QVBoxLayout *spriteTabLayout = findChild<QVBoxLayout*>("textureListLayout");
     this->spriteTabs = new SpriteTabs(0, this);
     spriteTabLayout->addWidget(this->spriteTabs);

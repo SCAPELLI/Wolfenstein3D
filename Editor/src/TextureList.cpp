@@ -18,12 +18,13 @@ TextureList::~TextureList() {
     }
 }
 
-void TextureList::addTexture(std::string texturePath) {
+void TextureList::addTexture(std::string texturePath, std::string textureType) {
     QString aux = QString::fromStdString(texturePath);
-    QListWidgetItem *tile = new QListWidgetItem(QIcon(aux), aux);
+    QString auxType = QString::fromStdString(textureType);
+    QListWidgetItem *tile = new QListWidgetItem(QIcon(aux), auxType);
     this->addItem(tile);
 
-    Texture texture(aux);
+    Texture texture(aux, auxType);
     this->textures.push_back(texture);
 }
 
@@ -38,6 +39,7 @@ void TextureList::mousePressEvent(QMouseEvent *event) {
 void TextureList::setSpriteList(std::map<int, std::string> spriteMap) {
     for (auto it = spriteMap.begin(); it != spriteMap.end(); it++) {
         std::string path = "../sprites/sprite" + std::to_string(it->first) + ".png";
-        this->addTexture(path);
+        std::string type = it->second;
+        this->addTexture(path, type);
     }
 }
