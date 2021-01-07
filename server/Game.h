@@ -13,7 +13,7 @@ public:
     Game(const Game& other) = delete;
     int generateRandom();
     void moveAngle(double angle, int idPlayer);
-    void changePosition(Vector changeTo);
+    void changePosition(Vector changeTo, int idPlayer);
     Vector calculateDirection(int idPlyr);
     int getDamage(int idPlyr);
     int shoot(int idPlayer);

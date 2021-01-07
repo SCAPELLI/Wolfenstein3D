@@ -44,10 +44,10 @@ void GameStage::processEvent(MovementEvent& event) {
     Vector movement = game.calculateDirection(event.idPlyr);
     switch (event.getDirection()) {
         case BACKWARD:
-            game.changePosition(movement * -1);
+            game.changePosition(movement * -1, event.idPlyr);
             break;
         case FOWARD:
-            game.changePosition(movement);
+            game.changePosition(movement, event.idPlyr);
             break;
         default:
             break;

@@ -9,6 +9,7 @@
 #include "GameLoader.h"
 #include <thread>
 #include "../cliente/CGame.h"
+#include "Map.h"
 
 int main() {
     try {
@@ -23,6 +24,7 @@ int main() {
         /*-----------------*/
         game.spawnRenderable();
         std::thread t (Server(userEvents, updateEvents, quit));
+        Map map = Map();
         while (!quit) {
             userEvents.insertEvents(eventsCatcher);
 

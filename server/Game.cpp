@@ -50,10 +50,10 @@ int Game::shoot(int idPlayer){
 
 
 
-void Game::changePosition(Vector changeTo){
-    Vector futurePos = (players[0].getPosition() + changeTo).scale();
+void Game::changePosition(Vector changeTo, int idPlayer){
+    Vector futurePos = (players[idPlayer].getPosition() + changeTo).scale();
     if (map[futurePos.x][futurePos.y] == 0){
-        players[0].move(changeTo);
+        players[idPlayer].move(changeTo);
     }
 }
 void Game::decrementLife(int idPlayer) {
