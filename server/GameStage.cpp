@@ -28,6 +28,7 @@ void GameStage::processEvent(ShootingEvent& event) {
     int idHit = game.shoot(event.idPlayer);
     if ( idHit != -1){
         if (game.players[idHit].isGameOver()){
+
             GameOverEvent dead(idHit);
             Event anotherEvent(&dead, GameOverEventType);
             updateEvents.push(anotherEvent);
@@ -44,15 +45,15 @@ void GameStage::processEvent(MovementEvent& event) {
     Vector movement = game.calculateDirection(event.idPlyr);
     switch (event.getDirection()) {
         case BACKWARD:
-            game.changePosition(movement * -1);
+            game.changePosition(movement * -1, event.idPlyr);
             break;
         case FOWARD:
-            game.changePosition(movement);
+            game.changePosition(movement, event.idPlyr);
             break;
         default:
             break;
     }
-    PositionEvent toSend(game.players[0].getPosition().x, game.players[0].getPosition().y);
+    PositionEvent toSend(game.players[event.idPlyr].getPosition().x, game.players[event.idPlyr].getPosition().y);
     Event anotherEvent(&toSend, PositionEventType);
     updateEvents.push(anotherEvent);
 }

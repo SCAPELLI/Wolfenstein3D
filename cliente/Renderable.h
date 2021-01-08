@@ -2,7 +2,7 @@
 #define WOLFENSTEIN3D_RENDERABLE_H
 
 #include <string>
-#include "Map.h"
+//#include "Map.h"
 #include "Vector.h"
 #include "SDL2/SDL.h"
 #include "Sprite.h"

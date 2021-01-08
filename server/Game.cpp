@@ -11,7 +11,8 @@
 
 Game::Game(){
     GameLoader yaml;
-    yaml.readData(map, players, speed);
+    yaml.readData(speed);
+    map = Map(players);
 }
 
  int Game::generateRandom(){
@@ -50,24 +51,32 @@ int Game::shoot(int idPlayer){
 
 
 
-void Game::changePosition(Vector changeTo){
-    Vector futurePos = (players[0].getPosition() + changeTo).scale();
-    if (map[futurePos.x][futurePos.y] == 0){
-        players[0].move(changeTo);
+void Game::changePosition(Vector changeTo, int idPlayer){
+    idPlayer = 0;
+    Vector futurePos = (players[idPlayer].getPosition() + changeTo).scale();
+    if (map.isOkToMove(futurePos)){
+        Vector oldPosScaled = Vector((players[idPlayer].getPosition()).scale());
+        map.changePosition(futurePos, oldPosScaled);
+        players[idPlayer].move(changeTo);
     }
 }
 void Game::decrementLife(int idPlayer) {
     players[idPlayer].lifeDecrement(players[idPlayer].damageCurrentWeapon());
-    if (players[idPlayer].isGameOver())
+    if (players[idPlayer].isDead()) {
+        Vector posScaled = Vector((players[idPlayer].getPosition()).scale());
+        map.removePlayer(posScaled);
+        players[idPlayer].died();
+        map.addPlayer(&(players[idPlayer]));
         return;
+    }
 }
 
-bool Game::openTheDoor(int idPlayer){
-    Vector posNow = players[idPlayer].getPosition();
-    if (map[posNow.x][posNow.y] == NORMALDOOR){
-        map[posNow.x][posNow.y] = DOOROPEN;
-        return true;
-    }
+bool Game::openTheDoor(int idPlayer){  // queda obsoleto esto
+//    Vector posNow = players[idPlayer].getPosition();
+//    if (map[posNow.x][posNow.y] == NORMALDOOR){
+//        map[posNow.x][posNow.y] = DOOROPEN;
+//        return true;
+//    }
     return players[idPlayer].openDoor();
 }
 

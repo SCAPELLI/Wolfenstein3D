@@ -4,14 +4,17 @@
 #include "GameLoader.h"
 #include <iostream>
 #define MAXBULLETS 50
+#define BULLET_ID 100
+#define KEY_ID 101
+#define COIN_ID 102
 
 Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
     position(position),
     initialPosition(position),
-    gameOver(false),
-    coins(0),
-    keys(0),
+    dead(false),
+    coins(Item(COIN_ID,0)),
+    keys(Item(KEY_ID,0)),
     maxBullets(MAXBULLETS)
 {
     GameLoader yaml;
@@ -68,7 +71,9 @@ void Player::changeWeaponTo(int idTochange){ //antes recibia weapon no se que es
     }
     // error que no se encontro??
 }
-
+bool Player::hasKey(){
+    return keys.getEffect() > 0;
+}
 void Player::resetBagWeapons(){
     for (auto const& arm : bag) {
         if (arm.first != 0 && arm.first != 1)
@@ -76,24 +81,36 @@ void Player::resetBagWeapons(){
     }
     idWeapon = 1;
     prevIdWeapon = 1;
-    bullets = 8;
+    bullets = Item(BULLET_ID, 8);
+}
+Item Player::getWeapon(){
+    return bag[idWeapon];
+}
+bool Player::isDead(){
+    return dead;
 }
 void Player::died(){
     lifes -=1;
     health = 100;
-    if (lifes <= 0){
-        gameOver = true; // ver si es mejor marcarlo de otra forma--> tener un alive o no que lo marque?
-    }
+//    if (lifes <= 0){
+//        dead = true; // ver si es mejor marcarlo de otra forma--> tener un alive o no que lo marque?
+//    }
     position = initialPosition; //faltaria droppear los items
     angle = 0;
+    dead = false;
+    coins = Item(COIN_ID, 0);
+    keys = Item(KEY_ID, 0);
     resetBagWeapons();
 }
 
+Item Player::getBullets(){
+    return bullets;
+}
 
 void Player::lifeDecrement(int damage){
     health -= damage;
-    if (health < 0)
-       died();
+    if (health <= 0)
+       dead = true;
 }
 
 bool Player::collideWith(Player& other_player) {
@@ -106,12 +123,12 @@ Vector& Player::getPosition(){
     return position;
 }
 bool Player::isGameOver(){
-    return gameOver;
+    return dead && lifes <= 0;
 }
 
 bool Player::openDoor(){
-    if (keys > 0) {
-        keys -= 1;
+    if (keys.getEffect() > 0) {
+        keys.changeValue(-1);
         return true;
     }
     return false;
@@ -119,8 +136,8 @@ bool Player::openDoor(){
 
 bool Player::getItem(int idItem){
 
-    switch (idItem) { // es comida
-        case 0:
+    switch (idItem) {
+        case 0:  // es comida
             if (health == 100) return false;
             health += 10;
             break;
@@ -133,8 +150,8 @@ bool Player::getItem(int idItem){
             health += 1;
             break;
         case 3:
-            if (bullets + 5 > maxBullets) return false;
-            bullets += 5; // fijarme si tiene las balas máximas
+            if (bullets.getEffect() + 5 > maxBullets) return false;
+            bullets.changeValue(5); // fijarme si tiene las balas máximas
             break;
         case 4:
             return pickupWeapon(Weapon(2, 5, 5, 0.3));
@@ -143,11 +160,13 @@ bool Player::getItem(int idItem){
         case 6:
             return pickupWeapon(Weapon(4, 5, 5, 0.3));
         case 7:
-            coins += 10; // ver que tipo de tesoro es
+            coins.changeValue(10); // ver que tipo de tesoro es
             break;
         case 8:
-            keys += 1;
+            keys.changeValue(1);
+            break;
+        default:
+            return false;
     }
     return true;
 }
-
