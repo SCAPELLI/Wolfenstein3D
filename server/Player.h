@@ -3,15 +3,17 @@
 #include "Vector.h"
 #include "Weapon.h"
 #include <map>
-#include "Gun.h"
+#include "../common/Item.h"
+#include <vector>
+
 
 class Player {
     int id;
     Vector position;
     Vector initialPosition;
-    bool gameOver;
-    int coins;
-    int keys;
+    bool dead;
+    Item coins;
+    Item keys;
     int maxBullets;
     int lifes;
     int health;
@@ -19,7 +21,7 @@ class Player {
     double angle;
     std::map<int, Weapon> bag;
     int idWeapon;
-    int bullets;
+    Item bullets;
     int prevIdWeapon;
 public:
     Player(int parsed_id, Vector position);
@@ -34,10 +36,14 @@ public:
     bool collideWith(Player& otherPlayer);
     bool pickupWeapon(Weapon weapon);
     void resetBagWeapons();
+    Item getBullets();
     void died();
+    bool isDead();
     bool isGameOver();
     bool getItem(int idItem);
     bool openDoor();
+    Item getWeapon();
+    bool hasKey();
 };
 
 #endif //WOLFENSTEIN3D_PLAYER_H

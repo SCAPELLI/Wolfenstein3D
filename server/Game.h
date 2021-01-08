@@ -2,12 +2,13 @@
 #define WOLFENSTEIN3D_GAME_H
 #include <vector>
 #include "Player.h"
+#include "Map.h"
 
 class Game {
     public:
-    std::vector<std::vector<int>> map;
-    std::vector<Player> players;
     int speed;
+    Map map;
+    std::vector<Player> players;
 public:
     Game();
     Game(const Game& other) = delete;

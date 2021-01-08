@@ -28,6 +28,7 @@ void GameStage::processEvent(ShootingEvent& event) {
     int idHit = game.shoot(event.idPlayer);
     if ( idHit != -1){
         if (game.players[idHit].isGameOver()){
+
             GameOverEvent dead(idHit);
             Event anotherEvent(&dead, GameOverEventType);
             updateEvents.push(anotherEvent);
@@ -52,7 +53,7 @@ void GameStage::processEvent(MovementEvent& event) {
         default:
             break;
     }
-    PositionEvent toSend(game.players[0].getPosition().x, game.players[0].getPosition().y);
+    PositionEvent toSend(game.players[event.idPlyr].getPosition().x, game.players[event.idPlyr].getPosition().y);
     Event anotherEvent(&toSend, PositionEventType);
     updateEvents.push(anotherEvent);
 }

@@ -9,12 +9,10 @@
 #define PLAYER_ID 1
 #define TILE 32
 
+Map::Map(){}
 
-Map::Map()
- // crear vector de vectores
-{
+Map::Map(std::vector<Player>& players){
     std::vector<std::vector<CellMap>> map;
-    std::vector<Player> players;
     YAML::Node config = YAML::LoadFile("map.yaml");
     YAML::Node matrixConfig = config["map"];
     int numOfPlayer = 0;
@@ -22,19 +20,16 @@ Map::Map()
         std::vector<CellMap> row;
         for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {
             int elem = matrixConfig[i][j].as<int>();
+            CellMap position = CellMap();
             if (elem == PLAYER_ID) {
                 Player newPlayer = Player(numOfPlayer, Vector(i * TILE, j * TILE));
-                players.emplace_back(Player(numOfPlayer,   // players lo conviene tener map o game??
-                                            Vector(i * TILE, j * TILE)));
+                players.emplace_back(newPlayer);
                 numOfPlayer++;
-                CellMap position = CellMap();
                 position.addPlayer(&newPlayer);
-                row.push_back(position);
             } else if (elem) {
-                CellMap position = CellMap();
                 position.setSolid();
-                row.push_back(position);
             }
+            row.push_back(position);
         }
         map.push_back(row);
     }
@@ -45,13 +40,28 @@ Map::Map()
 std::vector<std::vector<CellMap>>& Map::getMatrix() {
     return matrix;
 }
+void Map::removePlayer(Vector& positionPlayer){
+    matrix[positionPlayer.x][positionPlayer.y].removePlayer();
+}
+void Map::addPlayer(Player* player){
+    Vector posScaled = Vector((player->getPosition()).scale());
 
-bool Map::isOkToMove(Vector& newPos){
-    return !matrix[newPos.x][newPos.y].isSolid() && !matrix[newPos.x][newPos.y].hasPlayer();
+    matrix[posScaled.x][posScaled.y].addPlayer(player);
+}
+bool Map::isOkToMove(Vector& position){
+    return !matrix[position.x][position.y].isSolid() &&
+        !matrix[position.x][position.y].hasPlayer();
 }
 
+void Map::dropAllItems(Vector& position){
+    matrix[position.x][position.y].dropItems();
+}
 
- void Map::changePosition(Vector newPos, Vector oldPos){
+void Map::dropItemPlayer(Vector& position, Item itemPlayer){
+    matrix[position.x][position.y].dropItemPlayer(itemPlayer);
+}
+
+ void Map::changePosition(Vector& newPos, Vector& oldPos){
     matrix[oldPos.x][oldPos.y].transferPlayer(matrix[newPos.x][newPos.y]);
-    //checkear afuera por items y vaciarlos en ese caso!!!!!
+    matrix[newPos.x][newPos.y].getItemsTile();
 }

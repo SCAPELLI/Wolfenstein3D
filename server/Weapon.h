@@ -3,10 +3,12 @@
 #define WOLFENSTEIN3D_WEAPON_H
 
 
-class Weapon{
+#include "../common/Item.h"
+
+class Weapon : public Item{
 public:
     int id;
-    int damage;
+    int effect;
     int minBullets;
     double speed;
 

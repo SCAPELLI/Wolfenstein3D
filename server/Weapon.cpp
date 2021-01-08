@@ -3,7 +3,7 @@
 
 Weapon::Weapon(int id, int damage, int minBullets, double speed)
     : id(id),
-    damage(damage),
+    effect(damage),
     minBullets(minBullets),
     speed(speed)
 {}
@@ -11,7 +11,7 @@ Weapon::Weapon(int id, int damage, int minBullets, double speed)
 int Weapon::attack(int bullets){
     if ((id == 1 || id == 2 || id == 3) && bullets < minBullets)
         return 0;
-    return damage;
+    return effect;
 }
 Weapon::Weapon() {}
 
@@ -19,7 +19,7 @@ Weapon::Weapon() {}
 //    bullets += moreBullets;
 //}
 int Weapon::getDamage()const{
-    return damage;
+    return effect;
 }
 int Weapon::getSpeed(){
     return speed;
