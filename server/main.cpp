@@ -20,7 +20,7 @@ int main() {
         ProtectedEventsQueue updateEvents;
         std::atomic<bool> quit(false);
         /*-----------------*/
-        CGame game(64, 64,0.66);
+        CGame game(32, 96,0.66);
         /*-----------------*/
         game.spawnRenderable();
         std::thread t (Server(userEvents, updateEvents, quit));
