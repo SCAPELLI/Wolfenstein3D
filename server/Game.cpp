@@ -23,8 +23,8 @@ Game::Game(){
  }
 
 Vector Game::calculateDirection(int idPlayer){
-    return Vector(cos(players[idPlayer].getAngle()),
-                  sin(players[idPlayer].getAngle())) * speed;
+    return Vector(-sin(players[idPlayer].getAngle()),
+                  cos(players[idPlayer].getAngle())) * speed;
 }
 
 void Game::moveAngle(double angle, int idPlayer){

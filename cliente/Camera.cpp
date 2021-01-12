@@ -9,6 +9,8 @@ Camera::Camera(double x, double y, double fov):
 
 void Camera::moveTo(double x, double y){
 	this->cameraPosition = Vector(x,y);
+	std::cout << "CLIENT\n";
+	std::cout << this->cameraPosition.x << "," << this->cameraPosition.y << "\n";
 }
 
 void Camera::rotate(double degrees){
@@ -20,7 +22,7 @@ void Camera::draw(SDL_Renderer* renderer, std::vector<std::vector<int>>& map){
 	int w, h;
 	if (SDL_GetRendererOutputSize(renderer, &w, &h)) return;
    	for (int x = 0; x < w; x++){
-		double cameraX = 2 * x / (double) w - 1;
+		double cameraX = (2 * x / (double) w) - 1;
 		Ray ray(this, cameraX, x);
 		ray.draw(renderer, h, map);
 	}
