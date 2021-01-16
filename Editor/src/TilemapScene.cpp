@@ -57,7 +57,6 @@ void TilemapScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
     Coordinate coordinate(event->scenePos().x(), event->scenePos().y());
     QGraphicsItem *item = this->itemAt(event->scenePos(), QTransform());
-    std::cout << "Coordenads en el mapa: (" << event->scenePos().x() << ", " << event->scenePos().y() << ")\n";
 
     this->mode->executeClickResponse(coordinate, item);
 }
