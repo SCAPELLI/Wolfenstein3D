@@ -24,6 +24,7 @@ class TilemapScene : public QGraphicsScene {
         void erase(Coordinate coordinate, QGraphicsItem *item);
         void changeToDrawMode();
         void changeToEraseMode();
+        std::map<Coordinate, Tile*> getTiles();
 
     protected:
         void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
