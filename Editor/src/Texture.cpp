@@ -1,10 +1,9 @@
 #include "Texture.h"
 #include <QtWidgets/QGraphicsPixmapItem>
 
-Texture::Texture(const QString &texturePath, const QString &textureType, int id) {
+Texture::Texture(const QString &texturePath, const QString &textureType) {
     this->texturePath = texturePath;
     this->type = textureType;
-    this->id = id;
 }
 
 Texture::~Texture() {}

@@ -22,6 +22,6 @@ class Tilemap : public QGraphicsView {
         void setMapSize(size_t rows, size_t columns);
         void changeToDrawMode();
         void changeToEraseMode();
-        std::map<Coordinate, Tile*> getTiles();
+};
 
 #endif //EDITOR_TILEMAP_H

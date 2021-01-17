@@ -9,7 +9,7 @@
 #include "ui_EditorScreen.h"
 
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
-    : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/texture0.png", "wall", 100)) {
+    : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/texture0.png", "wall")) {
 
     this->ui->setupUi(this);
     this->screenManager = screenManager;
@@ -31,8 +31,6 @@ EditorScreen::~EditorScreen() {
 }
 
 void EditorScreen::setMapSize(size_t rows, size_t columns) {
-    this->rows = rows;
-    this->columns = columns;
     this->tilemap->setMapSize(rows, columns);
 }
 
@@ -86,8 +84,4 @@ void EditorScreen::changeToDrawMode() {
 
 void EditorScreen::changeToEraseMode() {
     this->tilemap->changeToEraseMode();
-}
-
-void EditorScreen::createMapYaml() {
-    std::map<Coordinate, Tile*> tiles = this->tilemap->getTiles();
 }

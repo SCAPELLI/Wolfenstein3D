@@ -112,7 +112,3 @@ void TilemapScene::erase(Coordinate coordinate, QGraphicsItem *item) {
     }
     std::cout << "\n";
 }
-
-std::map<Coordinate, Tile*> TilemapScene::getTiles() {
-    return this->tiles;
-}
