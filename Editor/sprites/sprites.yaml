@@ -1,0 +1,105 @@
+items:
+    0: food
+    1: ammo
+    2: machine gun
+    3: treasure
+    5: golden key
+    6: food
+    7: chain gun
+    8: treasure
+    9: rocket launcher
+    10: silver key
+    11: med kit
+    12: treasure
+    13: one up
+    14: ammo
+    16: ammo
+    17: treasure
+    18: weapon
+    19: blood
+textures:
+    100: wall
+    101: wall
+    102: wall
+    103: wall
+    104: wall
+    105: wall
+    106: wall
+    107: wall
+    108: wall
+    109: wall
+    110: wall
+    111: wall
+    112: wall
+    113: wall
+    114: wall
+    115: wall
+    116: wall
+    117: wall
+    118: wall
+    119: wall
+    120: wall
+    121: wall
+    122: wall
+    123: wall
+    124: wall
+    125: wall
+    126: wall
+    127: wall
+    128: wall
+    129: wall
+    130: wall
+    131: wall
+    132: wall
+    134: wall
+    135: wall
+    136: wall
+    137: wall
+    138: wall
+    139: wall
+    140: wall
+    141: wall
+    142: wall
+    143: wall
+    144: wall
+    145: wall
+    146: wall
+    147: wall
+    148: wall
+    149: wall
+    150: wall
+    151: wall
+    152: wall
+    153: wall
+    154: wall
+    155: wall
+    156: wall
+    157: wall
+    158: door
+    159: locked door
+    160: locked door
+    161: locked door
+    162: wall
+decorations:
+    200: object
+    201: object
+    202: object
+    203: object
+    204: object
+    205: object
+    206: object
+    207: object
+    208: object
+    209: object
+    210: object
+    211: object
+    212: object
+    213: object
+    214: object
+    215: object
+    216: object
+    217: object
+    218: object
+    219: object
+    220: object
+    221: object
