@@ -2,15 +2,13 @@
 #include <algorithm>
 #include <iostream>
 
-GameScreen::GameScreen(Camera* camera, int h, int w):
+GameScreen::GameScreen(Camera* camera, int h, int w): // agregar UI
 	camera(camera){
         if (SDL_Init(SDL_INIT_VIDEO) == 0) {
             this->window = NULL;
             this->renderer = NULL;
             SDL_CreateWindowAndRenderer(h, w, 0, &this->window, &this->renderer);
-
         }
-
 }
 
 void GameScreen::draw(std::vector<std::vector<int>>& map,
