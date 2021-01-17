@@ -4,6 +4,7 @@
 
 Tile::Tile(QWidget *parent, Coordinate coordinate, Texture texture)
     : coordinate(coordinate), texture(texture){
+    this->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
     QString texturePath = texture.getTexturePath();
     QPixmap aux(texturePath);
     QPixmap auxScaled = aux.scaled(BITS, BITS);
