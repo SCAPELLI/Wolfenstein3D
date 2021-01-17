@@ -57,6 +57,7 @@ void TilemapScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
     Coordinate coordinate(event->scenePos().x(), event->scenePos().y());
     QGraphicsItem *item = this->itemAt(event->scenePos(), QTransform());
+    std::cout << "Coordenads en el mapa: (" << event->scenePos().x() << ", " << event->scenePos().y() << ")\n";
 
     this->mode->executeClickResponse(coordinate, item);
 }
@@ -110,8 +111,4 @@ void TilemapScene::erase(Coordinate coordinate, QGraphicsItem *item) {
         std::cout << "Coordenadas en el map: (" << coor.get_x() << ", " << coor.get_y() << ")\n";
     }
     std::cout << "\n";
-}
-
-std::map<Coordinate, Tile*> TilemapScene::getTiles() {
-    return this->tiles;
 }

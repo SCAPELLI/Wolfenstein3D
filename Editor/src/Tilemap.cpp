@@ -27,7 +27,3 @@ void Tilemap::changeToDrawMode() {
 void Tilemap::changeToEraseMode() {
     this->scene->changeToEraseMode();
 }
-
-std::map<Coordinate, Tile*> Tilemap::getTiles() {
-    return this->scene->getTiles();
-}
