@@ -19,7 +19,8 @@ Ray::Ray(Camera* camera, double cameraX, int x):
 	direction(camera->getFacingPosition() + camera->getPlanePosition() * cameraX),
 	deltaDistX(std::abs(1 / direction.x)),
 	deltaDistY(std::abs(1 / direction.y)),
-	collisionSide(0)
+	collisionSide(0),
+	textureID(-1)
 	{
 		this->initialize(startPoint);
 }
@@ -61,24 +62,31 @@ double Ray::distanceToWall(std::vector<std::vector<int>>& map){
 			collisionSide = 1;
 		}
 		if (map[mapX][mapY] != 0){ // Guardar puntero a mapa
-			break;
+			textureID = map[mapX][mapY];
+		    break;
 		}
 	}
-	return collisionSide == 0 ? (mapX - posX + (1 - stepX) / 2) * deltaDistX:
-	 		(mapY - posY + (1 - stepY) / 2) * deltaDistY;
+	return collisionSide == 0 ? (mapX - posX + (1 - stepX) / 2) / direction.x:
+	 		(mapY - posY + (1 - stepY) / 2) / direction.y;
 }
 
-void Ray::draw(SDL_Renderer* renderer, int h, std::vector<std::vector<int>>& map){
+void Ray::draw(SDL_Renderer* renderer, int h,
+               std::vector<std::vector<int>>& map,
+               std::map<int, Wall*>* wallTextures){
     double distance = this->distanceToWall(map);
 	int lineHeight = (int) h / distance;
 	int drawStart = std::max((h - lineHeight) / 2, 0);
 	int drawEnd = std::min((h + lineHeight) / 2, h - 1);
-	if (collisionSide){
-		SDL_SetRenderDrawColor(renderer, 0, 0, 255, SDL_ALPHA_OPAQUE);
-	} else {
-		SDL_SetRenderDrawColor(renderer, 0, 0, 255 / 2, SDL_ALPHA_OPAQUE);
-	}
-	SDL_RenderDrawLine(renderer, xPixel, drawStart, xPixel, drawEnd);
+
+    double xWall;
+    collisionSide == 0 ? xWall = startPoint.x / 32 + distance * direction.y:
+            xWall = startPoint.y / 32 + distance * direction.x;
+    xWall -= floor((xWall));
+
+    xWall *= 32;
+    //if(collisionSide == 0 && direction.x > 0) xWall = 32 - xWall - 1;
+    //if(collisionSide == 1 && direction.y < 0) xWall = 32 - xWall - 1;
+    (*wallTextures)[textureID]->drawLine(renderer, xPixel, xWall, std::min(drawStart, drawEnd), drawEnd - drawStart);
 }
 
 Ray::~Ray(){}

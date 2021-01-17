@@ -4,6 +4,7 @@
 #include "GameScreen.h"
 #include "CPlayer.h"
 #include "Renderable.h"
+#include "Wall.h"
 #include <map>
 
 class PositionEvent;
@@ -19,6 +20,7 @@ class CGame{
 	std::vector<std::vector<int>> map;
 	std::map<int, Renderable*> renderables;
 	std::map<int, CPlayer> players;
+	std::map<int, Wall> wallSprites;
 
 	public:
 		CGame(double x, double y, double fov);

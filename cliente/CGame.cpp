@@ -9,11 +9,11 @@ CGame::CGame(double x, double y, double fov):
 	activePlayer(x, y, fov, 0),
 	screen(activePlayer.getCamera(), 640, 480),
 	map({
-  {4,4,4,4,4},
-  {4,0,0,0,4},
-  {4,0,0,0,4},
-  {4,0,0,0,4},
-  {4,4,4,4,4}
+  {114,115,116,117,114},
+  {114,0,0,0,118},
+  {114,0,0,0,119},
+  {114,0,0,0,120},
+  {114,114,114,114,114}
 }), renderables(), players(){}
 
 void CGame::draw(){
