@@ -25,6 +25,7 @@ class EditorScreen : public QMainWindow {
         Tilemap *tilemap;
         std::ofstream mapFile;
         Texture currentTexture;
+
         SpriteTabs *spriteTabs;
         size_t rows;
         size_t columns;
