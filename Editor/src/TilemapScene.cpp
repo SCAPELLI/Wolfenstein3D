@@ -12,7 +12,6 @@ TilemapScene::TilemapScene(EditorScreen *editorScreen)
     this->columns = 0;
     DrawMode *drawMode = new DrawMode(this);
     this->mode = drawMode;
-
 }
 
 TilemapScene::~TilemapScene() {
@@ -27,6 +26,7 @@ TilemapScene::~TilemapScene() {
 void TilemapScene::setMapSize(size_t rows, size_t columns) {
     this->rows = rows;
     this->columns = columns;
+    this->vector = std::vector<std::vector<int>>(rows, std::vector<int> (columns,0));
     this->setGrid();
 }
 
@@ -49,16 +49,13 @@ void TilemapScene::setGrid() {
 }
 
 void TilemapScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    if (event->scenePos().x() < 0 || event->scenePos().y() < 0 ||
-    event->scenePos().x() >= this->rows * BITS || event->scenePos().y() >= this->columns * BITS) {
+    if (!isAValidPosition(event)) {
         event->ignore();
         return;
     }
 
     Coordinate coordinate(event->scenePos().x(), event->scenePos().y());
     QGraphicsItem *item = this->itemAt(event->scenePos(), QTransform());
-    std::cout << "Coordenads en el mapa: (" << event->scenePos().x() << ", " << event->scenePos().y() << ")\n";
-
     this->mode->executeClickResponse(coordinate, item);
 }
 
@@ -75,40 +72,45 @@ void TilemapScene::changeToEraseMode() {
 }
 
 void TilemapScene::draw(Coordinate coordinate, QGraphicsItem *item) {
+    int x = coordinate.get_x();
+    int y = coordinate.get_y();
     QGraphicsLineItem *line = qgraphicsitem_cast<QGraphicsLineItem*>(item);
     if (item && !line) {
         this->removeItem(item);
         delete item;
-        this->tiles.erase(coordinate);
     }
+    this->vector[y][x] = this->editorScreen->getCurrentTexture().getId();
+    for (int i = 0; i != this->vector.size(); i++) {
+        std::cout << "[ ";
+        for (int j = 0; j != this->vector[i].size(); j++) {
+            std::cout << vector[i][j] << ", ";
+        }
+        std::cout << "]\n";
+    }
+
     Tile *tile = new Tile(0, coordinate, this->editorScreen->getCurrentTexture());
-    this->tiles[coordinate] = tile;
     this->addItem(tile);
     QList<QGraphicsItem*> list = this->items();
-    std::cout << "DRAW cantidad en el map: " << this->tiles.size() << "\n";
     std::cout << "DRAW cantidad en el scene: " << list.size() << "\n";
-    std::cout << "Coordenadas iniciales: (" << coordinate.get_x() << ", " << coordinate.get_y() << ")\n";
-    for (auto i = this->tiles.begin(); i != this->tiles.end(); i++) {
-        Coordinate coor = i->first;
-        std::cout << "Coordenadas en el map: (" << coor.get_x() << ", " << coor.get_y() << ")\n";
-    }
-    std::cout << "\n";
 }
 
 void TilemapScene::erase(Coordinate coordinate, QGraphicsItem *item) {
+    int x = coordinate.get_x();
+    int y = coordinate.get_y();
     QGraphicsLineItem *line = qgraphicsitem_cast<QGraphicsLineItem*>(item);
     if (item && !line) {
+        this->vector[y][x] = 0;
         this->removeItem(item);
         delete item;
-        this->tiles.erase(coordinate);
     }
     QList<QGraphicsItem*> list = this->items();
-    std::cout << "ERASE cantidad en el map: " << this->tiles.size() << "\n";
-    std::cout << "ERASE cantidad en el scene: " << list.size() << "\n";
-    std::cout << "Coordenadas iniciales: (" << coordinate.get_x() << ", " << coordinate.get_y() << ")\n";
-    for (auto i = this->tiles.begin(); i != this->tiles.end(); i++) {
-        Coordinate coor = i->first;
-        std::cout << "Coordenadas en el map: (" << coor.get_x() << ", " << coor.get_y() << ")\n";
+    std::cout << "Erase cantidad en el scene: " << list.size() << "\n";
+}
+
+bool TilemapScene::isAValidPosition(QGraphicsSceneMouseEvent *event) {
+    if (event->scenePos().x() < 0 || event->scenePos().y() < 0 ||
+        event->scenePos().x() >= this->rows * BITS || event->scenePos().y() >= this->columns * BITS) {
+        return false;
     }
-    std::cout << "\n";
+    return true;
 }

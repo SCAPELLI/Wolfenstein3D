@@ -9,7 +9,7 @@
 #include "ui_EditorScreen.h"
 
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
-    : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/texture0.png", "wall")) {
+    : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/texture0.png", "wall", 100)) {
 
     this->ui->setupUi(this);
     this->screenManager = screenManager;
