@@ -4,8 +4,7 @@
 #include <QDir>
 #include <QtWidgets/QVBoxLayout>
 #include "../include/EditorScreen.h"
-#include "../include/TextureList.h"
-#include "../include/Tilemap.h"
+#include "../include/TilemapScene.h"
 #include "ui_EditorScreen.h"
 
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
@@ -14,9 +13,12 @@ EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
     this->ui->setupUi(this);
     this->screenManager = screenManager;
 
-    this->tilemap = new Tilemap(0, this);
+    QGraphicsView* tilemap = findChild<QGraphicsView*>("tilemap");
+    this->tilemapScene = new TilemapScene(this);
+    tilemap->setScene(this->tilemapScene);
+    tilemap->show();
     QVBoxLayout *tilemapLayout = findChild<QVBoxLayout*>("tilemapLayout");
-    tilemapLayout->addWidget(this->tilemap);
+    tilemapLayout->addWidget(tilemap);
 
     QVBoxLayout *spriteTabLayout = findChild<QVBoxLayout*>("textureListLayout");
     this->spriteTabs = new SpriteTabs(0, this);
@@ -27,11 +29,12 @@ EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
 
 EditorScreen::~EditorScreen() {
     delete this->ui;
-    delete this->tilemap;
+    delete this->tilemapScene;
+    delete this->spriteTabs;
 }
 
 void EditorScreen::setMapSize(size_t rows, size_t columns) {
-    this->tilemap->setMapSize(rows, columns);
+    this->tilemapScene->setMapSize(rows, columns);
 }
 
 void EditorScreen::connectEvents() {
@@ -79,9 +82,9 @@ Texture EditorScreen::getCurrentTexture() {
 }
 
 void EditorScreen::changeToDrawMode() {
-    this->tilemap->changeToDrawMode();
+    this->tilemapScene->changeToDrawMode();
 }
 
 void EditorScreen::changeToEraseMode() {
-    this->tilemap->changeToEraseMode();
+    this->tilemapScene->changeToEraseMode();
 }

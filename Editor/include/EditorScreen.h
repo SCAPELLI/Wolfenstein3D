@@ -7,9 +7,10 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <fstream>
+#include <QtWidgets/QGraphicsView>
 
 class TextureList;
-class Tilemap;
+class TilemapScene;
 
 namespace Ui {
     class EditorScreen;
@@ -21,11 +22,9 @@ class EditorScreen : public QMainWindow {
     private:
         Ui::EditorScreen *ui;
         ScreenManager *screenManager;
-        TextureList *textureList;
-        Tilemap *tilemap;
+        TilemapScene *tilemapScene;
         std::ofstream mapFile;
         Texture currentTexture;
-
         SpriteTabs *spriteTabs;
 
     public:
