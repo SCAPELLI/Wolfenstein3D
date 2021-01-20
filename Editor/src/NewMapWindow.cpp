@@ -42,7 +42,7 @@ void NewMapWindow::createMap() {
     int widthNumber;
 
     if (validateInput(lenght->text(), &lenghtNumber) && validateInput(width->text(), &widthNumber)) {
-        this->screenManager->setMapSize(widthNumber, lenghtNumber);
+        //this->screenManager->setMapSize(widthNumber, lenghtNumber);
         this->nextScreen();
         return;
     }

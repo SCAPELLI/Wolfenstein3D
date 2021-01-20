@@ -22,7 +22,7 @@ class MenuWindow : public QMainWindow {
         ~MenuWindow();
 
     private:
-        void openCreateMapWindow();
+        void nextScreen();
         void connectEvents();
 
 };
