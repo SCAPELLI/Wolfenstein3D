@@ -3,6 +3,7 @@
 #include <QtWidgets/QFileDialog>
 #include <QDir>
 #include <QtWidgets/QVBoxLayout>
+#include <NewMapDialog.h>
 #include "../include/EditorScreen.h"
 #include "../include/TilemapScene.h"
 #include "ui_EditorScreen.h"
@@ -33,11 +34,10 @@ EditorScreen::~EditorScreen() {
     delete this->spriteTabs;
 }
 
-void EditorScreen::setMapSize(size_t rows, size_t columns) {
-    this->tilemapScene->setMapSize(rows, columns);
-}
-
 void EditorScreen::connectEvents() {
+    QPushButton* newButton = findChild<QPushButton*>("newButton");
+    QObject::connect(newButton, &QPushButton::clicked, this, &EditorScreen::newMap);
+
     QPushButton* button = findChild<QPushButton*>("saveButton");
     QObject::connect(button, &QPushButton::clicked, this, &EditorScreen::saveMap);
 
@@ -46,6 +46,23 @@ void EditorScreen::connectEvents() {
 
     QPushButton* eraseButton = findChild<QPushButton*>("eraseButton");
     QObject::connect(eraseButton, &QPushButton::clicked, this, &EditorScreen::changeToEraseMode);
+}
+
+void EditorScreen::newMap() {
+    NewMapDialog newMapDialog;
+    newMapDialog.exec();
+
+    int lenght;
+    int width;
+
+    if (newMapDialog.giveLenghtWidthIfHasAValidState(&lenght, &width)) {
+        delete this->tilemapScene;
+        this->tilemapScene = new TilemapScene(this);
+        QGraphicsView* tilemap = findChild<QGraphicsView*>("tilemap");
+        tilemap->setScene(this->tilemapScene);
+        tilemap->show();
+        this->tilemapScene->setMapSize(lenght, width);
+    }
 }
 
 void EditorScreen::saveMap() {

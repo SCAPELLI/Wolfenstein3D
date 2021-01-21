@@ -30,8 +30,8 @@ class EditorScreen : public QMainWindow {
     public:
         EditorScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);
         ~EditorScreen();
-        void setMapSize(size_t rows, size_t columns);
         void connectEvents();
+        void newMap();
         void saveMap();
         void changeCurrentTexture(Texture newTexture);
         Texture getCurrentTexture();
