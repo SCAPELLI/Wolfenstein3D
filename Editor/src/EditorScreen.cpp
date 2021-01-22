@@ -4,6 +4,8 @@
 #include <QDir>
 #include <QtWidgets/QVBoxLayout>
 #include <NewMapDialog.h>
+#include <yaml-cpp/node/node.h>
+#include <yaml-cpp/yaml.h>
 #include "../include/EditorScreen.h"
 #include "../include/TilemapScene.h"
 #include "ui_EditorScreen.h"
@@ -66,6 +68,28 @@ void EditorScreen::newMap() {
 }
 
 void EditorScreen::saveMap() {
+    if (!this->fileName.empty()) {
+        this->createMapYalm();
+    } else {
+        QString filter = "Yaml File (*.yaml)";
+        QString filePath = QFileDialog::getSaveFileName(this,
+                                                        "Save the file",
+                                                        QDir::homePath(),
+                                                        filter);
+        std::string aux = filePath.toUtf8().toStdString();
+        if (aux.empty()) {
+            //LEVANTAR UNA VENTANA QUE INFORME QUE NO SE PUDO GUARDAR
+            // DEBERIA HACER UNA FUNCION QUE DEVUELVA TRUE SI SE PUDO GUARDAR
+            std::cout << "no puso file path uwu\n";
+        } else {
+            this->fileName = aux + ".yaml";
+            std::cout << "Filename: " << this->fileName << "\n";
+            this->createMapYalm();
+        }
+    }
+
+
+    /**
     //Si ya existe, guardo ahi
     if (this->mapFile.is_open()) {
         std::cout << "se guardo el archivo\n";
@@ -88,6 +112,8 @@ void EditorScreen::saveMap() {
             // LRVANTAR UNA VENTANA QUE LO INFORME
         }
     }
+     **/
+
 }
 
 void EditorScreen::changeCurrentTexture(Texture newTexture) {
@@ -104,4 +130,25 @@ void EditorScreen::changeToDrawMode() {
 
 void EditorScreen::changeToEraseMode() {
     this->tilemapScene->changeToEraseMode();
+}
+
+void EditorScreen::createMapYalm() {
+    std::ofstream file;
+    file.open(this->fileName, std::ios::out);
+    YAML::Node map, _map = YAML::LoadFile(this->fileName);
+    YAML::Node mapMatrix = _map["map"];
+    std::vector<std::vector<int>> matrix = this->tilemapScene->getMapMatrix();
+
+    int i;
+    int j;
+
+    for (i = 0; i < matrix.size(); i++) {
+        YAML::Node row = YAML::Load("[]");
+        for (j = 0; j < matrix[i].size(); j++) {
+            row.push_back(matrix[i][j]);
+        }
+        _map["map"].push_back(row);
+    }
+
+    file << _map;
 }

@@ -114,3 +114,7 @@ bool TilemapScene::isAValidPosition(QGraphicsSceneMouseEvent *event) {
     }
     return true;
 }
+
+std::vector<std::vector<int>> TilemapScene::getMapMatrix() {
+    return this->vector;
+}

@@ -23,7 +23,7 @@ class EditorScreen : public QMainWindow {
         Ui::EditorScreen *ui;
         ScreenManager *screenManager;
         TilemapScene *tilemapScene;
-        std::ofstream mapFile;
+        std::string fileName;
         Texture currentTexture;
         SpriteTabs *spriteTabs;
 
@@ -37,6 +37,7 @@ class EditorScreen : public QMainWindow {
         Texture getCurrentTexture();
         void changeToDrawMode();
         void changeToEraseMode();
+        void createMapYalm();
 
 };
 
