@@ -33,17 +33,17 @@ void TilemapScene::setMapSize(size_t rows, size_t columns) {
 void TilemapScene::setGrid() {
     int x, y;
 
-    for (x = 0; x < this->rows * BITS; x+=BITS) {
-        this->addLine(x, 0, x, this->columns * BITS, QPen(Qt::black));
-        if (x + BITS - 1 < this->rows * BITS) {
-            this->addLine(x + BITS - 1, 0, x + BITS - 1, this->columns * BITS, QPen(Qt::black));
+    for (x = 0; x < this->columns * BITS; x+=BITS) {
+        this->addLine(x, 0, x, this->rows * BITS, QPen(Qt::black));
+        if (x + BITS - 1 < this->columns * BITS) {
+            this->addLine(x + BITS - 1, 0, x + BITS - 1, this->rows * BITS, QPen(Qt::black));
         }
     }
 
-    for (y = 0; y < this->columns * BITS; y+=BITS) {
-        this->addLine(0, y, this->rows * BITS - 1, y, QPen(Qt::black));
-        if (y + BITS - 1 < this->columns * BITS) {
-            this->addLine(0, y + BITS - 1, this->rows * BITS - 1, y + BITS - 1, QPen(Qt::black));
+    for (y = 0; y < this->rows * BITS; y+=BITS) {
+        this->addLine(0, y, this->columns * BITS - 1, y, QPen(Qt::black));
+        if (y + BITS - 1 < this->rows * BITS) {
+            this->addLine(0, y + BITS - 1, this->columns * BITS - 1, y + BITS - 1, QPen(Qt::black));
         }
     }
 }
@@ -109,7 +109,7 @@ void TilemapScene::erase(Coordinate coordinate, QGraphicsItem *item) {
 
 bool TilemapScene::isAValidPosition(QGraphicsSceneMouseEvent *event) {
     if (event->scenePos().x() < 0 || event->scenePos().y() < 0 ||
-        event->scenePos().x() >= this->rows * BITS || event->scenePos().y() >= this->columns * BITS) {
+        event->scenePos().x() >= this->columns * BITS || event->scenePos().y() >= this->rows * BITS) {
         return false;
     }
     return true;
