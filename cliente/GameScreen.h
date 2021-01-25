@@ -3,11 +3,13 @@
 #include "Camera.h"
 #include "SDL2/SDL.h"
 #include "Renderable.h"
+#include "Wall.h"
 #include "CPlayer.h"
 #include <map>
 
 class GameScreen{
 	Camera* camera;
+	std::map<int, Wall*> wallTextures;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 

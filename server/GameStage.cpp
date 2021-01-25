@@ -43,6 +43,8 @@ void GameStage::processEvent(ShootingEvent& event) {
 
 void GameStage::processEvent(MovementEvent& event) {
     Vector movement = game.calculateDirection(event.idPlyr);
+    std::cout << "SERVER\n";
+    std::cout << movement.x << "," << movement.y << "\n";
     switch (event.getDirection()) {
         case BACKWARD:
             game.changePosition(movement * -1, event.idPlyr);

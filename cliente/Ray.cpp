@@ -6,8 +6,8 @@
 
 Ray::Ray(Vector startPoint, Vector direction, int xPixel):
 	xPixel(xPixel), startPoint(startPoint), direction(direction),
-	deltaDistX(std::abs(1 / direction.x)),
-	deltaDistY(std::abs(1 / direction.y)),
+    deltaDistX(std::abs(1 / direction.y)),
+    deltaDistY(std::abs(1 / direction.x)),
 	collisionSide(0)
 	{
 		this->initialize(startPoint);
@@ -19,35 +19,38 @@ Ray::Ray(Camera* camera, double cameraX, int x):
 	direction(camera->getFacingPosition() + camera->getPlanePosition() * cameraX),
 	deltaDistX(std::abs(1 / direction.x)),
 	deltaDistY(std::abs(1 / direction.y)),
-	collisionSide(0)
+	collisionSide(0),
+	textureID(-1)
 	{
 		this->initialize(startPoint);
 }
 
 void Ray::initialize(Vector& position){
+    int mapX = position.scale().y;
+    int mapY = position.scale().x;
+    double posX = position.y / 32;
+    double posY = position.x / 32;
 	if (direction.x < 0){
 		this->stepX = -1;
-		this->sideDistX = (position.x - 32 - position.scale().x * 32) 
-							/ cos(direction.angle());
+        this->sideDistX = (posX - mapX) * deltaDistX;
 	} else {
 		this->stepX = 1;
-		this->sideDistX = (position.scale().x * 32 + 32 - position.x) 
-							/ cos(direction.angle());
+        this->sideDistX = (mapX + 1.0 - posX) * deltaDistX;
 	}
 	if (direction.y < 0){
 		this->stepY = -1;
-		this->sideDistY = (position.y - 32 - position.scale().y * 32) 
-							/ sin(direction.angle());
+		this->sideDistY = (posY - mapY) * deltaDistY;
 	} else {
 		this->stepY = 1;
-		this->sideDistY = (position.scale().y * 32 + 32 - position.y) 
-							/ sin(direction.angle());
+		this->sideDistY = (mapY + 1.0 - posY) * deltaDistY;
 	}
 }
 
 double Ray::distanceToWall(std::vector<std::vector<int>>& map){
-	int mapX = startPoint.scale().x;
-	int mapY = startPoint.scale().y;
+	int mapX = startPoint.scale().y;
+	int mapY = startPoint.scale().x;
+	double posX = startPoint.y / 32;
+    double posY = startPoint.x / 32;
 	while (true){
 		if (sideDistX < sideDistY){
 			sideDistX += deltaDistX;
@@ -59,23 +62,31 @@ double Ray::distanceToWall(std::vector<std::vector<int>>& map){
 			collisionSide = 1;
 		}
 		if (map[mapX][mapY] != 0){ // Guardar puntero a mapa
-			break;
+			textureID = map[mapX][mapY];
+		    break;
 		}
 	}
-	return collisionSide == 0 ? (mapX - startPoint.x + (1 - stepX) / 2) / direction.x:
-	 		(mapY - startPoint.y + (1 - stepY) / 2) / direction.y;
+	return collisionSide == 0 ? (mapX - posX + (1 - stepX) / 2) / direction.x:
+	 		(mapY - posY + (1 - stepY) / 2) / direction.y;
 }
 
-void Ray::draw(SDL_Renderer* renderer, int h, std::vector<std::vector<int>>& map){
-	int lineHeight = (int) h * 10 / this->distanceToWall(map);
+void Ray::draw(SDL_Renderer* renderer, int h,
+               std::vector<std::vector<int>>& map,
+               std::map<int, Wall*>* wallTextures){
+    double distance = this->distanceToWall(map);
+	int lineHeight = (int) h / distance;
 	int drawStart = std::max((h - lineHeight) / 2, 0);
 	int drawEnd = std::min((h + lineHeight) / 2, h - 1);
-	if (collisionSide){
-		SDL_SetRenderDrawColor(renderer, 0, 0, 255, SDL_ALPHA_OPAQUE);
-	} else {
-		SDL_SetRenderDrawColor(renderer, 0, 0, 255 / 2, SDL_ALPHA_OPAQUE);
-	}
-	SDL_RenderDrawLine(renderer, xPixel, drawStart, xPixel, drawEnd);
+
+    double xWall;
+    collisionSide == 0 ? xWall = startPoint.x / 32 + distance * direction.y:
+            xWall = startPoint.y / 32 + distance * direction.x;
+    xWall -= floor((xWall));
+
+    xWall *= 32;
+    //if(collisionSide == 0 && direction.x > 0) xWall = 32 - xWall - 1;
+    //if(collisionSide == 1 && direction.y < 0) xWall = 32 - xWall - 1;
+    (*wallTextures)[textureID]->drawLine(renderer, xPixel, xWall, std::min(drawStart, drawEnd), drawEnd - drawStart);
 }
 
 Ray::~Ray(){}

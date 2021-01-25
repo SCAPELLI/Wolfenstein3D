@@ -51,7 +51,7 @@ set(SERVER_SOURCE_FILES
         cliente/Sprite.cpp
 
         common/OpenDoorEvent.cpp
-        common/Item.cpp common/Item.h common/CellMap.cpp common/CellMap.h)
+        common/Item.cpp common/Item.h common/CellMap.cpp common/CellMap.h cliente/Wall.h cliente/Wall.cpp)
 
 add_executable(Wolf server/main.cpp ${SERVER_SOURCE_FILES})
 

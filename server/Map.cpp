@@ -22,7 +22,7 @@ Map::Map(std::vector<Player>& players){
             int elem = matrixConfig[i][j].as<int>();
             CellMap position = CellMap();
             if (elem == PLAYER_ID) {
-                Player newPlayer = Player(numOfPlayer, Vector(i * TILE, j * TILE));
+                Player newPlayer = Player(numOfPlayer, Vector(j * TILE, i * TILE));
                 players.emplace_back(newPlayer);
                 numOfPlayer++;
                 position.addPlayer(&newPlayer);
@@ -41,27 +41,25 @@ std::vector<std::vector<CellMap>>& Map::getMatrix() {
     return matrix;
 }
 void Map::removePlayer(Vector& positionPlayer){
-    matrix[positionPlayer.x][positionPlayer.y].removePlayer();
+    matrix[positionPlayer.y][positionPlayer.x].removePlayer();
 }
 void Map::addPlayer(Player* player){
     Vector posScaled = Vector((player->getPosition()).scale());
-
-    matrix[posScaled.x][posScaled.y].addPlayer(player);
+    matrix[posScaled.y][posScaled.x].addPlayer(player);
 }
 bool Map::isOkToMove(Vector& position){
-    return !matrix[position.x][position.y].isSolid() &&
-        !matrix[position.x][position.y].hasPlayer();
+    return !matrix[position.y][position.x].isSolid();
 }
 
 void Map::dropAllItems(Vector& position){
-    matrix[position.x][position.y].dropItems();
+    matrix[position.y][position.x].dropItems();
 }
 
 void Map::dropItemPlayer(Vector& position, Item itemPlayer){
-    matrix[position.x][position.y].dropItemPlayer(itemPlayer);
+    matrix[position.y][position.x].dropItemPlayer(itemPlayer);
 }
 
  void Map::changePosition(Vector& newPos, Vector& oldPos){
-    matrix[oldPos.x][oldPos.y].transferPlayer(matrix[newPos.x][newPos.y]);
-    matrix[newPos.x][newPos.y].getItemsTile();
+    matrix[oldPos.y][oldPos.x].transferPlayer(matrix[newPos.y][newPos.x]);
+    matrix[newPos.y][newPos.x].getItemsTile();
 }

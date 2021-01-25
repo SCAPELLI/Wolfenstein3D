@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="logo">
+    <file>../sprites/menu.png</file>
+    <file>../sprites/logo.png</file>
+  </qresource>
+</RCC>
