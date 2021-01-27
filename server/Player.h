@@ -11,6 +11,7 @@ class Player {
     int id;
     Vector position;
     Vector initialPosition;
+    Vector scaledPosition;
     bool dead;
     Item coins;
     Item keys;
@@ -33,6 +34,8 @@ public:
     void rotate(double newAngle);
     int damageCurrentWeapon();
     Vector& getPosition();
+    Vector& getScaledPosition();
+    bool operator==(const Player& player);
     bool collideWith(Player& otherPlayer);
     bool pickupWeapon(Weapon weapon);
     void resetBagWeapons();
@@ -42,7 +45,7 @@ public:
     bool isGameOver();
     bool getItem(int idItem);
     bool openDoor();
-    Item getWeapon();
+    Weapon getWeapon();
     bool hasKey();
 };
 

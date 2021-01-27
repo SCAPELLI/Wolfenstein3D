@@ -8,22 +8,21 @@ class Player;
 
 class CellMap{
     bool occupied;
-    Player* player;
     std::vector<Item> items;
+    std::vector<Player> playerList;
 public:
     CellMap();
-    void transferPlayer(CellMap& otherCell);
-    void removePlayer();
-    void addPlayer(Player* entity);
+    //void transferPlayer(CellMap& otherCell);
+    void removePlayer(Player& player);
+    void addPlayer(Player& entity);
     bool hasPlayer();
     bool isSolid();
-    Player* getPlayer();
-    void getItemsTile();
+    void getItemsTile(Player& player);
     bool hasItems();
     Item removeItem();
     void addItem(Item item);
     void setSolid();
-    void dropItems();
+    void dropItems(Player& player);
     void dropItemPlayer(Item item);
 
 };

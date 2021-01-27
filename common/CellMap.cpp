@@ -3,29 +3,34 @@
 #include "Player.h"
 #include <vector>
 #include <iostream>
+#include <algorithm>
 #define BULLET_ID 100
 #define KEY_ID 101
+#define GUN_ID 2
+
 
 CellMap::CellMap()
-: occupied(false), player(nullptr), items(){}
+: occupied(false), items(), playerList(){}
 
 
-void CellMap::transferPlayer(CellMap& other){
-    this->player = other.player;
-    other.player = nullptr;
+//void CellMap::transferPlayer(CellMap& other){ //borrar?
+//    this->player = other.player;
+//    other.player = nullptr;
+//}
+
+void CellMap::removePlayer(Player& player) { //deberia recibir el player
+    //dropItems(player);
+    auto index = std::find(playerList.begin(), playerList.end(), player);
+    if (index != playerList.end()) return;
+    playerList.erase(index); //find y borrar
 }
 
-void CellMap::removePlayer() {
-    dropItems();
-    player = nullptr;
-}
-
-void CellMap::addPlayer(Player *setPlayer) {
-    this->player = setPlayer;
+void CellMap::addPlayer(Player& setPlayer) {
+     playerList.emplace_back(setPlayer);
 }
 
 bool CellMap::hasPlayer() {
-    return player;
+    return playerList.size();
 }
 Item CellMap::removeItem() {
     return items.back();
@@ -33,10 +38,6 @@ Item CellMap::removeItem() {
 
 bool CellMap::isSolid(){
     return occupied;
-}
-
-Player* CellMap::getPlayer() {
-    return player;
 }
 
 bool CellMap::hasItems() {
@@ -53,18 +54,20 @@ void CellMap::setSolid() {
     occupied = true;
 }
 
-void CellMap::dropItems(){
+void CellMap::dropItems(Player& player){ //por enunciado deja 10 balas, cambiar el harcodeo
     items.push_back(Item(BULLET_ID, 10));
-    items.push_back(player->getWeapon());
-    if (player->hasKey())
+    Weapon currentWeapon = player.getWeapon();
+    if (currentWeapon.id != GUN_ID) // CAMBIAR ESTE HARCODEO TMB
+        items.push_back((Item) currentWeapon);
+    if (player.hasKey())
         items.push_back(Item(KEY_ID, 1));
 }
 void CellMap::dropItemPlayer(Item item){
     items.push_back(item);
 }
-void CellMap::getItemsTile() {
+void CellMap::getItemsTile(Player& player) {
     for (auto it = items.begin(); it != items.end(); ++it){
-        if (player->getItem(it->getItemId()))
+        if (player.getItem(it->getItemId()))
             items.erase(it);
     }
 }

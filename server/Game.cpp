@@ -55,18 +55,17 @@ void Game::changePosition(Vector changeTo, int idPlayer){
     idPlayer = 0;
     Vector futurePos = (players[idPlayer].getPosition() + changeTo).scale();
     if (map.isOkToMove(futurePos)){
-        Vector oldPosScaled = Vector((players[idPlayer].getPosition()).scale());
-        map.changePosition(futurePos, oldPosScaled);
+        map.changePosition(futurePos, players[idPlayer]);
         players[idPlayer].move(changeTo);
     }
 }
 void Game::decrementLife(int idPlayer) {
     players[idPlayer].lifeDecrement(players[idPlayer].damageCurrentWeapon());
     if (players[idPlayer].isDead()) {
-        Vector posScaled = Vector((players[idPlayer].getPosition()).scale());
-        map.removePlayer(posScaled);
+        map.dropAllItems(players[idPlayer]);
+        map.removePlayer(players[idPlayer]);
         players[idPlayer].died();
-        map.addPlayer(&(players[idPlayer]));
+        map.addPlayer(players[idPlayer]);
         return;
     }
 }

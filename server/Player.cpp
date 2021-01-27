@@ -12,6 +12,7 @@ Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
     position(position),
     initialPosition(position),
+    scaledPosition(position.scale()),
     dead(false),
     coins(Item(COIN_ID,0)),
     keys(Item(KEY_ID,0)),
@@ -42,6 +43,7 @@ int Player::damageCurrentWeapon() { //borrar?
 
 void Player::move(Vector& newPos){
         position += newPos;
+        scaledPosition = position.scale();
 }
 
 bool Player::hits(Player& otherPlayer) {
@@ -83,7 +85,7 @@ void Player::resetBagWeapons(){
     prevIdWeapon = 1;
     bullets = Item(BULLET_ID, 8);
 }
-Item Player::getWeapon(){
+Weapon Player::getWeapon(){
     return bag[idWeapon];
 }
 bool Player::isDead(){
@@ -95,7 +97,8 @@ void Player::died(){
 //    if (lifes <= 0){
 //        dead = true; // ver si es mejor marcarlo de otra forma--> tener un alive o no que lo marque?
 //    }
-    position = initialPosition; //faltaria droppear los items
+    position = initialPosition;
+    scaledPosition = initialPosition.scale();\
     angle = 0;
     dead = false;
     coins = Item(COIN_ID, 0);
@@ -121,6 +124,9 @@ bool Player::collideWith(Player& other_player) {
 
 Vector& Player::getPosition(){
     return position;
+}
+Vector& Player::getScaledPosition(){
+    return scaledPosition;
 }
 bool Player::isGameOver(){
     return dead && lifes <= 0;
@@ -169,4 +175,8 @@ bool Player::getItem(int idItem){
             return false;
     }
     return true;
+}
+
+bool Player::operator==(const Player& player){
+    return player.id == this->id;
 }
