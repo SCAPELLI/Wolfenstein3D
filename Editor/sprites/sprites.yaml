@@ -1,6 +1,6 @@
 items:
     1:
-        type: spawn point
+        type: player
         value: -1
     2:
         type: food
@@ -45,7 +45,7 @@ items:
         type: chalice
         value: 50
     20:
-        type: weapon
+        type: pistol
         value: -1
     21:
         type: blood
