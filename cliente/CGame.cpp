@@ -7,7 +7,7 @@
 
 CGame::CGame(double x, double y, double fov):
 	activePlayer(x, y, fov, 0),
-	screen(activePlayer.getCamera(), 640, 480),
+	screen(&activePlayer, 640, 480),
 	map({
   {114,115,116,117,114},
   {114,0,0,0,118},

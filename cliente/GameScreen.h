@@ -5,17 +5,19 @@
 #include "Renderable.h"
 #include "Wall.h"
 #include "CPlayer.h"
+#include "UI.h"
 #include <map>
 
 class GameScreen{
 	Camera* camera;
+	UI* ui;
 	std::map<int, Wall*> wallTextures;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
 	public:
 
-		GameScreen(Camera* camera, int h, int w);
+		GameScreen(CPlayer* player, int h, int w);
 		SDL_Renderer* getRenderer();
 		void draw(std::vector<std::vector<int>>& map,
 			std::map<int, Renderable*>* renderables,
