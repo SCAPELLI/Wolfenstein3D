@@ -6,18 +6,23 @@
 SpriteTabs::SpriteTabs(QWidget *parent, EditorScreen *editorScreen)
     : editorScreen(editorScreen) {
     SpriteFileManager spriteFileManager;
-    std::map<std::string, std::map<int, std::string>> spriteMap =
-            spriteFileManager.createMapFromTextureFile();
-    this->textureList = new TextureList(0, this);
-    this->textureList->setSpriteList(spriteMap["textures"]);
-    this->addTab(this->textureList, "Textures");
 
+    std::map<int, std::string> texturesMap =
+            spriteFileManager.createMapFromTextureFileWithoutValues("textures");
     this->itemsList = new TextureList(0, this);
-    this->itemsList->setSpriteList(spriteMap["items"]);
-    this->addTab(this->itemsList, "Items");
+    this->itemsList->setSpriteList(texturesMap);
+    this->addTab(this->itemsList, "Textures");
 
+    std::map<int, std::string> itemsMap =
+            spriteFileManager.createMapFromTextureFileWithValues("items");
+    this->textureList = new TextureList(0, this);
+    this->textureList->setSpriteList(itemsMap);
+    this->addTab(this->textureList, "Items");
+
+    std::map<int, std::string> decorationsMap =
+            spriteFileManager.createMapFromTextureFileWithoutValues("decorations");
     this->decorationsList = new TextureList(0, this);
-    this->decorationsList->setSpriteList(spriteMap["decorations"]);
+    this->decorationsList->setSpriteList(decorationsMap);
     this->addTab(this->decorationsList, "Decorations");
 }
 

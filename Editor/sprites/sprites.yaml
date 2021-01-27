@@ -1,22 +1,58 @@
 items:
-    0: food
-    1: ammo
-    2: machine gun
-    3: treasure
-    5: golden key
-    6: food
-    7: chain gun
-    8: treasure
-    9: rocket launcher
-    10: silver key
-    11: med kit
-    12: treasure
-    13: one up
-    14: ammo
-    16: ammo
-    17: treasure
-    18: weapon
-    19: blood
+    1:
+        type: spawn point
+        value: -1
+    2:
+        type: food
+        value: 10
+    3:
+        type: ammo
+        value: 5
+    4:
+        type: machine gun
+        value: -1
+    5:
+        type: chest
+        value: 100
+    7:
+        type: key
+        value: -1
+    8:
+        type: food
+        value: 10
+    9:
+        type: chain gun
+        value: -1
+    10:
+        type: crown
+        value: 200
+    11:
+        type: rocket launcher
+        value: -1
+    12:
+        type: key
+        value: -1
+    13:
+        type: med kit
+        value: 20
+    16:
+        type: ammo
+        value: 5
+    18:
+        type: ammo
+        value: 5
+    19:
+        type: chalice
+        value: 50
+    20:
+        type: weapon
+        value: -1
+    21:
+        type: blood
+        value: 1
+    22:
+        type: cross
+        value: 10
 textures:
     100: wall
     101: wall
