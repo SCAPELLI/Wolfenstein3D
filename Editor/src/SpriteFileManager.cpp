@@ -7,18 +7,28 @@ SpriteFileManager::SpriteFileManager() {}
 
 SpriteFileManager::~SpriteFileManager() {}
 
-std::map<std::string, std::map<int, std::string>> SpriteFileManager::createMapFromTextureFile() {
-    std::map <std::string,std::map <int, std::string>> sprites;
-
+std::map<int, std::string> SpriteFileManager::createMapFromTextureFileWithoutValues(std::string key) {
     YAML::Node node = YAML::LoadFile("../sprites/sprites.yaml");
+    YAML::Node category = node[key];
 
-    for (auto categoryIt = node.begin(); categoryIt != node.end(); ++categoryIt) {
-        YAML::Node category = categoryIt->second;
-        std::map<int, std::string> elemMap;
-        for (auto elemIt = category.begin(); elemIt != category.end(); elemIt++) {
-            elemMap[elemIt->first.as<int>()] = elemIt->second.as<std::string>();
-        }
-        sprites[categoryIt->first.as<std::string>()] = elemMap;
+    std::map<int, std::string> map;
+
+    for (auto categoryIt = category.begin(); categoryIt != category.end(); ++categoryIt) {
+        map[categoryIt->first.as<int>()] = categoryIt->second.as<std::string>();
     }
-    return sprites;
+
+    return map;
+}
+
+std::map<int, std::string> SpriteFileManager::createMapFromTextureFileWithValues(std::string key) {
+    YAML::Node node = YAML::LoadFile("../sprites/sprites.yaml");
+    YAML::Node category = node[key];
+
+    std::map<int, std::string> map;
+
+    for (auto categoryIt = category.begin(); categoryIt != category.end(); ++categoryIt) {
+        map[categoryIt->first.as<int>()] = categoryIt->second["type"].as<std::string>();
+    }
+
+    return map;
 }
