@@ -112,8 +112,8 @@ textures:
     156: wall
     157: wall
     158: door
-    159: door
-    160: door
+    159: locked door
+    160: locked door
     161: door
     162: wall
 decorations:
