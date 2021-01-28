@@ -1,22 +1,58 @@
 items:
-    0: food
-    1: ammo
-    2: machine gun
-    3: treasure
-    5: golden key
-    6: food
-    7: chain gun
-    8: treasure
-    9: rocket launcher
-    10: silver key
-    11: med kit
-    12: treasure
-    13: one up
-    14: ammo
-    16: ammo
-    17: treasure
-    18: weapon
-    19: blood
+    1:
+        type: player
+        value: -1
+    2:
+        type: food
+        value: 10
+    3:
+        type: ammo
+        value: 5
+    4:
+        type: machine gun
+        value: -1
+    5:
+        type: chest
+        value: 100
+    7:
+        type: key
+        value: -1
+    8:
+        type: food
+        value: 10
+    9:
+        type: chain gun
+        value: -1
+    10:
+        type: crown
+        value: 200
+    11:
+        type: rocket launcher
+        value: -1
+    12:
+        type: key
+        value: -1
+    13:
+        type: med kit
+        value: 20
+    16:
+        type: ammo
+        value: 5
+    18:
+        type: ammo
+        value: 5
+    19:
+        type: chalice
+        value: 50
+    20:
+        type: pistol
+        value: -1
+    21:
+        type: blood
+        value: 1
+    22:
+        type: cross
+        value: 10
 textures:
     100: wall
     101: wall
@@ -26,24 +62,24 @@ textures:
     105: wall
     106: wall
     107: wall
-    108: wall
-    109: wall
+    108: false wall
+    109: false wall
     110: wall
     111: wall
     112: wall
     113: wall
     114: wall
     115: wall
-    116: wall
-    117: wall
+    116: secret passage
+    117: secret passage
     118: wall
     119: wall
     120: wall
     121: wall
     122: wall
     123: wall
-    124: wall
-    125: wall
+    124: secret passage
+    125: secret passage
     126: wall
     127: wall
     128: wall
@@ -78,7 +114,7 @@ textures:
     158: door
     159: locked door
     160: locked door
-    161: locked door
+    161: door
     162: wall
 decorations:
     200: object

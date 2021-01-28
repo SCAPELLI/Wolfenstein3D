@@ -12,9 +12,9 @@ class TilemapScene : public QGraphicsScene {
     private:
         size_t rows;
         size_t columns;
-        std::map<Coordinate, Tile*> tiles;
         EditorScreen *editorScreen;
         Mode* mode;
+        std::vector<std::vector<int>> vector;
 
     public:
         TilemapScene(EditorScreen *editorScreen);
@@ -24,8 +24,10 @@ class TilemapScene : public QGraphicsScene {
         void erase(Coordinate coordinate, QGraphicsItem *item);
         void changeToDrawMode();
         void changeToEraseMode();
+        bool isAValidPosition(QGraphicsSceneMouseEvent *event);
+        std::vector<std::vector<int>> getMapMatrix();
 
-    protected:
+protected:
         void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
     private:

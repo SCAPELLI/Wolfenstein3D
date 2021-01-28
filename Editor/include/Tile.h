@@ -15,7 +15,7 @@ class Tile : public QGraphicsPixmapItem {
     public:
         Tile(QWidget *parent = 0,
              Coordinate coordinate = Coordinate(0, 0),
-             Texture texture = Texture("../sprites/texture0.png", "wall"));
+             Texture texture = Texture("../sprites/sprite100.png", "wall", 100));
         ~Tile();
 };
 
