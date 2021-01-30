@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include "Items/LockedDoor.h"
+#include "GameLoader.h"
 #define BULLET_ID 100
 #define KEY_ID 101
 #define GUN_ID 2
@@ -12,11 +14,6 @@
 CellMap::CellMap()
 : occupied(false), items(), playerList(){}
 
-
-//void CellMap::transferPlayer(CellMap& other){ //borrar?
-//    this->player = other.player;
-//    other.player = nullptr;
-//}
 
 void CellMap::removePlayer(Player& player) { //deberia recibir el player
     //dropItems(player);
@@ -55,19 +52,25 @@ void CellMap::setSolid() {
 }
 
 void CellMap::dropItems(Player& player){ //por enunciado deja 10 balas, cambiar el harcodeo
-    items.push_back(Item(BULLET_ID, 10));
+    GameLoader yaml;
+    items.push_back(Item(BULLET_ID,"bullets", 10));
     Weapon currentWeapon = player.getWeapon();
     if (currentWeapon.id != GUN_ID) // CAMBIAR ESTE HARCODEO TMB
-        items.push_back((Item) currentWeapon);
+        items.push_back(currentWeapon);
     if (player.hasKey())
-        items.push_back(Item(KEY_ID, 1));
+        items.push_back(KeyItem(KEY_ID,"key", 1));
 }
 void CellMap::dropItemPlayer(Item item){
     items.push_back(item);
 }
 void CellMap::getItemsTile(Player& player) {
     for (auto it = items.begin(); it != items.end(); ++it){
-        if (player.getItem(it->getItemId()))
+        if (it->getItemName() == "false wall" &&
+            it->getItemName() == "door" &&
+            it->getItemName() == "locked door" &&
+            it->getItemName() == "secret passage" &&
+            player.getItem(*it)) {
             items.erase(it);
+        }
     }
 }

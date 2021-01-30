@@ -1,12 +1,17 @@
 #include "Weapon.h"
+#include "../server/GameLoader.h"
 #include <bits/stdc++.h>
 
 Weapon::Weapon(int id, int damage, int minBullets, double speed)
-    : id(id),
-    effect(damage),
-    minBullets(minBullets),
-    speed(speed)
+    : id(id), effect(damage), minBullets(minBullets), speed(speed)
 {}
+
+Weapon::Weapon(int id)
+    : id(id), effect(-1)
+{
+    GameLoader yaml;
+    yaml.configWeapon(id, effect, minBullets, speed);
+}
 
 int Weapon::attack(int bullets){
     if ((id == 1 || id == 2 || id == 3) && bullets < minBullets)

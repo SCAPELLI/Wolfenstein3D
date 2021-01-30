@@ -5,8 +5,6 @@
 #include <iostream>
 #include <random>
 #define DAMAGEBULLET 1
-#define NORMALDOOR 3
-#define DOOROPEN 4
 
 
 Game::Game(){

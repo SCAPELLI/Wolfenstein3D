@@ -8,6 +8,7 @@
 #define WALL 2
 #define PLAYER_ID 1
 #define TILE 32
+#include "GameLoader.h"
 
 Map::Map(){}
 
@@ -34,14 +35,20 @@ void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
                             int elem){
     YAML::Node config = YAML::LoadFile("map.yaml");
     YAML::Node matrixConfig = config["map"];
+    GameLoader yaml;
     if (elem == PLAYER_ID) {
         Player newPlayer = Player(numOfPlayer,
                                   Vector(pos1 * TILE, pos2 * TILE));
         players.emplace_back(newPlayer);
         numOfPlayer++;
-        tileMap.addPlayer(newPlayer);
-    } else if (elem >= 100 ) {
-        tileMap.setSolid();
+        tileMap.addPlayer(newPlayer); // pasar a gameLoader el tile y que lo agregue
+
+    } if (elem > 1 && elem < 100){
+        tileMap.addItem(yaml.itemLoader(elem));
+        return;
+    }
+    else if (elem >= 100 && elem < 200) {
+        yaml.setTexture(elem, tileMap);
     }
 }
 

@@ -12,12 +12,11 @@ class Item {
     //Sprite& sprite;
 
 public:
-    Item() : id(-1), effect(0) {};
-    Item(int id, int effect);
+    Item() : id(-1), name(""), effect(0) {};
+    Item(int id, std::string name, int effect);
     int getEffect();
     void changeValue(int toChange);
-    //Item(int id, Sprite& newSprite);
-
+    std::string getItemName();
     int getItemId();
 };
 

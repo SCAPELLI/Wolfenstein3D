@@ -16,7 +16,7 @@ items:
         value: 100
     7:
         type: key
-        value: -1
+        value: 1
     8:
         type: food
         value: 10
@@ -31,7 +31,7 @@ items:
         value: -1
     12:
         type: key
-        value: -1
+        value: 1
     13:
         type: med kit
         value: 20
