@@ -6,7 +6,7 @@
 #include <algorithm>
 #include "Items/LockedDoor.h"
 #include "GameLoader.h"
-#define BULLET_ID 100
+#include "Items/AmmoItem.h"
 #define KEY_ID 101
 #define GUN_ID 2
 
@@ -53,7 +53,7 @@ void CellMap::setSolid() {
 
 void CellMap::dropItems(Player& player){ //por enunciado deja 10 balas, cambiar el harcodeo
     GameLoader yaml;
-    items.push_back(Item(BULLET_ID,"bullets", 10));
+    items.push_back(AmmoItem(3,"bullets", 10));
     Weapon currentWeapon = player.getWeapon();
     if (currentWeapon.id != GUN_ID) // CAMBIAR ESTE HARCODEO TMB
         items.push_back(currentWeapon);
@@ -65,6 +65,7 @@ void CellMap::dropItemPlayer(Item item){
 }
 void CellMap::getItemsTile(Player& player) {
     for (auto it = items.begin(); it != items.end(); ++it){
+        std::cout << it->getItemName()<< std::endl;
         if (it->getItemName() == "false wall" &&
             it->getItemName() == "door" &&
             it->getItemName() == "locked door" &&

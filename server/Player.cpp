@@ -2,6 +2,7 @@
 #include <cmath>
 #include "Vector.h"
 #include "GameLoader.h"
+#include "../common/Items/AmmoItem.h"
 #include "Exception.h"
 #include <iostream>
 #define MAXBULLETS 50
@@ -25,9 +26,9 @@ Player::Player(int parsed_id, Vector position)
                       angle,
                       bag,
                       idWeapon,
-                      bullets,
                       points,
-                      keys);
+                      keys,
+                      bullets);
     prevIdWeapon = idWeapon;
 }
 
@@ -85,7 +86,7 @@ void Player::resetBagWeapons(){
     }
     idWeapon = 1;
     prevIdWeapon = 1;
-    bullets = Item(BULLET_ID, "ammo", 8);
+    bullets = AmmoItem();
 }
 Weapon Player::getWeapon(){
     return bag[idWeapon];
@@ -97,7 +98,7 @@ void Player::died(){
     lifes -=1;
     health = MAXHEALTH;
     position = initialPosition;
-    scaledPosition = initialPosition.scale();\
+    scaledPosition = initialPosition.scale();
     angle = 0;
     dead = false;
     points = PointGainItem();
@@ -139,7 +140,7 @@ bool Player::openDoor(){
     return false;
 }
 
-bool Player::getItem(LifeGainItem item) {
+bool Player::getItem(LifeGainItem& item) {
     if (health == MAXHEALTH) return false;
     health += item.getEffect();
     if (health > MAXHEALTH) {
@@ -149,18 +150,18 @@ bool Player::getItem(LifeGainItem item) {
     return true;
 }
 
-bool Player::getItem(PointGainItem item) {
+bool Player::getItem(PointGainItem& item) {
     points.changeValue(item.getEffect());
     return true;
 }
-bool Player::getItem(Weapon item) {
+bool Player::getItem(Weapon& item) {
     return pickupWeapon(item);
 }
-bool Player::getItem(KeyItem item) {
+bool Player::getItem(KeyItem& item) {
     keys.changeValue(item.getEffect());
     return true;
 }
-bool Player::getItem(Item item) {
+bool Player::getItem(AmmoItem& item) {
     if (bullets.getEffect()  == maxBullets) return false;
     bullets.changeValue(item.getEffect());
     if (bullets.getEffect() > maxBullets) {

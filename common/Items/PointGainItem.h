@@ -13,9 +13,6 @@ class PointGainItem : public Item{
     public:
         PointGainItem(int id, std::string name, int effect);
         PointGainItem();
-        int getItemId();
-        int getEffect();
-        void changeValue(int toChange);
 };
 
 

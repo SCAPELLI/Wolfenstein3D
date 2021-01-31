@@ -11,9 +11,6 @@ private:
     int effect;
 public:
     OpenableItem(int id,std::string name, int effect);
-    int getItemId();
-    int getEffect();
-    void changeValue(int toChange);
 };
 
 #endif //OPENABLEITEM_H

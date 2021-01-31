@@ -6,6 +6,7 @@
 #include "../common/Item.h"
 #include <vector>
 #include "../common/Items/LifeGainItem.h"
+#include "../common/Items/AmmoItem.h"
 #include "../common/Items/PointGainItem.h"
 #include "../common/Items/KeyItem.h"
 
@@ -23,7 +24,7 @@ class Player {
     double angle;
     std::map<int, Weapon> bag;
     int idWeapon;
-    Item bullets;
+    AmmoItem bullets;
     PointGainItem points;
     KeyItem keys;
     int prevIdWeapon;
@@ -46,11 +47,11 @@ public:
     void died();
     bool isDead();
     bool isGameOver();
-    bool getItem(Item item);
-    bool getItem(LifeGainItem item);
-    bool getItem(PointGainItem item);
-    bool getItem(KeyItem item);
-    bool getItem(Weapon item);
+    bool getItem(AmmoItem& item);
+    bool getItem(LifeGainItem& item);
+    bool getItem(PointGainItem& item);
+    bool getItem(KeyItem& item);
+    bool getItem(Weapon& item);
     bool openDoor();
     Weapon getWeapon();
     bool hasKey();

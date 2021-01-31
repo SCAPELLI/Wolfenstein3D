@@ -11,9 +11,7 @@ private:
     int effect;
 public:
     LockedDoor(int id,std::string name, int effect);
-    int getItemId();
-    int getEffect();
-    void changeValue(int toChange);
+
 };
 
 #endif //LOCKEDDOOR_H

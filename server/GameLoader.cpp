@@ -8,21 +8,21 @@
 #include "Exception.h"
 #include "../common/Items/LockedDoor.h"
 #include "../common/Items/OpenableItem.h"
+#include "../common/Items/AmmoItem.h"
 #define PLAYER_ID 1
-#define BULLET_ID 100
 
 GameLoader::GameLoader(){}
 
 void GameLoader::configPlayer(int& lifes, int& health, int& radius,
                             double& angle, std::map<int, Weapon>& bag,
-                            int& idWeapon,
-                            Item& bullets,PointGainItem points, KeyItem keys){
+                            int& idWeapon, PointGainItem& points,
+                            KeyItem& keys, AmmoItem& bullets){
     YAML::Node fileNode = YAML::LoadFile("config.yaml");
     GameLoader yamlItems;
     lifes = fileNode["Player"]["lifes"].as<int>();
     health = fileNode["Player"]["health"].as<int>();
     radius = fileNode["Player"]["radius"].as<int>();
-    bullets = Item(BULLET_ID, "ammo", fileNode["Player"]["bullets"].as<int>());
+    bullets = AmmoItem();
     angle = fileNode["Player"]["angle"].as<double>();
     int cont = 0;
     for (YAML::const_iterator it=fileNode["Weapons"].begin();
@@ -62,7 +62,7 @@ void GameLoader::readData( int& speed){
     //mapLoader(map, players, matrix);
 }
 
-Item GameLoader::itemLoader(int idItem) {
+Item GameLoader::itemLoader(int& idItem) {
     YAML::Node fileNode = YAML::LoadFile("../Editor/sprites/sprites.yaml");
     std::string elem = fileNode["items"][idItem]["type"].as<std::string>();
     int value = fileNode["items"][idItem]["value"].as<int>();
@@ -79,43 +79,79 @@ Item GameLoader::itemLoader(int idItem) {
         return Weapon(idItem);
     }
     if (elem.compare("ammo")) {
-        return Item(idItem, elem, value);
+        return AmmoItem(idItem, elem, value);
     } if (elem.compare("key")) {
         return KeyItem(idItem, elem, value);
     }
     throw Exception("No se encontró ese ID en el archivo yaml");
 }
 
-Item GameLoader::itemLoader(std::string idItem) {
-    fileNode = YAML::LoadFile("../Editor/sprites/sprites.yaml");
+void GameLoader::configItem(int& id, std::string&  itemName, int& effect){
+    YAML::Node fileNode = YAML::LoadFile("../Editor/sprites/sprites.yaml");
     for (YAML::const_iterator it = fileNode["items"].begin();
                              it != fileNode["items"].end(); ++it) {
-            std::string type = it->first["type"].as<std::string>();
-            std::string elem = fileNode["items"][it->first.as<int>()]
-                                           ["type"].as<std::string>();
-            int value = fileNode["items"][it->first]["value"].as<int>();
-            if (idItem == "food" || idItem == "med kit" || idItem == "blood") {
-                return  LifeGainItem(it->first.as<int>(), idItem, value);
+        std::string type = fileNode["items"][it->first.as<int>()]
+                                        ["type"].as<std::string>(); // esto me da el nombre del item
+        if (type == itemName) {
+            int value = fileNode["items"][it->first.as<int>()]["value"].as<int>();
+            if (type == "food" || type == "med kit" || type == "blood") {
+                id = it->first.as<int>();
+                effect = value;
+                return;
             }
-            if (idItem == "cross" || idItem == "crown" ||
-                idItem == "chest" || idItem == "chalice") {
-                return  PointGainItem(it->first.as<int>(), idItem, value);
+            if (type == "cross" || type == "crown" || type == "chest" ||
+                                                            type == "chalice") {
+                id = it->first.as<int>();
+                effect = value;
+                return;
             }
-            if (idItem == "machine gun" || idItem == "chain gun" ||
-                idItem == "rocket launcher" || idItem == "pistol") {
-                return Weapon(it->first.as<int>());
+            if (type == "ammo") {
+                id = it->first.as<int>();
+                effect = value;
+                return;
             }
-            if (idItem == "ammo") {
-                return Item(it->first.as<int>(), idItem, value);
-            } if (elem.compare("key")) {
-                return KeyItem(it->first.as<int>(), idItem, value);
+            if (type == "key") {
+                id = it->first.as<int>();
+                effect = value;
+                return;
+            }
+        }
+    }
+    throw Exception("No se encontró ese ID en el archivo yaml");
+}
+
+
+
+Item GameLoader::itemLoader(std::string& itemName) {
+    YAML::Node fileNode = YAML::LoadFile("../Editor/sprites/sprites.yaml");
+    for (YAML::const_iterator it = fileNode["items"].begin();
+                                 it != fileNode["items"].end(); ++it) {
+            std::string type = fileNode["items"][ it->first.as<int>()]["type"].as<std::string>();
+            if (itemName == type){
+                int value = fileNode["items"][it->first.as<int>()]["value"].as<int>();
+                if (itemName == "food" || itemName == "med kit" || itemName == "blood") {
+                    return  LifeGainItem(it->first.as<int>(), itemName, value);
+                }
+                if (itemName == "cross" || itemName == "crown" ||
+                    itemName == "chest" || itemName == "chalice") {
+                    return  PointGainItem(it->first.as<int>(), itemName, value);
+                }
+                if (itemName == "machine gun" || itemName == "chain gun" ||
+                    itemName == "rocket launcher" || itemName == "pistol") {
+                    return Weapon(it->first.as<int>());
+                }
+                if (itemName == "ammo") {
+                    return AmmoItem(it->first.as<int>(), itemName, value);
+                } if (itemName == "key") {
+                    return KeyItem(it->first.as<int>(), itemName, value);
+                }
             }
         }
     throw Exception("No se encontró ese ID en el archivo yaml");
 }
 
-void GameLoader::setTexture(int idItem, CellMap& tileMap) {
-    fileNode = YAML::LoadFile("../Editor/sprites/sprites.yaml");
+void GameLoader::setTexture(int& idItem, CellMap& tileMap) {
+    YAML::Node fileNode = YAML::LoadFile("../Editor/sprites/sprites.yaml");
     for (YAML::const_iterator it = fileNode["textures"].begin();
                          it != fileNode["textures"].end(); ++it) {
         if (it->first.as<int>() == idItem) {
@@ -123,10 +159,10 @@ void GameLoader::setTexture(int idItem, CellMap& tileMap) {
             if (elem.compare("false wall")){
                 tileMap.addItem(OpenableItem(idItem, elem, -1));
             }
-            if (elem.compare("door")){
+            else if (elem.compare("door")){
                 tileMap.addItem(OpenableItem(idItem, elem, 0));
             }
-            if (elem.compare("locked door")){
+            else if (elem.compare("locked door")){
                 tileMap.addItem(LockedDoor(idItem, elem, -1));
             }
             return;
