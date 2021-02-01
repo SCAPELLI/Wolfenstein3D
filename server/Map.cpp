@@ -16,9 +16,12 @@ Map::Map(std::vector<Player>& players){
     std::vector<std::vector<CellMap>> map;
     YAML::Node config = YAML::LoadFile("map.yaml");
     YAML::Node matrixConfig = config["map"];
+    std::cout << matrixConfig;
     int numOfPlayer = 0;
     for (std::size_t i = 0; i < matrixConfig.size(); i++) {
         std::vector<CellMap> row;
+        high = matrixConfig.size() - 1;
+        width = matrixConfig[0].size() - 1;
         for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {
             int elem = matrixConfig[i][j].as<int>();
             CellMap position = CellMap();
@@ -52,6 +55,11 @@ void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
     }
 }
 
+bool Map::isADoor(Player& player){
+    Vector& pos = player.getScaledPosition();
+    return matrix[pos.y][pos.x].isOpenable();
+}
+
 std::vector<std::vector<CellMap>>& Map::getMatrix() {
     return matrix;
 }
@@ -64,7 +72,8 @@ void Map::addPlayer(Player& player){
     matrix[posScaled.y][posScaled.x].addPlayer(player);
 }
 bool Map::isOkToMove(Vector& futurePos){
-    return !matrix[futurePos.y][futurePos.x].isSolid();
+    return !matrix[futurePos.y][futurePos.x].isSolid() &&
+            futurePos.y <= width && futurePos.x <= high;
 }
 
 void Map::dropAllItems(Player& player){
@@ -74,7 +83,7 @@ void Map::dropAllItems(Player& player){
 
 void Map::dropItemPlayer(Player& player, Item itemPlayer){
     Vector positionPlayer = player.getScaledPosition();
-    matrix[positionPlayer.y][positionPlayer.x].dropItemPlayer(itemPlayer);
+    matrix[positionPlayer.y][positionPlayer.x].dropItemPlayer(&itemPlayer);
 }
 
  void Map::changePosition(Vector& newPos, Player& player){ //???

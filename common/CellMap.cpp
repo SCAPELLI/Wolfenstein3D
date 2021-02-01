@@ -29,7 +29,7 @@ void CellMap::addPlayer(Player& setPlayer) {
 bool CellMap::hasPlayer() {
     return playerList.size();
 }
-Item CellMap::removeItem() {
+Item* CellMap::removeItem() {
     return items.back();
 }
 
@@ -43,7 +43,7 @@ bool CellMap::hasItems() {
     return true;
 }
 
-void CellMap::addItem(Item item) {
+void CellMap::addItem(Item* item) {
     items.push_back(item);
 }
 
@@ -51,27 +51,34 @@ void CellMap::setSolid() {
     occupied = true;
 }
 
-void CellMap::dropItems(Player& player){ //por enunciado deja 10 balas, cambiar el harcodeo
-    GameLoader yaml;
-    items.push_back(AmmoItem(3,"bullets", 10));
-    Weapon currentWeapon = player.getWeapon();
-    if (currentWeapon.id != GUN_ID) // CAMBIAR ESTE HARCODEO TMB
-        items.push_back(currentWeapon);
-    if (player.hasKey())
-        items.push_back(KeyItem(KEY_ID,"key", 1));
+bool CellMap::isOpenable(){
+//    for (auto it = items.begin(); it != items.end(); ++it){ //sino podria hacer un find con esas cosas a ver si sale true, y entonces ya sabria donde esta
+//        //std::cout << (*it)->getItemName()<< std::endl;
+//        if ((*it)->getItemName() == "false wall" ||  --> aca tendria qeu poner un sleep para volver a cambiar el valor dsps??
+//            (*it)->getItemName() == "door" ||
+//            (*it)->getItemName() == "secret passage" &&
+//        (*it)->changeValue(+-1?????) -->>> poner en modo abierto ---> si es pared falsa hacer pasar al wachin pero mantenerla cerrada dsps
 }
-void CellMap::dropItemPlayer(Item item){
+
+void CellMap::dropItems(Player& player){ //por enunciado deja 10 balas, cambiar el harcodeo?
+    GameLoader yaml;
+    items.push_back(new AmmoItem(3,"ammo", 10));
+    Weapon currentWeapon = player.getWeapon();
+    if (currentWeapon.name != "gun")
+        items.push_back(&currentWeapon);
+    if (player.hasKey())
+        items.push_back(new KeyItem(KEY_ID,"key", 1));
+}
+void CellMap::dropItemPlayer(Item* item){
     items.push_back(item);
 }
 void CellMap::getItemsTile(Player& player) {
-    for (auto it = items.begin(); it != items.end(); ++it){
-        std::cout << it->getItemName()<< std::endl;
-        if (it->getItemName() == "false wall" &&
-            it->getItemName() == "door" &&
-            it->getItemName() == "locked door" &&
-            it->getItemName() == "secret passage" &&
-            player.getItem(*it)) {
-            items.erase(it);
+    auto it = items.begin();
+    while (it != items.end()) {
+        if ((*it)->isConsumed(player)) {
+            it = items.erase(it);
+        } else {
+            ++it;
         }
     }
 }

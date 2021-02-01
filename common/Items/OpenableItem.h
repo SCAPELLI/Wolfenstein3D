@@ -11,6 +11,7 @@ private:
     int effect;
 public:
     OpenableItem(int id,std::string name, int effect);
+    bool isConsumed(Player& player) override;
 };
 
 #endif //OPENABLEITEM_H

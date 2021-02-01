@@ -12,6 +12,7 @@ private:
 public:
     KeyItem(int id, std::string name, int effect);
     KeyItem();
+    bool isConsumed(Player& player) override;
 };
 
 

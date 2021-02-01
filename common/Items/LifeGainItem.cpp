@@ -1,6 +1,6 @@
 
 #include "LifeGainItem.h"
-
+#include "../../server/Player.h"
 
 
 //Item::Item(int id, Sprite &newSprite)
@@ -9,3 +9,6 @@
 LifeGainItem::LifeGainItem(int id,std::string name, int effect)
         :  id(id), name(name), effect(effect){}
 
+bool LifeGainItem::isConsumed(Player &player) {
+    return player.getItem(this);
+}

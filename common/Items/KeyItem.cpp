@@ -9,3 +9,7 @@ KeyItem::KeyItem(){
     name = "key";
     yaml.configItem(id, name, effect);
 }
+
+bool KeyItem::isConsumed(Player &player) {
+    return player.getItem(this);
+}

@@ -47,11 +47,11 @@ public:
     void died();
     bool isDead();
     bool isGameOver();
-    bool getItem(AmmoItem& item);
-    bool getItem(LifeGainItem& item);
-    bool getItem(PointGainItem& item);
-    bool getItem(KeyItem& item);
-    bool getItem(Weapon& item);
+    bool getItem(AmmoItem* item);
+    bool getItem(LifeGainItem* item);
+    bool getItem(PointGainItem* item);
+    bool getItem(KeyItem* item);
+    bool getItem(Weapon* item);
     bool openDoor();
     Weapon getWeapon();
     bool hasKey();

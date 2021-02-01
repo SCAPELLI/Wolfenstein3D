@@ -20,3 +20,11 @@ void Item::changeValue(int toChange){
 std::string Item::getItemName() {
     return name;
 }
+
+Item* Item::getInstance(){
+    return this;
+}
+
+bool Item::isConsumed(Player &player) {
+    return false;
+}

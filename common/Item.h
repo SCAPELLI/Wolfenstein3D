@@ -4,6 +4,7 @@
 #include <string>
 
 class Sprite;
+class Player;
 
 class Item {
     int id;
@@ -18,6 +19,8 @@ public:
     void changeValue(int toChange);
     std::string getItemName();
     int getItemId();
+    virtual bool isConsumed(Player& player);
+    virtual Item* getInstance();
 };
 
 

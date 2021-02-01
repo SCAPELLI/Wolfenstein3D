@@ -2,12 +2,13 @@
 #include "../server/GameLoader.h"
 #include <bits/stdc++.h>
 
-Weapon::Weapon(int id, int damage, int minBullets, double speed)
-    : id(id), effect(damage), minBullets(minBullets), speed(speed)
+Weapon::Weapon(int id, std::string name, int damage, int minBullets,
+                                                            double speed)
+    : id(id), effect(damage),name(name), minBullets(minBullets), speed(speed)
 {}
 
-Weapon::Weapon(int id)
-    : id(id), effect(-1)
+Weapon::Weapon(int id, std::string& name)
+    : id(id), name (name)
 {
     GameLoader yaml;
     yaml.configWeapon(id, effect, minBullets, speed);
@@ -35,4 +36,8 @@ bool Weapon::operator<(const Weapon& t) const{
 }
 bool Weapon::operator==(const Weapon& t) const{
     return (this->id == t.id);
+}
+
+bool Weapon::isConsumed(Player &player) {
+    return player.getItem(this);
 }

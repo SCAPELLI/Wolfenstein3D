@@ -69,7 +69,8 @@ void Game::decrementLife(int idPlayer) {
 }
 
 bool Game::openTheDoor(int idPlayer){  // queda obsoleto esto
-//    Vector posNow = players[idPlayer].getPosition();
+    // map.openDoor()  ---> directamente que se fije si hay puerta que la abra y sino nada, todo automatico
+    if (map.isADoor(players[idPlayer]))
 //    if (map[posNow.x][posNow.y] == NORMALDOOR){
 //        map[posNow.x][posNow.y] = DOOROPEN;
 //        return true;

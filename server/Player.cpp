@@ -28,7 +28,9 @@ Player::Player(int parsed_id, Vector position)
                       idWeapon,
                       points,
                       keys,
-                      bullets);
+                      bullets,
+                      dead);
+
     prevIdWeapon = idWeapon;
 }
 
@@ -96,14 +98,13 @@ bool Player::isDead(){
 }
 void Player::died(){
     lifes -=1;
-    health = MAXHEALTH;
     position = initialPosition;
     scaledPosition = initialPosition.scale();
-    angle = 0;
+    GameLoader yaml;
+    yaml.configPlayer(lifes, health, radius, angle, bag, idWeapon,points, keys,
+                      bullets, dead);
     dead = false;
-    points = PointGainItem();
-    keys = KeyItem();
-    resetBagWeapons();
+
 }
 
 Item Player::getBullets(){
@@ -140,9 +141,11 @@ bool Player::openDoor(){
     return false;
 }
 
-bool Player::getItem(LifeGainItem& item) {
-    if (health == MAXHEALTH) return false;
-    health += item.getEffect();
+bool Player::getItem(LifeGainItem* item) {
+    if (health == MAXHEALTH){
+     return false;
+    }
+    health += item->getEffect();
     if (health > MAXHEALTH) {
         int extra = health % MAXHEALTH;
         health -= extra;
@@ -150,20 +153,20 @@ bool Player::getItem(LifeGainItem& item) {
     return true;
 }
 
-bool Player::getItem(PointGainItem& item) {
-    points.changeValue(item.getEffect());
+bool Player::getItem(PointGainItem* item) {
+    points.changeValue(item->getEffect());
     return true;
 }
-bool Player::getItem(Weapon& item) {
-    return pickupWeapon(item);
+bool Player::getItem(Weapon* item) {
+    return pickupWeapon(*item);
 }
-bool Player::getItem(KeyItem& item) {
-    keys.changeValue(item.getEffect());
+bool Player::getItem(KeyItem* item) {
+    keys.changeValue(item->getEffect());
     return true;
 }
-bool Player::getItem(AmmoItem& item) {
+bool Player::getItem(AmmoItem* item) {
     if (bullets.getEffect()  == maxBullets) return false;
-    bullets.changeValue(item.getEffect());
+    bullets.changeValue(item->getEffect());
     if (bullets.getEffect() > maxBullets) {
         int extra = bullets.getEffect() % maxBullets;
         bullets.changeValue(-extra);

@@ -8,10 +8,13 @@ class AmmoItem : public Item{
 private:
     int id;
     std::string name;
-    int quantity;
+    int effect;
 public:
     AmmoItem();
     AmmoItem(int id, std::string name, int quantity);
+    bool isConsumed(Player &player) override;
+    virtual void changeValue(int toChange);
+    virtual int getEffect() ;
 
 };
 

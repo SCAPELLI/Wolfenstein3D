@@ -11,7 +11,7 @@ private:
     int effect;
 public:
     LifeGainItem(int id,std::string name, int effect);
-
+    bool isConsumed(Player& player) override;
 };
 
 

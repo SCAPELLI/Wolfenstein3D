@@ -8,7 +8,7 @@ class Player;
 
 class CellMap{
     bool occupied;
-    std::vector<Item> items;
+    std::vector<Item*> items;
     std::vector<Player> playerList;
 public:
     CellMap();
@@ -19,11 +19,12 @@ public:
     bool isSolid();
     void getItemsTile(Player& player);
     bool hasItems();
-    Item removeItem();
-    void addItem(Item item);
+    Item* removeItem();
+    void addItem(Item* item);
     void setSolid();
     void dropItems(Player& player);
-    void dropItemPlayer(Item item);
+    void dropItemPlayer(Item* item);
+    bool isOpenable();
 
 };
 

@@ -7,6 +7,8 @@
 
 class Map{
     std::vector<std::vector<CellMap>> matrix;
+    double width;
+    double high;
     //Player& player;
     public:
         Map(std::vector<Player>& players);
@@ -21,6 +23,7 @@ class Map{
         void dropItemPlayer(Player& player, Item itemPlayer);
         void setElemInPosition(int numOfPlayer, int pos1, int pos2,
                     CellMap& tileMap, std::vector<Player>& players, int elem);
+        bool isADoor(Player& player);
 
 };
 
