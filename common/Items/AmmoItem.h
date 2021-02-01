@@ -13,8 +13,8 @@ public:
     AmmoItem();
     AmmoItem(int id, std::string name, int quantity);
     bool isConsumed(Player &player) override;
-    virtual void changeValue(int toChange);
-    virtual int getEffect() ;
+//    virtual void changeValue(int toChange);
+//    virtual int getEffect() ;
 
 };
 

@@ -11,16 +11,16 @@ AmmoItem::AmmoItem()
 }
 
 AmmoItem::AmmoItem(int id, std::string name, int quantity)
-: id(id), name(name), effect(quantity) {}
+: id(id), name(name), effect(quantity), Item(id, name, quantity) {}
 
 bool AmmoItem::isConsumed(Player &player) {
     return player.getItem(this);
 }
 
-void AmmoItem::changeValue(int toChange) {
-    effect += toChange;
-}
-
-int AmmoItem::getEffect() {
-    return effect;
-}
+//void AmmoItem::changeValue(int toChange) {
+//    effect += toChange;
+//}
+//
+//int AmmoItem::getEffect() {
+//    return effect;
+//}

@@ -4,7 +4,8 @@
 
 Weapon::Weapon(int id, std::string name, int damage, int minBullets,
                                                             double speed)
-    : id(id), effect(damage),name(name), minBullets(minBullets), speed(speed)
+    : id(id), effect(damage),name(name), minBullets(minBullets), speed(speed),
+      Item(id, name, damage)
 {}
 
 Weapon::Weapon(int id, std::string& name)
@@ -12,6 +13,7 @@ Weapon::Weapon(int id, std::string& name)
 {
     GameLoader yaml;
     yaml.configWeapon(id, effect, minBullets, speed);
+    Item(id, name, effect);
 }
 
 int Weapon::attack(int bullets){

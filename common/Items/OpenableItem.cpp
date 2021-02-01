@@ -3,7 +3,7 @@
 #include "OpenableItem.h"
 
 OpenableItem::OpenableItem(int id,std::string name, int effect)
-:  id(id), name(name), effect(effect){}
+:  id(id), name(name), effect(effect), Item(id, name, effect){}
 
 
 bool OpenableItem::isConsumed(Player &player) {

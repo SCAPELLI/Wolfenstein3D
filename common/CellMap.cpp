@@ -7,8 +7,7 @@
 #include "Items/LockedDoor.h"
 #include "GameLoader.h"
 #include "Items/AmmoItem.h"
-#define KEY_ID 101
-#define GUN_ID 2
+#define KEY_ID 7
 
 
 CellMap::CellMap()

@@ -16,7 +16,6 @@ Map::Map(std::vector<Player>& players){
     std::vector<std::vector<CellMap>> map;
     YAML::Node config = YAML::LoadFile("map.yaml");
     YAML::Node matrixConfig = config["map"];
-    std::cout << matrixConfig;
     int numOfPlayer = 0;
     for (std::size_t i = 0; i < matrixConfig.size(); i++) {
         std::vector<CellMap> row;
