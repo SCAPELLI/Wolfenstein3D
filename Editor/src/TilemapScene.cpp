@@ -118,3 +118,21 @@ bool TilemapScene::isAValidPosition(QGraphicsSceneMouseEvent *event) {
 std::vector<std::vector<int>> TilemapScene::getMapMatrix() {
     return this->vector;
 }
+
+void TilemapScene::setMapMatrix(std::vector<std::vector<int>> matrix) {
+    this->vector = matrix;
+    int row, column;
+    for (int row = 0; row != this->vector.size(); row++){
+        for (int column = 0; column != this->vector[row].size(); column++) {
+            int id = this->vector[row][column];
+            if (id != 0) {
+                Coordinate coordinate(column * 32, row * 32);
+                std::string spritePath = "../sprites/sprite" + std::to_string(this->vector[row][column]) + ".png";
+                QString str = QString::fromUtf8(spritePath.c_str());
+                Texture texture(str, this->vector[row][column]);
+                Tile *tile = new Tile(0, coordinate, texture);
+                this->addItem(tile);
+            }
+        }
+    }
+}

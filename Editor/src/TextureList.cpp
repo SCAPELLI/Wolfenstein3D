@@ -24,7 +24,7 @@ void TextureList::addTexture(std::string texturePath, std::string textureType, i
     QListWidgetItem *tile = new QListWidgetItem(QIcon(aux), auxType);
     this->addItem(tile);
 
-    Texture texture(aux, auxType, id);
+    Texture texture(aux, id);
     this->textures.push_back(texture);
 }
 
