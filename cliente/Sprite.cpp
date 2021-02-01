@@ -19,8 +19,8 @@ void Sprite::draw(SDL_Renderer* renderer, int x, double distance){
 	SDL_Rect src = {0,0, h, w};
 	SDL_Rect dest = {x - 32,
 					(rh / 2),
-					w,
-					h};
+					int(w - distance/10),
+                     int(h - distance/10)};
 	SDL_RenderCopy(renderer, this->texture, &src, &dest);
 }
 

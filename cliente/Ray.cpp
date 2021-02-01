@@ -4,10 +4,10 @@
 #include <iostream>
 #include "SDL2/SDL.h"
 
-Ray::Ray(Vector startPoint, Vector direction, int xPixel):
-	xPixel(xPixel), startPoint(startPoint), direction(direction),
-    deltaDistX(std::abs(1 / direction.y)),
-    deltaDistY(std::abs(1 / direction.x)),
+Ray::Ray(Vector startPoint, Vector direction):
+	xPixel(0), startPoint(startPoint), direction(direction),
+    deltaDistX(std::abs(1 / direction.x)),
+    deltaDistY(std::abs(1 / direction.y)),
 	collisionSide(0)
 	{
 		this->initialize(startPoint);
@@ -44,6 +44,26 @@ void Ray::initialize(Vector& position){
 		this->stepY = 1;
 		this->sideDistY = (mapY + 1.0 - posY) * deltaDistY;
 	}
+}
+
+bool Ray::closerToWallThan(std::vector<std::vector<int>> &map, int finalX, int finalY){
+    int mapX = startPoint.scale().y;
+    int mapY = startPoint.scale().x;
+    while (true){
+        if (sideDistX < sideDistY){
+            sideDistX += deltaDistX;
+            mapX += stepX;
+        } else {
+            sideDistY += deltaDistY;
+            mapY += stepY;
+        }
+        if (map[mapX][mapY] != 0){
+            return true;
+        }
+        if (mapX >= finalX && mapY >= finalY){
+            return false;
+        }
+    }
 }
 
 double Ray::distanceToWall(std::vector<std::vector<int>>& map){
@@ -84,8 +104,6 @@ void Ray::draw(SDL_Renderer* renderer, int h,
     xWall -= floor((xWall));
 
     xWall *= 32;
-    //if(collisionSide == 0 && direction.x > 0) xWall = 32 - xWall - 1;
-    //if(collisionSide == 1 && direction.y < 0) xWall = 32 - xWall - 1;
     (*wallTextures)[textureID]->drawLine(renderer, xPixel, xWall, std::min(drawStart, drawEnd), drawEnd - drawStart);
 }
 
