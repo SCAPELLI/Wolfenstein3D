@@ -46,22 +46,23 @@ void Ray::initialize(Vector& position){
 	}
 }
 
-bool Ray::closerToWallThan(std::vector<std::vector<int>> &map, int finalX, int finalY){
+double Ray::distanceToWallEuclidean(std::vector<std::vector<int>> &map){
     int mapX = startPoint.scale().y;
     int mapY = startPoint.scale().x;
     while (true){
         if (sideDistX < sideDistY){
             sideDistX += deltaDistX;
             mapX += stepX;
+            collisionSide = 0;
         } else {
             sideDistY += deltaDistY;
             mapY += stepY;
+            collisionSide = 1;
         }
         if (map[mapX][mapY] != 0){
-            return true;
-        }
-        if (mapX >= finalX && mapY >= finalY){
-            return false;
+            return collisionSide == 0 ?
+            sqrt(pow(startPoint.x + mapX * 32, 2) + pow((startPoint * cos(startPoint.angle(Vector(1,0)))).size(), 2)) :
+            sqrt(pow(startPoint.y + mapY * 32, 2) + pow((startPoint * sin(startPoint.angle(Vector(0,1)))).size(), 2));
         }
     }
 }

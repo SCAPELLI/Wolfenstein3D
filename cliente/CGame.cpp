@@ -25,7 +25,7 @@ void CGame::rotate(double degrees){
 }
 
 void CGame::spawnRenderable(){
-	renderables.emplace(2, new Renderable(64, 375, std::string("prueba.bmp"), screen.getRenderer()));
+	renderables.emplace(2, new Renderable(64, 75, std::string("prueba.bmp"), screen.getRenderer()));
 }
 
 void CGame::processEvent(LifeDecrementEvent& event){}

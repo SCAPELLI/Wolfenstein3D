@@ -15,7 +15,7 @@ class Ray{
 	void initialize(Vector& position);
 	public:
 		double distanceToWall(std::vector<std::vector<int>>& map);
-		bool closerToWallThan(std::vector<std::vector<int>>& map, int finalX, int finalY);
+		double distanceToWallEuclidean(std::vector<std::vector<int>>& map);
 		Ray(Vector startPoint, Vector direction);
 		Ray(Camera* camera, double cameraX, int x);
 		void draw(SDL_Renderer* renderer, int h,

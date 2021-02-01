@@ -4,7 +4,6 @@
 
 Sprite::Sprite(const std::string& path, SDL_Renderer* renderer){
 	SDL_Surface* temp = nullptr;
-	std::cout << path << "\n";
 	temp = SDL_LoadBMP(path.c_str());
 	// manejar excepcion
 	this->texture = SDL_CreateTextureFromSurface(renderer, temp);
@@ -19,8 +18,8 @@ void Sprite::draw(SDL_Renderer* renderer, int x, double distance){
 	SDL_Rect src = {0,0, h, w};
 	SDL_Rect dest = {x - 32,
 					(rh / 2),
-					int(w - distance/10),
-                     int(h - distance/10)};
+					int(w),
+                     int(h)};
 	SDL_RenderCopy(renderer, this->texture, &src, &dest);
 }
 
