@@ -8,7 +8,7 @@
 class Map{
     std::vector<std::vector<CellMap>> matrix;
     double width;
-    double high;
+    double height;
     //Player& player;
     public:
         Map(std::vector<Player>& players);
