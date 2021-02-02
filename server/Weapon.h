@@ -16,7 +16,7 @@ public:
 public:
     int getDamage()const;
     Weapon(int id, std::string name,int damage, int minBullets, double speed);
-    Weapon(int id, std::string& name);
+    Weapon(int id, std::string name);
     Weapon();
     int attack(int bullets);
     int getSpeed();

@@ -167,7 +167,6 @@ bool Player::getItem(KeyItem* item) {
 bool Player::getItem(AmmoItem* item) {
     if (bullets.getEffect()  == maxBullets) return false;
     int effect = item->getEffect();
-    std::cout << effect << "BULLETSSS" << std::endl;
     bullets.changeValue(item->getEffect());
     if (bullets.getEffect() > maxBullets) {
         int extra = bullets.getEffect() % maxBullets;

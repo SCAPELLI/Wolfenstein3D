@@ -8,11 +8,11 @@ Weapon::Weapon(int id, std::string name, int damage, int minBullets,
       Item(id, name, damage)
 {}
 
-Weapon::Weapon(int id, std::string& name)
+Weapon::Weapon(int id, std::string name)
     : id(id), name (name)
 {
     GameLoader yaml;
-    yaml.configWeapon(id, effect, minBullets, speed);
+    yaml.configWeapon(name, effect, minBullets, speed);
     Item(id, name, effect);
 }
 
@@ -37,7 +37,7 @@ bool Weapon::operator<(const Weapon& t) const{
     return (this->id < t.id);
 }
 bool Weapon::operator==(const Weapon& t) const{
-    return (this->id == t.id);
+    return (this->name == t.name);
 }
 
 bool Weapon::isConsumed(Player &player) {

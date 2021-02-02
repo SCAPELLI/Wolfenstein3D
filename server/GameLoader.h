@@ -11,7 +11,7 @@ public:
                       PointGainItem& points, KeyItem& keys, AmmoItem& bullets, bool dead);
     void readData(int& speed);
     Item* itemLoader(int& idItem);
-    void configWeapon(int& id, int& effect, int& minBullets, double& speed);
+    void configWeapon(std::string& name, int& effect, int& minBullets, double& speed);
     void setTexture(int& idItem, CellMap& tileMap);
     Item* itemLoader(std::string& idItem);
     void configItem(int& id, std::string&  itemName, int& effect);

@@ -5,23 +5,23 @@ Player:
   angle: 0
   bullets: 8
 Weapons:
-  Knife:
+  knife:
     damage: 1
     minBullets: 0
     speed: 0
-  Gun:
+  pistol:
     damage: 1
     minBullets: 1
     speed: 0
-  MachineGun:
+  machine gun:
     damage: 5
     minBullets: 5
     speed: 0.3
-  ChainCanon:
+  chain gun:
     damage: 6
     minBullets: 1
     speed: 0.1
-  Rocket:
+  rocket launcher:
     damage: 1
     minBullets: 5
     speed: 0.0

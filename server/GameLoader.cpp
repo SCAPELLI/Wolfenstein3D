@@ -30,7 +30,7 @@ void GameLoader::configPlayer(int& lifes, int& health, int& radius,
     for (YAML::const_iterator it=fileNode["Weapons"].begin();
                                         it!=fileNode["Weapons"].end(); ++it){
         std::string weaponType = it->first.as<std::string>();
-        if(weaponType =="Knife" || weaponType == "Gun"){
+        if(weaponType =="knife" || weaponType == "pistol"){
             YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
             bag.insert(std::make_pair(cont,
                     Weapon(cont, weaponType, data["damage"].as<int>(),
@@ -42,18 +42,21 @@ void GameLoader::configPlayer(int& lifes, int& health, int& radius,
     }
 }
 
-void GameLoader::configWeapon(int& id, int& effect, int& minBullets,
+void GameLoader::configWeapon(std::string& name, int& effect, int& minBullets,
                                                         double& speed){
     int cont = 0;
     YAML::Node config = YAML::LoadFile("config.yaml");
+    std::cout << config["Weapons"] << "\n";
     for (YAML::const_iterator it=config["Weapons"].begin();
                                 it!=config["Weapons"].end(); ++it){
-        if (cont == id){
-            YAML::Node data = config["Weapons"];
+        if (it->first.as<std::string>() == name){
+            YAML::Node data = config["Weapons"][it->first.as<std::string>()];
             effect = data["damage"].as<int>();
             minBullets = data["minBullets"].as<int>();
             speed = data["speed"].as<double>();
+            return;
         }
+        cont++;
     }
 }
 
