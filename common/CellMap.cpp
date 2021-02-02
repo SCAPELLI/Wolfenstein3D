@@ -3,40 +3,37 @@
 #include "Player.h"
 #include <vector>
 #include <iostream>
-#define BULLET_ID 100
-#define KEY_ID 101
+#include <algorithm>
+#include "Items/LockedDoor.h"
+#include "GameLoader.h"
+#include "Items/AmmoItem.h"
+#define KEY_ID 7
+
 
 CellMap::CellMap()
-: occupied(false), player(nullptr), items(){}
+: occupied(false), items(), playerList(){}
 
 
-void CellMap::transferPlayer(CellMap& other){
-    this->player = other.player;
-    other.player = nullptr;
+void CellMap::removePlayer(Player& player) { //deberia recibir el player
+    //dropItems(player);
+    auto index = std::find(playerList.begin(), playerList.end(), player);
+    if (index != playerList.end()) return;
+    playerList.erase(index); //find y borrar
 }
 
-void CellMap::removePlayer() {
-    dropItems();
-    player = nullptr;
-}
-
-void CellMap::addPlayer(Player *setPlayer) {
-    this->player = setPlayer;
+void CellMap::addPlayer(Player& setPlayer) {
+     playerList.emplace_back(setPlayer);
 }
 
 bool CellMap::hasPlayer() {
-    return player;
+    return playerList.size();
 }
-Item CellMap::removeItem() {
+Item* CellMap::removeItem() {
     return items.back();
 }
 
 bool CellMap::isSolid(){
     return occupied;
-}
-
-Player* CellMap::getPlayer() {
-    return player;
 }
 
 bool CellMap::hasItems() {
@@ -45,7 +42,7 @@ bool CellMap::hasItems() {
     return true;
 }
 
-void CellMap::addItem(Item item) {
+void CellMap::addItem(Item* item) {
     items.push_back(item);
 }
 
@@ -53,18 +50,34 @@ void CellMap::setSolid() {
     occupied = true;
 }
 
-void CellMap::dropItems(){
-    items.push_back(Item(BULLET_ID, 10));
-    items.push_back(player->getWeapon());
-    if (player->hasKey())
-        items.push_back(Item(KEY_ID, 1));
+bool CellMap::isOpenable(){
+//    for (auto it = items.begin(); it != items.end(); ++it){ //sino podria hacer un find con esas cosas a ver si sale true, y entonces ya sabria donde esta
+//        //std::cout << (*it)->getItemName()<< std::endl;
+//        if ((*it)->getItemName() == "false wall" ||  --> aca tendria qeu poner un sleep para volver a cambiar el valor dsps??
+//            (*it)->getItemName() == "door" ||
+//            (*it)->getItemName() == "secret passage" &&
+//        (*it)->changeValue(+-1?????) -->>> poner en modo abierto ---> si es pared falsa hacer pasar al wachin pero mantenerla cerrada dsps
 }
-void CellMap::dropItemPlayer(Item item){
+
+void CellMap::dropItems(Player& player){ //por enunciado deja 10 balas, cambiar el harcodeo?
+    GameLoader yaml;
+    items.push_back(new AmmoItem(3,"ammo", 10));
+    Weapon currentWeapon = player.getWeapon();
+    if (currentWeapon.name != "gun")
+        items.push_back(&currentWeapon);
+    if (player.hasKey())
+        items.push_back(new KeyItem(KEY_ID,"key", 1));
+}
+void CellMap::dropItemPlayer(Item* item){
     items.push_back(item);
 }
-void CellMap::getItemsTile() {
-    for (auto it = items.begin(); it != items.end(); ++it){
-        if (player->getItem(it->getItemId()))
-            items.erase(it);
+void CellMap::getItemsTile(Player& player) {
+    auto it = items.begin();
+    while (it != items.end()) {
+        if ((*it)->isConsumed(player)) {
+            it = items.erase(it);
+        } else {
+            ++it;
+        }
     }
 }

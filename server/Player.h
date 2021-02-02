@@ -5,15 +5,18 @@
 #include <map>
 #include "../common/Item.h"
 #include <vector>
+#include "../common/Items/LifeGainItem.h"
+#include "../common/Items/AmmoItem.h"
+#include "../common/Items/PointGainItem.h"
+#include "../common/Items/KeyItem.h"
 
 
 class Player {
     int id;
     Vector position;
     Vector initialPosition;
+    Vector scaledPosition;
     bool dead;
-    Item coins;
-    Item keys;
     int maxBullets;
     int lifes;
     int health;
@@ -21,7 +24,9 @@ class Player {
     double angle;
     std::map<int, Weapon> bag;
     int idWeapon;
-    Item bullets;
+    AmmoItem bullets;
+    PointGainItem points;
+    KeyItem keys;
     int prevIdWeapon;
 public:
     Player(int parsed_id, Vector position);
@@ -33,6 +38,8 @@ public:
     void rotate(double newAngle);
     int damageCurrentWeapon();
     Vector& getPosition();
+    Vector& getScaledPosition();
+    bool operator==(const Player& player);
     bool collideWith(Player& otherPlayer);
     bool pickupWeapon(Weapon weapon);
     void resetBagWeapons();
@@ -40,9 +47,13 @@ public:
     void died();
     bool isDead();
     bool isGameOver();
-    bool getItem(int idItem);
+    bool getItem(AmmoItem* item);
+    bool getItem(LifeGainItem* item);
+    bool getItem(PointGainItem* item);
+    bool getItem(KeyItem* item);
+    bool getItem(Weapon* item);
     bool openDoor();
-    Item getWeapon();
+    Weapon getWeapon();
     bool hasKey();
 };
 
