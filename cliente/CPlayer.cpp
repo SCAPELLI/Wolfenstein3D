@@ -2,7 +2,7 @@
 
 CPlayer::CPlayer(double x, double y, double fov, int id):
 	camera(x, y, fov), spawnPoint(x, y),
-	hp(100), lifes(3), id(id){}
+	hp(100), lives(3), id(id){}
 
 Camera* CPlayer::getCamera(){
 	return &this->camera;
@@ -20,7 +20,7 @@ void CPlayer::shoot(){}
 
 void CPlayer::respawn(){
 	this->camera.moveTo(spawnPoint.x, spawnPoint.y);
-	this->lifes -= 1;
+	this->lives -= 1;
 }
 
 void CPlayer::decreaseLife(int damage){

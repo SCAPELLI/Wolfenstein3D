@@ -12,18 +12,32 @@ bool isLeft(Vector a, Vector b, Vector c){
     return (b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x) > 0;
 }
 
-void Renderable::drawFrom(Camera* origin, std::vector<std::vector<int>>& map,
-	SDL_Renderer* renderer){
-	Vector originVector = origin->getPosition();
-	double distance = position.distance(originVector);
-	Vector direction = position - originVector;
-	double angle = origin->getFacingPosition().angle(direction);
-	//if (angle > 90) return;
-	double xPixel = 320 + 320 * cos(PI * angle / 180.0); // verificar si es visible
-	if (!isLeft(origin->getFacingPosition(), Vector(0,0), direction * (1/direction.size()))) xPixel += 2 * (240 - xPixel);
-    //std::cout << xPixel << "\n";
-	Ray ray(originVector, direction, xPixel);
-	if (ray.distanceToWall(map) > distance) sprite.draw(renderer, xPixel, distance);
+int Renderable::findHorizontalPixel(SDL_Renderer* renderer, Vector& direction, Vector& relativePosition){
+    int rw, rh;
+    SDL_GetRendererOutputSize(renderer, &rw, &rh);
+    int xPixel = int(rw / 2);
+    double angle = direction.angle(relativePosition) * PI / 180;
+    if (!isLeft(Vector(0,0), direction, relativePosition)){
+        xPixel -= sin(angle) * int(rw / 2);
+    } else {
+        xPixel += sin(angle) * int(rw / 2);
+    }
+    return xPixel;
+}
+
+void Renderable::drawFrom(Camera* origin,
+                          std::vector<std::vector<int>>& map,
+                          SDL_Renderer* renderer,
+                          std::vector<double> &wallDistances){
+    Vector referencePoint = origin->getPosition();
+    Vector planeDirection = origin->getPlanePosition();
+    Vector relativePosition = position - referencePoint;
+    Vector facingDirection = origin->getFacingPosition();
+
+    double invDet = 1.0 / (planeDirection.x * facingDirection.y - facingDirection.x * planeDirection.y);
+    double transformX = invDet * (facingDirection.y * relativePosition.x / 32 - facingDirection.x * relativePosition.y / 32);
+    double transformY = invDet * (-planeDirection.y * relativePosition.x / 32 + planeDirection.x * relativePosition.y / 32);
+    sprite.draw(renderer, transformX, transformY, wallDistances);
 }
 
 Renderable::~Renderable(){}
