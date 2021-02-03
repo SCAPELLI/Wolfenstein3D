@@ -25,19 +25,19 @@ int Renderable::findHorizontalPixel(SDL_Renderer* renderer, Vector& direction, V
     return xPixel;
 }
 
-void Renderable::drawFrom(Camera* origin, std::vector<std::vector<int>>& map,
-	SDL_Renderer* renderer){
+void Renderable::drawFrom(Camera* origin,
+                          std::vector<std::vector<int>>& map,
+                          SDL_Renderer* renderer,
+                          std::vector<double> &wallDistances){
     Vector referencePoint = origin->getPosition();
-    Vector dividerVector = origin->getPlanePosition();
+    Vector planeDirection = origin->getPlanePosition();
     Vector relativePosition = position - referencePoint;
-    if (!isLeft(dividerVector, Vector(0,0), relativePosition)) return;
+    Vector facingDirection = origin->getFacingPosition();
 
-    double distance = position.distance(origin->getPosition());
-    Ray ray(origin->getPosition(), position - origin->getPosition());
-    double distanceToWall = ray.distanceToWallEuclidean(map);
-    if (distanceToWall < distance) return;
-    int xPixel = this->findHorizontalPixel(renderer, origin->getFacingPosition(), relativePosition);
-    sprite.draw(renderer, xPixel, distance);
+    double invDet = 1.0 / (planeDirection.x * facingDirection.y - facingDirection.x * planeDirection.y);
+    double transformX = invDet * (facingDirection.y * relativePosition.x / 32 - facingDirection.x * relativePosition.y / 32);
+    double transformY = invDet * (-planeDirection.y * relativePosition.x / 32 + planeDirection.x * relativePosition.y / 32);
+    sprite.draw(renderer, transformX, transformY, wallDistances);
 }
 
 Renderable::~Renderable(){}

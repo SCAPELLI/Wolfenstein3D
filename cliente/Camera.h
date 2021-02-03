@@ -17,7 +17,8 @@ class Camera{
 		void rotate(double degrees);
 		void draw(SDL_Renderer* renderer,
             std::vector<std::vector<int>>& map,
-            std::map<int, Wall*>* wallTextures);
+            std::map<int, Wall*>* wallTextures,
+            std::vector<double> &wallDistances);
 		Vector& getPosition();
 		Vector& getPlanePosition();
 		Vector& getFacingPosition();

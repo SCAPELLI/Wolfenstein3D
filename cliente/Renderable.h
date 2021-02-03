@@ -14,8 +14,9 @@ class Renderable{
 	public:
 		Renderable(double x, double y, std::string path, SDL_Renderer* renderer);
 		void drawFrom(Camera* origin,
-			std::vector<std::vector<int>>& map,
-			SDL_Renderer* renderer);
+                      std::vector<std::vector<int>>& map,
+                      SDL_Renderer* renderer,
+                      std::vector<double> &wallDistances);
 		~Renderable();
 };
 

@@ -4,15 +4,6 @@
 #include <iostream>
 #include "SDL2/SDL.h"
 
-Ray::Ray(Vector startPoint, Vector direction):
-	xPixel(0), startPoint(startPoint), direction(direction),
-    deltaDistX(std::abs(1 / direction.x)),
-    deltaDistY(std::abs(1 / direction.y)),
-	collisionSide(0)
-	{
-		this->initialize(startPoint);
-}
-
 Ray::Ray(Camera* camera, double cameraX, int x):
 	xPixel(x),
 	startPoint(camera->getPosition()),
@@ -46,27 +37,6 @@ void Ray::initialize(Vector& position){
 	}
 }
 
-double Ray::distanceToWallEuclidean(std::vector<std::vector<int>> &map){
-    int mapX = startPoint.scale().y;
-    int mapY = startPoint.scale().x;
-    while (true){
-        if (sideDistX < sideDistY){
-            sideDistX += deltaDistX;
-            mapX += stepX;
-            collisionSide = 0;
-        } else {
-            sideDistY += deltaDistY;
-            mapY += stepY;
-            collisionSide = 1;
-        }
-        if (map[mapX][mapY] != 0){
-            return collisionSide == 0 ?
-            sqrt(pow(startPoint.x + mapX * 32, 2) + pow((startPoint * cos(startPoint.angle(Vector(1,0)))).size(), 2)) :
-            sqrt(pow(startPoint.y + mapY * 32, 2) + pow((startPoint * sin(startPoint.angle(Vector(0,1)))).size(), 2));
-        }
-    }
-}
-
 double Ray::distanceToWall(std::vector<std::vector<int>>& map){
 	int mapX = startPoint.scale().y;
 	int mapY = startPoint.scale().x;
@@ -91,7 +61,7 @@ double Ray::distanceToWall(std::vector<std::vector<int>>& map){
 	 		(mapY - posY + (1 - stepY) / 2) / direction.y;
 }
 
-void Ray::draw(SDL_Renderer* renderer, int h,
+double Ray::drawWall(SDL_Renderer* renderer, int h,
                std::vector<std::vector<int>>& map,
                std::map<int, Wall*>* wallTextures){
     double distance = this->distanceToWall(map);
@@ -106,6 +76,7 @@ void Ray::draw(SDL_Renderer* renderer, int h,
 
     xWall *= 32;
     (*wallTextures)[textureID]->drawLine(renderer, xPixel, xWall, std::min(drawStart, drawEnd), drawEnd - drawStart);
+    return distance;
 }
 
 Ray::~Ray(){}
