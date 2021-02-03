@@ -16,3 +16,7 @@ QString Texture::getTexturePath() {
 QString Texture::getTextureType() {
     return this->type;
 }
+
+int Texture::getId() {
+    return this->id;
+}

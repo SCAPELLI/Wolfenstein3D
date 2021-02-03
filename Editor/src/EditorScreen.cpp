@@ -3,20 +3,25 @@
 #include <QtWidgets/QFileDialog>
 #include <QDir>
 #include <QtWidgets/QVBoxLayout>
+#include <NewMapDialog.h>
+#include <yaml-cpp/node/node.h>
+#include <yaml-cpp/yaml.h>
 #include "../include/EditorScreen.h"
-#include "../include/TextureList.h"
-#include "../include/Tilemap.h"
+#include "../include/TilemapScene.h"
 #include "ui_EditorScreen.h"
 
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
-    : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/texture0.png", "wall", 100)) {
+    : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/sprite100.png", "wall", 100)) {
 
     this->ui->setupUi(this);
     this->screenManager = screenManager;
 
-    this->tilemap = new Tilemap(0, this);
+    QGraphicsView* tilemap = findChild<QGraphicsView*>("tilemap");
+    this->tilemapScene = new TilemapScene(this);
+    tilemap->setScene(this->tilemapScene);
+    tilemap->show();
     QVBoxLayout *tilemapLayout = findChild<QVBoxLayout*>("tilemapLayout");
-    tilemapLayout->addWidget(this->tilemap);
+    tilemapLayout->addWidget(tilemap);
 
     QVBoxLayout *spriteTabLayout = findChild<QVBoxLayout*>("textureListLayout");
     this->spriteTabs = new SpriteTabs(0, this);
@@ -27,16 +32,14 @@ EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
 
 EditorScreen::~EditorScreen() {
     delete this->ui;
-    delete this->tilemap;
-}
-
-void EditorScreen::setMapSize(size_t rows, size_t columns) {
-    this->rows = rows;
-    this->columns = columns;
-    this->tilemap->setMapSize(rows, columns);
+    delete this->tilemapScene;
+    delete this->spriteTabs;
 }
 
 void EditorScreen::connectEvents() {
+    QPushButton* newButton = findChild<QPushButton*>("newButton");
+    QObject::connect(newButton, &QPushButton::clicked, this, &EditorScreen::newMap);
+
     QPushButton* button = findChild<QPushButton*>("saveButton");
     QObject::connect(button, &QPushButton::clicked, this, &EditorScreen::saveMap);
 
@@ -47,7 +50,46 @@ void EditorScreen::connectEvents() {
     QObject::connect(eraseButton, &QPushButton::clicked, this, &EditorScreen::changeToEraseMode);
 }
 
+void EditorScreen::newMap() {
+    NewMapDialog newMapDialog;
+    newMapDialog.exec();
+
+    int lenght;
+    int width;
+
+    if (newMapDialog.giveLenghtWidthIfHasAValidState(&lenght, &width)) {
+        delete this->tilemapScene;
+        this->tilemapScene = new TilemapScene(this);
+        QGraphicsView* tilemap = findChild<QGraphicsView*>("tilemap");
+        tilemap->setScene(this->tilemapScene);
+        tilemap->show();
+        this->tilemapScene->setMapSize(lenght, width);
+    }
+}
+
 void EditorScreen::saveMap() {
+    if (!this->fileName.empty()) {
+        this->createMapYalm();
+    } else {
+        QString filter = "Yaml File (*.yaml)";
+        QString filePath = QFileDialog::getSaveFileName(this,
+                                                        "Save the file",
+                                                        QDir::homePath(),
+                                                        filter);
+        std::string aux = filePath.toUtf8().toStdString();
+        if (aux.empty()) {
+            //LEVANTAR UNA VENTANA QUE INFORME QUE NO SE PUDO GUARDAR
+            // DEBERIA HACER UNA FUNCION QUE DEVUELVA TRUE SI SE PUDO GUARDAR
+            std::cout << "no puso file path uwu\n";
+        } else {
+            this->fileName = aux + ".yaml";
+            std::cout << "Filename: " << this->fileName << "\n";
+            this->createMapYalm();
+        }
+    }
+
+
+    /**
     //Si ya existe, guardo ahi
     if (this->mapFile.is_open()) {
         std::cout << "se guardo el archivo\n";
@@ -70,6 +112,8 @@ void EditorScreen::saveMap() {
             // LRVANTAR UNA VENTANA QUE LO INFORME
         }
     }
+     **/
+
 }
 
 void EditorScreen::changeCurrentTexture(Texture newTexture) {
@@ -81,13 +125,30 @@ Texture EditorScreen::getCurrentTexture() {
 }
 
 void EditorScreen::changeToDrawMode() {
-    this->tilemap->changeToDrawMode();
+    this->tilemapScene->changeToDrawMode();
 }
 
 void EditorScreen::changeToEraseMode() {
-    this->tilemap->changeToEraseMode();
+    this->tilemapScene->changeToEraseMode();
 }
 
-void EditorScreen::createMapYaml() {
-    std::map<Coordinate, Tile*> tiles = this->tilemap->getTiles();
+void EditorScreen::createMapYalm() {
+    std::ofstream file;
+    file.open(this->fileName, std::ios::out);
+    YAML::Node map, _map = YAML::LoadFile(this->fileName);
+    YAML::Node mapMatrix = _map["map"];
+    std::vector<std::vector<int>> matrix = this->tilemapScene->getMapMatrix();
+
+    int i;
+    int j;
+
+    for (i = 0; i < matrix.size(); i++) {
+        YAML::Node row = YAML::Load("[]");
+        for (j = 0; j < matrix[i].size(); j++) {
+            row.push_back(matrix[i][j]);
+        }
+        _map["map"].push_back(row);
+    }
+
+    file << _map;
 }

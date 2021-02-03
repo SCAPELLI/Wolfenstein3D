@@ -4,7 +4,8 @@
 //Item::Item(int id, Sprite &newSprite)
 //:    id(id), sprite(newSprite)
 //{}
-Item::Item(int id, int effect) :  id(id), effect(effect){}
+Item::Item(int id,std::string name, int effect)
+:  id(id), name(name), effect(effect){}
 
 int Item::getItemId(){
     return id;
@@ -14,4 +15,16 @@ int Item::getEffect() {
 }
 void Item::changeValue(int toChange){
     effect += toChange;
+}
+
+std::string Item::getItemName() {
+    return name;
+}
+
+Item* Item::getInstance(){
+    return this;
+}
+
+bool Item::isConsumed(Player &player) {
+    return false;
 }

@@ -7,9 +7,10 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <fstream>
+#include <QtWidgets/QGraphicsView>
 
 class TextureList;
-class Tilemap;
+class TilemapScene;
 
 namespace Ui {
     class EditorScreen;
@@ -21,25 +22,22 @@ class EditorScreen : public QMainWindow {
     private:
         Ui::EditorScreen *ui;
         ScreenManager *screenManager;
-        TextureList *textureList;
-        Tilemap *tilemap;
-        std::ofstream mapFile;
+        TilemapScene *tilemapScene;
+        std::string fileName;
         Texture currentTexture;
         SpriteTabs *spriteTabs;
-        size_t rows;
-        size_t columns;
 
     public:
         EditorScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);
         ~EditorScreen();
-        void setMapSize(size_t rows, size_t columns);
         void connectEvents();
+        void newMap();
         void saveMap();
         void changeCurrentTexture(Texture newTexture);
         Texture getCurrentTexture();
         void changeToDrawMode();
         void changeToEraseMode();
-        void createMapYaml();
+        void createMapYalm();
 
 };
 

@@ -20,14 +20,12 @@ class ScreenManager : public QMainWindow {
         Ui::ScreenManager *ui;
         QStackedWidget *stack;
         MenuWindow *menuWindow;
-        NewMapWindow *newMapWindow;
         EditorScreen *editorScene;
 
     public:
         ScreenManager(QWidget *parent = 0);
         ~ScreenManager();
         void changeScreen(int scene);
-        void setMapSize(size_t rows, size_t columns);
 
 };
 

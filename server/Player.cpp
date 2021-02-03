@@ -2,19 +2,21 @@
 #include <cmath>
 #include "Vector.h"
 #include "GameLoader.h"
+#include "../common/Items/AmmoItem.h"
+#include "Exception.h"
 #include <iostream>
 #define MAXBULLETS 50
+#define MAXHEALTH 100
 #define BULLET_ID 100
 #define KEY_ID 101
-#define COIN_ID 102
+#define POINT_ID 102
 
 Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
     position(position),
     initialPosition(position),
+    scaledPosition(position.scale()),
     dead(false),
-    coins(Item(COIN_ID,0)),
-    keys(Item(KEY_ID,0)),
     maxBullets(MAXBULLETS)
 {
     GameLoader yaml;
@@ -24,7 +26,11 @@ Player::Player(int parsed_id, Vector position)
                       angle,
                       bag,
                       idWeapon,
-                      bullets);
+                      points,
+                      keys,
+                      bullets,
+                      dead);
+
     prevIdWeapon = idWeapon;
 }
 
@@ -42,6 +48,7 @@ int Player::damageCurrentWeapon() { //borrar?
 
 void Player::move(Vector& newPos){
         position += newPos;
+        scaledPosition = position.scale();
 }
 
 bool Player::hits(Player& otherPlayer) {
@@ -69,7 +76,7 @@ void Player::changeWeaponTo(int idTochange){ //antes recibia weapon no se que es
             idWeapon = idTochange;
         }
     }
-    // error que no se encontro??
+    throw Exception("No se encontró ese arma en el inventario");
 }
 bool Player::hasKey(){
     return keys.getEffect() > 0;
@@ -81,9 +88,9 @@ void Player::resetBagWeapons(){
     }
     idWeapon = 1;
     prevIdWeapon = 1;
-    bullets = Item(BULLET_ID, 8);
+    bullets = AmmoItem();
 }
-Item Player::getWeapon(){
+Weapon Player::getWeapon(){
     return bag[idWeapon];
 }
 bool Player::isDead(){
@@ -91,16 +98,13 @@ bool Player::isDead(){
 }
 void Player::died(){
     lifes -=1;
-    health = 100;
-//    if (lifes <= 0){
-//        dead = true; // ver si es mejor marcarlo de otra forma--> tener un alive o no que lo marque?
-//    }
-    position = initialPosition; //faltaria droppear los items
-    angle = 0;
+    position = initialPosition;
+    scaledPosition = initialPosition.scale();
+    GameLoader yaml;
+    yaml.configPlayer(lifes, health, radius, angle, bag, idWeapon,points, keys,
+                      bullets, dead);
     dead = false;
-    coins = Item(COIN_ID, 0);
-    keys = Item(KEY_ID, 0);
-    resetBagWeapons();
+
 }
 
 Item Player::getBullets(){
@@ -122,6 +126,9 @@ bool Player::collideWith(Player& other_player) {
 Vector& Player::getPosition(){
     return position;
 }
+Vector& Player::getScaledPosition(){
+    return scaledPosition;
+}
 bool Player::isGameOver(){
     return dead && lifes <= 0;
 }
@@ -134,39 +141,40 @@ bool Player::openDoor(){
     return false;
 }
 
-bool Player::getItem(int idItem){
-
-    switch (idItem) {
-        case 0:  // es comida
-            if (health == 100) return false;
-            health += 10;
-            break;
-        case 1:     //kit medico
-            if (health == 100) return false;
-            health += 20;
-            break;
-        case 2: // sangre
-            if (health >= 10) return false;
-            health += 1;
-            break;
-        case 3:
-            if (bullets.getEffect() + 5 > maxBullets) return false;
-            bullets.changeValue(5); // fijarme si tiene las balas máximas
-            break;
-        case 4:
-            return pickupWeapon(Weapon(2, 5, 5, 0.3));
-        case 5:
-            return pickupWeapon(Weapon(3, 5, 5, 0.3));
-        case 6:
-            return pickupWeapon(Weapon(4, 5, 5, 0.3));
-        case 7:
-            coins.changeValue(10); // ver que tipo de tesoro es
-            break;
-        case 8:
-            keys.changeValue(1);
-            break;
-        default:
-            return false;
+bool Player::getItem(LifeGainItem* item) {
+    if (health == MAXHEALTH){
+     return false;
+    }
+    health += item->getEffect();
+    if (health > MAXHEALTH) {
+        int extra = health % MAXHEALTH;
+        health -= extra;
     }
     return true;
+}
+
+bool Player::getItem(PointGainItem* item) {
+    points.changeValue(item->getEffect());
+    return true;
+}
+bool Player::getItem(Weapon* item) {
+    return pickupWeapon(*item);
+}
+bool Player::getItem(KeyItem* item) {
+    keys.changeValue(item->getEffect());
+    return true;
+}
+bool Player::getItem(AmmoItem* item) {
+    if (bullets.getEffect()  == maxBullets) return false;
+    int effect = item->getEffect();
+    bullets.changeValue(item->getEffect());
+    if (bullets.getEffect() > maxBullets) {
+        int extra = bullets.getEffect() % maxBullets;
+        bullets.changeValue(-extra);
+    }
+    return true;
+}
+
+bool Player::operator==(const Player& player){
+    return player.id == this->id;
 }

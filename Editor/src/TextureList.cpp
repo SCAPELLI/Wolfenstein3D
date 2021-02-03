@@ -40,7 +40,6 @@ void TextureList::setSpriteList(std::map<int, std::string> spriteMap) {
     for (auto it = spriteMap.begin(); it != spriteMap.end(); it++) {
         std::string path = "../sprites/sprite" + std::to_string(it->first) + ".png";
         std::string type = it->second;
-        int id = it->first;
-        this->addTexture(path, type, id);
+        this->addTexture(path, type, it->first);
     }
 }
