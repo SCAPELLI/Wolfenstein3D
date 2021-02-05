@@ -95,6 +95,7 @@ void Map::dropItemPlayer(Player& player, Item itemPlayer){
      matrix[positionPlayer.y][positionPlayer.x].removePlayer(player); // ponerla como atributo!!
      matrix[newPos.y][newPos.x].addPlayer(player);
      matrix[newPos.y][newPos.x].getItemsTile(player, changesEvent);
+     return changesEvent;
 }
 
 void Map::increaseCooldown() {
