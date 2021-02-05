@@ -18,7 +18,7 @@ void Sprite::draw(SDL_Renderer* renderer, double transformX, double transformY, 
     int rw, rh;
     SDL_GetRendererOutputSize(renderer, &rw, &rh);
 
-    int spriteScreenX = int((rw / 2) * (1 + transformX / transformY) );
+    int spriteScreenX = int((rw / 2) * (1 + transformX / transformY));
     int spriteHeight = std::abs(int(rh / (transformY)));
     int startY = std::max(-spriteHeight / 2 + rh / 2, 0);
     int endY = std::min(spriteHeight / 2 + rh / 2, rh - 1);

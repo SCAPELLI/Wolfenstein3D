@@ -4,6 +4,7 @@
 
 
 class GameLoader{
+    YAML::Node itemsIDs, config, map;
 public:
     GameLoader();
     void configPlayer(int& lifes, int& health, int& radius,
