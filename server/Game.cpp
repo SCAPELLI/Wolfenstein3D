@@ -49,14 +49,17 @@ int Game::shoot(int idPlayer){
 
 
 
-void Game::changePosition(Vector changeTo, int idPlayer){
+AbstractEvent Game::changePosition(Vector changeTo, int idPlayer){
     idPlayer = 0;
     Vector futurePos = (players[idPlayer].getPosition() + changeTo).scale();
     if (map.isOkToMove(futurePos)){
-        map.changePosition(futurePos, players[idPlayer]);
+        AbstractEvent listOfNewEvents = map.changePosition(futurePos, players[idPlayer]);
+        playerEvent.addItem(&players[idPlayer], futurePos.x, futurePos.y);
         players[idPlayer].move(changeTo);
+        return listOfNewEvents;
     }
 }
+
 void Game::decrementLife(int idPlayer) {
     players[idPlayer].lifeDecrement(players[idPlayer].damageCurrentWeapon());
     if (players[idPlayer].isDead()) {
@@ -68,13 +71,13 @@ void Game::decrementLife(int idPlayer) {
     }
 }
 
-bool Game::openTheDoor(int idPlayer){  // queda obsoleto esto
-    // map.openDoor()  ---> directamente que se fije si hay puerta que la abra y sino nada, todo automatico
-    if (map.isADoor(players[idPlayer]))
-//    if (map[posNow.x][posNow.y] == NORMALDOOR){
-//        map[posNow.x][posNow.y] = DOOROPEN;
-//        return true;
-//    }
-    return players[idPlayer].openDoor();
+bool Game::openTheDoor(int idPlayer){
+    return map.isADoor(players[idPlayer]);
 }
 
+void Game::increaseCooldown() {
+    map.increaseCooldown();
+    for (int i = 0; i < players.size(); i++) {
+        players[i].incrementCooldown();
+    }
+}

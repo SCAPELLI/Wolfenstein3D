@@ -43,3 +43,5 @@ bool Weapon::operator==(const Weapon& t) const{
 bool Weapon::isConsumed(Player &player) {
     return player.getItem(this);
 }
+
+void Weapon::incrementCooldown(){}

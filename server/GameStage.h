@@ -18,6 +18,7 @@ class GameOverEvent;
 class GameLoader;
 class ShootingEvent;
 class OpenDoorEvent;
+class SpawnEvent;
 
 class GameStage {
     ProtectedEventsQueue& updateEvents;
@@ -30,6 +31,10 @@ public:
     void processEvent(ShootingEvent& event);
     void processEvent(GameOverEvent& event);
     void processEvent(OpenDoorEvent& event);
-};
+    void processEvent(SpawnEvent& event);
+    void processEvent(int objId,int type, int posX, int posY);
+    void IncrementCooldown();
+
+    };
 
 #endif

@@ -55,6 +55,10 @@ public:
     bool openDoor();
     Weapon getWeapon();
     bool hasKey();
+    void incrementCooldown();
+    void initializePlayer(bool dead);
+    int getId();
+
 };
 
 #endif //WOLFENSTEIN3D_PLAYER_H

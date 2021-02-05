@@ -30,7 +30,7 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
         case TurnEventType:
             event = new TurnEvent(*(TurnEvent*)updateEvent);
             break;
-            case OpenDoorType:
+        case OpenDoorType:
             event = new OpenDoorEvent(*(OpenDoorEvent*)updateEvent);
             break;
         default:

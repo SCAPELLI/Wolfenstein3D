@@ -3,19 +3,19 @@
 #include <vector>
 #include "Player.h"
 #include "../common/CellMap.h"
+#include "MapEvent.h"
 //class CellMap;
 
 class Map{
     std::vector<std::vector<CellMap>> matrix;
-    double width;
-    double height;
-    //Player& player;
+    std::vector<OpenableItem*> doors;
+    MapEvent changesEvent;
     public:
         Map(std::vector<Player>& players);
         Map();
         //Map(std::vector<int> matrix);
         std::vector<std::vector<CellMap>>& getMatrix();
-        void changePosition(Vector& newPos, Player& player);
+        MapEvent changePosition(Vector& newPos, Player& player);
         void dropAllItems(Player& player);
         bool isOkToMove(Vector& futurePos);
         void removePlayer(Player& player);
@@ -24,6 +24,7 @@ class Map{
         void setElemInPosition(int numOfPlayer, int pos1, int pos2,
                     CellMap& tileMap, std::vector<Player>& players, int elem);
         bool isADoor(Player& player);
+        void increaseCooldown();
 
 };
 

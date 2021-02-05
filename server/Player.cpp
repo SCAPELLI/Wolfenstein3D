@@ -5,34 +5,48 @@
 #include "../common/Items/AmmoItem.h"
 #include "Exception.h"
 #include <iostream>
-#define MAXBULLETS 50
 #define MAXHEALTH 100
-#define BULLET_ID 100
 #define KEY_ID 101
-#define POINT_ID 102
 
 Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
     position(position),
     initialPosition(position),
     scaledPosition(position.scale()),
-    dead(false),
-    maxBullets(MAXBULLETS)
+    dead(false)
 {
-    GameLoader yaml;
-    yaml.configPlayer(lifes,
-                      health,
-                      radius,
-                      angle,
-                      bag,
-                      idWeapon,
-                      points,
-                      keys,
-                      bullets,
-                      dead);
-
+    initializePlayer(dead);
     prevIdWeapon = idWeapon;
 }
+
+void Player::initializePlayer(bool dead){
+    YAML::Node fileNode = YAML::LoadFile("config.yaml");
+    GameLoader yamlItems;
+    maxBullets = fileNode["Player"]["maxBullets"].as<int>();
+    if (!dead){
+        lifes = fileNode["Player"]["lifes"].as<int>();
+        points = PointGainItem();
+    }
+    health = fileNode["Player"]["health"].as<int>();
+    radius = fileNode["Player"]["radius"].as<int>();
+    bullets = AmmoItem(3, "ammo", fileNode["Player"]["bullets"].as<int>());
+    angle = fileNode["Player"]["angle"].as<double>();
+    int cont = 0;
+    for (YAML::const_iterator it=fileNode["Weapons"].begin();
+         it != fileNode["Weapons"].end(); ++it){
+        std::string weaponType = it->first.as<std::string>();
+        if(weaponType == "knife" || weaponType == "pistol"){
+            YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
+            bag.insert(std::make_pair(cont,
+                                      Weapon(cont, weaponType, data["damage"].as<int>(),
+                                             data["minBullets"].as<int>(),
+                                             data["speed"].as<double>())));
+            idWeapon = cont;
+        }
+        cont++;
+    }
+}
+
 
 void Player::rotate(double newAngle){
     angle += newAngle;
@@ -100,11 +114,8 @@ void Player::died(){
     lifes -=1;
     position = initialPosition;
     scaledPosition = initialPosition.scale();
-    GameLoader yaml;
-    yaml.configPlayer(lifes, health, radius, angle, bag, idWeapon,points, keys,
-                      bullets, dead);
+    initializePlayer(dead);
     dead = false;
-
 }
 
 Item Player::getBullets(){
@@ -157,16 +168,17 @@ bool Player::getItem(PointGainItem* item) {
     points.changeValue(item->getEffect());
     return true;
 }
+
 bool Player::getItem(Weapon* item) {
     return pickupWeapon(*item);
 }
+
 bool Player::getItem(KeyItem* item) {
     keys.changeValue(item->getEffect());
     return true;
 }
 bool Player::getItem(AmmoItem* item) {
     if (bullets.getEffect()  == maxBullets) return false;
-    int effect = item->getEffect();
     bullets.changeValue(item->getEffect());
     if (bullets.getEffect() > maxBullets) {
         int extra = bullets.getEffect() % maxBullets;
@@ -175,6 +187,16 @@ bool Player::getItem(AmmoItem* item) {
     return true;
 }
 
+void Player::incrementCooldown() {
+    for (auto  &arm : bag) {
+        arm.second.incrementCooldown();
+    }
+}
+
 bool Player::operator==(const Player& player){
     return player.id == this->id;
+}
+
+int Player::getId(){
+    return id;
 }

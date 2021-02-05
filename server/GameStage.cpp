@@ -1,4 +1,5 @@
 #include <iostream>
+#include <SpawnEvent.h>
 #include "GameStage.h"
 #include "../common/TurnEvent.h"
 #include "../common/MovementEvent.h"
@@ -10,6 +11,7 @@
 #include "../common/PositionEvent.h"
 #include "../common/GameOverEvent.h"
 #include "../common/OpenDoorEvent.h"
+#include "../common/SpawnEvent.h"
 
 #define PI 3.141592
 
@@ -46,21 +48,28 @@ void GameStage::processEvent(MovementEvent& event) {
     std::cout << "SERVER\n";
     std::cout << movement.x << "," << movement.y << "\n";
     switch (event.getDirection()) {
-        case BACKWARD:
-            game.changePosition(movement * -1, event.idPlyr);
+        case BACKWARD: {
+            AbstractEvent listEvents = game.changePosition(movement * -1, event.idPlyr);
             break;
-        case FOWARD:
-            game.changePosition(movement, event.idPlyr);
+        }
+        case FOWARD: {
+            AbstractEvent listEvents = game.changePosition(movement, event.idPlyr);
             break;
+        }
         default:
             break;
     }
-    PositionEvent toSend(game.players[event.idPlyr].getPosition().x, game.players[event.idPlyr].getPosition().y);
+//    PlayerEvent toSend;
+//    listOfEvents.toYaml()
+//    push(yaml)
+    PositionEvent toSend(game.players[event.idPlyr].getId(),
+                         game.players[event.idPlyr].getPosition().x,
+                         game.players[event.idPlyr].getPosition().y);
     Event anotherEvent(&toSend, PositionEventType);
     updateEvents.push(anotherEvent);
 }
 
-void GameStage::processEvent(LifeDecrementEvent& event){
+void GameStage::processEvent(LifeDecrementEvent& event){ //no
     game.decrementLife(event.idPlayer);
     if (game.players[event.idPlayer].isGameOver()){
         GameOverEvent dead(event.idPlayer);
@@ -85,3 +94,11 @@ void GameStage::processEvent(OpenDoorEvent& event){
     updateEvents.push(anotherEvent);
 }
 
+void GameStage::processEvent(int objId, int type, int posX, int posY) {
+    SpawnEvent toSend(objId, type, posX, posY);
+    Event anotherEvent(&toSend, SpawnEventType);
+    updateEvents.push(anotherEvent);
+}
+void GameStage::IncrementCooldown(){
+    game.increaseCooldown();
+}

@@ -12,6 +12,7 @@ public:
     int effect;
     int minBullets;
     double speed;
+    int cooldown;
 
 public:
     int getDamage()const;
@@ -23,6 +24,7 @@ public:
     bool isConsumed(Player& player) override;
     bool operator<(const Weapon& t) const;
     bool operator==(const Weapon& t) const;
+    void incrementCooldown();
 };
 
 #endif //WOLFENSTEIN3D_WEAPON_H

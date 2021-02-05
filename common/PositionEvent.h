@@ -3,12 +3,14 @@
 
 #include "AbstractEvent.h"
 #include "../cliente/CGame.h"
+#include "Player.h"
 
 class PositionEvent : public AbstractEvent {
+    int playerId;
 public:
     double x,y;
     void runHandler(CGame& game) override;
-    PositionEvent(double x, double y);
+    PositionEvent(int playerId, double x, double y);
 };
 
 

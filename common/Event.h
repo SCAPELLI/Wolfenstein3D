@@ -8,7 +8,7 @@ class ProtectedEventsQueue;
 
 enum updateEventType {LifeDecrementEventType, ShootingEventType,
                         PositionEventType, GameOverEventType,
-                        TurnEventType, OpenDoorType};
+                        TurnEventType, OpenDoorType, SpawnEventType};
 
 class Event {
     AbstractEvent* event;

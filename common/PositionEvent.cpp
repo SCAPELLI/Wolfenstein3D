@@ -3,5 +3,5 @@
 void PositionEvent::runHandler(CGame& game) {
     game.processEvent(*this);
 };
-PositionEvent::PositionEvent(double x, double y):
+PositionEvent::PositionEvent(int idPlayer, double x, double y):
         x(x), y(y){}

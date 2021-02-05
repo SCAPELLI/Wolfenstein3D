@@ -10,7 +10,7 @@ class Item {
     int id;
     std::string name;
     int effect;
-    //Sprite& sprite;
+    static int uniqueId;
 
 public:
     Item() : id(-1), name(""), effect(0) {};
@@ -18,10 +18,10 @@ public:
     int getEffect();
     void changeValue(int toChange);
     std::string getItemName();
-    int getItemId();
+    int getId();
     virtual bool isConsumed(Player& player);
-    virtual Item* getInstance();
-};
+    int getUniqueId();
+    };
 
 
 #endif //CPP_ITEM_H

@@ -11,14 +11,14 @@
 
 
 CellMap::CellMap()
-: occupied(false), items(), playerList(){}
+: occupied(false), items(), playerList(), door(nullptr){}
 
 
 void CellMap::removePlayer(Player& player) { //deberia recibir el player
     //dropItems(player);
     auto index = std::find(playerList.begin(), playerList.end(), player);
     if (index != playerList.end()) return;
-    playerList.erase(index); //find y borrar
+    playerList.erase(index);
 }
 
 void CellMap::addPlayer(Player& setPlayer) {
@@ -41,7 +41,9 @@ bool CellMap::hasItems() {
         return false;
     return true;
 }
-
+void CellMap::addItem(OpenableItem* item) {
+    door = item;
+}
 void CellMap::addItem(Item* item) {
     items.push_back(item);
 }
@@ -49,14 +51,21 @@ void CellMap::addItem(Item* item) {
 void CellMap::setSolid() {
     occupied = true;
 }
+bool CellMap::isOpen(){
+    if (door == nullptr) return true;
+    return !door->getEffect();
+}
 
-bool CellMap::isOpenable(){
-//    for (auto it = items.begin(); it != items.end(); ++it){ //sino podria hacer un find con esas cosas a ver si sale true, y entonces ya sabria donde esta
-//        //std::cout << (*it)->getItemName()<< std::endl;
-//        if ((*it)->getItemName() == "false wall" ||  --> aca tendria qeu poner un sleep para volver a cambiar el valor dsps??
-//            (*it)->getItemName() == "door" ||
-//            (*it)->getItemName() == "secret passage" &&
-//        (*it)->changeValue(+-1?????) -->>> poner en modo abierto ---> si es pared falsa hacer pasar al wachin pero mantenerla cerrada dsps
+void CellMap::incrementCooldown(){
+    door->incrementCooldown();
+    for (int i = 0; i < playerList.size(); i++){
+        playerList[i].incrementCooldown();
+    }
+}
+
+bool CellMap::isOpenable(Player& player){
+         //sino podria hacer un find con esas cosas a ver si sale true, y entonces ya sabria donde esta
+    return door->isConsumed(player);
 }
 
 void CellMap::dropItems(Player& player){ //por enunciado deja 10 balas, cambiar el harcodeo?
@@ -65,16 +74,19 @@ void CellMap::dropItems(Player& player){ //por enunciado deja 10 balas, cambiar 
     Weapon currentWeapon = player.getWeapon();
     if (currentWeapon.name != "gun")
         items.push_back(&currentWeapon);
-    if (player.hasKey())
-        items.push_back(new KeyItem(KEY_ID,"key", 1));
+    if (player.hasKey()) {
+        std::string key = "key";
+        items.push_back(yaml.itemLoader(key));
+    }
 }
 void CellMap::dropItemPlayer(Item* item){
     items.push_back(item);
 }
-void CellMap::getItemsTile(Player& player) {
+void CellMap::getItemsTile(Player& player, MapEvent& changesEvents) {
     auto it = items.begin();
     while (it != items.end()) {
         if ((*it)->isConsumed(player)) {
+            changesEvents.removeItem(*it);
             it = items.erase(it);
         } else {
             ++it;
