@@ -5,7 +5,8 @@
 #include "../AbstractEvent.h"
 
 class PickUpKeyEvent  : public AbstractEvent{
-
+public:
+PickUpKeyEvent();
 };
 
 

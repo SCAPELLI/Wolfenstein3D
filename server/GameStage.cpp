@@ -62,22 +62,13 @@ void GameStage::processEvent(MovementEvent& event) {
 //    PlayerEvent toSend;
 //    listOfEvents.toYaml()
 //    push(yaml)
-    PositionEvent toSend(game.players[event.idPlyr].getId(),
-                         game.players[event.idPlyr].getPosition().x,
-                         game.players[event.idPlyr].getPosition().y);
-    Event anotherEvent(&toSend, PositionEventType);
-    updateEvents.push(anotherEvent);
-}
 
-void GameStage::processEvent(KillEvent& event){ //no
-    game.decrementLife(event.idPlayer);
-    if (game.players[event.idPlayer].isGameOver()){
-        GameOverEvent dead(event.idPlayer);
-        Event anotherEvent(&dead, GameOverEventType);
+    for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
+        Event anotherEvent(&newEvents[i], );  //????????
         updateEvents.push(anotherEvent);
-        return;
     }
 }
+
 
 void GameStage::processEvent(GameOverEvent& event){
     GameOverEvent dead(event.idPlayer);
@@ -85,7 +76,7 @@ void GameStage::processEvent(GameOverEvent& event){
     updateEvents.push(anotherEvent);
 }
 
-void GameStage::processEvent(OpenDoorEvent& event){
+void GameStage::processEvent(OpenDoorEvent& event){ // modificar este metodo
     OpenDoorEvent toSend(event.idPlayer, false); //id puerta
     if (game.openTheDoor(event.idPlayer, newEvents)) {
         toSend.changeStatusDoor(true);

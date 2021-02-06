@@ -1,5 +1,5 @@
-#ifndef COLADEEVENTOS_KillEvent_H
-#define COLADEEVENTOS_KillEvent_H
+#ifndef KILLEVENT_H
+#define KILLEVENT_H
 
 #include "../AbstractEvent.h"
 

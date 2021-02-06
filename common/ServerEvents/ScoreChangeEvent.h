@@ -5,7 +5,9 @@
 #include "../AbstractEvent.h"
 
 class ScoreChangeEvent  : public AbstractEvent{
-
+public:
+    int score;
+    ScoreChangeEvent(int score);
 };
 
 

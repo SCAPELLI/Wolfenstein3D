@@ -1,13 +1,15 @@
 
 
-#ifndef CAMERA_CPP_DOOROPENEDEVENT_H
-#define CAMERA_CPP_DOOROPENEDEVENT_H
+#ifndef DOOROPENEDEVENT_H
+#define DOOROPENEDEVENT_H
 #include "../AbstractEvent.h"
 
 
 class DoorOpenedEvent  : public AbstractEvent{
-
+public:
+    int uniqueId;
+    explicit DoorOpenedEvent(int uniqueId);
 };
 
 
-#endif //CAMERA_CPP_DOOROPENEDEVENT_H
+#endif //DOOROPENEDEVENT_H

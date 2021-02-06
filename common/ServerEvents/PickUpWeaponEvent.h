@@ -5,7 +5,9 @@
 #include "../AbstractEvent.h"
 
 class PickUpWeaponEvent  : public AbstractEvent{
-
+    int uniqueId;
+public:
+    PickUpWeaponEvent(int uniqueId);
 };
 
 

@@ -1,8 +1,17 @@
 #include "Player.h"
 #include <cmath>
 #include "Vector.h"
+#include <vector>
 #include "GameLoader.h"
 #include "../common/Items/AmmoItem.h"
+#include "../common/ServerEvents/AmmoChangeEvent.h"
+#include "../common/ServerEvents/ChangeWeaponEvent.h"
+#include "../common/ServerEvents/DoorOpenedEvent.h"
+#include "../common/ServerEvents/HealthChangeEvent.h"
+#include "../common/ServerEvents/KillEvent.h"
+#include "../common/ServerEvents/PickUpKeyEvent.h"
+#include "../common/ServerEvents/PickUpWeaponEvent.h"
+#include "../common/ServerEvents/ScoreChangeEvent.h"
 #include "Exception.h"
 #include <iostream>
 #define MAXHEALTH 100
@@ -74,12 +83,14 @@ bool Player::hits(Player& otherPlayer) {
     return false;
 }
 
-bool Player::pickupWeapon(Weapon weapon){
+bool Player::pickupWeapon(Weapon weapon,
+                          std::vector<AbstractEvent*>& newEvents){
     for (auto const& arm : bag) {
         if (weapon == arm.second)
             return false;
     }
     bag.insert(std::make_pair(weapon.id, weapon));
+    newEvents.push_back(new PickUpWeaponEvent(weapon.getUniqueId()));
     return true;
 }
 
@@ -162,23 +173,26 @@ bool Player::getItem(LifeGainItem* item,
         int extra = health % MAXHEALTH;
         health -= extra;
     }
+    newEvents.push_back(new HealthChangeEvent(health)); // hablar con juani
     return true;
 }
 
 bool Player::getItem(PointGainItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
     points.changeValue(item->getEffect());
+    newEvents.push_back(new ScoreChangeEvent(item->getEffect()));
     return true;
 }
 
 bool Player::getItem(Weapon* item,
                      std::vector<AbstractEvent*>& newEvents) {
-    return pickupWeapon(*item);
+    return pickupWeapon(*item, newEvents);
 }
 
 bool Player::getItem(KeyItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
     keys.changeValue(item->getEffect());
+    newEvents.push_back(new PickUpKeyEvent());
     return true;
 }
 bool Player::getItem(AmmoItem* item,
@@ -189,6 +203,7 @@ bool Player::getItem(AmmoItem* item,
         int extra = bullets.getEffect() % maxBullets;
         bullets.changeValue(-extra);
     }
+    newEvents.push_back(new AmmoChangeEvent(bullets.getEffect()));
     return true;
 }
 

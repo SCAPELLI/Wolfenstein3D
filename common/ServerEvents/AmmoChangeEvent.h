@@ -5,7 +5,7 @@
 #include "../AbstractEvent.h"
 
 class AmmoChangeEvent  : public AbstractEvent{
-    int Ammo;
+    int ammo;
 public:
     AmmoChangeEvent(int Ammo);
 

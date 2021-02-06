@@ -6,6 +6,9 @@
 
 class HealthChangeEvent  : public AbstractEvent{
 
+    int health;
+public:
+    HealthChangeEvent(int health);
 };
 
 

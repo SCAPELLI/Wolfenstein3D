@@ -41,7 +41,7 @@ public:
     Vector& getScaledPosition();
     bool operator==(const Player& player);
     bool collideWith(Player& otherPlayer);
-    bool pickupWeapon(Weapon weapon);
+    bool pickupWeapon(Weapon weapon, std::vector<AbstractEvent*>& newEvents);
     void resetBagWeapons();
     Item getBullets();
     void died();
