@@ -7,7 +7,8 @@
 #include <map>
 
 class MapEvent : public AbstractEvent{
-    std::map<int, AbstractEvent*> events;
+    //std::map<int, AbstractEvent*> events;
+    std::vector<AbstractEvent*> listEvents;
 public:
     MapEvent();
     void addItem(Item* item, int x, int y);

@@ -1,7 +1,7 @@
 #include "CGame.h"
 #include <string>
 #include <iostream>
-#include "../common/PositionEvent.h"
+#include "ServerEvents/PositionEvent.h"
 #include "../common/TurnEvent.h"
 
 
@@ -29,7 +29,7 @@ void CGame::spawnRenderable(){
 	renderables.emplace(2, new Renderable(32, 32, std::string("prueba.bmp"), screen.getRenderer()));
 }
 
-void CGame::processEvent(LifeDecrementEvent& event){}
+void CGame::processEvent(KillEvent& event){}
 void CGame::processEvent(ShootingEvent& event){}
 void CGame::processEvent(GameOverEvent& event){}
 void CGame::processEvent(OpenDoorEvent& event){}

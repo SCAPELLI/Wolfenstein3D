@@ -6,7 +6,7 @@
 
 class ProtectedEventsQueue;
 
-enum updateEventType {LifeDecrementEventType, ShootingEventType,
+enum updateEventType {KillEventType, ShootingEventType,
                         PositionEventType, GameOverEventType,
                         TurnEventType, OpenDoorType, SpawnEventType};
 

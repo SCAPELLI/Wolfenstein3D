@@ -1,9 +1,11 @@
 #include "Game.h"
 #include "Vector.h"
 #include "GameLoader.h"
+#include "ServerEvents/PositionEvent.h"
 #include <cmath>
 #include <iostream>
 #include <random>
+#include <vector>
 #define DAMAGEBULLET 1
 
 
@@ -40,7 +42,7 @@ int Game::shoot(int idPlayer){
             Vector posPlayer = players[idPlayer].getPosition();
             double distance = posPlayer.distance(players[i].getPosition());
             double randomHit = generateRandom();
-            players[i].lifeDecrement((int) ((DAMAGEBULLET * randomHit) / distance));
+            players[i].KillEvent((int) ((DAMAGEBULLET * randomHit) / distance));
             return i;// devolves a quien le pegaste
         }
     }
@@ -49,19 +51,19 @@ int Game::shoot(int idPlayer){
 
 
 
-AbstractEvent Game::changePosition(Vector changeTo, int idPlayer){
+void Game::changePosition(Vector changeTo, int idPlayer,
+                                   std::vector<AbstractEvent*>& newEvents){
     idPlayer = 0;
     Vector futurePos = (players[idPlayer].getPosition() + changeTo).scale();
     if (map.isOkToMove(futurePos)){
-        AbstractEvent listOfNewEvents = map.changePosition(futurePos, players[idPlayer]);
-        playerEvent.addItem(&players[idPlayer], futurePos.x, futurePos.y);
+        map.changePosition(futurePos, players[idPlayer], newEvents);
+        newEvents.push_back(new PositionEvent(idPlayer, futurePos.x, futurePos.y));
         players[idPlayer].move(changeTo);
-        return listOfNewEvents;
     }
 }
 
 void Game::decrementLife(int idPlayer) {
-    players[idPlayer].lifeDecrement(players[idPlayer].damageCurrentWeapon());
+    players[idPlayer].KillEvent(players[idPlayer].damageCurrentWeapon());
     if (players[idPlayer].isDead()) {
         map.dropAllItems(players[idPlayer]);
         map.removePlayer(players[idPlayer]);
@@ -71,8 +73,8 @@ void Game::decrementLife(int idPlayer) {
     }
 }
 
-bool Game::openTheDoor(int idPlayer){
-    return map.isADoor(players[idPlayer]);
+bool Game::openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents){
+    return map.isADoor(players[idPlayer], newEvents);
 }
 
 void Game::increaseCooldown() {

@@ -122,7 +122,7 @@ Item Player::getBullets(){
     return bullets;
 }
 
-void Player::lifeDecrement(int damage){
+void Player::KillEvent(int damage){
     health -= damage;
     if (health <= 0)
        dead = true;
@@ -152,7 +152,8 @@ bool Player::openDoor(){
     return false;
 }
 
-bool Player::getItem(LifeGainItem* item) {
+bool Player::getItem(LifeGainItem* item,
+                     std::vector<AbstractEvent*>& newEvents) {
     if (health == MAXHEALTH){
      return false;
     }
@@ -164,20 +165,24 @@ bool Player::getItem(LifeGainItem* item) {
     return true;
 }
 
-bool Player::getItem(PointGainItem* item) {
+bool Player::getItem(PointGainItem* item,
+                     std::vector<AbstractEvent*>& newEvents) {
     points.changeValue(item->getEffect());
     return true;
 }
 
-bool Player::getItem(Weapon* item) {
+bool Player::getItem(Weapon* item,
+                     std::vector<AbstractEvent*>& newEvents) {
     return pickupWeapon(*item);
 }
 
-bool Player::getItem(KeyItem* item) {
+bool Player::getItem(KeyItem* item,
+                     std::vector<AbstractEvent*>& newEvents) {
     keys.changeValue(item->getEffect());
     return true;
 }
-bool Player::getItem(AmmoItem* item) {
+bool Player::getItem(AmmoItem* item,
+                     std::vector<AbstractEvent*>& newEvents) {
     if (bullets.getEffect()  == maxBullets) return false;
     bullets.changeValue(item->getEffect());
     if (bullets.getEffect() > maxBullets) {

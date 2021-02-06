@@ -1,7 +1,7 @@
 #ifndef GAMEOVEREVENT_H
 #define GAMEOVEREVENT_H
 #include "Renderer.h"
-#include "AbstractEvent.h"
+#include "../AbstractEvent.h"
 
 class GameOverEvent :  public AbstractEvent {
 public:

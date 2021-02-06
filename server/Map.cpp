@@ -42,7 +42,7 @@ void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
 
     } if (elem > 1 && elem < 100){
         Item* item = yaml.itemLoader(elem);
-        changesEvent.addItem(item, pos1, pos2);
+//        changesEvent.addItem(item, pos1, pos2);
         tileMap.addItem(item);
         return;
     }
@@ -52,16 +52,16 @@ void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
             tileMap.setSolid(); //faltaria agregar la pared.. o eso es aparte?? mejor aparte...
         }
         else{
-            changesEvent.addItem(door, pos1, pos2);
+  //          changesEvent.addItem(door, pos1, pos2);
             tileMap.addItem(door);
             doors.push_back(door);
         }
     }
 }
 
-bool Map::isADoor(Player& player){
+bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
     Vector& pos = player.getScaledPosition();
-    return matrix[pos.y][pos.x].isOpenable(player);
+    return matrix[pos.y][pos.x].isOpenable(player, newEvents);
 }
 
 std::vector<std::vector<CellMap>>& Map::getMatrix() {
@@ -90,12 +90,12 @@ void Map::dropItemPlayer(Player& player, Item itemPlayer){
     matrix[positionPlayer.y][positionPlayer.x].dropItemPlayer(&itemPlayer);
 }
 
- MapEvent Map::changePosition(Vector& newPos, Player& player){ //???
+ void Map::changePosition(Vector& newPos, Player& player,
+                              std::vector<AbstractEvent*>& newEvents){ //???
      Vector positionPlayer = player.getScaledPosition();
      matrix[positionPlayer.y][positionPlayer.x].removePlayer(player); // ponerla como atributo!!
      matrix[newPos.y][newPos.x].addPlayer(player);
-     matrix[newPos.y][newPos.x].getItemsTile(player, changesEvent);
-     return changesEvent;
+     matrix[newPos.y][newPos.x].getItemsTile(player, newEvents);
 }
 
 void Map::increaseCooldown() {

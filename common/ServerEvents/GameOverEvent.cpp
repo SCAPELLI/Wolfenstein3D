@@ -1,6 +1,6 @@
 
 #include "GameOverEvent.h"
-#include "../cliente/CGame.h"
+#include "cliente/CGame.h"
 
 GameOverEvent::GameOverEvent(GameOverEvent& gameOverEvent){}
 

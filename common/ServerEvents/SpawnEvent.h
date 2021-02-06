@@ -2,7 +2,7 @@
 
 #ifndef SPAWNEVENT_H
 #define SPAWNEVENT_H
-#include "AbstractEvent.h"
+#include "../AbstractEvent.h"
 
 class SpawnEvent : public AbstractEvent {
     int id;

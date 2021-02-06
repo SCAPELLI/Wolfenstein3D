@@ -7,7 +7,7 @@ OpenableItem::OpenableItem(int id,std::string name, int effect)
 :  id(id), name(name), effect(effect), Item(id, name, effect){}
 
 
-bool OpenableItem::isConsumed(Player &player) {
+bool OpenableItem::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) {
     if (getEffect() == 0){
         effect = 1;
         return true;

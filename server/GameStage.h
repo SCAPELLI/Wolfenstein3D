@@ -13,7 +13,7 @@ No incluir así:
 class ProtectedEventsQueue;
 class MovementEvent;
 class TurnEvent;
-class LifeDecrementEvent;
+class KillEvent;
 class GameOverEvent;
 class GameLoader;
 class ShootingEvent;
@@ -23,11 +23,12 @@ class SpawnEvent;
 class GameStage {
     ProtectedEventsQueue& updateEvents;
     Game game;
+    std::vector<AbstractEvent*> newEvents;
 public:
     explicit GameStage(ProtectedEventsQueue& updateEvents);
     void processEvent(TurnEvent& event);
     void processEvent(MovementEvent& event);
-    void processEvent(LifeDecrementEvent& event);
+    void processEvent(KillEvent& event);
     void processEvent(ShootingEvent& event);
     void processEvent(GameOverEvent& event);
     void processEvent(OpenDoorEvent& event);

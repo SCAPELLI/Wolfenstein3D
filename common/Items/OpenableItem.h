@@ -13,7 +13,7 @@ private:
     int cooldown;
 public:
     OpenableItem(int id,std::string name, int effect);
-    bool isConsumed(Player& player) override;
+    bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
     void incrementCooldown();
 
 };

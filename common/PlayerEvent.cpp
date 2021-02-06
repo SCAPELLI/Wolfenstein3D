@@ -1,8 +1,8 @@
 #include "PlayerEvent.h"
-#include "SpawnEvent.h"
+#include "ServerEvents/SpawnEvent.h"
 #include "Player.h"
-#include "PositionEvent.h"
-#include "LifeDecrementEvent.h"
+#include "ServerEvents/PositionEvent.h"
+#include "ServerEvents/KillEvent.h"
 
 PlayerEvent::PlayerEvent() {}
 
@@ -12,7 +12,7 @@ void PlayerEvent::addItem(Player* player, int x, int y){
 }
 
 void PlayerEvent::addItem(Player* player){
-    AbstractEvent* event = new LifeDecrementEvent(player->getId());
+    AbstractEvent* event = new KillEvent(player->getId());
     events.insert(std::make_pair(player->getId(), event));
 }
 

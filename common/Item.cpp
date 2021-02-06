@@ -26,6 +26,6 @@ int Item::getUniqueId(){
     return uniqueId;
 }
 
-bool Item::isConsumed(Player &player) {
+bool Item::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) {
     return false;
 }

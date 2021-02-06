@@ -2,7 +2,8 @@
 #ifndef ITEM_H
 #define ITEM_H
 #include <string>
-
+#include "AbstractEvent.h"
+#include <vector>
 class Sprite;
 class Player;
 
@@ -19,7 +20,7 @@ public:
     void changeValue(int toChange);
     std::string getItemName();
     int getId();
-    virtual bool isConsumed(Player& player);
+    virtual bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents);
     int getUniqueId();
     };
 

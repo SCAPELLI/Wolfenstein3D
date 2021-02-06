@@ -1,5 +1,5 @@
 #include <iostream>
-#include <SpawnEvent.h>
+#include <ServerEvents/SpawnEvent.h>
 #include "GameStage.h"
 #include "../common/TurnEvent.h"
 #include "../common/MovementEvent.h"
@@ -7,16 +7,16 @@
 #include "../common/Event.h"
 #include "GameLoader.h"
 #include "../common/ShootingEvent.h"
-#include "../common/LifeDecrementEvent.h"
-#include "../common/PositionEvent.h"
-#include "../common/GameOverEvent.h"
+#include "ServerEvents/KillEvent.h"
+#include "ServerEvents/PositionEvent.h"
+#include "ServerEvents/GameOverEvent.h"
 #include "../common/OpenDoorEvent.h"
-#include "../common/SpawnEvent.h"
+#include "ServerEvents/SpawnEvent.h"
 
 #define PI 3.141592
 
 GameStage::GameStage(ProtectedEventsQueue& updateEvents)
-    : updateEvents(updateEvents), game() {}
+    : updateEvents(updateEvents), game(), newEvents() {}
 
 void GameStage::processEvent(TurnEvent& event) {
     game.moveAngle(event.getDegrees(), event.idPlayer);
@@ -36,9 +36,9 @@ void GameStage::processEvent(ShootingEvent& event) {
             updateEvents.push(anotherEvent);
             return;
         }
-        LifeDecrementEvent decreasedLife(idHit);
+        KillEvent decreasedLife(idHit);
         processEvent(decreasedLife);
-        Event anotherEvent(&decreasedLife, LifeDecrementEventType);
+        Event anotherEvent(&decreasedLife, KillEventType);
         updateEvents.push(anotherEvent);
     }
 }
@@ -49,11 +49,11 @@ void GameStage::processEvent(MovementEvent& event) {
     std::cout << movement.x << "," << movement.y << "\n";
     switch (event.getDirection()) {
         case BACKWARD: {
-            AbstractEvent listEvents = game.changePosition(movement * -1, event.idPlyr);
+            game.changePosition(movement * -1, event.idPlyr, newEvents);
             break;
         }
-        case FOWARD: {
-            AbstractEvent listEvents = game.changePosition(movement, event.idPlyr);
+        case FORWARD: {
+            game.changePosition(movement, event.idPlyr, newEvents);
             break;
         }
         default:
@@ -69,7 +69,7 @@ void GameStage::processEvent(MovementEvent& event) {
     updateEvents.push(anotherEvent);
 }
 
-void GameStage::processEvent(LifeDecrementEvent& event){ //no
+void GameStage::processEvent(KillEvent& event){ //no
     game.decrementLife(event.idPlayer);
     if (game.players[event.idPlayer].isGameOver()){
         GameOverEvent dead(event.idPlayer);
@@ -86,8 +86,8 @@ void GameStage::processEvent(GameOverEvent& event){
 }
 
 void GameStage::processEvent(OpenDoorEvent& event){
-    OpenDoorEvent toSend(event.idPlayer, false); //faltaria checkear si es especial o no
-    if (game.openTheDoor(event.idPlayer)) {
+    OpenDoorEvent toSend(event.idPlayer, false); //id puerta
+    if (game.openTheDoor(event.idPlayer, newEvents)) {
         toSend.changeStatusDoor(true);
     }
     Event anotherEvent(&toSend, OpenDoorType);

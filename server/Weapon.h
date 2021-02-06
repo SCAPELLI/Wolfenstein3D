@@ -21,7 +21,7 @@ public:
     Weapon();
     int attack(int bullets);
     int getSpeed();
-    bool isConsumed(Player& player) override;
+    bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
     bool operator<(const Weapon& t) const;
     bool operator==(const Weapon& t) const;
     void incrementCooldown();

@@ -7,7 +7,7 @@
 #include "Items/LockedDoor.h"
 #include "GameLoader.h"
 #include "Items/AmmoItem.h"
-#define KEY_ID 7
+#include "ServerEvents/DespawnEvent.h"
 
 
 CellMap::CellMap()
@@ -63,9 +63,9 @@ void CellMap::incrementCooldown(){
     }
 }
 
-bool CellMap::isOpenable(Player& player){
+bool CellMap::isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents){
          //sino podria hacer un find con esas cosas a ver si sale true, y entonces ya sabria donde esta
-    return door->isConsumed(player);
+    return door->isConsumed(player, newEvents);
 }
 
 void CellMap::dropItems(Player& player){ //por enunciado deja 10 balas, cambiar el harcodeo?
@@ -82,11 +82,14 @@ void CellMap::dropItems(Player& player){ //por enunciado deja 10 balas, cambiar 
 void CellMap::dropItemPlayer(Item* item){
     items.push_back(item);
 }
-void CellMap::getItemsTile(Player& player, MapEvent& changesEvents) {
+void CellMap::getItemsTile(Player& player,
+                            std::vector<AbstractEvent*>& newEvents) {
     auto it = items.begin();
     while (it != items.end()) {
-        if ((*it)->isConsumed(player)) {
-            changesEvents.removeItem(*it);
+        if ((*it)->isConsumed(player, newEvents)) {
+            auto* event = new DespawnEvent((*it)->getUniqueId(),
+                                                   (*it)->getId());
+            newEvents.push_back(event); //evento despawnear
             it = items.erase(it);
         } else {
             ++it;

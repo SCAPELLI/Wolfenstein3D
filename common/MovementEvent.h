@@ -4,7 +4,7 @@
 #include "AbstractEvent.h"
 #include "../server/GameStage.h"
 
-enum MovementDirection{BACKWARD, FOWARD};
+enum MovementDirection{BACKWARD, FORWARD};
 
 class MovementEvent: public AbstractEvent {
 public:

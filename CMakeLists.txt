@@ -21,15 +21,15 @@ set(SERVER_SOURCE_FILES
         common/Renderer.cpp
         common/SDLContext.cpp
 
-        common/PositionEvent.cpp
+        common/ServerEvents/PositionEvent.cpp
         common/AbstractEvent.cpp
         common/EventsCatcher.cpp
-        common/LifeDecrementEvent.cpp
+        common/ServerEvents/KillEvent.cpp
         common/QuitEvent.cpp
         common/ShootingEvent.cpp
         common/TurnEvent.cpp
         common/MovementEvent.cpp
-        common/GameOverEvent.cpp
+        common/ServerEvents/GameOverEvent.cpp
         common/Event.cpp
         common/Window.cpp
 
@@ -51,7 +51,7 @@ set(SERVER_SOURCE_FILES
         cliente/Sprite.cpp
 
         common/OpenDoorEvent.cpp
-        common/Item.cpp common/Item.h common/CellMap.cpp common/CellMap.h cliente/Wall.h cliente/Wall.cpp common/Items/LifeGainItem.cpp common/Items/LifeGainItem.h common/Items/PointGainItem.cpp common/Items/PointGainItem.h common/Items/KeyItem.cpp common/Items/KeyItem.h common/Items/OpenableItem.cpp common/Items/OpenableItem.h common/Items/LockedDoor.cpp common/Items/LockedDoor.h common/Items/AmmoItem.cpp common/Items/AmmoItem.h common/SpawnEvent.cpp common/SpawnEvent.h common/MapEvent.cpp common/MapEvent.h common/PlayerEvent.cpp common/PlayerEvent.h)
+        common/Item.cpp common/Item.h common/CellMap.cpp common/CellMap.h cliente/Wall.h cliente/Wall.cpp common/Items/LifeGainItem.cpp common/Items/LifeGainItem.h common/Items/PointGainItem.cpp common/Items/PointGainItem.h common/Items/KeyItem.cpp common/Items/KeyItem.h common/Items/OpenableItem.cpp common/Items/OpenableItem.h common/Items/LockedDoor.cpp common/Items/LockedDoor.h common/Items/AmmoItem.cpp common/Items/AmmoItem.h common/ServerEvents/SpawnEvent.cpp common/ServerEvents/SpawnEvent.h common/MapEvent.cpp common/MapEvent.h common/PlayerEvent.cpp common/PlayerEvent.h common/ServerEvents/DespawnEvent.cpp common/ServerEvents/DespawnEvent.h common/ServerEvents/ChangeWeaponEvent.cpp common/ServerEvents/ChangeWeaponEvent.h common/ServerEvents/HealthChangeEvent.cpp common/ServerEvents/HealthChangeEvent.h common/ServerEvents/AmmoChangeEvent.cpp common/ServerEvents/AmmoChangeEvent.h common/ServerEvents/ScoreChangeEvent.cpp common/ServerEvents/ScoreChangeEvent.h common/ServerEvents/PickUpKeyEvent.cpp common/ServerEvents/PickUpKeyEvent.h common/ServerEvents/PickUpWeaponEvent.cpp common/ServerEvents/PickUpWeaponEvent.h common/ServerEvents/DoorOpenedEvent.cpp common/ServerEvents/DoorOpenedEvent.h)
 
 add_executable(Wolf server/main.cpp ${SERVER_SOURCE_FILES})
 

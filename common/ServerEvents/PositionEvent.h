@@ -1,8 +1,8 @@
 #ifndef GAME_H_POSITIONEVENT_H
 #define GAME_H_POSITIONEVENT_H
 
-#include "AbstractEvent.h"
-#include "../cliente/CGame.h"
+#include "../AbstractEvent.h"
+#include "cliente/CGame.h"
 #include "Player.h"
 
 class PositionEvent : public AbstractEvent {

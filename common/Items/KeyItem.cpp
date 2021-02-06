@@ -11,6 +11,6 @@ KeyItem::KeyItem(){
     yaml.configItem(id, name, effect);
 }
 
-bool KeyItem::isConsumed(Player &player) {
-    return player.getItem(this);
+bool KeyItem::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) {
+    return player.getItem(this, newEvents);
 }

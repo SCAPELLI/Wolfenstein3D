@@ -9,6 +9,6 @@
 LifeGainItem::LifeGainItem(int id,std::string name, int effect)
         :  id(id), name(name), effect(effect), Item(id, name, effect){}
 
-bool LifeGainItem::isConsumed(Player &player) {
-    return player.getItem(this);
+bool LifeGainItem::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) {
+    return player.getItem(this, newEvents);
 }

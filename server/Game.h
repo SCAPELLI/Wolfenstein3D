@@ -11,18 +11,19 @@ class Game {
     int speed;
     Map map;
     std::vector<Player> players;
-    PlayerEvent playerEvent;
+    AbstractEvent newChanges;
 public:
     Game();
     Game(const Game& other) = delete;
     int generateRandom();
     void moveAngle(double angle, int idPlayer);
-    AbstractEvent changePosition(Vector changeTo, int idPlayer);
+    void changePosition(Vector changeTo, int idPlayer,
+                                 std::vector<AbstractEvent*>& newEvents);
     Vector calculateDirection(int idPlyr);
     int getDamage(int idPlyr);
     int shoot(int idPlayer);
     void decrementLife(int idPlyr);
-    bool openTheDoor(int idPlayer);
+    bool openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     void increaseCooldown();
 
 };

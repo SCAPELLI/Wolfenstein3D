@@ -24,7 +24,8 @@ public:
     void addPlayer(Player& entity);
     bool hasPlayer();
     bool isSolid();
-    void getItemsTile(Player& player, MapEvent& changes);
+    void getItemsTile(Player& player,
+                      std::vector<AbstractEvent*>& newEvents);
     bool hasItems();
     Item* removeItem();
     void addItem(Item* item);
@@ -32,7 +33,7 @@ public:
     void setSolid();
     void dropItems(Player& player);
     void dropItemPlayer(Item* item);
-    bool isOpenable(Player& player);
+    bool isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents);
     bool isOpen();
     virtual void incrementCooldown();
 

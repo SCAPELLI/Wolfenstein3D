@@ -4,10 +4,10 @@
 #include "TurnEvent.h"
 
 /*----------*/
-#include "LifeDecrementEvent.h"
-#include "GameOverEvent.h"
+#include "ServerEvents/KillEvent.h"
+#include "ServerEvents/GameOverEvent.h"
 #include "ShootingEvent.h"
-#include "PositionEvent.h"
+#include "ServerEvents/PositionEvent.h"
 #include "OpenDoorEvent.h"
 /*----------*/
 
@@ -15,8 +15,8 @@
 
 Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
     switch (eventType) {
-        case LifeDecrementEventType:
-            event = new LifeDecrementEvent(*(LifeDecrementEvent*)updateEvent);
+        case KillEventType:
+            event = new KillEvent(*(KillEvent*)updateEvent);
             break;
         case ShootingEventType:
             event = new ShootingEvent(*(ShootingEvent*)updateEvent);
@@ -54,7 +54,7 @@ Event::Event(SDL_Event& sdlEvent) {
 AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
     switch (sdlEvent.key.keysym.sym) {
         case SDLK_UP:
-            return new MovementEvent(FOWARD, 0);
+            return new MovementEvent(FORWARD, 0);
         case SDLK_DOWN:
             return new MovementEvent(BACKWARD, 0);
         case SDLK_LEFT:

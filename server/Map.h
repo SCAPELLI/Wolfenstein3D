@@ -15,7 +15,8 @@ class Map{
         Map();
         //Map(std::vector<int> matrix);
         std::vector<std::vector<CellMap>>& getMatrix();
-        MapEvent changePosition(Vector& newPos, Player& player);
+        void changePosition(Vector& newPos, Player& player,
+                            std::vector<AbstractEvent*>& newEvents);
         void dropAllItems(Player& player);
         bool isOkToMove(Vector& futurePos);
         void removePlayer(Player& player);
@@ -23,7 +24,7 @@ class Map{
         void dropItemPlayer(Player& player, Item itemPlayer);
         void setElemInPosition(int numOfPlayer, int pos1, int pos2,
                     CellMap& tileMap, std::vector<Player>& players, int elem);
-        bool isADoor(Player& player);
+        bool isADoor(Player& player, std::vector<AbstractEvent*>& newEvents);
         void increaseCooldown();
 
 };
