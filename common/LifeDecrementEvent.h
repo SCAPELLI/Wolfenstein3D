@@ -9,7 +9,8 @@ class LifeDecrementEvent: public AbstractEvent {
 public:
     int idPlayer;
     LifeDecrementEvent(int idPlayer);
-    LifeDecrementEvent(LifeDecrementEvent& lifeDecrementEvent);
+    std::string getSerialization() override;
+    //LifeDecrementEvent(LifeDecrementEvent& lifeDecrementEvent);
     void runHandler(CGame& renderer) override;
 };
 

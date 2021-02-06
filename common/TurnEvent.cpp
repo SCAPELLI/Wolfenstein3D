@@ -1,4 +1,5 @@
 #include "TurnEvent.h"
+#include "EventSerializer.h"
 
 
 void TurnEvent::runHandler(GameStage& gameStage) {
@@ -11,4 +12,8 @@ void TurnEvent::runHandler(CGame& game){
 
 double TurnEvent::getDegrees(){
     return this->degrees;
+}
+
+std::string TurnEvent::getSerialization() {
+    return EventSerializer::serialize(*this);
 }

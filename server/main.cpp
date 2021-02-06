@@ -15,13 +15,13 @@ int main() {
     try {
         EventsCatcher eventsCatcher;
 
-        /*-----------------*/
+        //-----------------
         ProtectedEventsQueue userEvents;
         ProtectedEventsQueue updateEvents;
         std::atomic<bool> quit(false);
-        /*-----------------*/
+        //-----------------
         CGame game(64, 64,0.66);
-        /*-----------------*/
+        //-----------------
         game.spawnRenderable();
         std::thread t (Server(userEvents, updateEvents, quit));
         Map map = Map();

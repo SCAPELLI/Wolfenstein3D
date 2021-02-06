@@ -12,8 +12,9 @@ include_directories(${PROJECT_SOURCE_DIR})
 
 
 set(SERVER_SOURCE_FILES
-        server/main.cpp
         server/GameStage.cpp
+
+        server/main.cpp
 
         common/Exception.cpp
         common/ProtectedEventsQueue.cpp
@@ -52,7 +53,7 @@ set(SERVER_SOURCE_FILES
 
         common/OpenDoorEvent.cpp
         cliente/UI.cpp cliente/UI.h cliente/AnimatedSprite.cpp cliente/AnimatedSprite.h
-        common/Item.cpp common/Item.h common/CellMap.cpp common/CellMap.h cliente/Wall.h cliente/Wall.cpp common/Items/LifeGainItem.cpp common/Items/LifeGainItem.h common/Items/PointGainItem.cpp common/Items/PointGainItem.h common/Items/KeyItem.cpp common/Items/KeyItem.h common/Items/OpenableItem.cpp common/Items/OpenableItem.h common/Items/LockedDoor.cpp common/Items/LockedDoor.h common/Items/AmmoItem.cpp common/Items/AmmoItem.h)
+        common/Item.cpp common/Item.h common/CellMap.cpp common/CellMap.h cliente/Wall.h cliente/Wall.cpp common/Items/LifeGainItem.cpp common/Items/LifeGainItem.h common/Items/PointGainItem.cpp common/Items/PointGainItem.h common/Items/KeyItem.cpp common/Items/KeyItem.h common/Items/OpenableItem.cpp common/Items/OpenableItem.h common/Items/LockedDoor.cpp common/Items/LockedDoor.h common/Items/AmmoItem.cpp common/Items/AmmoItem.h common/EventSerializer.cpp common/EventSerializer.h)
 
 
 add_executable(Wolf server/main.cpp ${SERVER_SOURCE_FILES})
