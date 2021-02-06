@@ -6,9 +6,12 @@
 
 class PositionEvent : public AbstractEvent {
 public:
+    int playerId;
     double x,y;
     void runHandler(CGame& game) override;
+    std::string getSerialization() override;
     PositionEvent(double x, double y);
+    PositionEvent(int playerId, double x, double y);
 };
 
 

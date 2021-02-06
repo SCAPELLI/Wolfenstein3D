@@ -11,9 +11,9 @@ public:
     MovementDirection direction;
     int idPlyr;
 
-
     MovementEvent(MovementDirection direction, int idPlyr)
     : direction(direction), idPlyr(idPlyr)  {}
+    std::string getSerialization() override;
     void runHandler(GameStage& gameStage) override;
     MovementDirection getDirection();
 };

@@ -9,9 +9,10 @@ public:
     int idPlayer;
     bool opened;
     OpenDoorEvent(int idPlayer, bool isOpen);
-    OpenDoorEvent(OpenDoorEvent& openDoorEvent);
+    //OpenDoorEvent(OpenDoorEvent& openDoorEvent);
     void changeStatusDoor(bool status);
     void runHandler(CGame& renderer) override;
+    std::string getSerialization() override;
     };
 
 

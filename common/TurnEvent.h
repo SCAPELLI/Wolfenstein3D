@@ -14,6 +14,7 @@ public:
     TurnEvent(int idPlayer, double degrees): idPlayer(idPlayer), degrees(degrees) {}
     void runHandler(GameStage& gameStage) override;
     void runHandler(CGame& game);
+    std::string getSerialization() override;
     double getDegrees();
 };
 
