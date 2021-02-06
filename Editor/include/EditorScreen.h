@@ -39,6 +39,7 @@ class EditorScreen : public QMainWindow {
         void changeToDrawMode();
         void changeToEraseMode();
         void createMapYalm();
+        void setButtonsState(bool state);
 
 };
 
