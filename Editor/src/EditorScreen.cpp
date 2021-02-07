@@ -6,6 +6,7 @@
 #include <NewMapDialog.h>
 #include <yaml-cpp/node/node.h>
 #include <yaml-cpp/yaml.h>
+#include <QtWidgets/QMessageBox>
 #include "../include/EditorScreen.h"
 #include "../include/TilemapScene.h"
 #include "ui_EditorScreen.h"
@@ -103,9 +104,18 @@ void EditorScreen::openMap() {
 
     } catch (const YAML::BadFile e) {
         std::cout << "no se pudo abrir\n";
+        QMessageBox badInputMessage;
+        badInputMessage.setText("No se pudo abrir el archivo");
+        badInputMessage.exec();
     } catch (const YAML::BadConversion e) {
+        QMessageBox badInputMessage;
+        badInputMessage.setText("El archivo no es valido");
+        badInputMessage.exec();
         std::cout << "el contenido del archivo no tiene el formato de un mapa";
     } catch (const YAML::BadSubscript e) {
+        QMessageBox badInputMessage;
+        badInputMessage.setText("El archivo no es valido");
+        badInputMessage.exec();
         std::cout << "el contenido del archivo no tiene el formato de un mapa";
     }
 }
