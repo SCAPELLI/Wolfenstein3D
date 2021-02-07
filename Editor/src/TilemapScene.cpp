@@ -6,10 +6,12 @@
 
 #define BITS 32
 
-TilemapScene::TilemapScene(EditorScreen *editorScreen)
+TilemapScene::TilemapScene(EditorScreen *editorScreen, size_t rows, size_t columns)
     : editorScreen(editorScreen) {
-    this->rows = 0;
-    this->columns = 0;
+    this->rows = rows;
+    this->columns = columns;
+    this->vector = std::vector<std::vector<int>>(rows, std::vector<int> (columns,0));
+    this->setGrid();
     DrawMode *drawMode = new DrawMode(this);
     this->mode = drawMode;
 }

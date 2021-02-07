@@ -40,6 +40,7 @@ class EditorScreen : public QMainWindow {
         void changeToEraseMode();
         void createMapYalm();
         void setButtonsState(bool state);
+        void setNewTilemapScene(size_t rows, size_t columns, std::string newMapFileName);
 
 };
 

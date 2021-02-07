@@ -17,9 +17,10 @@ EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
     this->screenManager = screenManager;
 
     QGraphicsView* tilemap = findChild<QGraphicsView*>("tilemap");
-    this->tilemapScene = NULL;
     QVBoxLayout *tilemapLayout = findChild<QVBoxLayout*>("tilemapLayout");
     tilemapLayout->addWidget(tilemap);
+
+    this->tilemapScene = NULL;
 
     QVBoxLayout *spriteTabLayout = findChild<QVBoxLayout*>("textureListLayout");
     this->spriteTabs = new SpriteTabs(0, this);
@@ -61,39 +62,30 @@ void EditorScreen::newMap() {
     int width;
 
     if (newMapDialog.giveLenghtWidthIfHasAValidState(&lenght, &width)) {
-        delete this->tilemapScene;
-        this->tilemapScene = new TilemapScene(this);
-        QGraphicsView* tilemap = findChild<QGraphicsView*>("tilemap");
-        tilemap->setScene(this->tilemapScene);
-        tilemap->show();
-        this->tilemapScene->setMapSize(lenght, width);
-        this->fileName = "";
-        this->setButtonsState(true);
+         this->setNewTilemapScene(lenght, width, "");
     }
 }
 
 void EditorScreen::saveMap() {
-    std::cout << "file name:" << this->fileName << '\n';
-
-        if (!this->fileName.empty()) {
-            this->createMapYalm();
-        } else {
-            QString filter = "Yaml File (*.yaml)";
-            QString filePath = QFileDialog::getSaveFileName(this,
-                                                            "Save the file",
-                                                            QDir::homePath(),
-                                                            filter);
-            std::string aux = filePath.toUtf8().toStdString();
-            if (aux.empty()) {
+    if (!this->fileName.empty()) {
+        this->createMapYalm();
+    } else {
+        QString filter = "Yaml File (*.yaml)";
+        QString filePath = QFileDialog::getSaveFileName(this,
+                                                        "Save the file",
+                                                        QDir::homePath(),
+                                                        filter);
+        std::string aux = filePath.toUtf8().toStdString();
+        if (aux.empty()) {
                 //LEVANTAR UNA VENTANA QUE INFORME QUE NO SE PUDO GUARDAR
                 // DEBERIA HACER UNA FUNCION QUE DEVUELVA TRUE SI SE PUDO GUARDAR
-                std::cout << "no puso file path uwu\n";
-            } else {
-                this->fileName = aux + ".yaml";
-                std::cout << "Filename: " << this->fileName << "\n";
-                this->createMapYalm();
-            }
+                // std::cout << "no puso file path uwu\n";
+        } else {
+            this->fileName = aux + ".yaml";
+            std::cout << "Filename: " << this->fileName << "\n";
+            this->createMapYalm();
         }
+    }
 }
 
 void EditorScreen::openMap() {
@@ -106,16 +98,9 @@ void EditorScreen::openMap() {
         std::string aux = filePath.toUtf8().toStdString();
         YAML::Node map = YAML::LoadFile(aux);
         std::vector<std::vector<int>> matrix = map["map"].as<std::vector<std::vector<int>>>();
-        delete this->tilemapScene;
-        this->tilemapScene = new TilemapScene(this);
-        QGraphicsView* tilemap = findChild<QGraphicsView*>("tilemap");
-        tilemap->setScene(this->tilemapScene);
-        tilemap->show();
-        this->tilemapScene->setMapSize(matrix.size(), matrix[0].size());
+        this->setNewTilemapScene(matrix.size(), matrix[0].size(), aux);
         this->tilemapScene->setMapMatrix(matrix);
-        this->fileName = aux;
 
-        this->setButtonsState(true);
     } catch (const YAML::BadFile e) {
         std::cout << "no se pudo abrir\n";
     } catch (const YAML::BadConversion e) {
@@ -123,7 +108,6 @@ void EditorScreen::openMap() {
     } catch (const YAML::BadSubscript e) {
         std::cout << "el contenido del archivo no tiene el formato de un mapa";
     }
-
 }
 
 void EditorScreen::changeCurrentTexture(Texture newTexture) {
@@ -170,4 +154,14 @@ void EditorScreen::setButtonsState(bool state) {
     drawButton->setEnabled(state);
     QPushButton* eraseButton = findChild<QPushButton*>("eraseButton");
     eraseButton->setEnabled(state);
+}
+
+void EditorScreen::setNewTilemapScene(size_t rows, size_t columns, std::string newMapFileName) {
+    delete this->tilemapScene;
+    this->tilemapScene = new TilemapScene(this, rows, columns);
+    QGraphicsView* tilemap = findChild<QGraphicsView*>("tilemap");
+    tilemap->setScene(this->tilemapScene);
+    tilemap->show();
+    this->fileName = newMapFileName;
+    this->setButtonsState(true);
 }
