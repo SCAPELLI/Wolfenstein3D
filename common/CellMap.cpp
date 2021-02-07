@@ -8,6 +8,7 @@
 #include "GameLoader.h"
 #include "Items/AmmoItem.h"
 #include "ServerEvents/DespawnEvent.h"
+#
 
 
 CellMap::CellMap()
@@ -87,7 +88,7 @@ void CellMap::getItemsTile(Player& player,
     auto it = items.begin();
     while (it != items.end()) {
         if ((*it)->isConsumed(player, newEvents)) {
-            auto* event = new DespawnEvent((*it)->getUniqueId(),
+            auto* event = new DespawnEvent(DespawnType, (*it)->getUniqueId(),
                                                    (*it)->getId());
             newEvents.push_back(event); //evento despawnear
             it = items.erase(it);

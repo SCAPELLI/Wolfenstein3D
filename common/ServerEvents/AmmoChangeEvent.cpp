@@ -1,5 +1,9 @@
 #include "AmmoChangeEvent.h"
 
 
-AmmoChangeEvent::AmmoChangeEvent(int ammo)
-: ammo(ammo){}
+AmmoChangeEvent::AmmoChangeEvent (updateEventType eventType, int ammo)
+: eventType(eventType), ammo(ammo){}
+
+updateEventType AmmoChangeEvent::getEventType() {
+    return eventType;
+}

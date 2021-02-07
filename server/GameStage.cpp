@@ -16,7 +16,10 @@
 #define PI 3.141592
 
 GameStage::GameStage(ProtectedEventsQueue& updateEvents)
-    : updateEvents(updateEvents), game(), newEvents() {}
+    : updateEvents(updateEvents), newEvents() {
+     game = Game(newEvents);
+
+}
 
 void GameStage::processEvent(TurnEvent& event) {
     game.moveAngle(event.getDegrees(), event.idPlayer);
@@ -31,13 +34,12 @@ void GameStage::processEvent(ShootingEvent& event) {
     if ( idHit != -1){
         if (game.players[idHit].isGameOver()){
 
-            GameOverEvent dead(idHit);
+            GameOverEvent dead(GameOverEventType, idHit);
             Event anotherEvent(&dead, GameOverEventType);
             updateEvents.push(anotherEvent);
             return;
         }
-        KillEvent decreasedLife(idHit);
-        processEvent(decreasedLife);
+        KillEvent decreasedLife(KillEventType, idHit);
         Event anotherEvent(&decreasedLife, KillEventType);
         updateEvents.push(anotherEvent);
     }
@@ -62,16 +64,20 @@ void GameStage::processEvent(MovementEvent& event) {
 //    PlayerEvent toSend;
 //    listOfEvents.toYaml()
 //    push(yaml)
-
-    for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
-        Event anotherEvent(&newEvents[i], );  //????????
-        updateEvents.push(anotherEvent);
-    }
+    PositionEvent* pos = new PositionEvent(PositionEventType,
+                      event.idPlyr, game.players[event.idPlyr].getPosition().x, game.players[event.idPlyr].getPosition().y);
+    Event anotherEvent(pos, PositionEventType);
+    updateEvents.push(anotherEvent);
+//    for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
+//        Event anotherEvent(newEvents[i], newEvents[i]->getEventType());
+//        updateEvents.push(anotherEvent);
+//    }
+//    newEvents.clear();
 }
 
 
 void GameStage::processEvent(GameOverEvent& event){
-    GameOverEvent dead(event.idPlayer);
+    GameOverEvent dead(GameOverEventType, event.idPlayer);
     Event anotherEvent(&dead, GameOverEventType);
     updateEvents.push(anotherEvent);
 }
@@ -81,12 +87,12 @@ void GameStage::processEvent(OpenDoorEvent& event){ // modificar este metodo
     if (game.openTheDoor(event.idPlayer, newEvents)) {
         toSend.changeStatusDoor(true);
     }
-    Event anotherEvent(&toSend, OpenDoorType);
+    Event anotherEvent(&toSend, DoorOpenedEventType);
     updateEvents.push(anotherEvent);
 }
 
 void GameStage::processEvent(int objId, int type, int posX, int posY) {
-    SpawnEvent toSend(objId, type, posX, posY);
+    SpawnEvent toSend(SpawnEventType, objId, type, posX, posY);
     Event anotherEvent(&toSend, SpawnEventType);
     updateEvents.push(anotherEvent);
 }

@@ -3,12 +3,10 @@
 
 #include <SDL2/SDL_events.h>
 #include "AbstractEvent.h"
-
+#include "Constants.h"
 class ProtectedEventsQueue;
 
-enum updateEventType {KillEventType, ShootingEventType,
-                        PositionEventType, GameOverEventType,
-                        TurnEventType, OpenDoorType, SpawnEventType};
+
 
 class Event {
     AbstractEvent* event;

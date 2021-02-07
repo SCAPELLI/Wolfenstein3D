@@ -1,7 +1,13 @@
 #include "PositionEvent.h"
 
 void PositionEvent::runHandler(CGame& game) {
-    game.processEvent(*this);
+    game.processEvent (*this);
 };
-PositionEvent::PositionEvent(int idPlayer, double x, double y):
-        x(x), y(y){}
+PositionEvent::PositionEvent (updateEventType eventType, int idPlayer, double x, double y):
+        x(x), y(y), eventType(eventType){}
+
+
+updateEventType PositionEvent::getEventType() {
+    return eventType;
+}
+

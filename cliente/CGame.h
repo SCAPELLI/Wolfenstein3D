@@ -13,6 +13,7 @@ class KillEvent;
 class ShootingEvent;
 class TurnEvent;
 class OpenDoorEvent;
+class SpawnEvent;
 
 class CGame{
 	CPlayer activePlayer;
@@ -33,6 +34,7 @@ class CGame{
 		void processEvent(KillEvent& event);
 		void processEvent(PositionEvent& event);
 		void processEvent(OpenDoorEvent& event);
+		void processEvent(SpawnEvent& event);
 		~CGame();
 };
 

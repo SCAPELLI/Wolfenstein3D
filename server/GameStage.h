@@ -22,8 +22,8 @@ class SpawnEvent;
 
 class GameStage {
     ProtectedEventsQueue& updateEvents;
-    Game game;
     std::vector<AbstractEvent*> newEvents;
+    Game game;
 public:
     explicit GameStage(ProtectedEventsQueue& updateEvents);
     void processEvent(TurnEvent& event);

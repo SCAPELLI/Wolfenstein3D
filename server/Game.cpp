@@ -9,11 +9,13 @@
 #define DAMAGEBULLET 1
 
 
-Game::Game(){
+Game::Game( std::vector<AbstractEvent*>& newEvents){
     GameLoader yaml;
     yaml.readData(speed);
-    map = Map(players);
+    map = Map(players, newEvents);
 }
+
+Game::Game() {}
 
  int Game::generateRandom(){
      std::random_device rd;
@@ -57,7 +59,8 @@ void Game::changePosition(Vector changeTo, int idPlayer,
     Vector futurePos = (players[idPlayer].getPosition() + changeTo).scale();
     if (map.isOkToMove(futurePos)){
         map.changePosition(futurePos, players[idPlayer], newEvents);
-        newEvents.push_back(new PositionEvent(idPlayer, futurePos.x, futurePos.y));
+        newEvents.push_back(new PositionEvent(PositionEventType,
+                                              idPlayer, futurePos.x, futurePos.y));
         players[idPlayer].move(changeTo);
     }
 }

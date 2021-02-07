@@ -3,12 +3,15 @@
 #ifndef CAMERA_CPP_CHANGEWEAPONEVENT_H
 #define CAMERA_CPP_CHANGEWEAPONEVENT_H
 #include "../AbstractEvent.h"
+#include "Event.h"
 
 class ChangeWeaponEvent  : public AbstractEvent{
  int idPlayer;
  int uniqueId; // o tipo???
+ updateEventType eventType;
 public:
-    ChangeWeaponEvent(int idPlayer, int uniqueId);
+    ChangeWeaponEvent (updateEventType eventType, int idPlayer, int uniqueId);
+    updateEventType getEventType();
 };
 
 

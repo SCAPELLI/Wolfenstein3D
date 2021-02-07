@@ -5,13 +5,16 @@
 #include <vector>
 #include <iostream>
 #include "../common/CellMap.h"
+#include "../common/Items/Wall.h"
 #define PLAYER_ID 1
 #define TILE 32
 #include "GameLoader.h"
+#include "../common/ServerEvents/SpawnEvent.h"
 
 Map::Map(){}
 // pasarla como variable de clase?? how
-Map::Map(std::vector<Player>& players){
+Map::Map(std::vector<Player>& players,
+         std::vector<AbstractEvent*>& newEvents){
     std::vector<std::vector<CellMap>> map;
     YAML::Node config = YAML::LoadFile("map.yaml");
     YAML::Node matrixConfig = config["map"];
@@ -21,7 +24,8 @@ Map::Map(std::vector<Player>& players){
         for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {
             int elem = matrixConfig[i][j].as<int>();
             CellMap position = CellMap();
-            setElemInPosition(numOfPlayer, i , j, position, players, elem);
+            setElemInPosition(numOfPlayer, i , j, position, players, elem,
+                              newEvents);
             row.push_back(position);
         }
         map.push_back(row);
@@ -31,7 +35,7 @@ Map::Map(std::vector<Player>& players){
 
 void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
                             CellMap& tileMap, std::vector<Player>& players,
-                            int elem){
+                            int elem, std::vector<AbstractEvent*>& newEvents){
     GameLoader yaml;
     if (elem == PLAYER_ID) {
         Player newPlayer = Player(numOfPlayer,
@@ -42,17 +46,27 @@ void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
 
     } if (elem > 1 && elem < 100){
         Item* item = yaml.itemLoader(elem);
-//        changesEvent.addItem(item, pos1, pos2);
+        std::cout << item->getUniqueId() << std::endl;
+        auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
+                                item->getId(), pos1, pos2);
+        newEvents.push_back(event);
         tileMap.addItem(item);
         return;
     }
     else if (elem >= 100 && elem < 200) {
         OpenableItem* door = yaml.setTexture(elem);
         if (door == nullptr){
-            tileMap.setSolid(); //faltaria agregar la pared.. o eso es aparte?? mejor aparte...
+            tileMap.setSolid();
+            Wall* wall = new Wall(elem, "wall", 0);
+            auto event = new SpawnEvent(SpawnEventType, wall->getUniqueId(),
+                                        wall->getId(), pos1, pos2);
+            newEvents.push_back(event);
+
         }
         else{
-  //          changesEvent.addItem(door, pos1, pos2);
+            auto event = new SpawnEvent(SpawnEventType, door->getUniqueId(),
+                                        door->getId(), pos1, pos2);
+            newEvents.push_back(event);
             tileMap.addItem(door);
             doors.push_back(door);
         }

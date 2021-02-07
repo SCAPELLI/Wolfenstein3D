@@ -2,14 +2,17 @@
 #define KILLEVENT_H
 
 #include "../AbstractEvent.h"
+#include "Event.h"
 
 class CGame;
 
 class KillEvent: public AbstractEvent {
 public:
     int idPlayer;
-    KillEvent(int idPlayer);
-    KillEvent(KillEvent& KillEvent);
+    updateEventType eventType;
+    KillEvent (updateEventType eventType, int idPlayer);
+    KillEvent ( KillEvent& KillEvent);
+    updateEventType getEventType();
     void runHandler(CGame& renderer) override;
 };
 

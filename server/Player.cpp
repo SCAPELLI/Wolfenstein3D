@@ -14,6 +14,7 @@
 #include "../common/ServerEvents/ScoreChangeEvent.h"
 #include "Exception.h"
 #include <iostream>
+#include "Event.h"
 #define MAXHEALTH 100
 #define KEY_ID 101
 
@@ -90,7 +91,8 @@ bool Player::pickupWeapon(Weapon weapon,
             return false;
     }
     bag.insert(std::make_pair(weapon.id, weapon));
-    newEvents.push_back(new PickUpWeaponEvent(weapon.getUniqueId()));
+    newEvents.push_back(new PickUpWeaponEvent(PickUpWeaponType,
+                                                weapon.getUniqueId()));
     return true;
 }
 
@@ -173,14 +175,14 @@ bool Player::getItem(LifeGainItem* item,
         int extra = health % MAXHEALTH;
         health -= extra;
     }
-    newEvents.push_back(new HealthChangeEvent(health)); // hablar con juani
+    newEvents.push_back(new HealthChangeEvent(HealthChangeType, health)); // hablar con juani
     return true;
 }
 
 bool Player::getItem(PointGainItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
     points.changeValue(item->getEffect());
-    newEvents.push_back(new ScoreChangeEvent(item->getEffect()));
+    newEvents.push_back(new ScoreChangeEvent(ScoreChangeType, item->getEffect()));
     return true;
 }
 
@@ -192,7 +194,7 @@ bool Player::getItem(Weapon* item,
 bool Player::getItem(KeyItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
     keys.changeValue(item->getEffect());
-    newEvents.push_back(new PickUpKeyEvent());
+    newEvents.push_back(new PickUpKeyEvent(PickUpKeyType));
     return true;
 }
 bool Player::getItem(AmmoItem* item,
@@ -203,7 +205,7 @@ bool Player::getItem(AmmoItem* item,
         int extra = bullets.getEffect() % maxBullets;
         bullets.changeValue(-extra);
     }
-    newEvents.push_back(new AmmoChangeEvent(bullets.getEffect()));
+    newEvents.push_back(new AmmoChangeEvent(AmmoChangeType, bullets.getEffect()));
     return true;
 }
 

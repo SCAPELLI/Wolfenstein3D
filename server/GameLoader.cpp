@@ -9,6 +9,7 @@
 #include "../common/Items/LockedDoor.h"
 #include "../common/Items/OpenableItem.h"
 #include "../common/Items/AmmoItem.h"
+#include "../common/Items/Wall.h"
 #define PLAYER_ID 1
 
 GameLoader::GameLoader(){

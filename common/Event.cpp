@@ -8,7 +8,7 @@
 #include "ServerEvents/GameOverEvent.h"
 #include "ShootingEvent.h"
 #include "ServerEvents/PositionEvent.h"
-#include "OpenDoorEvent.h"
+#include "ServerEvents/DoorOpenedEvent.h"
 /*----------*/
 
 #define PI 3.141592
@@ -30,8 +30,8 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
         case TurnEventType:
             event = new TurnEvent(*(TurnEvent*)updateEvent);
             break;
-        case OpenDoorType:
-            event = new OpenDoorEvent(*(OpenDoorEvent*)updateEvent);
+        case DoorOpenedEventType:
+            event = new DoorOpenedEvent(*(DoorOpenedEvent*)updateEvent);
             break;
         default:
             this->event = nullptr;

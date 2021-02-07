@@ -3,11 +3,14 @@
 #ifndef CAMERA_CPP_SCORECHANGEEVENT_H
 #define CAMERA_CPP_SCORECHANGEEVENT_H
 #include "../AbstractEvent.h"
+#include "Event.h"
 
 class ScoreChangeEvent  : public AbstractEvent{
 public:
     int score;
-    ScoreChangeEvent(int score);
+    updateEventType eventType;
+    ScoreChangeEvent (updateEventType eventType, int score);
+    updateEventType getEventType();
 };
 
 

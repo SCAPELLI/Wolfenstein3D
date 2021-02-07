@@ -31,6 +31,7 @@ void CGame::spawnRenderable(){
 
 void CGame::processEvent(KillEvent& event){}
 void CGame::processEvent(ShootingEvent& event){}
+void CGame::processEvent(SpawnEvent& event){}
 void CGame::processEvent(GameOverEvent& event){}
 void CGame::processEvent(OpenDoorEvent& event){}
 void CGame::processEvent(TurnEvent& event) {
