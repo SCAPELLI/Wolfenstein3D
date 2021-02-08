@@ -3,14 +3,14 @@
 
 #include <iostream>
 
-class LifeDecrementEvent;
+class KillEvent;
 class ShootingEvent;
 class PositionEvent;
 
 class Renderer {
 public:
-    void processEvent(LifeDecrementEvent& event) {
-        std::cout<<"Se llamo al procesador del evento LifeDecrement"<<std::endl;
+    void processEvent(KillEvent& event) {
+        std::cout<<"Se llamo al procesador del evento KillEvent"<<std::endl;
     }
     void processEvent(ShootingEvent& event) {
         std::cout<<"Se llamo al procesador del evento Shooting"<<std::endl;

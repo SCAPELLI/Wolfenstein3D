@@ -4,19 +4,19 @@
 #include "TurnEvent.h"
 
 /*----------*/
-#include "LifeDecrementEvent.h"
-#include "GameOverEvent.h"
+#include "ServerEvents/KillEvent.h"
+#include "ServerEvents/GameOverEvent.h"
 #include "ShootingEvent.h"
-#include "PositionEvent.h"
-#include "OpenDoorEvent.h"
+#include "ServerEvents/PositionEvent.h"
+#include "ServerEvents/DoorOpenedEvent.h"
 /*----------*/
 
 #define PI 3.141592
 
-Event::Event(AbstractEvent* updateEvent, eventType eventType) {
+Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
     switch (eventType) {
-        case LifeDecrementEventType:
-            event = new LifeDecrementEvent(*(LifeDecrementEvent*)updateEvent);
+        case KillEventType:
+            event = new KillEvent(*(KillEvent*)updateEvent);
             break;
         case ShootingEventType:
             event = new ShootingEvent(*(ShootingEvent*)updateEvent);
@@ -30,12 +30,12 @@ Event::Event(AbstractEvent* updateEvent, eventType eventType) {
         case TurnEventType:
             event = new TurnEvent(*(TurnEvent*)updateEvent);
             break;
-        case OpenDoorType:
-            event = new OpenDoorEvent(*(OpenDoorEvent*)updateEvent);
+        case DoorOpenedEventType:
+            event = new DoorOpenedEvent(*(DoorOpenedEvent*)updateEvent);
             break;
-        case MovementEventType:
-            event = new MovementEvent(*(MovementEvent*)updateEvent);
-            break;
+//        case MovementEventType:
+//            event = new MovementEvent(*(MovementEvent*)updateEvent);
+//            break;
         default:
             this->event = nullptr;
     }
@@ -57,7 +57,7 @@ Event::Event(SDL_Event& sdlEvent) {
 AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
     switch (sdlEvent.key.keysym.sym) {
         case SDLK_UP:
-            return new MovementEvent(FOWARD, 0);
+            return new MovementEvent(FORWARD, 0);
         case SDLK_DOWN:
             return new MovementEvent(BACKWARD, 0);
         case SDLK_LEFT:

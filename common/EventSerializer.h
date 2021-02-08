@@ -27,7 +27,7 @@ class TurnEvent;
 class OpenDoorEvent;
 class ShootingEvent;
 class PositionEvent;
-class LifeDecrementEvent;
+class KillEvent;
 class GameOverEvent;
 
 class EventSerializer {
@@ -48,7 +48,7 @@ public:
     static std::string serialize(ShootingEvent& event);
     static std::string serialize(PositionEvent& event);
     static std::string serialize(OpenDoorEvent& event);
-    static std::string serialize(LifeDecrementEvent& event);
+    static std::string serialize(KillEvent& event);
     static std::string serialize(GameOverEvent& event);
     static std::string serialize(Event& event);
 };

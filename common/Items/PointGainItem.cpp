@@ -7,6 +7,6 @@ PointGainItem::PointGainItem(int id,std::string name, int effect)
 PointGainItem::PointGainItem()
 : id(1), name(""), effect(0){}
 
-bool PointGainItem::isConsumed(Player &player) {
-    return player.getItem(this);
+bool PointGainItem::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) {
+    return player.getItem(this, newEvents);
 }

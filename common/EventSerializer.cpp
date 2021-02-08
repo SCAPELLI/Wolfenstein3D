@@ -3,9 +3,12 @@
 #include "../common/TurnEvent.h"
 #include "../common/ShootingEvent.h"
 #include "../common/OpenDoorEvent.h"
-#include "../common/GameOverEvent.h"
-#include "../common/PositionEvent.h"
+#include "../common/ServerEvents/GameOverEvent.h"
+#include "../common/ServerEvents/KillEvent.h"
+#include "../common/ServerEvents/PositionEvent.h"
+
 #include "../common/Event.h"
+#include "Constants.h"
 
 Event EventSerializer::createMovementEvent(std::string eventString) {
     //EEEPPPF o EEEPPPB
@@ -14,7 +17,7 @@ Event EventSerializer::createMovementEvent(std::string eventString) {
     MovementDirection direction;
     switch (eventString[6]) {
         case 'F':
-            direction = FOWARD;
+            direction = FORWARD;
             break;
         case 'B':
             direction = BACKWARD;
@@ -50,14 +53,14 @@ Event EventSerializer::createOpenDoorEvent(std::string eventString) {
     bool isOpen = (eventString[6] == 'T');
 
     OpenDoorEvent event(playerId, isOpen);
-    return Event(&event, OpenDoorType);
+    return Event(&event, DoorOpenedEventType);
 }
 
 Event EventSerializer::createGameOverEvent(std::string eventString) {
     //EEEPPP
     int playerId = std::stoi(eventString.substr (3, 3));
 
-    GameOverEvent event(playerId);
+    GameOverEvent event(GameOverEventType, playerId);
     return Event(&event, GameOverEventType);
 }
 
@@ -68,7 +71,7 @@ Event EventSerializer::createPositionEvent(std::string eventString) {
     double x = std::stod(eventString.substr(6, 20));
     double y = std::stod(eventString.substr(26, 20));
 
-    PositionEvent event(playerId, x, y);
+    PositionEvent event(PositionEventType,playerId, x, y);
     return Event(&event, PositionEventType);
 }
 
@@ -117,7 +120,7 @@ std::string EventSerializer::serialize(MovementEvent& event) {
     addZerosToLeft(playerId, 3);
 
     std::string direction;
-    if (event.direction == FOWARD) direction = 'F';
+    if (event.direction == FORWARD) direction = 'F';
     if (event.direction == BACKWARD) direction = 'B';
 
     return MOVEMENT_EVENT_STRING + playerId + direction;
@@ -164,7 +167,7 @@ std::string EventSerializer::serialize(OpenDoorEvent& event) {
     return OPEN_DOOR_EVENT_STRING + playerId + opened;
 }
 
-std::string EventSerializer::serialize(LifeDecrementEvent& event) {
+std::string EventSerializer::serialize(KillEvent& event) {
     return "";
 }
 
