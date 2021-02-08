@@ -27,12 +27,14 @@ class Player {
     AmmoItem bullets;
     PointGainItem points;
     KeyItem keys;
+    int bulletsShot;
+    int playersKilled;
     int prevIdWeapon;
 public:
     Player(int parsed_id, Vector position);
     void KillEvent(int damage);
     bool hits(Player& player);
-    void changeWeaponTo(int idToChange);
+    bool changeWeaponTo(int idToChange);
     double getAngle() const;
     void move(Vector& newPos);
     void rotate(double newAngle);

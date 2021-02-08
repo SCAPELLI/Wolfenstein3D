@@ -51,7 +51,9 @@ int Game::shoot(int idPlayer){
     return -1;
 }
 
-
+bool Game::changeWeapon(int idPlayer, int idWeapon) {
+    return players[idPlayer].changeWeaponTo(idWeapon);
+}
 
 void Game::changePosition(Vector changeTo, int idPlayer,
                                    std::vector<AbstractEvent*>& newEvents){

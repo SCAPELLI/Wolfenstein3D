@@ -21,6 +21,7 @@ public:
     void changePosition(Vector changeTo, int idPlayer,
                                  std::vector<AbstractEvent*>& newEvents);
     Vector calculateDirection(int idPlyr);
+    bool changeWeapon(int idPlayer, int idWeapon);
     int getDamage(int idPlyr);
     int shoot(int idPlayer);
     void decrementLife(int idPlyr);

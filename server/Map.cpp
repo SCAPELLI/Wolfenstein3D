@@ -46,7 +46,6 @@ void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
 
     } if (elem > 1 && elem < 100){
         Item* item = yaml.itemLoader(elem);
-        std::cout << item->getUniqueId() << std::endl;
         auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
                                 item->getId(), pos1, pos2);
         newEvents.push_back(event);
@@ -75,7 +74,12 @@ void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
 
 bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
     Vector& pos = player.getScaledPosition();
-    return matrix[pos.y][pos.x].isOpenable(player, newEvents);
+    if (matrix[pos.y + 1][pos.x].isOpenable(player, newEvents) ||
+        matrix[pos.y - 1][pos.x].isOpenable(player, newEvents) ||
+        matrix[pos.y][pos.x + 1].isOpenable(player, newEvents) ||
+        matrix[pos.y][pos.x - 1].isOpenable(player, newEvents))
+        return true;
+    return false;
 }
 
 std::vector<std::vector<CellMap>>& Map::getMatrix() {
@@ -105,7 +109,7 @@ void Map::dropItemPlayer(Player& player, Item itemPlayer){
 }
 
  void Map::changePosition(Vector& newPos, Player& player,
-                              std::vector<AbstractEvent*>& newEvents){ //???
+                              std::vector<AbstractEvent*>& newEvents){
      Vector positionPlayer = player.getScaledPosition();
      matrix[positionPlayer.y][positionPlayer.x].removePlayer(player); // ponerla como atributo!!
      matrix[newPos.y][newPos.x].addPlayer(player);

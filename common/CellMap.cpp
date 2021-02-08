@@ -71,7 +71,9 @@ bool CellMap::isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents)
 
 void CellMap::dropItems(Player& player){ //por enunciado deja 10 balas, cambiar el harcodeo?
     GameLoader yaml;
-    items.push_back(new AmmoItem(3,"ammo", 10));
+    items.push_back(new AmmoItem(3,"ammo", 10)); //tirar sangre también!
+    std::string blood = "blood";
+    items.push_back(yaml.itemLoader(blood));
     Weapon currentWeapon = player.getWeapon();
     if (currentWeapon.name != "gun")
         items.push_back(&currentWeapon);
