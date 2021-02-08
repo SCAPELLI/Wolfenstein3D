@@ -7,7 +7,7 @@
 
 CGame::CGame(double x, double y, double fov):
 	activePlayer(x, y, fov, 0),
-	screen(activePlayer.getCamera(), 640, 480),
+	screen(&activePlayer, 480, 640),
 	map({
   {114,114,114,114,114},
   {114,0,0,0,114},
@@ -25,8 +25,7 @@ void CGame::rotate(double degrees){
 }
 
 void CGame::spawnRenderable(){
-	//renderables.emplace(1, new Renderable(230/2, 100/2, std::string("prueba.bmp"), screen.getRenderer()));
-	renderables.emplace(2, new Renderable(32, 32, std::string("prueba.bmp"), screen.getRenderer()));
+	renderables.emplace(2, new Renderable(65, 66, std::string("prueba.bmp"), screen.getRenderer()));
 }
 
 void CGame::processEvent(KillEvent& event){}

@@ -13,7 +13,7 @@
 
 #define PI 3.141592
 
-Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
+Event::Event(AbstractEvent* updateEvent, eventType eventType) {
     switch (eventType) {
         case KillEventType:
             event = new KillEvent(*(KillEvent*)updateEvent);
@@ -32,6 +32,9 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
             break;
         case DoorOpenedEventType:
             event = new DoorOpenedEvent(*(DoorOpenedEvent*)updateEvent);
+            break;
+        case MovementEventType:
+            event = new MovementEvent(*(MovementEvent*)updateEvent);
             break;
         default:
             this->event = nullptr;
@@ -64,6 +67,18 @@ AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
         default:
             return nullptr;
     }
+}
+Event::Event() {
+    event = nullptr;
+}
+Event& Event::operator= (Event&& anotherEvent) noexcept {
+    event = anotherEvent.event;
+    anotherEvent.event = nullptr;
+    return *this;
+};
+std::string Event::getSerialization() {
+    if (event != nullptr) return event->getSerialization();
+    else return "";
 }
 Event::Event(Event&& originalEvent) noexcept {
     event = originalEvent.event;

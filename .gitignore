@@ -14,3 +14,8 @@
 /cmake-build-debug/Wolf.cbp
 /cmake-build-debug/cmake_install.cmake
 /cmake-build-debug/CMakeCache.txt
+/comunicaciones/clientSide/cmake-build-debug/
+/comunicaciones/clientSide/.idea/
+/comunicaciones/serverSide/cmake-build-debug/
+/comunicaciones/serverSide/.idea/
+/common/Pruebas.cpp

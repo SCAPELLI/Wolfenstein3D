@@ -8,7 +8,7 @@ class CPlayer{
 	Camera camera;
 	Vector spawnPoint;
 	int hp;
-	int lifes;
+	int lives;
 	int id;
 
 	public:

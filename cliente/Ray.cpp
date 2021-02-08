@@ -4,15 +4,6 @@
 #include <iostream>
 #include "SDL2/SDL.h"
 
-Ray::Ray(Vector startPoint, Vector direction, int xPixel):
-	xPixel(xPixel), startPoint(startPoint), direction(direction),
-    deltaDistX(std::abs(1 / direction.y)),
-    deltaDistY(std::abs(1 / direction.x)),
-	collisionSide(0)
-	{
-		this->initialize(startPoint);
-}
-
 Ray::Ray(Camera* camera, double cameraX, int x):
 	xPixel(x),
 	startPoint(camera->getPosition()),
@@ -70,7 +61,7 @@ double Ray::distanceToWall(std::vector<std::vector<int>>& map){
 	 		(mapY - posY + (1 - stepY) / 2) / direction.y;
 }
 
-void Ray::draw(SDL_Renderer* renderer, int h,
+double Ray::drawWall(SDL_Renderer* renderer, int h,
                std::vector<std::vector<int>>& map,
                std::map<int, Wall*>* wallTextures){
     double distance = this->distanceToWall(map);
@@ -84,9 +75,8 @@ void Ray::draw(SDL_Renderer* renderer, int h,
     xWall -= floor((xWall));
 
     xWall *= 32;
-    //if(collisionSide == 0 && direction.x > 0) xWall = 32 - xWall - 1;
-    //if(collisionSide == 1 && direction.y < 0) xWall = 32 - xWall - 1;
     (*wallTextures)[textureID]->drawLine(renderer, xPixel, xWall, std::min(drawStart, drawEnd), drawEnd - drawStart);
+    return distance;
 }
 
 Ray::~Ray(){}

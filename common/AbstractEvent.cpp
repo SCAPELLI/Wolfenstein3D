@@ -7,3 +7,6 @@ bool AbstractEvent::thisIsTheQuitEvent() {
 updateEventType AbstractEvent::getEventType() {
     return eventType;
 }
+std::string AbstractEvent::getSerialization() {
+    return "";
+}

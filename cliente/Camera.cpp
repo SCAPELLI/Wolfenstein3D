@@ -20,13 +20,14 @@ void Camera::rotate(double degrees){
 
 void Camera::draw(SDL_Renderer* renderer,
                   std::vector<std::vector<int>>& map,
-                  std::map<int, Wall*>* wallTextures){
+                  std::map<int, Wall*>* wallTextures,
+                  std::vector<double> &wallDistances){
 	int w, h;
 	if (SDL_GetRendererOutputSize(renderer, &w, &h)) return;
    	for (int x = 0; x < w; x++){
 		double cameraX = (2 * x / (double) w) - 1;
 		Ray ray(this, cameraX, x);
-		ray.draw(renderer, h, map, wallTextures);
+		wallDistances.push_back(ray.drawWall(renderer, h, map, wallTextures));
 	}
 }
 
