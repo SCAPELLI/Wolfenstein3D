@@ -14,9 +14,9 @@
 #include "../common/ServerEvents/ScoreChangeEvent.h"
 #include "Exception.h"
 #include <iostream>
-#include "Event.h"
+
 #define MAXHEALTH 100
-#define KEY_ID 101
+
 
 Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
@@ -36,6 +36,8 @@ void Player::initializePlayer(bool dead){
     if (!dead){
         lifes = fileNode["Player"]["lifes"].as<int>();
         points = PointGainItem();
+        bulletsShot = fileNode["Player"]["bulletsShot"].as<int>();
+        playersKilled = fileNode["Player"]["playersKilled"].as<int>();
     }
     health = fileNode["Player"]["health"].as<int>();
     radius = fileNode["Player"]["radius"].as<int>();
@@ -96,14 +98,15 @@ bool Player::pickupWeapon(Weapon weapon,
     return true;
 }
 
-void Player::changeWeaponTo(int idTochange){ //antes recibia weapon no se que es mejor o que se recibe del cliente
+bool Player::changeWeaponTo(int idTochange){ //antes recibia weapon no se que es mejor o que se recibe del cliente
     for (auto const& arm : bag){
         if (arm.first == idTochange) {
             prevIdWeapon = idWeapon;
             idWeapon = idTochange;
+            return true;
         }
     }
-    throw Exception("No se encontró ese arma en el inventario");
+    return false;
 }
 bool Player::hasKey(){
     return keys.getEffect() > 0;

@@ -6,10 +6,11 @@
 #include "Event.h"
 
 class ChangeWeaponEvent  : public AbstractEvent{
- int idPlayer;
- int uniqueId; // o tipo???
- updateEventType eventType;
+
 public:
+    int idPlayer;
+    int uniqueId; // o tipo???
+    updateEventType eventType;
     ChangeWeaponEvent (updateEventType eventType, int idPlayer, int uniqueId);
     updateEventType getEventType();
 };

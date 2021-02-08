@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ServerEvents/SpawnEvent.h>
+#include <ServerEvents/ChangeWeaponEvent.h>
 #include "GameStage.h"
 #include "../common/TurnEvent.h"
 #include "../common/MovementEvent.h"
@@ -33,7 +34,6 @@ void GameStage::processEvent(ShootingEvent& event) {
     int idHit = game.shoot(event.idPlayer);
     if ( idHit != -1){
         if (game.players[idHit].isGameOver()){
-
             GameOverEvent dead(GameOverEventType, idHit);
             Event anotherEvent(&dead, GameOverEventType);
             updateEvents.push(anotherEvent);
@@ -61,13 +61,10 @@ void GameStage::processEvent(MovementEvent& event) {
         default:
             break;
     }
-//    PlayerEvent toSend;
-//    listOfEvents.toYaml()
-//    push(yaml)
-//    PositionEvent* pos = new PositionEvent(PositionEventType,
-//                      event.idPlyr, game.players[event.idPlyr].getPosition().x, game.players[event.idPlyr].getPosition().y);
-//    Event anotherEvent(pos, PositionEventType);
-//    updateEvents.push(anotherEvent);
+    pushNewEvents();
+}
+
+void GameStage::pushNewEvents(){
     for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
         Event anotherEvent(newEvents[i], newEvents[i]->getEventType());
         updateEvents.push(anotherEvent);
@@ -75,21 +72,25 @@ void GameStage::processEvent(MovementEvent& event) {
     newEvents.clear();
 }
 
-
 void GameStage::processEvent(GameOverEvent& event){
     GameOverEvent dead(GameOverEventType, event.idPlayer);
     Event anotherEvent(&dead, GameOverEventType);
     updateEvents.push(anotherEvent);
 }
 
-void GameStage::processEvent(OpenDoorEvent& event){ // modificar este metodo
-    OpenDoorEvent toSend(event.idPlayer, false); //id puerta
+void GameStage::processEvent(OpenDoorEvent& event){
     if (game.openTheDoor(event.idPlayer, newEvents)) {
-        toSend.changeStatusDoor(true);
+        pushNewEvents();
     }
-    Event anotherEvent(&toSend, DoorOpenedEventType);
-    updateEvents.push(anotherEvent);
 }
+
+void GameStage::processEvent(ChangeWeaponEvent& event){
+    if (game.changeWeapon(event.idPlayer, event.uniqueId)){
+        Event anotherEvent(&event, ChangeWeaponType);
+        updateEvents.push(anotherEvent);
+    }
+}
+
 
 void GameStage::processEvent(int objId, int type, int posX, int posY) {
     SpawnEvent toSend(SpawnEventType, objId, type, posX, posY);
