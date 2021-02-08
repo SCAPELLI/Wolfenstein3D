@@ -18,9 +18,15 @@ class MenuScreen : public QMainWindow {
     public:
         MenuScreen(QWidget *parent = 0);
         ~MenuScreen();
-        void setBackground();
+        void connectEvents();
+        void setMenuBackground();
+        void setNicknameBackground();
+        void changeToNicknameScreen();
+        void changeToMenuScreen();
         void resizeEvent(QResizeEvent *event);
         void setButtonStyle();
+        void acceptButtonEvent();
+        void cancelButtonEvent();
 };
 
 
