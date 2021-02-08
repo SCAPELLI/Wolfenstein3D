@@ -10,7 +10,7 @@ TilemapScene::TilemapScene(EditorScreen *editorScreen, size_t rows, size_t colum
     : editorScreen(editorScreen) {
     this->rows = rows;
     this->columns = columns;
-    this->vector = std::vector<std::vector<int>>(rows, std::vector<int> (columns,0));
+    this->vector = std::vector<std::vector<int>>(this->rows, std::vector<int> (this->columns,0));
     this->setGrid();
     DrawMode *drawMode = new DrawMode(this);
     this->mode = drawMode;
@@ -36,9 +36,9 @@ void TilemapScene::setGrid() {
     int x, y;
 
     for (x = 0; x < this->columns * BITS; x+=BITS) {
-        this->addLine(x, 0, x, this->rows * BITS, QPen(Qt::black));
+        this->addLine(x, 0, x, this->rows * BITS - 1, QPen(Qt::black));
         if (x + BITS - 1 < this->columns * BITS) {
-            this->addLine(x + BITS - 1, 0, x + BITS - 1, this->rows * BITS, QPen(Qt::black));
+            this->addLine(x + BITS - 1, 0, x + BITS - 1, this->rows * BITS - 1, QPen(Qt::black));
         }
     }
 
