@@ -7,13 +7,15 @@
 #include "Event.h"
 
 class PositionEvent : public AbstractEvent {
-    int playerId;
 public:
+    int playerId;
     double x,y;
     updateEventType eventType;
     void runHandler(CGame& game) override;
     PositionEvent (updateEventType eventType, int playerId, double x, double y);
     updateEventType getEventType();
+    std::string getSerialization() override;
+    PositionEvent(double x, double y);
 };
 
 

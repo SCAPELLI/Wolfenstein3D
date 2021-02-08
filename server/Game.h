@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "AbstractEvent.h"
-#include "PlayerEvent.h"
+
 
 class Game {
     public:

@@ -3,7 +3,7 @@
 #include <vector>
 #include "Player.h"
 #include "../common/CellMap.h"
-#include "MapEvent.h"
+
 //class CellMap;
 
 class Map{

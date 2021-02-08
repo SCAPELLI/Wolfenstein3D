@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include "ServerEvents/PositionEvent.h"
+#include "ServerEvents/DoorOpenedEvent.h"
 #include "../common/TurnEvent.h"
 
 
@@ -33,6 +34,7 @@ void CGame::processEvent(ShootingEvent& event){}
 void CGame::processEvent(SpawnEvent& event){}
 void CGame::processEvent(GameOverEvent& event){}
 void CGame::processEvent(OpenDoorEvent& event){}
+void CGame::processEvent(DoorOpenedEvent& event){}
 void CGame::processEvent(TurnEvent& event) {
     this->activePlayer.rotate(event.getDegrees());
 }

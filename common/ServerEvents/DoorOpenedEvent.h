@@ -12,6 +12,8 @@ public:
     updateEventType eventType;
     explicit DoorOpenedEvent (updateEventType eventType, int uniqueId);
     updateEventType getEventType();
+    void runHandler(CGame& renderer) override;
+    //std::string getSerialization() override;
 };
 
 

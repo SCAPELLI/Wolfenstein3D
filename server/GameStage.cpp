@@ -64,15 +64,15 @@ void GameStage::processEvent(MovementEvent& event) {
 //    PlayerEvent toSend;
 //    listOfEvents.toYaml()
 //    push(yaml)
-    PositionEvent* pos = new PositionEvent(PositionEventType,
-                      event.idPlyr, game.players[event.idPlyr].getPosition().x, game.players[event.idPlyr].getPosition().y);
-    Event anotherEvent(pos, PositionEventType);
-    updateEvents.push(anotherEvent);
-//    for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
-//        Event anotherEvent(newEvents[i], newEvents[i]->getEventType());
-//        updateEvents.push(anotherEvent);
-//    }
-//    newEvents.clear();
+//    PositionEvent* pos = new PositionEvent(PositionEventType,
+//                      event.idPlyr, game.players[event.idPlyr].getPosition().x, game.players[event.idPlyr].getPosition().y);
+//    Event anotherEvent(pos, PositionEventType);
+//    updateEvents.push(anotherEvent);
+    for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
+        Event anotherEvent(newEvents[i], newEvents[i]->getEventType());
+        updateEvents.push(anotherEvent);
+    }
+    newEvents.clear();
 }
 
 

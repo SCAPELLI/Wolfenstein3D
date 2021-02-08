@@ -13,7 +13,7 @@
 
 #define PI 3.141592
 
-Event::Event(AbstractEvent* updateEvent, eventType eventType) {
+Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
     switch (eventType) {
         case KillEventType:
             event = new KillEvent(*(KillEvent*)updateEvent);
@@ -33,9 +33,9 @@ Event::Event(AbstractEvent* updateEvent, eventType eventType) {
         case DoorOpenedEventType:
             event = new DoorOpenedEvent(*(DoorOpenedEvent*)updateEvent);
             break;
-        case MovementEventType:
-            event = new MovementEvent(*(MovementEvent*)updateEvent);
-            break;
+//        case MovementEventType:
+//            event = new MovementEvent(*(MovementEvent*)updateEvent);
+//            break;
         default:
             this->event = nullptr;
     }

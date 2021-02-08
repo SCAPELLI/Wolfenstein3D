@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "Items/OpenableItem.h"
-#include "MapEvent.h"
+
 //#include "../server/GameLoader.h"
 //#include "GameLoader.h"
 

@@ -9,6 +9,6 @@ enum updateEventType {KillEventType, ShootingEventType,
     TurnEventType, DoorOpenedEventType, SpawnEventType,
     AmmoChangeType, ChangeWeaponType, DespawnType,
     HealthChangeType, PickUpKeyType, PickUpWeaponType,
-    ScoreChangeType, SpawnType};
+    ScoreChangeType, SpawnType, MovementEventType};
 
 #endif //CAMERA_CPP_CONSTANTS_H

@@ -1,4 +1,5 @@
 #include "PositionEvent.h"
+#include "../EventSerializer.h"
 
 void PositionEvent::runHandler(CGame& game) {
     game.processEvent (*this);
@@ -11,3 +12,6 @@ updateEventType PositionEvent::getEventType() {
     return eventType;
 }
 
+std::string PositionEvent::getSerialization() {
+    return EventSerializer::serialize(*this);
+}

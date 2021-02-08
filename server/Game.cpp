@@ -60,7 +60,8 @@ void Game::changePosition(Vector changeTo, int idPlayer,
     if (map.isOkToMove(futurePos)){
         map.changePosition(futurePos, players[idPlayer], newEvents);
         newEvents.push_back(new PositionEvent(PositionEventType,
-                                              idPlayer, futurePos.x, futurePos.y));
+                                              idPlayer, players[idPlayer].getPosition().x,
+                                              players[idPlayer].getPosition().y));
         players[idPlayer].move(changeTo);
     }
 }

@@ -13,6 +13,7 @@ public:
     GameOverEvent (updateEventType eventType, int idPlayer);
     void runHandler(CGame& game) override;
     updateEventType getEventType();
+    std::string getSerialization() override;
 };
 
 

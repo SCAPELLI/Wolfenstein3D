@@ -14,6 +14,7 @@ public:
     KillEvent ( KillEvent& KillEvent);
     updateEventType getEventType();
     void runHandler(CGame& renderer) override;
+    std::string getSerialization() override;
 };
 
 #endif
