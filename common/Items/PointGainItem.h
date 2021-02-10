@@ -13,7 +13,7 @@ class PointGainItem : public Item{
     public:
         PointGainItem(int id, std::string name, int effect);
         PointGainItem();
-        bool isConsumed(Player& player)override;
+        bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents)override;
 };
 
 

@@ -2,14 +2,21 @@
 #define CELLMAP_H
 
 #include <vector>
+#include "Items/OpenableItem.h"
+
+//#include "../server/GameLoader.h"
+//#include "GameLoader.h"
 
 class Item;
 class Player;
+class GameLoader;
 
 class CellMap{
     bool occupied;
     std::vector<Item*> items;
+    OpenableItem* door;
     std::vector<Player> playerList;
+    //GameLoader yamli;
 public:
     CellMap();
     //void transferPlayer(CellMap& otherCell);
@@ -17,14 +24,19 @@ public:
     void addPlayer(Player& entity);
     bool hasPlayer();
     bool isSolid();
-    void getItemsTile(Player& player);
+    void getItemsTile(Player& player,
+                      std::vector<AbstractEvent*>& newEvents);
     bool hasItems();
     Item* removeItem();
     void addItem(Item* item);
+    virtual void addItem(OpenableItem* item);
     void setSolid();
     void dropItems(Player& player);
     void dropItemPlayer(Item* item);
-    bool isOpenable();
+    bool isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents);
+    bool isOpen();
+    virtual void incrementCooldown();
+
 
 };
 

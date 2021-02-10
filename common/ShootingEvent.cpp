@@ -1,12 +1,16 @@
 #include "ShootingEvent.h"
 #include "Renderer.h"
 #include "../cliente/CGame.h"
+#include "EventSerializer.h"
 
 
-ShootingEvent::ShootingEvent(ShootingEvent& shootingEvent){}
+//ShootingEvent::ShootingEvent(ShootingEvent& shootingEvent){}
 
 ShootingEvent::ShootingEvent(int idPlayer) : idPlayer(idPlayer){}
 
 void ShootingEvent::runHandler(CGame& renderer) {
     renderer.processEvent(*this);
 };
+std::string ShootingEvent::getSerialization() {
+    return EventSerializer::serialize(*this);
+}

@@ -9,10 +9,12 @@
 
 class PositionEvent;
 class GameOverEvent;
-class LifeDecrementEvent;
+class KillEvent;
 class ShootingEvent;
 class TurnEvent;
 class OpenDoorEvent;
+class SpawnEvent;
+class DoorOpenedEvent;
 
 class CGame{
 	CPlayer activePlayer;
@@ -28,12 +30,14 @@ class CGame{
 		void spawnRenderable();
 		void advanceTime();
 		void processEvent(ShootingEvent& event);
-        void processEvent(TurnEvent& event);
-        void processEvent(GameOverEvent& event);
-		void processEvent(LifeDecrementEvent& event);
+    void processEvent(TurnEvent& event);
+    void processEvent(GameOverEvent& event);
+		void processEvent(KillEvent& event);
 		void processEvent(PositionEvent& event);
 		void processEvent(OpenDoorEvent& event);
-        //void processEvent(ChangeWeaponEvent& event);
+  //void processEvent(ChangeWeaponEvent& event);
+		void processEvent(SpawnEvent& event);
+    void processEvent(DoorOpenedEvent& event);
 		~CGame();
 };
 

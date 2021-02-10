@@ -4,6 +4,9 @@ Player:
   radius: 2
   angle: 0
   bullets: 8
+  maxBullets: 50
+  bulletsShot: 0
+  playersKilled: 0
 Weapons:
   knife:
     damage: 1

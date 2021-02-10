@@ -5,26 +5,27 @@
 #include <vector>
 #include <iostream>
 #include "../common/CellMap.h"
-#define WALL 2
+#include "../common/Items/Wall.h"
 #define PLAYER_ID 1
 #define TILE 32
 #include "GameLoader.h"
+#include "../common/ServerEvents/SpawnEvent.h"
 
 Map::Map(){}
-
-Map::Map(std::vector<Player>& players){
+// pasarla como variable de clase?? how
+Map::Map(std::vector<Player>& players,
+         std::vector<AbstractEvent*>& newEvents){
     std::vector<std::vector<CellMap>> map;
     YAML::Node config = YAML::LoadFile("map.yaml");
     YAML::Node matrixConfig = config["map"];
     int numOfPlayer = 0;
     for (std::size_t i = 0; i < matrixConfig.size(); i++) {
         std::vector<CellMap> row;
-        height = matrixConfig.size() - 1;
-        width = matrixConfig[0].size() - 1;
         for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {
             int elem = matrixConfig[i][j].as<int>();
             CellMap position = CellMap();
-            setElemInPosition(numOfPlayer, i , j, position, players, elem);
+            setElemInPosition(numOfPlayer, i , j, position, players, elem,
+                              newEvents);
             row.push_back(position);
         }
         map.push_back(row);
@@ -34,9 +35,7 @@ Map::Map(std::vector<Player>& players){
 
 void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
                             CellMap& tileMap, std::vector<Player>& players,
-                            int elem){
-    YAML::Node config = YAML::LoadFile("map.yaml");
-    YAML::Node matrixConfig = config["map"];
+                            int elem, std::vector<AbstractEvent*>& newEvents){
     GameLoader yaml;
     if (elem == PLAYER_ID) {
         Player newPlayer = Player(numOfPlayer,
@@ -46,17 +45,41 @@ void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
         tileMap.addPlayer(newPlayer); // pasar a gameLoader el tile y que lo agregue
 
     } if (elem > 1 && elem < 100){
-        tileMap.addItem(yaml.itemLoader(elem));
+        Item* item = yaml.itemLoader(elem);
+        auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
+                                item->getId(), pos1, pos2);
+        newEvents.push_back(event);
+        tileMap.addItem(item);
         return;
     }
     else if (elem >= 100 && elem < 200) {
-        yaml.setTexture(elem, tileMap);
+        OpenableItem* door = yaml.setTexture(elem);
+        if (door == nullptr){
+            tileMap.setSolid();
+            Wall* wall = new Wall(elem, "wall", 0);
+            auto event = new SpawnEvent(SpawnEventType, wall->getUniqueId(),
+                                        wall->getId(), pos1, pos2);
+            newEvents.push_back(event);
+
+        }
+        else{
+            auto event = new SpawnEvent(SpawnEventType, door->getUniqueId(),
+                                        door->getId(), pos1, pos2);
+            newEvents.push_back(event);
+            tileMap.addItem(door);
+            doors.push_back(door);
+        }
     }
 }
 
-bool Map::isADoor(Player& player){
+bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
     Vector& pos = player.getScaledPosition();
-    return matrix[pos.y][pos.x].isOpenable();
+    if (matrix[pos.y + 1][pos.x].isOpenable(player, newEvents) ||
+        matrix[pos.y - 1][pos.x].isOpenable(player, newEvents) ||
+        matrix[pos.y][pos.x + 1].isOpenable(player, newEvents) ||
+        matrix[pos.y][pos.x - 1].isOpenable(player, newEvents))
+        return true;
+    return false;
 }
 
 std::vector<std::vector<CellMap>>& Map::getMatrix() {
@@ -72,7 +95,7 @@ void Map::addPlayer(Player& player){
 }
 bool Map::isOkToMove(Vector& futurePos){
     return !matrix[futurePos.y][futurePos.x].isSolid() &&
-            futurePos.y <= width && futurePos.x <= height;
+            matrix[futurePos.y][futurePos.x].isOpen();
 }
 
 void Map::dropAllItems(Player& player){
@@ -85,9 +108,16 @@ void Map::dropItemPlayer(Player& player, Item itemPlayer){
     matrix[positionPlayer.y][positionPlayer.x].dropItemPlayer(&itemPlayer);
 }
 
- void Map::changePosition(Vector& newPos, Player& player){ //???
+ void Map::changePosition(Vector& newPos, Player& player,
+                              std::vector<AbstractEvent*>& newEvents){
      Vector positionPlayer = player.getScaledPosition();
-     matrix[positionPlayer.y][positionPlayer.x].removePlayer(player);
+     matrix[positionPlayer.y][positionPlayer.x].removePlayer(player); // ponerla como atributo!!
      matrix[newPos.y][newPos.x].addPlayer(player);
-     matrix[newPos.y][newPos.x].getItemsTile(player);
+     matrix[newPos.y][newPos.x].getItemsTile(player, newEvents);
+}
+
+void Map::increaseCooldown() {
+    for (std::size_t i = 0; i < doors.size(); i++) {
+        doors[i]->incrementCooldown();
+    }
 }

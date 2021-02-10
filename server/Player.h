@@ -27,12 +27,14 @@ class Player {
     AmmoItem bullets;
     PointGainItem points;
     KeyItem keys;
+    int bulletsShot;
+    int playersKilled;
     int prevIdWeapon;
 public:
     Player(int parsed_id, Vector position);
-    void lifeDecrement(int damage);
+    void KillEvent(int damage);
     bool hits(Player& player);
-    void changeWeaponTo(int idToChange);
+    bool changeWeaponTo(int idToChange);
     double getAngle() const;
     void move(Vector& newPos);
     void rotate(double newAngle);
@@ -41,20 +43,24 @@ public:
     Vector& getScaledPosition();
     bool operator==(const Player& player);
     bool collideWith(Player& otherPlayer);
-    bool pickupWeapon(Weapon weapon);
+    bool pickupWeapon(Weapon weapon, std::vector<AbstractEvent*>& newEvents);
     void resetBagWeapons();
     Item getBullets();
     void died();
     bool isDead();
     bool isGameOver();
-    bool getItem(AmmoItem* item);
-    bool getItem(LifeGainItem* item);
-    bool getItem(PointGainItem* item);
-    bool getItem(KeyItem* item);
-    bool getItem(Weapon* item);
+    bool getItem(AmmoItem* item, std::vector<AbstractEvent*>& newEvents);
+    bool getItem(LifeGainItem* item, std::vector<AbstractEvent*>& newEvents);
+    bool getItem(PointGainItem* item, std::vector<AbstractEvent*>& newEvents);
+    bool getItem(KeyItem* item, std::vector<AbstractEvent*>& newEvents);
+    bool getItem(Weapon* item, std::vector<AbstractEvent*>& newEvents);
     bool openDoor();
     Weapon getWeapon();
     bool hasKey();
+    void incrementCooldown();
+    void initializePlayer(bool dead);
+    int getId();
+
 };
 
 #endif //WOLFENSTEIN3D_PLAYER_H

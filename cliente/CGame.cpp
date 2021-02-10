@@ -1,7 +1,8 @@
 #include "CGame.h"
 #include <string>
-#include "../common/PositionEvent.h"
-#include "../common/TurnEvent.h"
+#include <iostream>
+#include "ServerEvents/PositionEvent.h"
+#include "ServerEvents/DoorOpenedEvent.h"
 
 
 CGame::CGame(double x, double y, double fov):
@@ -55,6 +56,11 @@ void CGame::processEvent(GameOverEvent& event){}
 //    int playerID = event.getPlayerID();
 //    players[playerID].changeWeapon(weaponID);
 //}
+
+void CGame::processEvent(KillEvent& event){}
+void CGame::processEvent(SpawnEvent& event){}
+void CGame::processEvent(OpenDoorEvent& event){}
+void CGame::processEvent(DoorOpenedEvent& event){}
 
 void CGame::processEvent(TurnEvent& event) {
     this->activePlayer.rotate(event.getDegrees());

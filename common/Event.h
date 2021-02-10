@@ -3,19 +3,18 @@
 
 #include <SDL2/SDL_events.h>
 #include "AbstractEvent.h"
-
+#include "Constants.h"
 class ProtectedEventsQueue;
 
-enum updateEventType {LifeDecrementEventType, ShootingEventType,
-                        PositionEventType, GameOverEventType,
-                        TurnEventType, OpenDoorType};
 
 class Event {
-    AbstractEvent* event;
 public:
-    explicit Event(AbstractEvent* updateEvent, updateEventType eventType);
+    AbstractEvent* event;
+    Event(AbstractEvent* updateEvent, updateEventType eventType);
     explicit Event(SDL_Event& sdlEvent);
     Event(Event&& originalEvent) noexcept;
+    Event();
+    Event& operator= (Event&& anotherEvent) noexcept;
 
     AbstractEvent* keyCodeLookUp(SDL_Event& sdlEvent);
 
@@ -24,6 +23,8 @@ public:
 
     void runHandler(GameStage& gameStage);
     void runHandler(CGame& renderer);
+
+    std::string getSerialization();
 
     bool thisIsTheQuitEvent();
     bool thisIsAValidEvent();

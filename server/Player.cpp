@@ -1,38 +1,64 @@
 #include "Player.h"
 #include <cmath>
 #include "Vector.h"
+#include <vector>
 #include "GameLoader.h"
 #include "../common/Items/AmmoItem.h"
+#include "../common/ServerEvents/AmmoChangeEvent.h"
+#include "../common/ServerEvents/ChangeWeaponEvent.h"
+#include "../common/ServerEvents/DoorOpenedEvent.h"
+#include "../common/ServerEvents/HealthChangeEvent.h"
+#include "../common/ServerEvents/KillEvent.h"
+#include "../common/ServerEvents/PickUpKeyEvent.h"
+#include "../common/ServerEvents/PickUpWeaponEvent.h"
+#include "../common/ServerEvents/ScoreChangeEvent.h"
 #include "Exception.h"
 #include <iostream>
-#define MAXBULLETS 50
+
 #define MAXHEALTH 100
-#define BULLET_ID 100
-#define KEY_ID 101
-#define POINT_ID 102
+
 
 Player::Player(int parsed_id, Vector position)
 :   id(parsed_id),
     position(position),
     initialPosition(position),
     scaledPosition(position.scale()),
-    dead(false),
-    maxBullets(MAXBULLETS)
+    dead(false)
 {
-    GameLoader yaml;
-    yaml.configPlayer(lifes,
-                      health,
-                      radius,
-                      angle,
-                      bag,
-                      idWeapon,
-                      points,
-                      keys,
-                      bullets,
-                      dead);
-
+    initializePlayer(dead);
     prevIdWeapon = idWeapon;
 }
+
+void Player::initializePlayer(bool dead){
+    YAML::Node fileNode = YAML::LoadFile("config.yaml");
+    GameLoader yamlItems;
+    maxBullets = fileNode["Player"]["maxBullets"].as<int>();
+    if (!dead){
+        lifes = fileNode["Player"]["lifes"].as<int>();
+        points = PointGainItem();
+        bulletsShot = fileNode["Player"]["bulletsShot"].as<int>();
+        playersKilled = fileNode["Player"]["playersKilled"].as<int>();
+    }
+    health = fileNode["Player"]["health"].as<int>();
+    radius = fileNode["Player"]["radius"].as<int>();
+    bullets = AmmoItem(3, "ammo", fileNode["Player"]["bullets"].as<int>());
+    angle = fileNode["Player"]["angle"].as<double>();
+    int cont = 0;
+    for (YAML::const_iterator it=fileNode["Weapons"].begin();
+         it != fileNode["Weapons"].end(); ++it){
+        std::string weaponType = it->first.as<std::string>();
+        if(weaponType == "knife" || weaponType == "pistol"){
+            YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
+            bag.insert(std::make_pair(cont,
+                                      Weapon(cont, weaponType, data["damage"].as<int>(),
+                                             data["minBullets"].as<int>(),
+                                             data["speed"].as<double>())));
+            idWeapon = cont;
+        }
+        cont++;
+    }
+}
+
 
 void Player::rotate(double newAngle){
     angle += newAngle;
@@ -60,23 +86,27 @@ bool Player::hits(Player& otherPlayer) {
     return false;
 }
 
-bool Player::pickupWeapon(Weapon weapon){
+bool Player::pickupWeapon(Weapon weapon,
+                          std::vector<AbstractEvent*>& newEvents){
     for (auto const& arm : bag) {
         if (weapon == arm.second)
             return false;
     }
     bag.insert(std::make_pair(weapon.id, weapon));
+    newEvents.push_back(new PickUpWeaponEvent(PickUpWeaponType,
+                                                weapon.getUniqueId()));
     return true;
 }
 
-void Player::changeWeaponTo(int idTochange){ //antes recibia weapon no se que es mejor o que se recibe del cliente
+bool Player::changeWeaponTo(int idTochange){ //antes recibia weapon no se que es mejor o que se recibe del cliente
     for (auto const& arm : bag){
         if (arm.first == idTochange) {
             prevIdWeapon = idWeapon;
             idWeapon = idTochange;
+            return true;
         }
     }
-    throw Exception("No se encontró ese arma en el inventario");
+    return false;
 }
 bool Player::hasKey(){
     return keys.getEffect() > 0;
@@ -100,18 +130,15 @@ void Player::died(){
     lifes -=1;
     position = initialPosition;
     scaledPosition = initialPosition.scale();
-    GameLoader yaml;
-    yaml.configPlayer(lifes, health, radius, angle, bag, idWeapon,points, keys,
-                      bullets, dead);
+    initializePlayer(dead);
     dead = false;
-
 }
 
 Item Player::getBullets(){
     return bullets;
 }
 
-void Player::lifeDecrement(int damage){
+void Player::KillEvent(int damage){
     health -= damage;
     if (health <= 0)
        dead = true;
@@ -141,7 +168,8 @@ bool Player::openDoor(){
     return false;
 }
 
-bool Player::getItem(LifeGainItem* item) {
+bool Player::getItem(LifeGainItem* item,
+                     std::vector<AbstractEvent*>& newEvents) {
     if (health == MAXHEALTH){
      return false;
     }
@@ -150,31 +178,50 @@ bool Player::getItem(LifeGainItem* item) {
         int extra = health % MAXHEALTH;
         health -= extra;
     }
+    newEvents.push_back(new HealthChangeEvent(HealthChangeType, health)); // hablar con juani
     return true;
 }
 
-bool Player::getItem(PointGainItem* item) {
+bool Player::getItem(PointGainItem* item,
+                     std::vector<AbstractEvent*>& newEvents) {
     points.changeValue(item->getEffect());
+    newEvents.push_back(new ScoreChangeEvent(ScoreChangeType, item->getEffect()));
     return true;
 }
-bool Player::getItem(Weapon* item) {
-    return pickupWeapon(*item);
+
+bool Player::getItem(Weapon* item,
+                     std::vector<AbstractEvent*>& newEvents) {
+    return pickupWeapon(*item, newEvents);
 }
-bool Player::getItem(KeyItem* item) {
+
+bool Player::getItem(KeyItem* item,
+                     std::vector<AbstractEvent*>& newEvents) {
     keys.changeValue(item->getEffect());
+    newEvents.push_back(new PickUpKeyEvent(PickUpKeyType));
     return true;
 }
-bool Player::getItem(AmmoItem* item) {
+bool Player::getItem(AmmoItem* item,
+                     std::vector<AbstractEvent*>& newEvents) {
     if (bullets.getEffect()  == maxBullets) return false;
-    int effect = item->getEffect();
     bullets.changeValue(item->getEffect());
     if (bullets.getEffect() > maxBullets) {
         int extra = bullets.getEffect() % maxBullets;
         bullets.changeValue(-extra);
     }
+    newEvents.push_back(new AmmoChangeEvent(AmmoChangeType, bullets.getEffect()));
     return true;
+}
+
+void Player::incrementCooldown() {
+    for (auto  &arm : bag) {
+        arm.second.incrementCooldown();
+    }
 }
 
 bool Player::operator==(const Player& player){
     return player.id == this->id;
+}
+
+int Player::getId(){
+    return id;
 }

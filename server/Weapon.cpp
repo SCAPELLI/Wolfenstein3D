@@ -40,6 +40,8 @@ bool Weapon::operator==(const Weapon& t) const{
     return (this->name == t.name);
 }
 
-bool Weapon::isConsumed(Player &player) {
-    return player.getItem(this);
+bool Weapon::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) {
+    return player.getItem(this, newEvents);
 }
+
+void Weapon::incrementCooldown(){}
