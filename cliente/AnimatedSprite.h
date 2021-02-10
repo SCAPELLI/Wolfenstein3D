@@ -8,11 +8,12 @@
 
 
 class AnimatedSprite {
-    int animatedTime, currentTime, h, w;
-    std::vector<Sprite> sprites;
+    int animatedTime, currentTime;
+    std::vector<Sprite*> sprites;
     public:
+        bool isAnimating;
         AnimatedSprite(const std::string& path, SDL_Renderer* renderer, int , int animatedTime);
-        void draw(SDL_Renderer* renderer, int x, double distance);
+        void draw(SDL_Renderer* renderer, int posX, int posY, int scale);
         ~AnimatedSprite();
 };
 

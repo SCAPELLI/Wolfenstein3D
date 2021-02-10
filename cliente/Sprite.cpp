@@ -14,7 +14,12 @@ Sprite::Sprite(const std::string& path, SDL_Renderer* renderer){
 	SDL_FreeSurface(temp);
 }
 
-void Sprite::draw(SDL_Renderer* renderer, double transformX, double transformY, std::vector<double> &wallDistances){
+void Sprite::draw(SDL_Renderer* renderer, int posX, int posY, int scale){
+    SDL_Rect dest = {posX - (w * scale) / 2, posY - 64 - h * scale, w * scale, h * scale};
+    SDL_RenderCopy(renderer, this->texture, NULL, &dest);
+}
+
+void Sprite::rayCast(SDL_Renderer* renderer, double transformX, double transformY, std::vector<double> &wallDistances){
     int rw, rh;
     SDL_GetRendererOutputSize(renderer, &rw, &rh);
 
