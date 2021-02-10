@@ -8,11 +8,11 @@
 #include "Camera.h"
 
 class Renderable{
-	Vector position;
-	Sprite sprite;
-	static int findHorizontalPixel(SDL_Renderer* renderer, Vector& direction, Vector& relativePosition);
 	public:
+        Vector position;
+        Sprite sprite;
 		Renderable(double x, double y, std::string path, SDL_Renderer* renderer);
+		void drawOnScreen(SDL_Renderer*, int posX, int posY, int scale);
 		void drawFrom(Camera* origin,
                       std::vector<std::vector<int>>& map,
                       SDL_Renderer* renderer,

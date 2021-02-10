@@ -9,7 +9,7 @@
 #include <map>
 
 class GameScreen{
-	Camera* camera;
+	CPlayer* activePlayer;
 	UI* ui;
 	std::map<int, Wall*> wallTextures;
 	SDL_Window* window;

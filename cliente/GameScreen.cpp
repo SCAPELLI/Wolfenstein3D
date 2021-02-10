@@ -3,7 +3,7 @@
 #include <iostream>
 
 GameScreen::GameScreen(CPlayer* activePlayer, int h, int w):
-	camera(activePlayer->getCamera()){
+	activePlayer(activePlayer){
         if (SDL_Init(SDL_INIT_VIDEO) == 0) {
             this->window = NULL;
             this->renderer = NULL;
@@ -15,18 +15,34 @@ GameScreen::GameScreen(CPlayer* activePlayer, int h, int w):
         this->ui = new UI(renderer, activePlayer);
 }
 
+bool distanceSort(std::pair<int, double> a, std::pair<int, double> b){
+    return a.second < b.second;
+}
+
 void GameScreen::draw(std::vector<std::vector<int>>& map,
             std::map<int, Renderable*>* renderables,
             std::map<int, CPlayer>* players){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
     std::vector<double> wallDistances;
-    this->camera->draw(renderer, map, &wallTextures, wallDistances);
+    activePlayer->getCamera()->draw(renderer, map, &wallTextures, wallDistances);
+
     std::map<int, Renderable*>::iterator it;
+    std::vector<std::pair<int, double>> toDraw;
     for (it = renderables->begin(); it != renderables->end(); ++it){
-        it->second->drawFrom(camera, map, renderer, wallDistances);
+        double distance = it->second->position.distance(activePlayer->getCamera()->getPosition());
+        if (distance < 150) {
+            toDraw.push_back(std::make_pair(it->first, distance));
+        }
     }
+    std::sort(toDraw.begin(), toDraw.end(), distanceSort);
+    for (int i = 0; i < toDraw.size(); i++) {
+        (*renderables)[toDraw[i].first]->drawFrom(activePlayer->getCamera(), map, renderer, wallDistances);
+    }
+
     this->ui->draw(renderer);
+    activePlayer->drawWeapon(renderer);
+    activePlayer->shoot(); // borrar luego con logica de eventos
     SDL_RenderPresent(renderer);
 }
 
