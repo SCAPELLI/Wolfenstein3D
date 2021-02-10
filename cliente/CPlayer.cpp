@@ -26,7 +26,7 @@ void CPlayer::rotate(double degree){
 }
 
 void CPlayer::changeWeapon(int weaponID){
-    weaponID = weaponID;
+    activeWeapon = weaponID;
 }
 
 void CPlayer::drawWeapon(SDL_Renderer* renderer){
