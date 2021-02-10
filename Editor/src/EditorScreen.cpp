@@ -10,6 +10,7 @@
 #include "../include/EditorScreen.h"
 #include "../include/TilemapScene.h"
 #include "ui_EditorScreen.h"
+#include "../../common/Style.h"
 
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
     : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/sprite100.png", 100)) {
@@ -17,19 +18,20 @@ EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
     this->ui->setupUi(this);
     this->screenManager = screenManager;
 
-    QGraphicsView* tilemap = findChild<QGraphicsView*>("tilemap");
-    QVBoxLayout *tilemapLayout = findChild<QVBoxLayout*>("tilemapLayout");
+    QGraphicsView *tilemap = findChild<QGraphicsView *>("tilemap");
+    QVBoxLayout *tilemapLayout = findChild<QVBoxLayout *>("tilemapLayout");
     tilemapLayout->addWidget(tilemap);
 
     this->tilemapScene = NULL;
 
-    QVBoxLayout *spriteTabLayout = findChild<QVBoxLayout*>("textureListLayout");
+    QVBoxLayout *spriteTabLayout = findChild<QVBoxLayout *>("textureListLayout");
     this->spriteTabs = new SpriteTabs(0, this);
     spriteTabLayout->addWidget(this->spriteTabs);
 
     this->setButtonsState(false);
 
     connectEvents();
+    this->setStyle();
 }
 
 EditorScreen::~EditorScreen() {
@@ -174,4 +176,14 @@ void EditorScreen::setNewTilemapScene(size_t rows, size_t columns, std::string n
     tilemap->show();
     this->fileName = newMapFileName;
     this->setButtonsState(true);
+}
+
+void EditorScreen::setStyle() {
+    Style style;
+    int fontSize = 15;
+    style.setButtonStyle(this->ui->saveButton, fontSize);
+    style.setButtonStyle(this->ui->openButton, fontSize);
+    style.setButtonStyle(this->ui->newButton, fontSize);
+    style.setButtonStyle(this->ui->drawButton, fontSize);
+    style.setButtonStyle(this->ui->eraseButton, fontSize);
 }

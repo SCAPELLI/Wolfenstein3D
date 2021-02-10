@@ -1,5 +1,6 @@
 #include "TextureList.h"
 #include "SpriteTabs.h"
+#include "../../common/Style.h"
 #include <QMouseEvent>
 #include <SpriteFileManager.h>
 
@@ -8,6 +9,7 @@
 TextureList::TextureList(QWidget *parent, SpriteTabs *spriteTabs) :
     spriteTabs(spriteTabs){
     this->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
+    this->setStyle();
 }
 
 TextureList::~TextureList() {
@@ -42,4 +44,9 @@ void TextureList::setSpriteList(std::map<int, std::string> spriteMap) {
         std::string type = it->second;
         this->addTexture(path, type, it->first);
     }
+}
+
+void TextureList::setStyle() {
+    Style style;
+    style.setListWidgetStyle(this);
 }

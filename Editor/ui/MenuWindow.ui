@@ -14,7 +14,7 @@
    <string>Wolfenstein 3D Map Editor</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: rgb(170, 0, 0)</string>
+   <string notr="true">background: rgb(137, 0, 0)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
