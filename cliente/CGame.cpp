@@ -1,6 +1,6 @@
 #include "CGame.h"
 #include <string>
-#include <iostream>
+#include "common/TurnEvent.h"
 #include "ServerEvents/PositionEvent.h"
 #include "ServerEvents/DoorOpenedEvent.h"
 
@@ -30,7 +30,7 @@ void CGame::spawnRenderable(){
 	renderables.emplace(2, new Renderable(65, 66, std::string("prueba.bmp"), screen.getRenderer()));
 }
 
-void CGame::processEvent(LifeDecrementEvent& event){}
+//void CGame::processEvent(LifeDecrementEvent& event){}
 
 //void CGame::processEvent(ShootingEvent& event){
 //    int playerID = event.getID();
@@ -78,4 +78,3 @@ CGame::~CGame(){
 
 void CGame::processEvent(ShootingEvent &event) {}
 
-void CGame::processEvent(OpenDoorEvent &event) {}
