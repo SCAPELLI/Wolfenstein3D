@@ -54,9 +54,10 @@ set(SERVER_SOURCE_FILES
         common/OpenDoorEvent.cpp
         common/Item.cpp common/Item.h common/CellMap.cpp common/CellMap.h cliente/Wall.h cliente/Wall.cpp common/Items/LifeGainItem.cpp common/Items/LifeGainItem.h common/Items/PointGainItem.cpp common/Items/PointGainItem.h common/Items/KeyItem.cpp common/Items/KeyItem.h common/Items/OpenableItem.cpp common/Items/OpenableItem.h common/Items/LockedDoor.cpp common/Items/LockedDoor.h common/Items/AmmoItem.cpp common/Items/AmmoItem.h common/ServerEvents/SpawnEvent.cpp common/ServerEvents/SpawnEvent.h common/ServerEvents/DespawnEvent.cpp common/ServerEvents/DespawnEvent.h common/ServerEvents/ChangeWeaponEvent.cpp common/ServerEvents/ChangeWeaponEvent.h common/ServerEvents/HealthChangeEvent.cpp common/ServerEvents/HealthChangeEvent.h common/ServerEvents/AmmoChangeEvent.cpp common/ServerEvents/AmmoChangeEvent.h common/ServerEvents/ScoreChangeEvent.cpp common/ServerEvents/ScoreChangeEvent.h common/ServerEvents/PickUpKeyEvent.cpp common/ServerEvents/PickUpKeyEvent.h common/ServerEvents/PickUpWeaponEvent.cpp common/ServerEvents/PickUpWeaponEvent.h common/ServerEvents/DoorOpenedEvent.cpp common/ServerEvents/DoorOpenedEvent.h common/Constants.h common/Items/Wall.cpp common/Items/Wall.h
         cliente/UI.cpp cliente/UI.h cliente/AnimatedSprite.cpp cliente/AnimatedSprite.h
-        common/Item.cpp common/Item.h common/CellMap.cpp common/CellMap.h cliente/Wall.h cliente/Wall.cpp common/Items/LifeGainItem.cpp common/Items/LifeGainItem.h common/Items/PointGainItem.cpp common/Items/PointGainItem.h common/Items/KeyItem.cpp common/Items/KeyItem.h common/Items/OpenableItem.cpp common/Items/OpenableItem.h common/Items/LockedDoor.cpp common/Items/LockedDoor.h common/Items/AmmoItem.cpp common/Items/AmmoItem.h cliente/CWeapon.cpp cliente/CWeapon.h
+        common/Items/AmmoItem.h cliente/CWeapon.cpp cliente/CWeapon.h
+        common/WallRay.cpp common/WallRay.h
         common/EventSerializer.cpp common/EventSerializer.h)
-        #common/Item.cpp common/Item.h common/CellMap.cpp common/CellMap.h cliente/Wall.h cliente/Wall.cpp common/Items/LifeGainItem.cpp common/Items/LifeGainItem.h common/Items/PointGainItem.cpp common/Items/PointGainItem.h common/Items/KeyItem.cpp common/Items/KeyItem.h common/Items/OpenableItem.cpp common/Items/OpenableItem.h common/Items/LockedDoor.cpp common/Items/LockedDoor.h common/Items/AmmoItem.cpp common/Items/AmmoItem.h
+        
         
 
 

@@ -12,6 +12,7 @@
 
 
 class Player {
+    std::string name;
     int id;
     Vector position;
     Vector initialPosition;
@@ -31,17 +32,43 @@ class Player {
     int playersKilled;
     int prevIdWeapon;
 public:
-    Player(int parsed_id, Vector position);
-    void KillEvent(int damage);
-    bool hits(Player& player);
+    /*setea constructor del jugador*/
+    Player(int parsed_id, std::string name, Vector position);
+
+    /*Jugador es dañado y baja su vida*/
+    void getDamage(int damage);
+
+    /*Actualiza valores de balas cuando daña otro jugador*/
+    void hits();  //cambiar nombre funcion
+
+    /* Devuelve distancia con otro jugador*/
+    int distanceWith(Player& otherPlayer);
+
+    /* Si se encuentra el arma pasada cambia esa a su actual */
     bool changeWeaponTo(int idToChange);
+
+    /* Devuelve el ángulo del jugador*/
     double getAngle() const;
+
+    /* Mueve el jugador a la posición indicada*/
     void move(Vector& newPos);
+
+    /*rota cierta cantidad de grados*/
     void rotate(double newAngle);
+
+    /*Devuelve el daño del arma actual*/
     int damageCurrentWeapon();
+
+    /*Obtiene la posición del jugador*/
     Vector& getPosition();
+
+    /* Obtiene la posición escalada del jugador*/
     Vector& getScaledPosition();
-    bool operator==(const Player& player);
+
+    /* Sobrecarga del operador == */
+    bool operator==(const Player& player) const;
+
+    /*Devuelve si el jugador colisionó con otro jugador */
     bool collideWith(Player& otherPlayer);
     bool pickupWeapon(Weapon weapon, std::vector<AbstractEvent*>& newEvents);
     void resetBagWeapons();
@@ -56,10 +83,12 @@ public:
     bool getItem(Weapon* item, std::vector<AbstractEvent*>& newEvents);
     bool openDoor();
     Weapon getWeapon();
+    void setPosition(Vector initial);
     bool hasKey();
     void incrementCooldown();
     void initializePlayer(bool dead);
-    int getId();
+    int getId() const;
+    ~Player();
 
 };
 

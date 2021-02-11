@@ -2,6 +2,7 @@
 #include "Vector.h"
 #include "GameLoader.h"
 #include "ServerEvents/PositionEvent.h"
+#include "WallRay.h"
 #include <cmath>
 #include <iostream>
 #include <random>
@@ -9,9 +10,13 @@
 #define DAMAGEBULLET 1
 
 
-Game::Game( std::vector<AbstractEvent*>& newEvents){
+Game::Game( std::vector<AbstractEvent*>& newEvents,
+            std::vector<std::string>& playersNames){
     GameLoader yaml;
     yaml.readData(speed);
+    for (int i = 0; i < playersNames.size(); i++){
+        players.emplace_back(Player(i, playersNames[i], Vector(0, 0)));
+    }
     map = Map(players, newEvents);
 }
 
@@ -37,14 +42,19 @@ int Game::getDamage(int idPlayer){
 }
 
 int Game::shoot(int idPlayer){
+    WallRay ray = WallRay(players[idPlayer].getPosition(), players[idPlayer].getAngle());
+    int distanceToWall = ray.distanceToWall(map);
     for (int i = 0; i < players.size(); i++){
         if ( i == idPlayer)
             continue;
-        if (players[idPlayer].hits(players[i])) {
+        int distancePlayer = players[idPlayer].distanceWith(players[i]); //ver si es un jugador para el lado donde estoy mirando
+        if (distancePlayer < distanceToWall) {
+            //aca si deberia haber una funcion que le pego y baje las balas y agregue stats
+            players[idPlayer].hits();
             Vector posPlayer = players[idPlayer].getPosition();
             double distance = posPlayer.distance(players[i].getPosition());
             double randomHit = generateRandom();
-            players[i].KillEvent((int) ((DAMAGEBULLET * randomHit) / distance));
+            players[i].getDamage((int) ((DAMAGEBULLET * randomHit) / distance));
             return i;// devolves a quien le pegaste
         }
     }
@@ -61,15 +71,15 @@ void Game::changePosition(Vector changeTo, int idPlayer,
     Vector futurePos = (players[idPlayer].getPosition() + changeTo).scale();
     if (map.isOkToMove(futurePos)){
         map.changePosition(futurePos, players[idPlayer], newEvents);
+        players[idPlayer].move(changeTo);
         newEvents.push_back(new PositionEvent(PositionEventType,
                                               idPlayer, players[idPlayer].getPosition().x,
                                               players[idPlayer].getPosition().y));
-        players[idPlayer].move(changeTo);
     }
 }
 
 void Game::decrementLife(int idPlayer) {
-    players[idPlayer].KillEvent(players[idPlayer].damageCurrentWeapon());
+    players[idPlayer].getDamage(players[idPlayer].damageCurrentWeapon());
     if (players[idPlayer].isDead()) {
         map.dropAllItems(players[idPlayer]);
         map.removePlayer(players[idPlayer]);

@@ -12,13 +12,15 @@
 #include "../common/ServerEvents/SpawnEvent.h"
 
 Map::Map(){}
-// pasarla como variable de clase?? how
+
 Map::Map(std::vector<Player>& players,
          std::vector<AbstractEvent*>& newEvents){
     std::vector<std::vector<CellMap>> map;
     YAML::Node config = YAML::LoadFile("map.yaml");
     YAML::Node matrixConfig = config["map"];
     int numOfPlayer = 0;
+    height = matrixConfig.size() - 1;
+    width = matrixConfig[0].size() - 1;
     for (std::size_t i = 0; i < matrixConfig.size(); i++) {
         std::vector<CellMap> row;
         for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {
@@ -33,17 +35,17 @@ Map::Map(std::vector<Player>& players,
     matrix = map;
 }
 
-void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
+void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
                             CellMap& tileMap, std::vector<Player>& players,
                             int elem, std::vector<AbstractEvent*>& newEvents){
     GameLoader yaml;
     if (elem == PLAYER_ID) {
-        Player newPlayer = Player(numOfPlayer,
-                                  Vector(pos1 * TILE, pos2 * TILE));
-        players.emplace_back(newPlayer);
+        players[numOfPlayer].setPosition(Vector(pos1 * TILE, pos2 * TILE));
+        auto event = new SpawnEvent(SpawnEventType, players[numOfPlayer].getId(),
+                                    PLAYER_ID, pos1, pos2);
+        newEvents.push_back(event);
+        tileMap.addPlayer(players.at(numOfPlayer));
         numOfPlayer++;
-        tileMap.addPlayer(newPlayer); // pasar a gameLoader el tile y que lo agregue
-
     } if (elem > 1 && elem < 100){
         Item* item = yaml.itemLoader(elem);
         auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
@@ -95,6 +97,8 @@ void Map::addPlayer(Player& player){
 }
 bool Map::isOkToMove(Vector& futurePos){
     return !matrix[futurePos.y][futurePos.x].isSolid() &&
+            futurePos.y < width && futurePos.x < height &&  //borro mejor y que ni sean atributos?
+            futurePos.y > 0 && futurePos.x > 0 &&
             matrix[futurePos.y][futurePos.x].isOpen();
 }
 

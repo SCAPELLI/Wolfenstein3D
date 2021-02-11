@@ -24,6 +24,8 @@ class ChangeWeaponEvent;
 class GameStage {
     ProtectedEventsQueue& updateEvents;
     std::vector<AbstractEvent*> newEvents;
+    std::vector<std::pair<int, std::string>> highScores;
+    std::vector< std::string> playersNames; // temporalmente una lista despues en realidad viene de startGame
     Game game;
 public:
     explicit GameStage(ProtectedEventsQueue& updateEvents);
