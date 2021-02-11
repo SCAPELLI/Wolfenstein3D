@@ -29,3 +29,9 @@ int Item::getUniqueId(){
 bool Item::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) {
     return false;
 }
+
+Item& Item::operator-=(Item& otherItem) {
+    if (this->effect - otherItem.effect >= 0)
+        this->effect -= otherItem.effect;
+    return *this;
+}

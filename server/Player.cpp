@@ -3,6 +3,7 @@
 #include "Vector.h"
 #include <vector>
 #include "GameLoader.h"
+#include "Weapon.h"
 #include "../common/Items/AmmoItem.h"
 #include "../common/ServerEvents/AmmoChangeEvent.h"
 #include "../common/ServerEvents/ChangeWeaponEvent.h"
@@ -14,12 +15,15 @@
 #include "../common/ServerEvents/ScoreChangeEvent.h"
 #include "Exception.h"
 #include <iostream>
+#include <limits>
+
 
 #define MAXHEALTH 100
 
 
-Player::Player(int parsed_id, Vector position)
+Player::Player(int parsed_id, std::string name, Vector position)
 :   id(parsed_id),
+    name(name),
     position(position),
     initialPosition(position),
     scaledPosition(position.scale()),
@@ -49,16 +53,21 @@ void Player::initializePlayer(bool dead){
         std::string weaponType = it->first.as<std::string>();
         if(weaponType == "knife" || weaponType == "pistol"){
             YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
-            bag.insert(std::make_pair(cont,
-                                      Weapon(cont, weaponType, data["damage"].as<int>(),
-                                             data["minBullets"].as<int>(),
-                                             data["speed"].as<double>())));
+            auto equip = Weapon(cont, weaponType, data["damage"].as<int>(), // usar constructor
+                                   data["minBullets"].as<int>(),
+                                     data["speed"].as<double>());
+            bag.insert(std::make_pair(cont, equip));
             idWeapon = cont;
         }
         cont++;
     }
 }
+void Player::setPosition(Vector initial){
+    initialPosition = initial;
+    position = initial;
+    scaledPosition = initial.scale();
 
+}
 
 void Player::rotate(double newAngle){
     angle += newAngle;
@@ -77,13 +86,26 @@ void Player::move(Vector& newPos){
         scaledPosition = position.scale();
 }
 
-bool Player::hits(Player& otherPlayer) {
-    int distance = position.distance(otherPlayer.position);
-    int d = cos(angle) * distance;
+int Player::distanceWith(Player& otherPlayer) {
+    int distance = position.distance(otherPlayer.position); //distancia otro jugador
+    int d = cos(angle) * distance; // opuesto
     if (abs(distance - d) < radius + otherPlayer.radius){
-        return true; //distance???
+        return distance;
     }
-    return false;
+    return std::numeric_limits<int>::max();
+}
+
+void Player::hits(){
+    bullets.changeValue(bullets.getEffect() - bag[idWeapon].minBullets);
+    bulletsShot += bag[idWeapon].minBullets;
+    if (bullets.getEffect() <= 0){
+        for (auto const& arm : bag) {
+            if (arm.second.name == "knife") {
+                prevIdWeapon = idWeapon;
+                idWeapon = arm.first;
+            }
+        }
+    }
 }
 
 bool Player::pickupWeapon(Weapon weapon,
@@ -98,7 +120,7 @@ bool Player::pickupWeapon(Weapon weapon,
     return true;
 }
 
-bool Player::changeWeaponTo(int idTochange){ //antes recibia weapon no se que es mejor o que se recibe del cliente
+bool Player::changeWeaponTo(int idTochange){
     for (auto const& arm : bag){
         if (arm.first == idTochange) {
             prevIdWeapon = idWeapon;
@@ -120,9 +142,11 @@ void Player::resetBagWeapons(){
     prevIdWeapon = 1;
     bullets = AmmoItem();
 }
+
 Weapon Player::getWeapon(){
     return bag[idWeapon];
 }
+
 bool Player::isDead(){
     return dead;
 }
@@ -138,7 +162,7 @@ Item Player::getBullets(){
     return bullets;
 }
 
-void Player::KillEvent(int damage){
+void Player::getDamage(int damage){
     health -= damage;
     if (health <= 0)
        dead = true;
@@ -178,7 +202,7 @@ bool Player::getItem(LifeGainItem* item,
         int extra = health % MAXHEALTH;
         health -= extra;
     }
-    newEvents.push_back(new HealthChangeEvent(HealthChangeType, health)); // hablar con juani
+    newEvents.push_back(new HealthChangeEvent(HealthChangeType, health));
     return true;
 }
 
@@ -218,10 +242,12 @@ void Player::incrementCooldown() {
     }
 }
 
-bool Player::operator==(const Player& player){
+bool Player::operator==(const Player& player) const{
     return player.id == this->id;
 }
 
-int Player::getId(){
+int Player::getId() const {
     return id;
 }
+
+Player::~Player() {}

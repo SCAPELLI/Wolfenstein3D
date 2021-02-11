@@ -12,7 +12,7 @@
 #include "../common/ServerEvents/SpawnEvent.h"
 
 Map::Map(){}
-// pasarla como variable de clase?? how
+
 Map::Map(std::vector<Player>& players,
          std::vector<AbstractEvent*>& newEvents){
     std::vector<std::vector<CellMap>> map;
@@ -38,12 +38,12 @@ void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
                             int elem, std::vector<AbstractEvent*>& newEvents){
     GameLoader yaml;
     if (elem == PLAYER_ID) {
-        Player newPlayer = Player(numOfPlayer,
-                                  Vector(pos1 * TILE, pos2 * TILE));
-        players.emplace_back(newPlayer);
+        players[numOfPlayer].setPosition(Vector(pos1 * TILE, pos2 * TILE));
+        auto event = new SpawnEvent(SpawnEventType, players[numOfPlayer].getId(),
+                                    PLAYER_ID, pos1, pos2);
+        newEvents.push_back(event);
+        tileMap.addPlayer(players.at(numOfPlayer));
         numOfPlayer++;
-        tileMap.addPlayer(newPlayer); // pasar a gameLoader el tile y que lo agregue
-
     } if (elem > 1 && elem < 100){
         Item* item = yaml.itemLoader(elem);
         auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),

@@ -17,10 +17,16 @@
 #define PI 3.141592
 
 GameStage::GameStage(ProtectedEventsQueue& updateEvents)
-    : updateEvents(updateEvents), newEvents() {
-     game = Game(newEvents);
-
+    : updateEvents(updateEvents), newEvents(), playersNames() {
+    for (int i = 0; i < 1; i++) {
+        std::string name = "";
+        playersNames.push_back(name);  // esto despues va a estar en el startGameEvent
+    }
+    game = Game(newEvents, playersNames);
 }
+
+//void GameStage::processEvent(StartGameEvent& event){
+
 
 void GameStage::processEvent(TurnEvent& event) {
     game.moveAngle(event.getDegrees(), event.idPlayer);
@@ -72,11 +78,6 @@ void GameStage::pushNewEvents(){
     newEvents.clear();
 }
 
-void GameStage::processEvent(GameOverEvent& event){
-    GameOverEvent dead(GameOverEventType, event.idPlayer);
-    Event anotherEvent(&dead, GameOverEventType);
-    updateEvents.push(anotherEvent);
-}
 
 void GameStage::processEvent(OpenDoorEvent& event){
     if (game.openTheDoor(event.idPlayer, newEvents)) {

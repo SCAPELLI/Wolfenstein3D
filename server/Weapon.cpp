@@ -5,7 +5,7 @@
 Weapon::Weapon(int id, std::string name, int damage, int minBullets,
                                                             double speed)
     : id(id), effect(damage),name(name), minBullets(minBullets), speed(speed),
-      Item(id, name, damage)
+     Item(id, name, damage)
 {}
 
 Weapon::Weapon(int id, std::string name)
