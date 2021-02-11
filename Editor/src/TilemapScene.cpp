@@ -82,18 +82,8 @@ void TilemapScene::draw(Coordinate coordinate, QGraphicsItem *item) {
         delete item;
     }
     this->vector[y][x] = this->editorScreen->getCurrentTexture().getId();
-    for (int i = 0; i != this->vector.size(); i++) {
-        std::cout << "[ ";
-        for (int j = 0; j != this->vector[i].size(); j++) {
-            std::cout << vector[i][j] << ", ";
-        }
-        std::cout << "]\n";
-    }
-
     Tile *tile = new Tile(0, coordinate, this->editorScreen->getCurrentTexture());
     this->addItem(tile);
-    QList<QGraphicsItem*> list = this->items();
-    std::cout << "DRAW cantidad en el scene: " << list.size() << "\n";
 }
 
 void TilemapScene::erase(Coordinate coordinate, QGraphicsItem *item) {
@@ -105,8 +95,6 @@ void TilemapScene::erase(Coordinate coordinate, QGraphicsItem *item) {
         this->removeItem(item);
         delete item;
     }
-    QList<QGraphicsItem*> list = this->items();
-    std::cout << "Erase cantidad en el scene: " << list.size() << "\n";
 }
 
 bool TilemapScene::isAValidPosition(QGraphicsSceneMouseEvent *event) {

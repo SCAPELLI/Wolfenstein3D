@@ -79,11 +79,7 @@ void EditorScreen::saveMap() {
                                                         QDir::homePath(),
                                                         filter);
         std::string aux = filePath.toUtf8().toStdString();
-        if (aux.empty()) {
-                //LEVANTAR UNA VENTANA QUE INFORME QUE NO SE PUDO GUARDAR
-                // DEBERIA HACER UNA FUNCION QUE DEVUELVA TRUE SI SE PUDO GUARDAR
-                // std::cout << "no puso file path uwu\n";
-        } else {
+        if (!aux.empty()) {
             this->fileName = aux + ".yaml";
             std::cout << "Filename: " << this->fileName << "\n";
             this->createMapYalm();
@@ -114,11 +110,11 @@ void EditorScreen::openMap() {
         badInputMessage.setText("El archivo no es valido");
         badInputMessage.exec();
         std::cout << "el contenido del archivo no tiene el formato de un mapa";
-    } catch (const YAML::BadSubscript e) {
+    } catch (...) {
         QMessageBox badInputMessage;
-        badInputMessage.setText("El archivo no es valido");
+        badInputMessage.setText("Ha habido un problema con el archivo");
         badInputMessage.exec();
-        std::cout << "el contenido del archivo no tiene el formato de un mapa";
+        std::cout << "Ha habido un problema con el archivo";
     }
 }
 
