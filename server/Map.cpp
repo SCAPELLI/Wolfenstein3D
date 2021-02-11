@@ -35,7 +35,7 @@ Map::Map(std::vector<Player>& players,
     matrix = map;
 }
 
-void Map::setElemInPosition(int numOfPlayer, int pos1, int pos2,
+void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
                             CellMap& tileMap, std::vector<Player>& players,
                             int elem, std::vector<AbstractEvent*>& newEvents){
     GameLoader yaml;

@@ -49,7 +49,7 @@ double WallRay::distanceToWall(Map& map){ //recibe pos wache
         }
         Vector pos = Vector((int)mapX, (int)mapY);
         if (!map.isOkToMove(pos)){
-            return pow(pow(mapX, 2) + pow(mapY, 2), 0.5);
+            return pow(pow(mapX * 32, 2) + pow(mapY * 32, 2), 0.5);
         }
     }
 }

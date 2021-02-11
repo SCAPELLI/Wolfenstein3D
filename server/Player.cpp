@@ -96,7 +96,7 @@ int Player::distanceWith(Player& otherPlayer) {
 }
 
 void Player::hits(){
-    bullets.changeValue(bullets.getEffect() - bag[idWeapon].minBullets);
+    bullets.changeValue(bullets.getEffect() - bag[idWeapon].minBullets); //esto esta mal
     bulletsShot += bag[idWeapon].minBullets;
     if (bullets.getEffect() <= 0){
         for (auto const& arm : bag) {

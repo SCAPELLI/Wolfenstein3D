@@ -24,7 +24,7 @@ class Map{
         void removePlayer(Player& player);
         void addPlayer(Player& player);
         void dropItemPlayer(Player& player, Item itemPlayer);
-        void setElemInPosition(int numOfPlayer, int pos1, int pos2,
+        void setElemInPosition(int& numOfPlayer, int pos1, int pos2,
                     CellMap& tileMap, std::vector<Player>& players, int elem,
                                std::vector<AbstractEvent*>& newEvents);
         bool isADoor(Player& player, std::vector<AbstractEvent*>& newEvents);

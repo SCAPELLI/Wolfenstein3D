@@ -48,7 +48,7 @@ int Game::shoot(int idPlayer){
         if ( i == idPlayer)
             continue;
         int distancePlayer = players[idPlayer].distanceWith(players[i]); //ver si es un jugador para el lado donde estoy mirando
-        if (distancePlayer < distanceToWall ) {
+        if (distancePlayer < distanceToWall) {
             //aca si deberia haber una funcion que le pego y baje las balas y agregue stats
             players[idPlayer].hits();
             Vector posPlayer = players[idPlayer].getPosition();
