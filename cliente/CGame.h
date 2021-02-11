@@ -22,21 +22,22 @@ class CGame{
 	std::vector<std::vector<int>> map;
 	std::map<int, Renderable*> renderables;
 	std::map<int, CPlayer> players;
-	std::map<int, Wall> wallSprites;
 
 	public:
 		CGame(double x, double y, double fov);
 		void draw();
 		void rotate(double degrees);
 		void spawnRenderable();
+		void advanceTime();
 		void processEvent(ShootingEvent& event);
-        void processEvent(TurnEvent& event);
-        void processEvent(GameOverEvent& event);
+    void processEvent(TurnEvent& event);
+    void processEvent(GameOverEvent& event);
 		void processEvent(KillEvent& event);
 		void processEvent(PositionEvent& event);
 		void processEvent(OpenDoorEvent& event);
+  //void processEvent(ChangeWeaponEvent& event);
 		void processEvent(SpawnEvent& event);
-        void processEvent(DoorOpenedEvent& event);
+    void processEvent(DoorOpenedEvent& event);
 		~CGame();
 };
 

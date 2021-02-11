@@ -17,6 +17,7 @@ void UI::draw(SDL_Renderer* renderer){
     SDL_GetRendererOutputSize(renderer, &w, &h);
     SDL_Rect dest = {0, h - 64, w, 64};
     SDL_RenderCopy(renderer, this->HUD, NULL, &dest);
+    //activePlayer->drawWeapon(renderer);
 }
 
 UI::~UI(){

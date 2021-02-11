@@ -6,10 +6,12 @@
 
 #define BITS 32
 
-TilemapScene::TilemapScene(EditorScreen *editorScreen)
+TilemapScene::TilemapScene(EditorScreen *editorScreen, size_t rows, size_t columns)
     : editorScreen(editorScreen) {
-    this->rows = 0;
-    this->columns = 0;
+    this->rows = rows;
+    this->columns = columns;
+    this->vector = std::vector<std::vector<int>>(this->rows, std::vector<int> (this->columns,0));
+    this->setGrid();
     DrawMode *drawMode = new DrawMode(this);
     this->mode = drawMode;
 }
@@ -34,9 +36,9 @@ void TilemapScene::setGrid() {
     int x, y;
 
     for (x = 0; x < this->columns * BITS; x+=BITS) {
-        this->addLine(x, 0, x, this->rows * BITS, QPen(Qt::black));
+        this->addLine(x, 0, x, this->rows * BITS - 1, QPen(Qt::black));
         if (x + BITS - 1 < this->columns * BITS) {
-            this->addLine(x + BITS - 1, 0, x + BITS - 1, this->rows * BITS, QPen(Qt::black));
+            this->addLine(x + BITS - 1, 0, x + BITS - 1, this->rows * BITS - 1, QPen(Qt::black));
         }
     }
 
@@ -80,18 +82,8 @@ void TilemapScene::draw(Coordinate coordinate, QGraphicsItem *item) {
         delete item;
     }
     this->vector[y][x] = this->editorScreen->getCurrentTexture().getId();
-    for (int i = 0; i != this->vector.size(); i++) {
-        std::cout << "[ ";
-        for (int j = 0; j != this->vector[i].size(); j++) {
-            std::cout << vector[i][j] << ", ";
-        }
-        std::cout << "]\n";
-    }
-
     Tile *tile = new Tile(0, coordinate, this->editorScreen->getCurrentTexture());
     this->addItem(tile);
-    QList<QGraphicsItem*> list = this->items();
-    std::cout << "DRAW cantidad en el scene: " << list.size() << "\n";
 }
 
 void TilemapScene::erase(Coordinate coordinate, QGraphicsItem *item) {
@@ -103,8 +95,6 @@ void TilemapScene::erase(Coordinate coordinate, QGraphicsItem *item) {
         this->removeItem(item);
         delete item;
     }
-    QList<QGraphicsItem*> list = this->items();
-    std::cout << "Erase cantidad en el scene: " << list.size() << "\n";
 }
 
 bool TilemapScene::isAValidPosition(QGraphicsSceneMouseEvent *event) {
@@ -117,4 +107,22 @@ bool TilemapScene::isAValidPosition(QGraphicsSceneMouseEvent *event) {
 
 std::vector<std::vector<int>> TilemapScene::getMapMatrix() {
     return this->vector;
+}
+
+void TilemapScene::setMapMatrix(std::vector<std::vector<int>> matrix) {
+    this->vector = matrix;
+    int row, column;
+    for (int row = 0; row != this->vector.size(); row++){
+        for (int column = 0; column != this->vector[row].size(); column++) {
+            int id = this->vector[row][column];
+            if (id != 0) {
+                Coordinate coordinate(column * 32, row * 32);
+                std::string spritePath = "../sprites/sprite" + std::to_string(this->vector[row][column]) + ".png";
+                QString str = QString::fromUtf8(spritePath.c_str());
+                Texture texture(str, this->vector[row][column]);
+                Tile *tile = new Tile(0, coordinate, texture);
+                this->addItem(tile);
+            }
+        }
+    }
 }

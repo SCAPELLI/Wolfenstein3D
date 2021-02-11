@@ -17,7 +17,7 @@ class TilemapScene : public QGraphicsScene {
         std::vector<std::vector<int>> vector;
 
     public:
-        TilemapScene(EditorScreen *editorScreen);
+        TilemapScene(EditorScreen *editorScreen, size_t rows, size_t columns);
         ~TilemapScene();
         void setMapSize(size_t rows, size_t columns);
         void draw(Coordinate coordinate, QGraphicsItem *item);
@@ -26,6 +26,7 @@ class TilemapScene : public QGraphicsScene {
         void changeToEraseMode();
         bool isAValidPosition(QGraphicsSceneMouseEvent *event);
         std::vector<std::vector<int>> getMapMatrix();
+        void setMapMatrix(std::vector<std::vector<int>> matrix);
 
 protected:
         void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

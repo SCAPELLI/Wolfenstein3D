@@ -21,6 +21,7 @@ class TextureList : public QListWidget {
 
     private:
        void mousePressEvent(QMouseEvent *event) override;
+       void setStyle();
 
 };
 
