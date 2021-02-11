@@ -9,6 +9,8 @@
 class Map{
     std::vector<std::vector<CellMap>> matrix;
     std::vector<OpenableItem*> doors;
+    double width;
+    double height;
     public:
         Map(std::vector<Player>& players,
             std::vector<AbstractEvent*>& newEvents);

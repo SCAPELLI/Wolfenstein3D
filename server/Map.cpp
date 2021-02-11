@@ -19,6 +19,8 @@ Map::Map(std::vector<Player>& players,
     YAML::Node config = YAML::LoadFile("map.yaml");
     YAML::Node matrixConfig = config["map"];
     int numOfPlayer = 0;
+    height = matrixConfig.size() - 1;
+    width = matrixConfig[0].size() - 1;
     for (std::size_t i = 0; i < matrixConfig.size(); i++) {
         std::vector<CellMap> row;
         for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {
@@ -95,6 +97,8 @@ void Map::addPlayer(Player& player){
 }
 bool Map::isOkToMove(Vector& futurePos){
     return !matrix[futurePos.y][futurePos.x].isSolid() &&
+            futurePos.y < width && futurePos.x < height &&  //borro mejor y que ni sean atributos?
+            futurePos.y > 0 && futurePos.x > 0 &&
             matrix[futurePos.y][futurePos.x].isOpen();
 }
 
