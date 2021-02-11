@@ -1,6 +1,7 @@
 #include <SpriteFileManager.h>
 #include "SpriteTabs.h"
 #include "EditorScreen.h"
+#include "../../common/Style.h"
 #include <map>
 
 SpriteTabs::SpriteTabs(QWidget *parent, EditorScreen *editorScreen)
@@ -24,6 +25,10 @@ SpriteTabs::SpriteTabs(QWidget *parent, EditorScreen *editorScreen)
     this->decorationsList = new TextureList(0, this);
     this->decorationsList->setSpriteList(decorationsMap);
     this->addTab(this->decorationsList, "Decorations");
+
+    Style style;
+    style.setTabWidgetStyle(this);
+
 }
 
 SpriteTabs::~SpriteTabs() {

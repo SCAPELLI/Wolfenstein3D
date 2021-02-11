@@ -24,6 +24,7 @@ class MenuWindow : public QMainWindow {
     private:
         void nextScreen();
         void connectEvents();
+        void setStyle();
 
 };
 

@@ -7,14 +7,12 @@
 class Texture {
     private:
         QString texturePath;
-        QString type;
         int id;
 
     public:
-        Texture(const QString &texturePath, const QString &textureType, int id);
+        Texture(const QString &texturePath, int id);
         ~Texture();
         QString getTexturePath();
-        QString getTextureType();
         int getId();
 };
 
