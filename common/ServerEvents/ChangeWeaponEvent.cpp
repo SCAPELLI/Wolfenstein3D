@@ -2,11 +2,17 @@
 
 #include "ChangeWeaponEvent.h"
 #include "Event.h"
+#include "cliente/CGame.h"
+#include "server/GameStage.h"
 
 
-ChangeWeaponEvent::ChangeWeaponEvent (updateEventType eventType, int idPlayer, int uniqueId)
-: idPlayer(idPlayer), uniqueId(uniqueId), eventType(eventType){}
+ChangeWeaponEvent::ChangeWeaponEvent (int idPlayer, int type)
+: idPlayer(idPlayer), type(type){}
 
-updateEventType ChangeWeaponEvent::getEventType() {
-    return eventType;
+void ChangeWeaponEvent::runHandler(CGame &renderer) {
+    renderer.processEvent(*this);
+}
+
+void ChangeWeaponEvent::runHandler(GameStage &game) {
+    game.processEvent(*this);
 }

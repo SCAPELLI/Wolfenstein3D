@@ -3,6 +3,9 @@
 #include "common/TurnEvent.h"
 #include "ServerEvents/PositionEvent.h"
 #include "ServerEvents/DoorOpenedEvent.h"
+#include "ServerEvents/SpawnEvent.h"
+#include "common/ShootingEvent.h"
+#include "ServerEvents/ChangeWeaponEvent.h"
 
 
 CGame::CGame(double x, double y, double fov):
@@ -30,16 +33,25 @@ void CGame::spawnRenderable(){
 	renderables.emplace(2, new Renderable(65, 66, std::string("prueba.bmp"), screen.getRenderer()));
 }
 
+void CGame::processEvent(SpawnEvent& event) {
+    if (event.type >= 100 && event.type < 200){
+        map[event.posX][event.posY] = event.type;
+        return;
+    }
+    renderables.emplace(event.id, new Renderable(event.posX, event.posY,std::string("prueba.bmp"), screen.getRenderer()));
+}
+
 //void CGame::processEvent(LifeDecrementEvent& event){}
 
-//void CGame::processEvent(ShootingEvent& event){
-//    int playerID = event.getID();
-//    if (activePlayer.id == playerID){
-//        activePlayer.shoot();
+void CGame::processEvent(ShootingEvent& event){
+    int playerID = event.idPlayer;
+    if (activePlayer.id == playerID) {
+        activePlayer.shoot();
+    }
 //    } else {
 //        soundQueue.push(soundEffect);
 //    }
-//}
+}
 
 void CGame::processEvent(GameOverEvent& event){}
 
@@ -51,14 +63,18 @@ void CGame::processEvent(GameOverEvent& event){}
 //    map[mapPos.y][mapPos.x] = 0;
 //}
 
-//void CGame::processEvent(ChangeWeaponEvent& event){
-//    int weaponID = event.getWeaponID();
-//    int playerID = event.getPlayerID();
-//    players[playerID].changeWeapon(weaponID);
-//}
+void CGame::processEvent(ChangeWeaponEvent& event){
+    int weaponID = event.type;
+    int playerID = event.idPlayer;
+    if (playerID == activePlayer.id) {
+        activePlayer.changeWeapon(weaponID);
+    }
+//    } else {
+//        players[playerID].changeWeapon(weaponID);
+//    }
+}
 
 void CGame::processEvent(KillEvent& event){}
-void CGame::processEvent(SpawnEvent& event){}
 void CGame::processEvent(OpenDoorEvent& event){}
 void CGame::processEvent(DoorOpenedEvent& event){}
 
@@ -76,5 +92,4 @@ CGame::~CGame(){
     }
 }
 
-void CGame::processEvent(ShootingEvent &event) {}
 

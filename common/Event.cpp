@@ -2,6 +2,7 @@
 #include "QuitEvent.h"
 #include "MovementEvent.h"
 #include "TurnEvent.h"
+#include "ServerEvents/SpawnEvent.h"
 
 /*----------*/
 #include "ServerEvents/KillEvent.h"
@@ -9,6 +10,7 @@
 #include "ShootingEvent.h"
 #include "ServerEvents/PositionEvent.h"
 #include "ServerEvents/DoorOpenedEvent.h"
+#include "ServerEvents/ChangeWeaponEvent.h"
 /*----------*/
 
 #define PI 3.141592
@@ -32,6 +34,12 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
             break;
         case DoorOpenedEventType:
             event = new DoorOpenedEvent(*(DoorOpenedEvent*)updateEvent);
+            break;
+        case SpawnEventType:
+            event = new SpawnEvent(*(SpawnEvent*)updateEvent);
+            break;
+        case ChangeWeaponType:
+            event = new ChangeWeaponEvent(*(ChangeWeaponEvent*)updateEvent);
             break;
 //        case MovementEventType:
 //            event = new MovementEvent(*(MovementEvent*)updateEvent);
@@ -64,6 +72,18 @@ AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
             return new TurnEvent(0, PI/180);
         case SDLK_RIGHT:
             return new TurnEvent(0, -PI/180);
+        case SDLK_SPACE:
+            return new ShootingEvent(0);
+        case SDLK_1:
+            return new ChangeWeaponEvent(0, 0);
+        case SDLK_2:
+            return new ChangeWeaponEvent(0, 1);
+        case SDLK_3:
+            return new ChangeWeaponEvent(0, 2);
+        case SDLK_4:
+            return new ChangeWeaponEvent(0, 3);
+        case SDLK_5:
+            return new ChangeWeaponEvent(0, 4);
         default:
             return nullptr;
     }

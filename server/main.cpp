@@ -22,12 +22,10 @@ int main() {
         //-----------------
         CGame game(64, 64,0.66);
         //-----------------
-        game.spawnRenderable();
         std::thread t (Server(userEvents, updateEvents, quit));
         Map map = Map();
         while (!quit) {
             userEvents.insertEvents(eventsCatcher);
-
             // Serializar eventos de usuario y enviar al server.
             // Recibir Eventos de server serializados.
 

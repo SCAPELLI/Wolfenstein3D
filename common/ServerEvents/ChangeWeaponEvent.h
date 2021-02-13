@@ -9,10 +9,10 @@ class ChangeWeaponEvent  : public AbstractEvent{
 
 public:
     int idPlayer;
-    int uniqueId; // o tipo???
-    updateEventType eventType;
-    ChangeWeaponEvent (updateEventType eventType, int idPlayer, int uniqueId);
-    updateEventType getEventType();
+    int type; // o tipo???
+    ChangeWeaponEvent (int idPlayer, int type);
+    void runHandler(GameStage& game) override;
+    void runHandler(CGame& renderer) override;
 };
 
 
