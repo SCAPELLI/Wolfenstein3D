@@ -5,6 +5,10 @@ DespawnEvent::DespawnEvent (updateEventType eventType, int id, int type) : id(id
 
 void DespawnEvent::runHandler(GameStage &gameStage) {}
 
+void DespawnEvent::runHandler(CGame& renderer){
+    renderer.processEvent(*this);
+}
+
 updateEventType DespawnEvent::getEventType() {
     return eventType;
 }

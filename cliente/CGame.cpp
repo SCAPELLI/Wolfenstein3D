@@ -6,17 +6,17 @@
 #include "ServerEvents/SpawnEvent.h"
 #include "common/ShootingEvent.h"
 #include "ServerEvents/ChangeWeaponEvent.h"
-
+#include "ServerEvents/DespawnEvent.h"
 
 CGame::CGame(double x, double y, double fov):
 	activePlayer(x, y, fov, 0),
 	screen(&activePlayer, 480, 640),
 	map({
-  {114,114,114,114,114},
-  {114,0,0,0,114},
-  {114,0,0,0,114},
-  {114,0,0,0,114},
-  {114,114,114,114,114}
+  {118,118,118,118,118},
+  {118,0,0,0,118},
+  {118,0,0,0,118},
+  {118,0,0,0,118},
+  {118,118,118,118,118}
 }), renderables(), players(){
     activePlayer.loadWeapons(screen.getRenderer());
 }
@@ -29,16 +29,20 @@ void CGame::rotate(double degrees){
 	activePlayer.rotate(degrees);
 }
 
-void CGame::spawnRenderable(){
-	renderables.emplace(2, new Renderable(65, 66, std::string("prueba.bmp"), screen.getRenderer()));
-}
-
 void CGame::processEvent(SpawnEvent& event) {
+    if (event.type == 1){
+        return; // crear player
+    }
     if (event.type >= 100 && event.type < 200){
         map[event.posX][event.posY] = event.type;
         return;
     }
-    renderables.emplace(event.id, new Renderable(event.posX, event.posY,std::string("prueba.bmp"), screen.getRenderer()));
+    renderables.emplace(event.id, new Renderable(event.posX, event.posY,std::string("prueba1.bmp"), screen.getRenderer()));
+}
+
+void CGame::processEvent(DespawnEvent &event) {
+    delete renderables[event.id];
+    renderables.erase(event.id);
 }
 
 //void CGame::processEvent(LifeDecrementEvent& event){}

@@ -20,7 +20,7 @@ int main() {
         ProtectedEventsQueue updateEvents;
         std::atomic<bool> quit(false);
         //-----------------
-        CGame game(64, 64,0.66);
+        CGame game(32, 64,0.66);
         //-----------------
         std::thread t (Server(userEvents, updateEvents, quit));
         Map map = Map();
@@ -38,7 +38,6 @@ int main() {
                 event.runHandler(game);
             }
             game.draw();
-
             SDL_Delay(33);
         }
 

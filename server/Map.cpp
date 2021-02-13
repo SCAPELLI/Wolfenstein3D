@@ -40,16 +40,16 @@ void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
                             int elem, std::vector<AbstractEvent*>& newEvents){
     GameLoader yaml;
     if (elem == PLAYER_ID) {
-        players[numOfPlayer].setPosition(Vector(pos1 * TILE, pos2 * TILE));
+        players[numOfPlayer].setPosition(Vector(pos2 * TILE, pos1 * TILE));
         auto event = new SpawnEvent(SpawnEventType, players[numOfPlayer].getId(),
-                                    PLAYER_ID, pos1 * 32, pos2 * 32);
+                                    PLAYER_ID, pos2 * 32, pos1 * 32);
         newEvents.push_back(event);
         tileMap.addPlayer(players.at(numOfPlayer));
         numOfPlayer++;
     } if (elem > 1 && elem < 100){
         Item* item = yaml.itemLoader(elem);
         auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
-                                item->getId(), pos1 * 32, pos2 * 32);
+                                item->getId(), pos2 * 32, pos1 * 32);
         newEvents.push_back(event);
         tileMap.addItem(item);
         return;

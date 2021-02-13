@@ -7,7 +7,7 @@
 enum updateEventType {KillEventType, ShootingEventType,
     PositionEventType, GameOverEventType,
     TurnEventType, DoorOpenedEventType, SpawnEventType,
-    AmmoChangeType, ChangeWeaponType, DespawnType,
+    AmmoChangeType, ChangeWeaponType, DespawnEventType,
     HealthChangeType, PickUpKeyType, PickUpWeaponType,
     ScoreChangeType, SpawnType, MovementEventType};
 

@@ -11,6 +11,7 @@
 #include "ServerEvents/PositionEvent.h"
 #include "ServerEvents/DoorOpenedEvent.h"
 #include "ServerEvents/ChangeWeaponEvent.h"
+#include "ServerEvents/DespawnEvent.h"
 /*----------*/
 
 #define PI 3.141592
@@ -37,6 +38,9 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
             break;
         case SpawnEventType:
             event = new SpawnEvent(*(SpawnEvent*)updateEvent);
+            break;
+        case DespawnEventType:
+            event = new DespawnEvent(*(DespawnEvent*)updateEvent);
             break;
         case ChangeWeaponType:
             event = new ChangeWeaponEvent(*(ChangeWeaponEvent*)updateEvent);

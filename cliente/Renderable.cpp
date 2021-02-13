@@ -18,7 +18,7 @@ void Renderable::drawFrom(Camera* origin,
                           std::vector<double> &wallDistances){
     Vector referencePoint = origin->getPosition();
     Vector planeDirection = origin->getPlanePosition();
-    Vector relativePosition = position - referencePoint;
+    Vector relativePosition = position - referencePoint; // sistema de referencia
     Vector facingDirection = origin->getFacingPosition();
 
     double invDet = 1.0 / (planeDirection.x * facingDirection.y - facingDirection.x * planeDirection.y);
