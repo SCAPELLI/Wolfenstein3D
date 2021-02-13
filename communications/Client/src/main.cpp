@@ -1,11 +1,11 @@
 #include <iostream>
-#include <map>
 #include <vector>
+#include <map>
 
+#include "../include/Excepcion.h"
 #include "../include/DireccionesIP.h"
 #include "../include/Socket.h"
-#include "../include/ServidorTCP.h"
-#include "../include/Excepcion.h"
+#include "../include/ClienteTCP.h"
 
 typedef std::string str;
 
@@ -51,7 +51,7 @@ class Match {
     int levelId;
 public:
     Match(int matchId, int levelId, int maximumNumberOfPlayers):
-            matchId(matchId),levelId(levelId), maximumNumberOfPlayers(maximumNumberOfPlayers) {}
+        matchId(matchId),levelId(levelId), maximumNumberOfPlayers(maximumNumberOfPlayers) {}
     void addUser(str userName, int userId) {
         users[userName] = userId;
     }
@@ -132,8 +132,8 @@ class MatchInfo {
     int levelId;
 public:
     MatchInfo(int matchId, int levelId, int maximumNumberOfPlayers, int actualNumberOfPlayers):
-            matchId(matchId), levelId(levelId),maximumNumberOfPlayers(maximumNumberOfPlayers),
-            actualNumberOfPlayers(actualNumberOfPlayers) {}
+        matchId(matchId), levelId(levelId),maximumNumberOfPlayers(maximumNumberOfPlayers),
+        actualNumberOfPlayers(actualNumberOfPlayers) {}
 };
 
 class ComunicationProtocol {
@@ -148,7 +148,6 @@ class ComunicationProtocol {
     }
 
 public:
-
     ComunicationProtocol(Socket& socket,Lobby& lobby): socket(socket), lobby(lobby){}
 
     void sendUserNameSubmit(std::string userName) {
@@ -343,30 +342,30 @@ public:
 
 int main() {
     try {
+        char* dominio = "localhost";
         char* puerto = "7777";
 
-        Socket peer;
-        peer = std::move(
-                ServidorTCP::obtenerSocketAceptador(puerto));
-
-        //std::thread t(AtenderClientesEnEspera(peer), recursoRaiz);
-        //char entrada = ' ';
-        //while (entrada!='q') std::cin >> entrada;
-
-        Socket client = peer.aceptar();
-
+        Socket client;
+        client = std::move(ClienteTCP::obtenerSocketCliente(dominio, puerto));
         Lobby lobby;
         ComunicationProtocol channel(client, lobby);
 
-        channel.respondMessageFromClient();
-        channel.respondMessageFromClient();
-        channel.respondMessageFromClient();
-        channel.respondMessageFromClient();
-        channel.respondMessageFromClient();
+        channel.sendUserNameSubmit("Urches");
+        int urchesId = channel.reciveClientIdFromServer();
 
-        client.cerrar();
-        peer.cerrar();
-        //t.join();
+        channel.sendUserNameSubmit("srCarpincho");
+        int carpinchoId = channel.reciveClientIdFromServer();
+
+        channel.sendRequestOfMatchCreation(1, 1, urchesId);
+        int matchId = channel.reciveRespondToRequestOfMatchCreation();
+
+        channel.sendRequestOfJoiningAMatch(matchId, carpinchoId);
+        int response = channel.reciveRespondOfJoiningAMatch();
+
+        channel.sendRequestOfAvailableMatches();
+        std::vector<MatchInfo> matches = channel.reciveListOfMatches();
+
+        cliente.cerrar();
     } catch (const std::exception& error) {
         std::cout<<error.what()<<std::endl;
     }

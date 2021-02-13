@@ -65,7 +65,7 @@ void Socket::enviar(const char *mensaje,
                           MSG_NOSIGNAL);
         switch (codigoSend) {
             case -1:
-                printf("Error en el envio: %s\n", strerror(errno));
+                throw Excepcion("Error en el envio:" + std::string(strerror(errno)));
                 finDeEnvio = true;
                 break;
             case 0:
@@ -151,7 +151,7 @@ bool Socket::estaHabilitado() const {
     return fd != -1;
 }
 
-void Socket::enviar(std::string& messageToSend) const {
+void Socket::enviar(std::string messageToSend) const {
 
     std::string messageSizeString = std::to_string(messageToSend.size());
     while (messageSizeString.length() != 3) {

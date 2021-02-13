@@ -23,7 +23,7 @@ public:
 
     void deshabilitarEnvio() const;
 
-    void enviar(std::string& mensaje) const;
+    void enviar(std::string mensaje) const;
     void enviar(const char *mensaje, int cantidadDeBytesBuffer) const;
 
     void recibir(std::string& mensaje) const;
