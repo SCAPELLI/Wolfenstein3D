@@ -81,7 +81,7 @@ void Socket::enviar(const char *mensaje,
 }
 
 int Socket::recibir(char *mensaje,
-                    int cantidadDeBytesBuffer) const {
+                    int cantidadDeBytesBuffer) {
     bool finDeRecepcion = false;
     int cantidadDeBytesRecibidos = 0;
 
@@ -98,6 +98,7 @@ int Socket::recibir(char *mensaje,
                 break;
             case 0:
                 finDeRecepcion = true;
+                cerrar();
                 break;
             default:
                 cantidadDeBytesRecibidos =
@@ -161,10 +162,12 @@ void Socket::enviar(std::string messageToSend) const {
     enviar(messageToSend.c_str(), messageToSend.size());
 }
 
-void Socket::recibir(std::string& messageReceivedString) const {
+void Socket::recibir(std::string& messageReceivedString) {
     char messageLenghtString[3] = "";
     char messageReceived[100] = "";
     int messageLenghtStringSize = recibir(&messageLenghtString[0], 3); //Tres es la cantidad de digitos para el largo del mensaje
+    if (!estaHabilitado()) return;
+
     if (messageLenghtStringSize != 3) throw Excepcion(
             "Fatal error, the leght of a message is at least" + std::to_string(3) + " bytes");
     int messageSize = std::stoi(std::string(messageLenghtString, messageLenghtStringSize));

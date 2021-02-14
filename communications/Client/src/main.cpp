@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <algorithm>
 
 #include "../include/Excepcion.h"
 #include "../include/DireccionesIP.h"
@@ -43,37 +44,60 @@ const int SUCCESSFULLY_JOINED_TO_MATCH = 14;
 const str SUCCESSFULLY_JOINED_TO_MATCH_STRING = "014";
 const int FAILED_TO_JOIN_TO_MATCH = 15;
 const str FAILED_TO_JOIN_TO_MATCH_STRING = "015";
+const int REQUEST_OF_NUMBER_OF_USERS_IN_MATCH = 16;
+const str REQUEST_OF_NUMBER_OF_USERS_IN_MATCH_STRING = "016";
+const int SUCCESSFULLY_GOT_THE_NUMBER_OF_USERS_IN_MATCH = 17;
+const str SUCCESSFULLY_GOT_THE_NUMBER_OF_USERS_IN_MATCH_STRING = "017";
+const int FAILED_TO_GET_THE_NUMBER_OF_USERS_IN_MATCH = 18;
+const str FAILED_TO_GET_THE_NUMBER_OF_USERS_IN_MATCH_STRING = "018";
 
 class Match {
     std::map<str, int> users;
     int maximumNumberOfPlayers;
     int matchId;
     int levelId;
+    int adminUserId;
 public:
-    Match(int matchId, int levelId, int maximumNumberOfPlayers):
-        matchId(matchId),levelId(levelId), maximumNumberOfPlayers(maximumNumberOfPlayers) {}
+    Match(int matchId, int levelId, int maximumNumberOfPlayers, int adminUserId, str adminUserName):
+        matchId(matchId),levelId(levelId), maximumNumberOfPlayers(maximumNumberOfPlayers), adminUserId(adminUserId) {
+        users[adminUserName] = adminUserId;
+    }
     void addUser(str userName, int userId) {
         users[userName] = userId;
     }
-    int getMatchId() {
+    int getMatchId() const {
         return matchId;
     }
-    int getLevelId() {
+    int getLevelId() const {
         return levelId;
     }
-    int getMaximumNumberOfPlayers() {
+    int getMaximumNumberOfPlayers() const {
         return maximumNumberOfPlayers;
     }
-    int getActualNumberOfPlayers() {
+    int getActualNumberOfUsers() const {
         return users.size();
     }
-    bool sameIdAs(int aMatchId) {
+    bool sameIdAs(int aMatchId) const {
         return matchId == aMatchId;
     }
-
-    bool isNoFull() {
+    bool isNoFull() const {
         return maximumNumberOfPlayers > users.size();
     }
+    bool userIsPartOfTheMatch (str userName, int userId) const {
+        auto it = users.find(userName);
+        if (it != users.end())
+            return it->second == userId;
+        else
+            return false;
+    }
+    bool userIsAdmin(int userId) const {
+        return userId == adminUserId;
+    }
+    void removeUser(str userName, int userId) {
+        if (userIsPartOfTheMatch(userName, userId))
+            users.erase(userName);
+    }
+
 };
 
 class Lobby {
@@ -91,17 +115,18 @@ public:
         return userId;
     }
     str getUserName(int userId) {
-        str userName;
-        for (auto& user: users) {
-            if (user.second == userId)
-                userName = user.first;
-        }
-        return userName;
+        auto it = std::find_if(users.begin(),users.end(),
+                [&](const std::pair<str, int>& user) {return user.second == userId; });
+
+        if (it != users.end())
+            return it->first;
+        else
+            return "";
     }
     std::vector<Match> getMatches() {
         return matches;
     }
-    int createANewMatch(int levelId, int maximumNumberOfPlayers, int userId) {
+    int createANewMatch(int levelId, int maximumNumberOfPlayers, int adminId) {
         // queda pendiente la logica de validacion de nivel existente
         // en esta primer version solo es valido el nivel 1
 
@@ -109,19 +134,53 @@ public:
             return -1;
         else {
             ++reference;
-            matches.emplace_back(reference, levelId, maximumNumberOfPlayers);
-            matches.back().addUser(getUserName(userId), userId);
+            str adminUserName = getUserName(adminId);
+            matches.emplace_back(reference, levelId, maximumNumberOfPlayers, adminId, adminUserName);
             return reference;
         }
     }
     int addUserToMatch(int matchId, int userId) {
-        for (Match& match: matches) {
-            if (match.sameIdAs(matchId) and match.isNoFull()) {
-                match.addUser(getUserName(userId), userId);
-                return 0;
-            }
+        auto it = std::find_if(matches.begin(), matches.end(),
+                [&] (const Match& match) { return match.sameIdAs(matchId);});
+        if (it != matches.end() and it->isNoFull()) {
+            it->addUser(getUserName(userId), userId);
+            return 0;
+        } else {
+            return -1;
         }
-        return -1;
+    }
+    void removeUser(int userId) {
+        str userName = getUserName(userId);
+        if (userName.empty()) return;
+
+        users.erase(userName);
+
+        auto it = std::find_if(
+                matches.begin(), matches.end(),
+                [&] (const Match& match) { return match.userIsPartOfTheMatch(userName, userId);});
+
+        if (it == matches.end()) return;
+
+        if (it->userIsAdmin(userId))
+            matches.erase(it);
+        else
+            it->removeUser(userName, userId);
+    }
+    int numberOfUsersInMatch(int matchId) {
+        auto it = std::find_if(
+                matches.begin(), matches.end(),
+                [&] (const Match& match) { return match.sameIdAs(matchId);});
+        if (it == matches.end()) return -1;
+
+        return it->getActualNumberOfUsers();
+    }
+    int cancelMatch(int matchId) {
+        auto it = std::find_if(
+                matches.begin(), matches.end(),
+                [&] (const Match& match) { return match.sameIdAs(matchId);});
+        if (it == matches.end()) return -1;
+        matches.erase(it);
+        return 0;
     }
 };
 
@@ -154,13 +213,14 @@ public:
         socket.enviar(USER_NAME_SUBMIT_STRING + userName);
     }
 
-    void sendResponseToUserNameSubmit(str &messageReceived) {
+    int sendResponseToUserNameSubmit(str &messageReceived) {
         str userName = messageReceived.substr(3);
         int userId = lobby.addUser(userName);
         if (userId != -1)
             socket.enviar(USER_NAME_SUCCESSFULLY_SUBMITTED_STRING + std::to_string(userId));
         else
             socket.enviar(INVALID_USER_NAME_STRING);
+        return userId;
     }
 
     void sendRequestOfAvailableMatches() {
@@ -186,7 +246,7 @@ public:
             str matchId = std::to_string(match.getMatchId());
             str levelId = std::to_string(match.getLevelId());
             str maximumNumberOfPlayers = std::to_string(match.getMaximumNumberOfPlayers());
-            str actualNumberOfPlayers = std::to_string(match.getActualNumberOfPlayers());
+            str actualNumberOfPlayers = std::to_string(match.getActualNumberOfUsers());
             addZerosToLeft(matchId, 3);
             addZerosToLeft(levelId, 3);
             addZerosToLeft(maximumNumberOfPlayers, 3);
@@ -229,6 +289,13 @@ public:
     }
 
     void sendResponseToRequestOfMatchCancellation(str &messageReceived) {
+        int matchId = std::stoi(messageReceived.substr(3));
+        int response = lobby.cancelMatch(matchId);
+
+        if (response == -1)
+            socket.enviar(MATCH_NOT_CANCELLED_STRING);
+        else
+            socket.enviar(MATCH_CANCELLED_SUCCESSFULLY_STRING);
     }
 
     void sendRequestOfJoiningAMatch(int matchId, int userId) {
@@ -251,16 +318,44 @@ public:
         else
             socket.enviar(SUCCESSFULLY_JOINED_TO_MATCH_STRING);
     }
+    void sendRequestOfNumberOfUsersInMatch(int matchId) {
+        str matchIdString = std::to_string(matchId);
+        socket.enviar(REQUEST_OF_NUMBER_OF_USERS_IN_MATCH_STRING + matchIdString);
+    }
+    void sendResponseToRequestOfNumberOfUsersInMatch(str& messageReceived) {
+        int matchId = std::stoi(messageReceived.substr(3));
+        int response = lobby.numberOfUsersInMatch(matchId);
+        if (response == -1)
+            socket.enviar(FAILED_TO_GET_THE_NUMBER_OF_USERS_IN_MATCH_STRING);
+        else
+            socket.enviar(SUCCESSFULLY_GOT_THE_NUMBER_OF_USERS_IN_MATCH_STRING + std::to_string(response));
+    }
 
-    void respondMessageFromClient() {
+    //post: retorna -1 si el socket del cliente fue cerrado o si el nombre es invalido,
+    //      excepcion si el mensaje tiene formato invalido
+    //      o el id del nuevo usuario en caso correcto
+    int respondUserNameSubmitFromClient() {
         str messageReceived;
         socket.recibir(messageReceived);
+        if (!socket.estaHabilitado()) return -1;
+
+        int messageCode = std::stoi(messageReceived.substr(0, 3));
+
+        if (messageCode != USER_NAME_SUBMIT)
+            throw Excepcion("User Submit Expected");
+        return sendResponseToUserNameSubmit(messageReceived);
+    }
+
+    void respondMessageFromClient(int userId) {
+        str messageReceived;
+        socket.recibir(messageReceived);
+        if (!socket.estaHabilitado()) {
+            lobby.removeUser(userId);
+            return;
+        };
         int messageCode = std::stoi(messageReceived.substr(0, 3));
 
         switch (messageCode) {
-            case USER_NAME_SUBMIT:
-                sendResponseToUserNameSubmit(messageReceived);
-                break;
             case REQUEST_OF_MATCHES:
                 sendResponseToRequestOfMatches();
                 break;
@@ -272,6 +367,9 @@ public:
                 break;
             case REQUEST_OF_JOINING_A_MATCH:
                 sendResponseToRequestOfJoiningAMatch(messageReceived);
+                break;
+            case REQUEST_OF_NUMBER_OF_USERS_IN_MATCH:
+                sendResponseToRequestOfNumberOfUsersInMatch(messageReceived);
                 break;
             default:
                 throw Excepcion("Invalid message from client");
@@ -337,7 +435,26 @@ public:
             return -1;
         throw Excepcion("Message not expected");
     }
-
+    int reciveRespondOfMatchCancellation() {
+        str messageReceived;
+        socket.recibir(messageReceived);
+        int messageCode = std::stoi(messageReceived.substr(0, 3));
+        if (messageCode == MATCH_CANCELLED_SUCCESSFULLY)
+            return 0;
+        if (messageCode == MATCH_NOT_CANCELLED)
+            return -1;
+        throw Excepcion("Message not expected");
+    }
+    int reciveRespondOfNumberOfMatches() {
+        str messageReceived;
+        socket.recibir(messageReceived);
+        int messageCode = std::stoi(messageReceived.substr(0, 3));
+        if (messageCode == SUCCESSFULLY_GOT_THE_NUMBER_OF_USERS_IN_MATCH)
+            return std::stoi(messageReceived.substr(3));
+        if (messageCode == FAILED_TO_GET_THE_NUMBER_OF_USERS_IN_MATCH)
+            return -1;
+        throw Excepcion("Message not expected");
+    }
 };
 
 int main() {
@@ -355,17 +472,27 @@ int main() {
 
         channel.sendUserNameSubmit("srCarpincho");
         int carpinchoId = channel.reciveClientIdFromServer();
-
-        channel.sendRequestOfMatchCreation(1, 1, urchesId);
+//----------------------------------
+        channel.sendRequestOfMatchCreation(1, 54, urchesId);
         int matchId = channel.reciveRespondToRequestOfMatchCreation();
 
         channel.sendRequestOfJoiningAMatch(matchId, carpinchoId);
-        int response = channel.reciveRespondOfJoiningAMatch();
+        int response1 = channel.reciveRespondOfJoiningAMatch();
 
         channel.sendRequestOfAvailableMatches();
-        std::vector<MatchInfo> matches = channel.reciveListOfMatches();
+        std::vector<MatchInfo> matches1 = channel.reciveListOfMatches();
 
-        cliente.cerrar();
+        channel.sendRequestOfNumberOfUsersInMatch(matchId);
+        int response2 = channel.reciveRespondOfNumberOfMatches();
+
+        channel.sendRequestOfMatchCancellation(matchId);
+        int response3 = channel.reciveRespondOfMatchCancellation();
+
+        channel.sendRequestOfAvailableMatches();
+        std::vector<MatchInfo> matches2 = channel.reciveListOfMatches();
+
+
+        client.cerrar();
     } catch (const std::exception& error) {
         std::cout<<error.what()<<std::endl;
     }

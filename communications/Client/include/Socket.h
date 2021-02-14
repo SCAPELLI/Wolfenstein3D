@@ -26,9 +26,9 @@ public:
     void enviar(std::string mensaje) const;
     void enviar(const char *mensaje, int cantidadDeBytesBuffer) const;
 
-    void recibir(std::string& mensaje) const;
+    void recibir(std::string& mensaje);
     int recibir(char *mensaje,
-                int cantidadDeBytesBuffer) const;
+                int cantidadDeBytesBuffer);
 
     void enlazar(const DireccionesIP &direcciones);
     void escuchar(int maximaCantidadDeConexionesEnEspera) const;
