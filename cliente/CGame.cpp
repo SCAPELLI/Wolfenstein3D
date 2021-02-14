@@ -7,6 +7,7 @@
 #include "common/ShootingEvent.h"
 #include "ServerEvents/ChangeWeaponEvent.h"
 #include "ServerEvents/DespawnEvent.h"
+#include "ServerEvents/CreateMapEvent.h.h"
 
 CGame::CGame(double x, double y, double fov):
 	activePlayer(x, y, fov, 0),
@@ -81,6 +82,7 @@ void CGame::processEvent(ChangeWeaponEvent& event){
 void CGame::processEvent(KillEvent& event){}
 void CGame::processEvent(OpenDoorEvent& event){}
 void CGame::processEvent(DoorOpenedEvent& event){}
+void CGame::processEvent(CreateMapEvent& event){}
 
 void CGame::processEvent(TurnEvent& event) {
     this->activePlayer.rotate(event.getDegrees());

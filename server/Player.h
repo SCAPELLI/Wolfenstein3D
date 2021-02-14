@@ -39,7 +39,7 @@ public:
     void getDamage(int damage);
 
     /*Actualiza valores de balas cuando daña otro jugador*/
-    void hits();  //cambiar nombre funcion
+    void hits(int distance, int angle);  //cambiar nombre funcion
 
     /* Devuelve distancia con otro jugador*/
     int distanceWith(Player& otherPlayer);
@@ -69,7 +69,7 @@ public:
     bool operator==(const Player& player) const;
 
     /*Devuelve si el jugador colisionó con otro jugador */
-    bool collideWith(Player& otherPlayer);
+    bool collideWith(int distance, int radius);
     bool pickupWeapon(Weapon weapon, std::vector<AbstractEvent*>& newEvents);
     void resetBagWeapons();
     Item getBullets();

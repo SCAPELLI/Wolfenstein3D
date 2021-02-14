@@ -10,6 +10,7 @@
 #define TILE 32
 #include "GameLoader.h"
 #include "../common/ServerEvents/SpawnEvent.h"
+#include "../common/ServerEvents/CreateMapEvent.h"
 
 Map::Map(){}
 
@@ -21,6 +22,8 @@ Map::Map(std::vector<Player>& players,
     int numOfPlayer = 0;
     height = matrixConfig.size() - 1;
     width = matrixConfig[0].size() - 1;
+    auto event = new CreateMapEvent(width, height);
+    newEvents.push_back(event);
     for (std::size_t i = 0; i < matrixConfig.size(); i++) {
         std::vector<CellMap> row;
         for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {

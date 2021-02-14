@@ -9,7 +9,7 @@ class Weapon : public Item{
 public:
     int id;
     std::string name;
-    int effect;
+    int presicion;
     int minBullets;
     double speed;
     int cooldown;
@@ -19,7 +19,9 @@ public:
     Weapon(int id, std::string name,int damage, int minBullets, double speed);
     Weapon(int id, std::string name);
     Weapon();
-    int attack(int bullets);
+    int attack(int bullets, int distance, int angle);
+    int generateRandom();
+    int launchRocket(int distance);
     int getSpeed();
     bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
     bool operator<(const Weapon& t) const;

@@ -66,8 +66,8 @@ void Player::setPosition(Vector initial){
     initialPosition = initial;
     position = initial;
     scaledPosition = initial.scale();
-
 }
+
 
 void Player::rotate(double newAngle){
     angle += newAngle;
@@ -95,12 +95,18 @@ int Player::distanceWith(Player& otherPlayer) {
     return std::numeric_limits<int>::max();
 }
 
-void Player::hits(){
-    bullets.changeValue(bullets.getEffect() - bag[idWeapon].minBullets); //esto esta mal
+void Player::hits(int distance, int angle){
+    if (bag[idWeapon].name == "knife" && ! collideWith(distance, radius)) return;
+    bag[idWeapon].attack(distance, angle);
+    bullets.changeValue(- bag[idWeapon].minBullets);
     bulletsShot += bag[idWeapon].minBullets;
-    if (bullets.getEffect() <= 0){
+    if (bullets.getEffect() <= 0 || bullets.getEffect() < bag[idWeapon].minBullets){
         for (auto const& arm : bag) {
-            if (arm.second.name == "knife") {
+            if (bullets.getEffect() <= 0 && arm.second.name == "knife"){
+                prevIdWeapon = idWeapon;
+                idWeapon = arm.first;
+            }
+            else if (arm.second.name == "pistol"){
                 prevIdWeapon = idWeapon;
                 idWeapon = arm.first;
             }
@@ -135,7 +141,7 @@ bool Player::hasKey(){
 }
 void Player::resetBagWeapons(){
     for (auto const& arm : bag) {
-        if (arm.first != 0 && arm.first != 1)
+        if (arm.first != 0 && arm.first != 1) //pierde las armas al final???
             bag.erase(arm.first);
     }
     idWeapon = 1;
@@ -168,9 +174,9 @@ void Player::getDamage(int damage){
        dead = true;
 }
 
-bool Player::collideWith(Player& other_player) {
-    int dist = position.distance(other_player.getPosition());
-    return dist < radius + other_player.radius;
+bool Player::collideWith(int distance, int radius) {
+    int dist;
+    return dist < radius + radius;
 }
 
 

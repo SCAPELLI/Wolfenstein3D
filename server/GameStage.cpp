@@ -40,6 +40,7 @@ void GameStage::processEvent(TurnEvent& event) {
 
 void GameStage::processEvent(ShootingEvent& event) {
     int idHit = game.shoot(event.idPlayer);
+    if (idHit == -2) return;
     if ( idHit != -1){
         if (game.players[idHit].isGameOver()){
             GameOverEvent dead(GameOverEventType, idHit);
