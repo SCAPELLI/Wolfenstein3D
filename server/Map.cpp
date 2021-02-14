@@ -102,7 +102,7 @@ bool Map::isOkToMove(Vector& futurePos){
             matrix[futurePos.y][futurePos.x].isOpen();
 }
 
-void Map::dropAllItems(Player& player){
+void Map::dropAllItems(Player& player){ //deberia llamar a newEvents
     Vector positionPlayer = player.getScaledPosition();
     matrix[positionPlayer.y][positionPlayer.x].dropItems(player);
 }
