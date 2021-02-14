@@ -89,7 +89,7 @@ void CellMap::getItemsTile(Player& player,
     auto it = items.begin();
     while (it != items.end()) {
         if ((*it)->isConsumed(player, newEvents)) {
-            auto* event = new DespawnEvent(DespawnType, (*it)->getUniqueId(),
+            auto* event = new DespawnEvent(DespawnEventType, (*it)->getUniqueId(),
                                                    (*it)->getId());
             newEvents.push_back(event);
             it = items.erase(it);

@@ -15,17 +15,19 @@
 #include "ServerEvents/SpawnEvent.h"
 
 #define PI 3.141592
+#define MAX_PLAYERS 1
 
 GameStage::GameStage(ProtectedEventsQueue& updateEvents)
     : updateEvents(updateEvents), newEvents(), playersNames() {
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < MAX_PLAYERS; i++) {
         std::string name = "";
         playersNames.push_back(name);  // esto despues va a estar en el startGameEvent
     }
     game = Game(newEvents, playersNames);
+    pushNewEvents();
 }
 
-//void GameStage::processEvent(StartGameEvent& event){
+//void GameStage::processEvent(StartGameEvent& event){}
 
 
 void GameStage::processEvent(TurnEvent& event) {
@@ -49,6 +51,9 @@ void GameStage::processEvent(ShootingEvent& event) {
         Event anotherEvent(&decreasedLife, KillEventType);
         updateEvents.push(anotherEvent);
     }
+    ShootingEvent shoot(event.idPlayer);
+    Event anotherEvent(&shoot, ShootingEventType);
+    updateEvents.push(anotherEvent);
 }
 
 void GameStage::processEvent(MovementEvent& event) {
@@ -86,7 +91,7 @@ void GameStage::processEvent(OpenDoorEvent& event){
 }
 
 void GameStage::processEvent(ChangeWeaponEvent& event){
-    if (game.changeWeapon(event.idPlayer, event.uniqueId)){
+    if (game.changeWeapon(event.idPlayer, event.type)){
         Event anotherEvent(&event, ChangeWeaponType);
         updateEvents.push(anotherEvent);
     }
@@ -98,6 +103,7 @@ void GameStage::processEvent(int objId, int type, int posX, int posY) {
     Event anotherEvent(&toSend, SpawnEventType);
     updateEvents.push(anotherEvent);
 }
+
 void GameStage::IncrementCooldown(){
     game.increaseCooldown();
 }

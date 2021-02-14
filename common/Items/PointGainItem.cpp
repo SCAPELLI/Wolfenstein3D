@@ -10,3 +10,7 @@ PointGainItem::PointGainItem()
 bool PointGainItem::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) {
     return player.getItem(this, newEvents);
 }
+
+PointGainItem::~PointGainItem() {
+
+}

@@ -15,6 +15,8 @@ class TurnEvent;
 class OpenDoorEvent;
 class SpawnEvent;
 class DoorOpenedEvent;
+class ChangeWeaponEvent;
+class DespawnEvent;
 
 class CGame{
 	CPlayer activePlayer;
@@ -27,17 +29,17 @@ class CGame{
 		CGame(double x, double y, double fov);
 		void draw();
 		void rotate(double degrees);
-		void spawnRenderable();
 		void advanceTime();
 		void processEvent(ShootingEvent& event);
-    void processEvent(TurnEvent& event);
-    void processEvent(GameOverEvent& event);
+        void processEvent(TurnEvent& event);
+        void processEvent(GameOverEvent& event);
 		void processEvent(KillEvent& event);
 		void processEvent(PositionEvent& event);
 		void processEvent(OpenDoorEvent& event);
-  //void processEvent(ChangeWeaponEvent& event);
+        void processEvent(ChangeWeaponEvent& event);
 		void processEvent(SpawnEvent& event);
-    void processEvent(DoorOpenedEvent& event);
+		void processEvent(DespawnEvent& event);
+        void processEvent(DoorOpenedEvent& event);
 		~CGame();
 };
 

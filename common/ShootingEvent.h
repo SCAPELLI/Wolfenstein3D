@@ -11,6 +11,7 @@ public:
     //ShootingEvent(ShootingEvent& shootingEvent);
     ShootingEvent(int idPlayer);
     void runHandler(CGame& renderer) override;
+    void runHandler(GameStage& game) override;
     std::string getSerialization() override;
 };
 

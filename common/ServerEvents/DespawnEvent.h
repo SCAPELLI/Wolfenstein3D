@@ -3,16 +3,18 @@
 #ifndef ESPAWNEVENT_H
 #define DESPAWNEVENT_H
 #include "GameStage.h"
+#include "cliente/CGame.h"
 #include "../AbstractEvent.h"
 #include "Event.h"
 
 class DespawnEvent : public AbstractEvent {
+public:
     int id;
     int type;
     updateEventType eventType;
-public:
     DespawnEvent (updateEventType eventType, int id, int type);
     void runHandler(GameStage& gameStage);
+    void runHandler(CGame& renderer);
     updateEventType getEventType();
 };
 

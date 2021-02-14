@@ -5,14 +5,14 @@
 
 #include "../Item.h"
 
-class Wall : public Item{
+class ItemWall : public Item{
 private:
     int id;
     std::string name;
     int effect;
 
 public:
-    Wall(int id,std::string name, int effect);
+    ItemWall(int id,std::string name, int effect);
 };
 
 
