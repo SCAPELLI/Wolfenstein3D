@@ -1,4 +1,5 @@
 #include <StartScreen.h>
+#include <NicknameScreen.h>
 #include "ScreenManager.h"
 #include "ui_ScreenManager.h"
 
@@ -7,8 +8,13 @@ ScreenManager::ScreenManager(QWidget *parent)
 : QMainWindow(parent), ui(new Ui::ScreenManager) {
     this->ui->setupUi(this);
     this->screens = this->ui->screens;
+
     StartScreen *startScreen = new StartScreen(0, this);
     this->screens->addWidget(startScreen);
+    NicknameScreen *nicknameScreen = new NicknameScreen(0, this);
+    this->screens->addWidget(nicknameScreen);
+    //this->screens->setCurrentIndex(1);
+
     /**
     QPixmap background("../sprites/menu.png");
     background = background.scaled(size(), Qt::IgnoreAspectRatio);
@@ -21,4 +27,12 @@ ScreenManager::ScreenManager(QWidget *parent)
 
 ScreenManager::~ScreenManager() noexcept {
     delete this->ui;
+}
+
+void ScreenManager::goNext() {
+    this->screens->setCurrentIndex(this->screens->currentIndex() + 1);
+}
+
+void ScreenManager::goBack() {
+    this->screens->setCurrentIndex(this->screens->currentIndex() - 1);
 }

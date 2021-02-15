@@ -11,6 +11,7 @@ class Style {
     public:
         void setRetroFont(QWidget *widget, size_t fontSize);
         void setButtonStyle(QPushButton *button, size_t fontSize);
+        void setButtonStyle(QPushButton *button, size_t fontSize, size_t height, size_t width);
         void setBrickBackgroundToScreen(QMainWindow* window);
         void setTabWidgetStyle(QTabWidget *tabWidget);
         void setListWidgetStyle(QListWidget* listWidget);

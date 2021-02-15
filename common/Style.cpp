@@ -1,5 +1,6 @@
 #include <QtGui/QFontDatabase>
 #include <QtGui/QPainter>
+#include <sstream>
 #include "Style.h"
 
 void Style::setRetroFont(QWidget *widget, size_t fontSize) {
@@ -19,6 +20,36 @@ void Style::setButtonStyle(QPushButton *button, size_t fontSize) {
                         "height: 20px;"
                         "color: rgb(167, 167, 167)"
                     "}";
+    button->setStyleSheet(style);
+    setRetroFont(button, fontSize);
+}
+
+void Style::setButtonStyle(QPushButton *button, size_t fontSize, size_t height, size_t width) {
+    QString style1 = "QPushButton {"
+                    "border-image:url(../../resources/button.png);"
+                    "outline: none;"
+                    "font-weight: bold;"
+                    "color: rgb(167, 167, 167);";
+
+    std::stringstream ss;
+    ss << "height: " << std::to_string(height) << ";\n" << "width: " << std::to_string(width) << "}";
+    std::string size = ss.str();
+    char* sizeCharArray;
+    sizeCharArray = &size[0];
+
+    QString style2 = "QPushButton:hover {"
+                     "color: rgb(200, 200, 200)"
+                     "}"
+                     "QPushButton:pressed {"
+                     "color: rgb(140, 140, 140)"
+                     "}";
+
+    QString style;
+    style.append(style1);
+    style.append(sizeCharArray);
+    style.append(style2);
+
+    style.append(style);
     button->setStyleSheet(style);
     setRetroFont(button, fontSize);
 }
