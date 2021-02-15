@@ -5,7 +5,8 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(Client
         src/main.cpp
-        src/Excepcion.cpp
+        src/Exception.cpp
         src/Socket.cpp
-        src/DireccionesIP.cpp
-        src/ClienteTCP.cpp)
+        src/IPAddresses.cpp
+        src/TCPClient.cpp
+        src/CommunicationChannel.cpp src/ProtectedLobby.cpp include/ProtectedLobby.h src/MatchInfo.cpp include/MatchInfo.h src/Match.cpp include/Match.h)

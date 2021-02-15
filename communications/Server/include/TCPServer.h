@@ -5,9 +5,9 @@
 
 class Socket;
 
-class ServidorTCP {
+class TCPServer {
 public:
-    static Socket obtenerSocketAceptador(char* puerto);
+    static Socket getAcceptorSocket(char* port);
 };
 
 #endif

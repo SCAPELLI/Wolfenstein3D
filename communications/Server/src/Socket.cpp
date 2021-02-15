@@ -4,9 +4,9 @@
 #include <string>
 #include <netdb.h>
 #include "../include/Socket.h"
-#include "../include/Excepcion.h"
-#include "../include/DireccionesIP.h"
-#include "../include/Excepcion.h"
+#include "../include/Exception.h"
+#include "../include/IPAddresses.h"
+#include "../include/Exception.h"
 
 Socket::Socket(): fd(-1) {}
 
@@ -21,7 +21,7 @@ Socket& Socket::operator=(Socket&& original) noexcept {
     return *this;
 }
 
-void Socket::deshabilitarEnvio() const {
+void Socket::disableSend() const {
     shutdown(fd, SHUT_WR);
 }
 
@@ -32,19 +32,19 @@ Socket::~Socket() {
     }
 }
 
-void Socket::conectar(const DireccionesIP& direcciones) {
-    struct addrinfo* address = direcciones.primerDireccion();
-    bool conexionExitosa = false;
-    int codigoConnect;
+void Socket::doConnect(const IPAddresses& addresses) {
+    struct addrinfo* address = addresses.firstAddress();
+    bool successfulConnection = false;
+    int connectCode;
 
-    while (address != nullptr && !conexionExitosa) {
+    while (address != nullptr && !successfulConnection) {
         fd = socket(address->ai_family, address->ai_socktype, 0);
         if (fd != -1) {
-            codigoConnect=connect(fd, address->ai_addr,address->ai_addrlen);
-            if (codigoConnect == -1) {
+            connectCode=connect(fd, address->ai_addr, address->ai_addrlen);
+            if (connectCode == -1) {
                 address = address->ai_next;
             } else {
-                conexionExitosa = true;
+                successfulConnection = true;
             }
         } else {
             address = address->ai_next;
@@ -52,128 +52,125 @@ void Socket::conectar(const DireccionesIP& direcciones) {
     }
 }
 
-void Socket::enviar(const char *mensaje,
-                    int cantidadDeBytesBuffer) const {
-    int cantidadDeBytesEnviados = 0;
-    bool finDeEnvio = false;
+void Socket::sendAll(const char *message, int numberOfBytesBuffer) const {
+    int numberOfBytesSent = 0;
+    bool sendFinished = false;
 
-    while (!finDeEnvio) {
-        int codigoSend;
-        codigoSend = send(fd, &mensaje[cantidadDeBytesEnviados],
-                          cantidadDeBytesBuffer -
-                          cantidadDeBytesEnviados,
-                          MSG_NOSIGNAL);
-        switch (codigoSend) {
+    while (!sendFinished) {
+        int sendCode;
+        sendCode = send(fd, &message[numberOfBytesSent],
+                          numberOfBytesBuffer -
+                          numberOfBytesSent,
+                        MSG_NOSIGNAL);
+        switch (sendCode) {
             case -1:
-                throw Excepcion("Error en el envio:" + std::string(strerror(errno)));
-                finDeEnvio = true;
+                throw Exception("Failed to send: " + std::string(strerror(errno)));
+                sendFinished = true;
                 break;
             case 0:
-                finDeEnvio = true;
+                sendFinished = true;
                 break;
             default:
-                cantidadDeBytesEnviados =
-                        cantidadDeBytesEnviados + codigoSend;
-                finDeEnvio = cantidadDeBytesBuffer <= cantidadDeBytesEnviados;
+                numberOfBytesSent =
+                        numberOfBytesSent + sendCode;
+                sendFinished = numberOfBytesBuffer <= numberOfBytesSent;
                 break;
         }
     }
 }
 
-int Socket::recibir(char *mensaje,
-                    int cantidadDeBytesBuffer) {
-    bool finDeRecepcion = false;
-    int cantidadDeBytesRecibidos = 0;
+int Socket::reciveAll(char *message,
+                      int numberOfBytesBuffer) {
+    bool reciveFinished = false;
+    int numberOfBytesReceived = 0;
 
-    while (!finDeRecepcion) {
-        int valorRetornadoPorRecv;
-        valorRetornadoPorRecv = recv(fd, &mensaje[cantidadDeBytesRecibidos],
-                                     cantidadDeBytesBuffer -
-                                     cantidadDeBytesRecibidos,
-                                     0);
-        switch (valorRetornadoPorRecv) {
+    while (!reciveFinished) {
+        int reciveCode;
+        reciveCode = recv(fd, &message[numberOfBytesReceived],
+                                     numberOfBytesBuffer -
+                                     numberOfBytesReceived,
+                          0);
+        switch (reciveCode) {
             case -1:
-                throw Excepcion("Error en la recepción: " + std::string(strerror(errno)));
-                finDeRecepcion = true;
+                throw Exception("Failed to recive: " + std::string(strerror(errno)));
+                reciveFinished = true;
                 break;
             case 0:
-                finDeRecepcion = true;
-                cerrar();
+                reciveFinished = true;
+                doClose();
                 break;
             default:
-                cantidadDeBytesRecibidos =
-                        cantidadDeBytesRecibidos + valorRetornadoPorRecv;
-                finDeRecepcion =
-                        cantidadDeBytesBuffer <= cantidadDeBytesRecibidos;
+                numberOfBytesReceived =
+                        numberOfBytesReceived + reciveCode;
+                reciveFinished =
+                        numberOfBytesBuffer <= numberOfBytesReceived;
                 break;
         }
     }
-    return cantidadDeBytesRecibidos;
+    return numberOfBytesReceived;
 }
 
-void Socket::enlazar(const DireccionesIP& direcciones) {
-    struct addrinfo* direccion = direcciones.primerDireccion();
-    int codigoBind;
+void Socket::doBind(const IPAddresses& addresses) {
+    struct addrinfo* address = addresses.firstAddress();
+    int bindCode;
     int val = 1;
 
-    fd = socket(direccion->ai_family,
-                direccion->ai_socktype,
-                direccion->ai_protocol);
+    fd = socket(address->ai_family,
+                address->ai_socktype,
+                address->ai_protocol);
     setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
-    codigoBind = bind(fd, direccion->ai_addr, direccion->ai_addrlen);
-    if (codigoBind == -1) {
-        throw Excepcion("Error al intentar enlazar el socket: " 
-        				+ std::string(strerror(errno)));
+    bindCode = bind(fd, address->ai_addr, address->ai_addrlen);
+    if (bindCode == -1) {
+        throw Exception("Failed to bind: " + std::string(strerror(errno)));
     }
 }
 
-void Socket::escuchar(int maximaCantidadDeConexionesEnEspera) const {
-    int codigoListen;
-    codigoListen = listen(fd, maximaCantidadDeConexionesEnEspera);
-    if (codigoListen == -1) {
-        throw Excepcion("Error al intentar escuchar desde el socket: " 
-        				+ std::string(strerror(errno)));
+void Socket::doListen(int maximumNumberOfWaitingConnections) const {
+    int listenCode;
+    listenCode = listen(fd, maximumNumberOfWaitingConnections);
+    if (listenCode == -1) {
+        throw Exception("Failed to listen: " + std::string(strerror(errno)));
     }
 }
 
-Socket Socket::aceptar() const {
+Socket Socket::doAccept() const {
     Socket peer;
     peer.fd = accept(fd, nullptr, nullptr);
     return peer;
 }
 
-void Socket::cerrar() {
+void Socket::doClose() {
     shutdown(fd, SHUT_RDWR);
     close(fd);
     fd = -1;
 }
 
-bool Socket::estaHabilitado() const {
+bool Socket::isAvailable() const {
     return fd != -1;
 }
 
-void Socket::enviar(std::string messageToSend) const {
+void Socket::sendAll(std::string message) const {
 
-    std::string messageSizeString = std::to_string(messageToSend.size());
+    std::string messageSizeString = std::to_string(message.size());
     while (messageSizeString.length() != 3) {
         messageSizeString.insert(messageSizeString.begin(),'0');
     }
-    enviar(messageSizeString.c_str(), 3);
-    enviar(messageToSend.c_str(), messageToSend.size());
+    sendAll(messageSizeString.c_str(), 3);
+    sendAll(message.c_str(), message.size());
 }
 
-void Socket::recibir(std::string& messageReceivedString) {
+void Socket::reciveAll(std::string& mensaje) {
     char messageLenghtString[3] = "";
     char messageReceived[100] = "";
-    int messageLenghtStringSize = recibir(&messageLenghtString[0], 3); //Tres es la cantidad de digitos para el largo del mensaje
-    if (!estaHabilitado()) return;
+    int messageLenghtStringSize = reciveAll(&messageLenghtString[0], 3); //Tres es la cantidad de digitos para el largo del mensaje
+    if (!isAvailable()) return;
 
-    if (messageLenghtStringSize != 3) throw Excepcion(
+    if (messageLenghtStringSize != 3) throw Exception(
             "Fatal error, the leght of a message is at least" + std::to_string(3) + " bytes");
     int messageSize = std::stoi(std::string(messageLenghtString, messageLenghtStringSize));
-    int messageSizeReceived = recibir(&messageReceived[0], messageSize);
-    if (messageSizeReceived != messageSize) throw Excepcion(
+    int messageSizeReceived = reciveAll(&messageReceived[0], messageSize);
+    if (messageSizeReceived != messageSize) throw Exception(
             "Fatal error, the size of the message received is incorrect\n "
             "size expected: " + std::to_string(messageSize) + " size received: " + std::to_string(messageSize));
-    messageReceivedString = std::string(messageReceived, messageSize);
+    mensaje = std::string(messageReceived, messageSize);
 }

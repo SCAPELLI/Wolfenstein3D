@@ -3,11 +3,11 @@
 
 #include <string>
 
-class Excepcion: public std::exception {
-    std::string mensajeDeError;
+class Exception: public std::exception {
+    std::string errorMessage;
 
 public:
-    explicit Excepcion(const std::string& mensaje);
+    explicit Exception(const std::string& message);
     const char* what() const noexcept override;
 };
 

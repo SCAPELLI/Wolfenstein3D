@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-class DireccionesIP;
+class IPAddresses;
 
 class Socket {
     int fd;
@@ -18,25 +18,25 @@ public:
     Socket(Socket &&original) noexcept;
     Socket &operator=(Socket &&original) noexcept;
 
-    Socket (const Socket& otroSocket) = delete;
-    Socket& operator=(const Socket& otroSocket) = delete;
+    Socket (const Socket& anotherSocket) = delete;
+    Socket& operator=(const Socket& anotherSocket) = delete;
 
-    void deshabilitarEnvio() const;
+    void disableSend() const;
 
-    void enviar(std::string mensaje) const;
-    void enviar(const char *mensaje, int cantidadDeBytesBuffer) const;
+    void sendAll(std::string message) const;
+    void sendAll(const char *message, int numberOfBytesBuffer) const;
 
-    void recibir(std::string& mensaje);
-    int recibir(char *mensaje,
-                int cantidadDeBytesBuffer);
+    void reciveAll(std::string& mensaje);
+    int reciveAll(char *message,
+                  int numberOfBytesBuffer);
 
-    void enlazar(const DireccionesIP &direcciones);
-    void escuchar(int maximaCantidadDeConexionesEnEspera) const;
-    void conectar(const DireccionesIP& direcciones);
-    void cerrar();
-    bool estaHabilitado() const;
+    void doBind(const IPAddresses &addresses);
+    void doListen(int maximumNumberOfWaitingConnections) const;
+    void doConnect(const IPAddresses& addresses);
+    void doClose();
+    bool isAvailable() const;
 
-    Socket aceptar() const;
+    Socket doAccept() const;
 };
 
 #endif
