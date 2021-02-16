@@ -18,8 +18,8 @@ StartScreen::~StartScreen() {
 }
 
 void StartScreen::connectEvents() {
-    QPushButton *joinButton = findChild<QPushButton*>("joinButton");
-    QObject::connect(joinButton, &QPushButton::clicked, this, &StartScreen::clickJoinButton);
+    QPushButton *startButton = findChild<QPushButton*>("startButton");
+    QObject::connect(startButton, &QPushButton::clicked, this, &StartScreen::clickJoinButton);
 }
 
 void StartScreen::clickJoinButton() {
@@ -56,10 +56,8 @@ void StartScreen::setStyle() {
                 "color: rgb(80, 0, 0)"
             "}";
     Style style;
-    this->ui->joinButton->setStyleSheet(sheetStyle);
-    this->ui->hostButton->setStyleSheet(sheetStyle);
-    style.setRetroFont(this->ui->joinButton, 25);
-    style.setRetroFont(this->ui->hostButton, 25);
+    this->ui->startButton->setStyleSheet(sheetStyle);
+    style.setRetroFont(this->ui->startButton, 25);
     //this->setStyleSheet("StartScreen {border-image: url(../sprites/menu.png); background-repeat: no-repeat}");
 
     /**

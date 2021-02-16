@@ -1,5 +1,6 @@
 #include <StartScreen.h>
 #include <NicknameScreen.h>
+#include <GamesScreen.h>
 #include "ScreenManager.h"
 #include "ui_ScreenManager.h"
 
@@ -11,9 +12,15 @@ ScreenManager::ScreenManager(QWidget *parent)
 
     StartScreen *startScreen = new StartScreen(0, this);
     this->screens->addWidget(startScreen);
+
     NicknameScreen *nicknameScreen = new NicknameScreen(0, this);
     this->screens->addWidget(nicknameScreen);
-    //this->screens->setCurrentIndex(1);
+
+    GamesScreen *gamesScreen = new GamesScreen(0, this);
+    this->screens->addWidget(gamesScreen);
+
+    this->screens->setCurrentIndex(2);
+
 
     /**
     QPixmap background("../sprites/menu.png");

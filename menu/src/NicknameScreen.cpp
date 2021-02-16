@@ -35,8 +35,4 @@ void NicknameScreen::setStyle() {
     style.setButtonStyle(this->ui->cancelButton, 20, 50, 150);
     style.setRetroFont(this->ui->nicknameLabel, 30);
     style.setRetroFont(this->ui->nicknameLineEdit, 20);
-    style.setRetroFont(this->ui->portLabel, 30);
-    style.setRetroFont(this->ui->portLineEdit, 20);
-    style.setRetroFont(this->ui->serverLabel, 30);
-    style.setRetroFont(this->ui->serverLineEdit, 20);
 }
