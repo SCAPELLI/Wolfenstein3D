@@ -38,6 +38,8 @@ int main() {
                 event.runHandler(game);
             }
             game.draw();
+            game.playSounds();
+            game.advanceTime();
             SDL_Delay(33);
         }
 

@@ -20,7 +20,8 @@ class CPlayer{
 		void moveTo(double x, double y);
 		void rotate(double degree);
 		void drawWeapon(SDL_Renderer* renderer);
-		void shoot();
+		int getActiveWeapon();
+		bool shoot();
 		void respawn();
 		void changeWeapon(int weaponID);
 		void decreaseLife(int damage);
