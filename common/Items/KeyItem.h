@@ -9,8 +9,9 @@ private:
     int id;
     std::string name;
     int effect;
+    int uniqueId;
 public:
-    KeyItem(int id, std::string name, int effect);
+    KeyItem(int id, std::string name, int effect, int uniqueId);
     KeyItem();
     bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
 };

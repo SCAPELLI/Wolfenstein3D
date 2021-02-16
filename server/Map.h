@@ -1,18 +1,19 @@
 #ifndef MAP_H
 #define MAP_H
+#include "GameLoader.h"
 #include <vector>
 #include "Player.h"
 #include "../common/CellMap.h"
 
-//class CellMap;
 
 class Map{
     std::vector<std::vector<CellMap>> matrix;
     std::vector<OpenableItem*> doors;
     double width;
     double height;
-    public:
-        Map(std::vector<Player>& players,
+    GameLoader factory;
+public:
+    Map(std::vector<Player>& players,
             std::vector<AbstractEvent*>& newEvents);
         Map();
         //Map(std::vector<int> matrix);

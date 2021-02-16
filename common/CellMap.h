@@ -4,19 +4,15 @@
 #include <vector>
 #include "Items/OpenableItem.h"
 
-//#include "../server/GameLoader.h"
-//#include "GameLoader.h"
 
 class Item;
 class Player;
-class GameLoader;
 
 class CellMap{
     bool occupied;
     std::vector<Item*> items;
     OpenableItem* door;
     std::vector<Player> playerList;
-    //GameLoader yamli;
 public:
     CellMap();
     //void transferPlayer(CellMap& otherCell);

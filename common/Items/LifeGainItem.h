@@ -9,8 +9,9 @@ private:
     int id;
     std::string name;
     int effect;
+    int uniqueId;
 public:
-    LifeGainItem(int id,std::string name, int effect);
+    LifeGainItem(int id,std::string name, int effect, int uniqueId);
     bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
 };
 

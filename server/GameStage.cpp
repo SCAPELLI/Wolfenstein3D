@@ -40,6 +40,7 @@ void GameStage::processEvent(TurnEvent& event) {
 
 void GameStage::processEvent(ShootingEvent& event) {
     int idHit = game.shoot(event.idPlayer);
+    if (idHit == -2) return;
     if ( idHit != -1){
         if (game.players[idHit].isGameOver()){
             GameOverEvent dead(GameOverEventType, idHit);
@@ -78,7 +79,7 @@ void GameStage::processEvent(MovementEvent& event) {
 void GameStage::pushNewEvents(){
     for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
         Event anotherEvent(newEvents[i], newEvents[i]->getEventType());
-        updateEvents.push(anotherEvent);
+        updateEvents.push(anotherEvent); // aca no deberia borrar el newEvent[i] o si?
     }
     newEvents.clear();
 }

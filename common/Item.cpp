@@ -1,11 +1,10 @@
 #include "Item.h"
 #include "../cliente/Sprite.h"
 
-int Item::uniqueId = 0;
 
-Item::Item(int id,std::string name, int effect)
-:  id(id), name(name), effect(effect){
-    uniqueId++;
+Item::Item(int id,std::string name, int effect, int uniqueId)
+:  id(id), name(name), effect(effect), uniqueId(uniqueId){
+
 }
 
 int Item::getId(){

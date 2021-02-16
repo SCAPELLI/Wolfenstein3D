@@ -12,6 +12,7 @@
 #include "ServerEvents/DoorOpenedEvent.h"
 #include "ServerEvents/ChangeWeaponEvent.h"
 #include "ServerEvents/DespawnEvent.h"
+#include "ServerEvents/SpawnNotMovableEvent.h"
 /*----------*/
 
 #define PI 3.141592
@@ -45,9 +46,9 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
         case ChangeWeaponType:
             event = new ChangeWeaponEvent(*(ChangeWeaponEvent*)updateEvent);
             break;
-//        case MovementEventType:
-//            event = new MovementEvent(*(MovementEvent*)updateEvent);
-//            break;
+        case SpawnNotMovableType:
+            event = new SpawnNotMovableEvent(*(SpawnNotMovableEvent*)updateEvent);
+            break;
         default:
             this->event = nullptr;
     }
