@@ -20,10 +20,14 @@ str ProtectedLobby::getUserName(int userId) {
     else
         return "";
 }
-std::vector<Match> ProtectedLobby::getMatches() {
-    return matches;
+std::vector<MatchInfo> ProtectedLobby::getMatchesInfo() {
+    std::vector<MatchInfo> matchesInfo;
+    for (Match& match: matches)
+        if (match.notStarted())
+            matchesInfo.emplace_back(match.getMatchInfo());
+    return matchesInfo;
 }
-int ProtectedLobby::createANewMatch(int levelId, int maximumNumberOfPlayers, int adminId) {
+int ProtectedLobby::createANewMatch(int levelId, int maximumNumberOfPlayers, int adminId, Socket* adminSocket) {
     // queda pendiente la logica de validacion de nivel existente
     // en esta primer version solo es valido el nivel 1
 
@@ -32,15 +36,15 @@ int ProtectedLobby::createANewMatch(int levelId, int maximumNumberOfPlayers, int
     else {
         ++reference;
         str adminUserName = getUserName(adminId);
-        matches.emplace_back(reference, levelId, maximumNumberOfPlayers, adminId, adminUserName);
+        matches.emplace_back(reference, levelId, maximumNumberOfPlayers, adminId, adminUserName, adminSocket);
         return reference;
     }
 }
-int ProtectedLobby::addUserToMatch(int matchId, int userId) {
+int ProtectedLobby::addUserToMatch(int matchId, int userId, Socket* userSocket) {
     auto it = std::find_if(matches.begin(), matches.end(),
                            [&] (const Match& match) { return match.sameIdAs(matchId);});
-    if (it != matches.end() and it->isNoFull()) {
-        it->addUser(getUserName(userId), userId);
+    if (it != matches.end() and it->isNotFull()) {
+        it->addUser(getUserName(userId), userId, userSocket);
         return 0;
     } else {
         return -1;

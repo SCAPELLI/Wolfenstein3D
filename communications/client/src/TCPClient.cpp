@@ -1,7 +1,7 @@
 #include <memory.h>
-#include "../include/IPAddresses.h"
+#include "../../common/include/IPAddresses.h"
 #include "../include/TCPClient.h"
-#include "../include/Socket.h"
+#include "../../common/include/Socket.h"
 #include <netdb.h>
 
 Socket TCPClient::getClientSocket(char* domain, char* port) {

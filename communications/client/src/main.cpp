@@ -1,7 +1,7 @@
-#include "../include/Socket.h"
+#include "../../common/include/Socket.h"
 #include "../include/TCPClient.h"
-#include "../include/ProtectedLobby.h"
-#include "../include/CommunicationChannel.h"
+#include "../../common/include/ProtectedLobby.h"
+#include "../../common/include/CommunicationChannel.h"
 
 int main() {
     try {
@@ -16,14 +16,14 @@ int main() {
         channel.sendUserNameSubmit("Urches");
         int urchesId = channel.reciveClientIdFromServer();
 
-        channel.sendUserNameSubmit("srCarpincho");
-        int carpinchoId = channel.reciveClientIdFromServer();
+        //channel.sendUserNameSubmit("asd");
+        //int carpinchoId = channel.reciveClientIdFromServer();
 //----------------------------------
         channel.sendRequestOfMatchCreation(1, 54, urchesId);
         int matchId = channel.reciveRespondToRequestOfMatchCreation();
 
-        channel.sendRequestOfJoiningAMatch(matchId, carpinchoId);
-        int response1 = channel.reciveRespondOfJoiningAMatch();
+        //channel.sendRequestOfJoiningAMatch(matchId, carpinchoId);
+        //int response1 = channel.reciveRespondOfJoiningAMatch();
 
         channel.sendRequestOfAvailableMatches();
         std::vector<MatchInfo> matches1 = channel.reciveListOfMatches();

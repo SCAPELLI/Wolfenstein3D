@@ -8,6 +8,10 @@ class MatchInfo {
     int levelId;
 public:
     MatchInfo(int matchId, int levelId, int maximumNumberOfPlayers, int actualNumberOfPlayers);
+    int getMatchId() const;
+    int getLevelId() const;
+    int getMaximumNumberOfUsers() const;
+    int getActualNumberOfUsers() const;
 };
 
 #endif

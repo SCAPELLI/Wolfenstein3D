@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "MatchInfo.h"
+#include "../include/MatchInfo.h"
 
 typedef std::string str;
 

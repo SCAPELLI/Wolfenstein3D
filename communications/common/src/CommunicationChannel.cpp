@@ -80,17 +80,17 @@ void CommunicationChannel::sendResponseToRequestOfMatches() {
     // Actual numero de jugadores [A] (3 bytes)
     // Ejemplo:
     // ___2###MMMLLLTTTAAA###MMMLLLTTTAAA
-    std::vector<Match> matches = lobby.getMatches();
+    std::vector<MatchInfo> matches = lobby.getMatchesInfo();
 
     str response = LIST_OF_MATCHES_STRING;
     str numberOfMatches = std::to_string(matches.size());
     addZerosToLeft(numberOfMatches, 3);
     response.append(numberOfMatches);
 
-    for (Match& match: matches) {
+    for (MatchInfo& match: matches) {
         str matchId = std::to_string(match.getMatchId());
         str levelId = std::to_string(match.getLevelId());
-        str maximumNumberOfPlayers = std::to_string(match.getMaximumNumberOfPlayers());
+        str maximumNumberOfPlayers = std::to_string(match.getMaximumNumberOfUsers());
         str actualNumberOfPlayers = std::to_string(match.getActualNumberOfUsers());
         addZerosToLeft(matchId, 3);
         addZerosToLeft(levelId, 3);
@@ -119,7 +119,7 @@ void CommunicationChannel::sendResponseToRequestOfMatchCreation(str &messageRece
     int maximumNumberOfPlayers = std::stoi(messageReceived.substr(6, 3));
     int userId = std::stoi(messageReceived.substr(9,3));
 
-    int matchId = lobby.createANewMatch(levelId, maximumNumberOfPlayers, userId);
+    int matchId = lobby.createANewMatch(levelId, maximumNumberOfPlayers, userId, &socket);
     if (matchId == -1) {
         socket.sendAll(MATCH_NOT_CREATED_STRING);
     } else {
@@ -157,7 +157,7 @@ void CommunicationChannel::sendResponseToRequestOfJoiningAMatch(str &messageRece
     int matchId = std::stoi(messageReceived.substr(3, 3));
     int userId = std::stoi(messageReceived.substr(6, 3));
 
-    int response = lobby.addUserToMatch(matchId, userId);
+    int response = lobby.addUserToMatch(matchId, userId, &socket);
     if (response == -1)
         socket.sendAll(FAILED_TO_JOIN_TO_MATCH_STRING);
     else
@@ -175,6 +175,12 @@ void CommunicationChannel::sendResponseToRequestOfNumberOfUsersInMatch(str& mess
     else
         socket.sendAll(SUCCESSFULLY_GOT_THE_NUMBER_OF_USERS_IN_MATCH_STRING + std::to_string(response));
 }
+
+//void CommunicationChannel::sendResponseToRequestOfStartMatch(str& messageReceived) {
+
+    //int matchId;
+
+//}
 
 int CommunicationChannel::respondUserNameSubmitFromClient() {
     str messageReceived;
@@ -212,6 +218,9 @@ void CommunicationChannel::respondMessageFromClient(int userId) {
             break;
         case REQUEST_OF_NUMBER_OF_USERS_IN_MATCH:
             sendResponseToRequestOfNumberOfUsersInMatch(messageReceived);
+            break;
+        case REQUEST_OF_START_MATCH:
+            //sendResponseToRequestOfStartMatch(messageReceived);
             break;
         default:
             throw Exception("Invalid message from client");
