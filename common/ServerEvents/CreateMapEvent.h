@@ -4,7 +4,7 @@
 #define CREATEMAPEVENT_H
 
 #include "../cliente/CGame.h"
-
+#include "AbstractEvent.h"
 class CreateMapEvent   : public AbstractEvent{
 
 public:

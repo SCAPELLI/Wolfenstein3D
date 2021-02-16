@@ -11,11 +11,11 @@ class Item {
     int id;
     std::string name;
     int effect;
-    static int uniqueId;
+    int uniqueId;
 
 public:
-    Item() : id(-1), name(""), effect(0) {};
-    Item(int id, std::string name, int effect);
+    Item() : id(-1), name(""), effect(0), uniqueId(0) {};
+    Item(int id, std::string name, int effect, int uniqueId);
     int getEffect();
     void changeValue(int toChange);
     std::string getItemName();

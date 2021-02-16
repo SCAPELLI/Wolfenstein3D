@@ -5,17 +5,16 @@
 #include <vector>
 #include <iostream>
 #include "../common/CellMap.h"
-#include "../common/Items/Wall.h"
-#define PLAYER_ID 1
-#define TILE 32
+#include "Constants.h"
 #include "GameLoader.h"
 #include "../common/ServerEvents/SpawnEvent.h"
 #include "../common/ServerEvents/CreateMapEvent.h"
+#include "../common/ServerEvents/SpawnNotMovableEvent.h"
 
 Map::Map(){}
 
 Map::Map(std::vector<Player>& players,
-         std::vector<AbstractEvent*>& newEvents){
+         std::vector<AbstractEvent*>& newEvents): factory(){
     std::vector<std::vector<CellMap>> map;
     YAML::Node config = YAML::LoadFile("map.yaml");
     YAML::Node matrixConfig = config["map"];
@@ -41,40 +40,39 @@ Map::Map(std::vector<Player>& players,
 void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
                             CellMap& tileMap, std::vector<Player>& players,
                             int elem, std::vector<AbstractEvent*>& newEvents){
-    GameLoader yaml;
     if (elem == PLAYER_ID) {
         players[numOfPlayer].setPosition(Vector(pos2 * TILE, pos1 * TILE));
         auto event = new SpawnEvent(SpawnEventType, players[numOfPlayer].getId(),
-                                    PLAYER_ID, pos2 * 32, pos1 * 32);
+                                    PLAYER_ID, pos2 * TILE, pos1 * TILE);
         newEvents.push_back(event);
         tileMap.addPlayer(players.at(numOfPlayer));
         numOfPlayer++;
     } if (elem > 1 && elem < 100){
-        Item* item = yaml.itemLoader(elem);
+        Item* item = factory.itemLoader(elem);
         auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
-                                item->getId(), pos2 * 32, pos1 * 32);
+                                item->getId(), pos2 * TILE, pos1 * TILE);
         newEvents.push_back(event);
         tileMap.addItem(item);
         return;
     }
-    else if (elem >= 100 && elem < 200) {
-        OpenableItem* door = yaml.setTexture(elem);
+    else if (elem >= 100 && elem < 300) {
+        OpenableItem* door = factory.setTexture(elem);
         if (door == nullptr){
             tileMap.setSolid();
-            ItemWall* wall = new ItemWall(elem, "wall", 0);
-            auto event = new SpawnEvent(SpawnEventType, wall->getUniqueId(),
-                                        wall->getId(), pos1, pos2);
+            auto event = new SpawnNotMovableEvent(SpawnNotMovableType, elem, pos1, pos2);
             newEvents.push_back(event);
-
         }
         else{
-            auto event = new SpawnEvent(SpawnEventType, door->getUniqueId(),
-                                        door->getId(), pos1, pos2);
+            auto event = new SpawnEvent(SpawnEventType, door->getUniqueId(), door->getId(), pos1, pos2);
             newEvents.push_back(event);
             tileMap.addItem(door);
             doors.push_back(door);
         }
     }
+//    else if (elem >= 300 ){ // los que van a ser caminables
+//        auto event = new SpawnNotMovableEvent(SpawnNotMovableType, elem, pos1, pos2);
+//        newEvents.push_back(event);
+//    }
 }
 
 bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
@@ -100,7 +98,7 @@ void Map::addPlayer(Player& player){
 }
 bool Map::isOkToMove(Vector& futurePos){
     return !matrix[futurePos.y][futurePos.x].isSolid() &&
-            futurePos.y < width && futurePos.x < height &&  //borro mejor y que ni sean atributos?
+            futurePos.y < width && futurePos.x < height &&
             futurePos.y > 0 && futurePos.x > 0 &&
             matrix[futurePos.y][futurePos.x].isOpen();
 }

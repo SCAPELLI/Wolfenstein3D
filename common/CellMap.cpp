@@ -8,7 +8,7 @@
 #include "GameLoader.h"
 #include "Items/AmmoItem.h"
 #include "ServerEvents/DespawnEvent.h"
-#
+
 
 
 CellMap::CellMap()
@@ -70,7 +70,7 @@ bool CellMap::isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents)
 
 void CellMap::dropItems(Player& player){ //poner spawneo, cambiar el harcodeo?
     GameLoader yaml;
-    items.push_back(new AmmoItem(3,"ammo", 10));
+    items.push_back(new AmmoItem(3,"ammo", 10, 0));
     std::string blood = "blood";
     items.push_back(yaml.itemLoader(blood));
     Weapon currentWeapon = player.getWeapon();
@@ -92,6 +92,7 @@ void CellMap::getItemsTile(Player& player,
             auto* event = new DespawnEvent(DespawnEventType, (*it)->getUniqueId(),
                                                    (*it)->getId());
             newEvents.push_back(event);
+            delete(*it);
             it = items.erase(it);
         } else {
             ++it;

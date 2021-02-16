@@ -9,6 +9,7 @@ class Weapon : public Item{
 public:
     int id;
     std::string name;
+    int uniqueId;
     int presicion;
     int minBullets;
     double speed;
@@ -16,7 +17,7 @@ public:
 
 public:
     int getDamage()const;
-    Weapon(int id, std::string name,int damage, int minBullets, double speed);
+    Weapon(int id, std::string name, int uniqueId, int damage, int minBullets, double speed);
     Weapon(int id, std::string name);
     Weapon();
     int attack(int bullets, int distance, int angle);

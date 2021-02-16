@@ -50,7 +50,7 @@ int Game::shoot(int idPlayer){
         int distancePlayer = players[idPlayer].distanceWith(players[i]); //ver si es un jugador para el lado donde estoy mirando
         if (distancePlayer < distanceToWall) {
             //ver alguna forma que le diga si mato a alguien o no.
-            players[idPlayer].hits();
+            players[idPlayer].hits(distancePlayer, players[idPlayer].getAngle()); // ojo que aca puse el angulo del jug no el angulo respecto a los jugs
             Vector posPlayer = players[idPlayer].getPosition();
             double distance = posPlayer.distance(players[i].getPosition());
             double randomHit = generateRandom();

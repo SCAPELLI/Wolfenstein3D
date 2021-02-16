@@ -79,7 +79,7 @@ void GameStage::processEvent(MovementEvent& event) {
 void GameStage::pushNewEvents(){
     for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
         Event anotherEvent(newEvents[i], newEvents[i]->getEventType());
-        updateEvents.push(anotherEvent);
+        updateEvents.push(anotherEvent); // aca no deberia borrar el newEvent[i] o si?
     }
     newEvents.clear();
 }

@@ -9,14 +9,12 @@
 #include "../common/Items/LockedDoor.h"
 #include "../common/Items/OpenableItem.h"
 #include "../common/Items/AmmoItem.h"
-#include "../common/Items/Wall.h"
 #define PLAYER_ID 1
 
-GameLoader::GameLoader(){
+GameLoader::GameLoader() : uniqueId(0){
     sprites = YAML::LoadFile("../Editor/sprites/sprites.yaml");
     idConfig = YAML::LoadFile("config.yaml");
     map = YAML::LoadFile("map.yaml");
-
 }
 
 
@@ -49,56 +47,67 @@ Item* GameLoader::itemLoader(int& idItem) {
     int value = sprites["items"][idItem]["value"].as<int>();
     if (elem == "food" || elem == "med kit" ||
         elem == "blood") {
-        return  new LifeGainItem(idItem, elem, value);
+        Item* item = new LifeGainItem(idItem, elem, value, uniqueId);
+        uniqueId++;
+        return item;
     }
     if (elem == "cross" || elem == "crown" ||
         elem == "chest"  || elem == "chalice") {
-        return new PointGainItem(idItem, elem, value);
+        Item* item = new PointGainItem(idItem, elem, value, uniqueId);
+        uniqueId++;
+        return item;
     }
     if (elem == "machine gun" || elem == "chain gun" ||
         elem == "rocket launcher" || elem == "pistol") {
-        return new Weapon(idItem, elem);
+        Item* item = new Weapon(idItem, elem);
+        uniqueId++;
+        return item;
     }
     if (elem == "ammo") {
-        return new AmmoItem(idItem, elem, value);
-    } if (elem == "key") {
-        return new KeyItem(idItem, elem, value);
+        Item* item = new AmmoItem(idItem, elem, value, uniqueId);
+        uniqueId++;
+        return item;
+    }
+    if (elem == "key") {
+        Item* item = new KeyItem(idItem, elem, value, uniqueId);
+        uniqueId++;
+        return item;
     }
     throw Exception("No se encontró ese ID en el archivo yaml");
 }
 
-void GameLoader::configItem(int& id, std::string&  itemName, int& effect){
-    for (YAML::const_iterator it = sprites["items"].begin();
-         it != sprites["items"].end(); ++it) {
-        std::string type = sprites["items"][it->first.as<int>()]
-        ["type"].as<std::string>(); // esto me da el nombre del item
-        if (type == itemName) {
-            int value = sprites["items"][it->first.as<int>()]["value"].as<int>();
-            if (type == "food" || type == "med kit" || type == "blood") {
-                id = it->first.as<int>();
-                effect = value;
-                return;
-            }
-            if (type == "cross" || type == "crown" || type == "chest" ||
-                type == "chalice") {
-                id = it->first.as<int>();
-                effect = value;
-                return;
-            }
-            if (type == "ammo") {
-                id = it->first.as<int>();
-                effect = value;
-                return;
-            }
-            if (type == "key") {
-                id = it->first.as<int>();
-                effect = value;
-                return;
-            }
-        }
-    }
-    throw Exception("No se encontró ese ID en el archivo yaml");
-}
+//void GameLoader::configItem(int& id, std::string&  itemName, int& effect){
+//    for (YAML::const_iterator it = sprites["items"].begin();
+//         it != sprites["items"].end(); ++it) {
+//        std::string type = sprites["items"][it->first.as<int>()]
+//        ["type"].as<std::string>(); // esto me da el nombre del item
+//        if (type == itemName) {
+//            int value = sprites["items"][it->first.as<int>()]["value"].as<int>();
+//            if (type == "food" || type == "med kit" || type == "blood") {
+//                id = it->first.as<int>();
+//                effect = value;
+//                return;
+//            }
+//            if (type == "cross" || type == "crown" || type == "chest" ||
+//                type == "chalice") {
+//                id = it->first.as<int>();
+//                effect = value;
+//                return;
+//            }
+//            if (type == "ammo") {
+//                id = it->first.as<int>();
+//                effect = value;
+//                return;
+//            }
+//            if (type == "key") {
+//                id = it->first.as<int>();
+//                effect = value;
+//                return;
+//            }
+//        }
+//    }
+//    throw Exception("No se encontró ese ID en el archivo yaml");
+//}
 
 Item* GameLoader::itemLoader(std::string& itemName) {
     for (YAML::const_iterator it = sprites["items"].begin();
@@ -107,20 +116,30 @@ Item* GameLoader::itemLoader(std::string& itemName) {
             if (itemName == type){
                 int value = sprites["items"][it->first.as<int>()]["value"].as<int>();
                 if (itemName == "food" || itemName == "med kit" || itemName == "blood") {
-                    return  new LifeGainItem(it->first.as<int>(), itemName, value);
+                    Item* item = new LifeGainItem(it->first.as<int>(), itemName, value, uniqueId);
+                    uniqueId++;
+                    return item;
                 }
                 if (itemName == "cross" || itemName == "crown" ||
                     itemName == "chest" || itemName == "chalice") {
-                    return new PointGainItem(it->first.as<int>(), itemName, value);
+                    Item* item = new PointGainItem(it->first.as<int>(), itemName, value, uniqueId);
+                    uniqueId++;
+                    return item;
                 }
                 if (itemName == "machine gun" || itemName == "chain gun" ||
                     itemName == "rocket launcher" || itemName == "pistol") {
-                    return new Weapon(it->first.as<int>(), type);
+                    Item* item = new Weapon(it->first.as<int>(), type);
+                    uniqueId++;
+                    return item;
                 }
                 if (itemName == "ammo") {
-                    return new AmmoItem(it->first.as<int>(), itemName, value);
+                    Item* item = new AmmoItem(it->first.as<int>(), itemName, value, uniqueId);
+                    uniqueId++;
+                    return item;
                 } if (itemName == "key") {
-                    return new KeyItem(it->first.as<int>(), itemName, value);
+                    Item* item = new KeyItem(it->first.as<int>(), itemName, value, uniqueId);
+                    uniqueId++;
+                    return item;
                 }
             }
         }
@@ -133,13 +152,19 @@ OpenableItem* GameLoader::setTexture(int& idItem) {
         if (it->first.as<int>() == idItem) {
             std::string elem = sprites["textures"][idItem].as<std::string>();
             if (elem =="false wall" || elem == "secret passage"){
-                return  new OpenableItem(idItem, elem, 0);
+                OpenableItem* item = new OpenableItem(idItem, elem, 0, uniqueId);
+                uniqueId++;
+                return item;
             }
             else if (elem == "door"){
-                return new OpenableItem(idItem, elem, 0);
+                OpenableItem* item = new OpenableItem(idItem, elem, 0, uniqueId);
+                uniqueId++;
+                return item;
             }
             else if (elem == "locked door"){
-                return new LockedDoor(idItem, elem, 0);
+                OpenableItem* item = new LockedDoor(idItem, elem, 0, uniqueId);
+                uniqueId++;
+                return item;
             }
             else{
                 break;

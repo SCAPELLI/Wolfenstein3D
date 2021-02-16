@@ -1,11 +1,12 @@
 #include "Weapon.h"
 #include "../server/GameLoader.h"
+#include "Player.h"
 #include <bits/stdc++.h>
 
-Weapon::Weapon(int id, std::string name, int damage, int minBullets,
-                                                            double speed)
-    : id(id), presicion(damage),name(name), minBullets(minBullets), speed(speed),
-     Item(id, name, damage)
+Weapon::Weapon(int id, std::string name, int uniqueId, int damage,
+               int minBullets, double speed)
+    : id(id), uniqueId(uniqueId), presicion(damage),name(name),
+    minBullets(minBullets), speed(speed), Item(id, name, damage, uniqueId)
 {}
 
 Weapon::Weapon(int id, std::string name)
@@ -13,7 +14,7 @@ Weapon::Weapon(int id, std::string name)
 {
     GameLoader yaml;
     yaml.configWeapon(name, presicion, minBullets, speed);
-    Item(id, name, presicion);
+    Item(id, name, presicion, 0);
 }
 
 int Weapon::generateRandom(){
@@ -42,7 +43,7 @@ Weapon::Weapon() {}
 
 
 int Weapon::getDamage()const{
-    return ;
+    return presicion;
 }
 int Weapon::getSpeed(){
     return speed;

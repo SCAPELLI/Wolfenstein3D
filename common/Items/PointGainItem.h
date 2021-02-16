@@ -10,10 +10,12 @@ class PointGainItem : public Item{
         int id;
         std::string name;
         int effect;
+        int uniqueId;
     public:
-        PointGainItem(int id, std::string name, int effect);
+        PointGainItem(int id, std::string name, int effect, int uniqueId);
         PointGainItem();
-        bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents)override;
+        virtual bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents)override;
+        virtual void changeValue(int value);
         ~PointGainItem();
 };
 

@@ -25,9 +25,12 @@ class Player {
     double angle;
     std::map<int, Weapon> bag;
     int idWeapon;
-    AmmoItem bullets;
-    PointGainItem points;
-    KeyItem keys;
+    int bullets;
+    int score;
+    int keys;
+//    AmmoItem bullets;
+//    PointGainItem points;
+//    KeyItem keys;
     int bulletsShot;
     int playersKilled;
     int prevIdWeapon;
@@ -72,7 +75,7 @@ public:
     bool collideWith(int distance, int radius);
     bool pickupWeapon(Weapon weapon, std::vector<AbstractEvent*>& newEvents);
     void resetBagWeapons();
-    Item getBullets();
+    int getBullets();
     void died();
     bool isDead();
     bool isGameOver();

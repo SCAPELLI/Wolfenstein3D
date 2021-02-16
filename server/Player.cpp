@@ -4,12 +4,10 @@
 #include <vector>
 #include "GameLoader.h"
 #include "Weapon.h"
-#include "../common/Items/AmmoItem.h"
 #include "../common/ServerEvents/AmmoChangeEvent.h"
 #include "../common/ServerEvents/ChangeWeaponEvent.h"
 #include "../common/ServerEvents/DoorOpenedEvent.h"
 #include "../common/ServerEvents/HealthChangeEvent.h"
-#include "../common/ServerEvents/KillEvent.h"
 #include "../common/ServerEvents/PickUpKeyEvent.h"
 #include "../common/ServerEvents/PickUpWeaponEvent.h"
 #include "../common/ServerEvents/ScoreChangeEvent.h"
@@ -36,31 +34,32 @@ Player::Player(int parsed_id, std::string name, Vector position)
 void Player::initializePlayer(bool dead){
     YAML::Node fileNode = YAML::LoadFile("config.yaml");
     GameLoader yamlItems;
-    maxBullets = fileNode["Player"]["maxBullets"].as<int>();
     if (!dead){
         lifes = fileNode["Player"]["lifes"].as<int>();
-        points = PointGainItem();
         bulletsShot = fileNode["Player"]["bulletsShot"].as<int>();
         playersKilled = fileNode["Player"]["playersKilled"].as<int>();
+        score = fileNode["Player"]["score"].as<int>();
+        int cont = 0;
+        for (YAML::const_iterator it=fileNode["Weapons"].begin();
+             it != fileNode["Weapons"].end(); ++it){
+            std::string weaponType = it->first.as<std::string>();
+            if(weaponType == "knife" || weaponType == "pistol"){
+                YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
+                auto equip = Weapon(cont, weaponType, 0, data["damage"].as<int>(), // usar constructor
+                                    data["minBullets"].as<int>(),
+                                    data["speed"].as<double>());
+                bag.insert(std::make_pair(cont, equip));
+                idWeapon = cont;
+            }
+            cont++;
+        }
     }
+    maxBullets = fileNode["Player"]["maxBullets"].as<int>();
     health = fileNode["Player"]["health"].as<int>();
     radius = fileNode["Player"]["radius"].as<int>();
-    bullets = AmmoItem(3, "ammo", fileNode["Player"]["bullets"].as<int>());
+    bullets = fileNode["Player"]["bullets"].as<int>();
+    keys = fileNode["Player"]["key"].as<int>();
     angle = fileNode["Player"]["angle"].as<double>();
-    int cont = 0;
-    for (YAML::const_iterator it=fileNode["Weapons"].begin();
-         it != fileNode["Weapons"].end(); ++it){
-        std::string weaponType = it->first.as<std::string>();
-        if(weaponType == "knife" || weaponType == "pistol"){
-            YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
-            auto equip = Weapon(cont, weaponType, data["damage"].as<int>(), // usar constructor
-                                   data["minBullets"].as<int>(),
-                                     data["speed"].as<double>());
-            bag.insert(std::make_pair(cont, equip));
-            idWeapon = cont;
-        }
-        cont++;
-    }
 }
 void Player::setPosition(Vector initial){
     initialPosition = initial;
@@ -97,12 +96,12 @@ int Player::distanceWith(Player& otherPlayer) {
 
 void Player::hits(int distance, int angle){
     if (bag[idWeapon].name == "knife" && ! collideWith(distance, radius)) return;
-    bag[idWeapon].attack(distance, angle);
-    bullets.changeValue(- bag[idWeapon].minBullets);
+    bag[idWeapon].attack(bullets, distance, angle);
+    bullets -= bag[idWeapon].minBullets;
     bulletsShot += bag[idWeapon].minBullets;
-    if (bullets.getEffect() <= 0 || bullets.getEffect() < bag[idWeapon].minBullets){
+    if (bullets <= 0 || bullets < bag[idWeapon].minBullets){
         for (auto const& arm : bag) {
-            if (bullets.getEffect() <= 0 && arm.second.name == "knife"){
+            if (bullets <= 0 && arm.second.name == "knife"){
                 prevIdWeapon = idWeapon;
                 idWeapon = arm.first;
             }
@@ -137,7 +136,7 @@ bool Player::changeWeaponTo(int idTochange){
     return false;
 }
 bool Player::hasKey(){
-    return keys.getEffect() > 0;
+    return keys > 0;
 }
 void Player::resetBagWeapons(){
     for (auto const& arm : bag) {
@@ -146,7 +145,6 @@ void Player::resetBagWeapons(){
     }
     idWeapon = 1;
     prevIdWeapon = 1;
-    bullets = AmmoItem();
 }
 
 Weapon Player::getWeapon(){
@@ -164,7 +162,7 @@ void Player::died(){
     dead = false;
 }
 
-Item Player::getBullets(){
+int Player::getBullets(){
     return bullets;
 }
 
@@ -191,8 +189,8 @@ bool Player::isGameOver(){
 }
 
 bool Player::openDoor(){
-    if (keys.getEffect() > 0) {
-        keys.changeValue(-1);
+    if (keys > 0) {
+        keys -= 1;
         return true;
     }
     return false;
@@ -214,7 +212,7 @@ bool Player::getItem(LifeGainItem* item,
 
 bool Player::getItem(PointGainItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
-    points.changeValue(item->getEffect());
+    score += item->getEffect();
     newEvents.push_back(new ScoreChangeEvent(ScoreChangeType, item->getEffect()));
     return true;
 }
@@ -226,19 +224,19 @@ bool Player::getItem(Weapon* item,
 
 bool Player::getItem(KeyItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
-    keys.changeValue(item->getEffect());
+    keys += item->getEffect();
     newEvents.push_back(new PickUpKeyEvent(PickUpKeyType));
     return true;
 }
 bool Player::getItem(AmmoItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
-    if (bullets.getEffect()  == maxBullets) return false;
-    bullets.changeValue(item->getEffect());
-    if (bullets.getEffect() > maxBullets) {
-        int extra = bullets.getEffect() % maxBullets;
-        bullets.changeValue(-extra);
+    if (bullets == maxBullets) return false;
+    bullets += item->getEffect();
+    if (bullets > maxBullets) {
+        int extra = bullets % maxBullets;
+        bullets -= extra;
     }
-    newEvents.push_back(new AmmoChangeEvent(AmmoChangeType, bullets.getEffect()));
+    newEvents.push_back(new AmmoChangeEvent(AmmoChangeType, bullets));
     return true;
 }
 

@@ -7,7 +7,8 @@
 #include "common/ShootingEvent.h"
 #include "ServerEvents/ChangeWeaponEvent.h"
 #include "ServerEvents/DespawnEvent.h"
-#include "ServerEvents/CreateMapEvent.h.h"
+#include "ServerEvents/CreateMapEvent.h"
+#include "ServerEvents/SpawnNotMovableEvent.h"
 
 CGame::CGame(double x, double y, double fov):
 	activePlayer(x, y, fov, 0),
@@ -30,13 +31,13 @@ void CGame::rotate(double degrees){
 	activePlayer.rotate(degrees);
 }
 
+void CGame::processEvent(SpawnNotMovableEvent& event) {
+    map[event.posX][event.posY] = event.type;
+}
+
 void CGame::processEvent(SpawnEvent& event) {
     if (event.type == 1){
         return; // crear player
-    }
-    if (event.type >= 100 && event.type < 200){
-        map[event.posX][event.posY] = event.type;
-        return;
     }
     renderables.emplace(event.id, new Renderable(event.posX, event.posY,std::string("prueba1.bmp"), screen.getRenderer()));
 }
