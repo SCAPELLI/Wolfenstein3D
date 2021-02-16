@@ -44,7 +44,6 @@ void GameScreen::draw(std::vector<std::vector<int>>& map,
 
     this->ui->draw(renderer);
     activePlayer->drawWeapon(renderer);
-    //activePlayer->shoot(); // borrar luego con logica de eventos
     SDL_RenderPresent(renderer);
 }
 
