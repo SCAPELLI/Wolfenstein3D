@@ -15,4 +15,4 @@ add_executable(Client
         ../common/src/MatchInfo.cpp
         ../common/src/Match.cpp
         ../common/src/Thread.cpp
-        )
+        src/Client.cpp include/Client.h)
