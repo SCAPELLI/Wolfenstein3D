@@ -2,20 +2,20 @@
 #include "../include/UserThread.h"
 #include "../include/Thread.h"
 
-bool AcceptNewUsers::deadThread(UserThread& thread) {
+bool AcceptNewUsersThread::deadThread(UserThread& thread) {
     if (thread.runFinished) {
         thread.join();
         return true;
     }
     return false;
 }
-bool AcceptNewUsers::socketIsNotAvailable(Socket& socket) {
+bool AcceptNewUsersThread::socketIsNotAvailable(Socket& socket) {
     return !socket.isAvailable();
 }
 
-AcceptNewUsers::AcceptNewUsers(Socket& acceptor): acceptor(acceptor) {}
+AcceptNewUsersThread::AcceptNewUsersThread(Socket& acceptor): acceptor(acceptor) {}
 
-void AcceptNewUsers::operator()() {
+void AcceptNewUsersThread::run() {
     ProtectedLobby lobby;
     while (acceptor.isAvailable()) {
         usersSockets.emplace_back(std::move(acceptor.doAccept()));

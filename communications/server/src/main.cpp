@@ -8,13 +8,15 @@
 
 int main() {
     try {
-        char* puerto = "7777";
+
+        const char* port = "7777";
 
         Socket peer;
         peer = std::move(
-                TCPServer::getAcceptorSocket(puerto));
+                TCPServer::getAcceptorSocket(port));
 
-        std::thread t{AcceptNewUsers(peer)};
+        AcceptNewUsersThread t(peer);
+        t.start();
 
         char entrada = ' ';
         while (entrada!='q') std::cin >> entrada;

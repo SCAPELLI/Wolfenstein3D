@@ -207,7 +207,7 @@ int CommunicationChannel::respondUserNameSubmitFromClient() {
 void CommunicationChannel::respondMessageFromClient(int userId) {
     str messageReceived;
     socket.reciveAll(messageReceived);
-    if (!socket.isAvailable()) {
+    if (!socket.isAvailable() or messageReceived.empty()) {
         lobby.removeUser(userId);
         return;
     };
@@ -240,6 +240,8 @@ void CommunicationChannel::respondMessageFromClient(int userId) {
 int CommunicationChannel::receiveClientIdFromServer() {
     str messageReceived;
     socket.reciveAll(messageReceived);
+    if (messageReceived.empty()) throw Exception("Server not available");
+
     int messageCode = std::stoi(messageReceived.substr(0, 3));
     if (messageCode ==  USER_NAME_SUCCESSFULLY_SUBMITTED)
         return std::stoi(messageReceived.substr(3));
@@ -269,6 +271,8 @@ std::vector<MatchInfo> CommunicationChannel::getMatches(str messageReceived) {
 std::vector<MatchInfo> CommunicationChannel::receiveListOfMatches() {
     str messageReceived;
     socket.reciveAll(messageReceived);
+    if (messageReceived.empty()) throw Exception("Server not available");
+
     int messageCode = std::stoi(messageReceived.substr(0, 3));
     if (messageCode != LIST_OF_MATCHES)
         throw Exception("Message not expected");
@@ -278,6 +282,8 @@ std::vector<MatchInfo> CommunicationChannel::receiveListOfMatches() {
 int CommunicationChannel::receiveResponseToRequestOfMatchCreation() {
     str messageReceived;
     socket.reciveAll(messageReceived);
+    if (messageReceived.empty()) throw Exception("Server not available");
+
     int messageCode = std::stoi(messageReceived.substr(0, 3));
     if (messageCode == MATCH_CREATED_SUCCESSFULLY)
         return std::stoi(messageReceived.substr(3, 3));
@@ -289,6 +295,8 @@ int CommunicationChannel::receiveResponseToRequestOfMatchCreation() {
 int CommunicationChannel::receiveResponseOfJoiningAMatch() {
     str messageReceived;
     socket.reciveAll(messageReceived);
+    if (messageReceived.empty()) throw Exception("Server not available");
+
     int messageCode = std::stoi(messageReceived.substr(0, 3));
     if (messageCode == MATCH_STARTED_SIGNAL)
         return 0;
@@ -299,6 +307,8 @@ int CommunicationChannel::receiveResponseOfJoiningAMatch() {
 int CommunicationChannel::receiveResponseOfMatchCancellation() {
     str messageReceived;
     socket.reciveAll(messageReceived);
+    if (messageReceived.empty()) throw Exception("Server not available");
+
     int messageCode = std::stoi(messageReceived.substr(0, 3));
     if (messageCode == MATCH_CANCELLED_SUCCESSFULLY)
         return 0;
@@ -309,6 +319,8 @@ int CommunicationChannel::receiveResponseOfMatchCancellation() {
 int CommunicationChannel::receiveResponseOfNumberOfMatches() {
     str messageReceived;
     socket.reciveAll(messageReceived);
+    if (messageReceived.empty()) throw Exception("Server not available");
+
     int messageCode = std::stoi(messageReceived.substr(0, 3));
     if (messageCode == SUCCESSFULLY_GOT_THE_NUMBER_OF_USERS_IN_MATCH)
         return std::stoi(messageReceived.substr(3));
@@ -319,6 +331,8 @@ int CommunicationChannel::receiveResponseOfNumberOfMatches() {
 int CommunicationChannel::receiveResponseToRequestOfStartMatch() {
     str messageReceived;
     socket.reciveAll(messageReceived);
+    if (messageReceived.empty()) throw Exception("Server not available");
+
     int messageCode = std::stoi(messageReceived.substr(0, 3));
 
     if (messageCode == MATCH_NOT_STARTED)

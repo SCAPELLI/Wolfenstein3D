@@ -1,12 +1,12 @@
-#ifndef ACCEPTNEWUSERS_H
-#define ACCEPTNEWUSERS_H
+#ifndef ACCEPTNEWUSERSTHREAD_H
+#define ACCEPTNEWUSERSTHREAD_H
 
 #include <list>
 #include "../include/Socket.h"
 #include "../include/ProtectedLobby.h"
 #include "../include/UserThread.h"
 
-class AcceptNewUsers {
+class AcceptNewUsersThread: public Thread{
     Socket& acceptor;
     ProtectedLobby Lobby;
     std::list<Socket> usersSockets;
@@ -16,7 +16,7 @@ class AcceptNewUsers {
     static bool socketIsNotAvailable(Socket& socket);
 
 public:
-    explicit AcceptNewUsers(Socket& acceptor);
-    void operator()();
+    explicit AcceptNewUsersThread(Socket& acceptor);
+    void run() override;
 };
 #endif
