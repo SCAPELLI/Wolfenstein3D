@@ -5,6 +5,8 @@
 ProtectedLobby::ProtectedLobby(): reference(0) {};
 
 int ProtectedLobby::addUser(str& userName) {
+    std::unique_lock<std::mutex> lock(m);
+
     int userId = -1;
     if (users[userName] == 0) {
         userId = (int)users.size();
@@ -12,6 +14,8 @@ int ProtectedLobby::addUser(str& userName) {
     }
     return userId;
 }
+
+//metodo privado, no necesita lock
 str ProtectedLobby::getUserName(int userId) {
     auto it = std::find_if(users.begin(),users.end(),
                            [&](const std::pair<str, int>& user) {return user.second == userId; });
@@ -21,7 +25,10 @@ str ProtectedLobby::getUserName(int userId) {
     else
         return "";
 }
+
 std::vector<MatchInfo> ProtectedLobby::getMatchesInfo() {
+    std::unique_lock<std::mutex> lock(m);
+
     std::vector<MatchInfo> matchesInfo;
     for (Match& match: matches)
         if (match.notStarted())
@@ -31,6 +38,7 @@ std::vector<MatchInfo> ProtectedLobby::getMatchesInfo() {
 int ProtectedLobby::createANewMatch(int levelId, int maximumNumberOfPlayers, int adminId, Socket* adminSocket) {
     // queda pendiente la logica de validacion de nivel existente
     // en esta primer version solo es valido el nivel 1
+    std::unique_lock<std::mutex> lock(m);
 
     if ((maximumNumberOfPlayers < 1) or (levelId != 1))
         return -1;
@@ -42,19 +50,25 @@ int ProtectedLobby::createANewMatch(int levelId, int maximumNumberOfPlayers, int
     }
 }
 int ProtectedLobby::addUserToMatch(int matchId, int userId, Socket* userSocket) {
+    std::unique_lock<std::mutex> lock(m);
+
     auto it = std::find_if(matches.begin(), matches.end(),
                            [&] (const Match& match) { return match.sameIdAs(matchId);});
-    if (!(it != matches.end() and it->isNotFull() and it->notStarted())) {
+
+    if (!(it != matches.end() and it->isNotFull() and it->notStarted()))
         return -1;
-    } else {
-        it->addUser(getUserName(userId), userId, userSocket);
-        while (std::find_if(matches.begin(), matches.end(),
-                            [&] (const Match& match) { return match.sameIdAs(matchId);}) != matches.end())
-            usleep(500000);
-        return 0;
-    }
+    it->addUser(getUserName(userId), userId, userSocket);
+
+    while (std::find_if(matches.begin(), matches.end(),
+                        [&] (const Match& match) { return match.sameIdAs(matchId);}) != matches.end())
+        cv.wait(lock);
+    return 0;
+
 }
+
 void ProtectedLobby::removeUser(int userId) {
+    std::unique_lock<std::mutex> lock(m);
+
     str userName = getUserName(userId);
     if (userName.empty()) return;
 
@@ -72,6 +86,8 @@ void ProtectedLobby::removeUser(int userId) {
         it->removeUser(userName, userId);
 }
 int ProtectedLobby::numberOfUsersInMatch(int matchId) {
+    std::unique_lock<std::mutex> lock(m);
+
     auto it = std::find_if(
             matches.begin(), matches.end(),
             [&] (const Match& match) { return match.sameIdAs(matchId);});
@@ -80,6 +96,8 @@ int ProtectedLobby::numberOfUsersInMatch(int matchId) {
     return it->getActualNumberOfUsers();
 }
 int ProtectedLobby::cancelMatch(int matchId) {
+    std::unique_lock<std::mutex> lock(m);
+
     auto it = std::find_if(
             matches.begin(), matches.end(),
             [&] (const Match& match) { return match.sameIdAs(matchId);});
@@ -90,13 +108,17 @@ int ProtectedLobby::cancelMatch(int matchId) {
 }
 
 int ProtectedLobby::startMatch(int matchId) {
+    std::unique_lock<std::mutex> lock(m);
+
     auto it = std::find_if(
             matches.begin(), matches.end(),
             [&] (const Match& match) { return match.sameIdAs(matchId);});
     if (it == matches.end()) return -1;
     it->start();
-    //cuando agreges el mutex aca hay que desbloquear, sino nunca se va a habilitar el lobby
+    lock.unlock();
     it->join();
+    lock.lock();
     matches.erase(it);
+    cv.notify_all();
     return 0;
 }

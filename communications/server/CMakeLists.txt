@@ -15,7 +15,7 @@ add_executable(Server
         ../common/src/ProtectedLobby.cpp
         ../common/src/CommunicationChannel.cpp
         ../common/src/Thread.cpp
-        ../common/src/AcceptNewUsers.cpp
+        ../common/src/AcceptNewUsersThread.cpp
         ../common/src/UserThread.cpp
         ../common/include/IPAddresses.h
         ../common/include/Exception.h

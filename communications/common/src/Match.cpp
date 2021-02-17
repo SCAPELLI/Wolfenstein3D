@@ -51,6 +51,6 @@ void Match::run() {
     for (auto& user: users)
         CommunicationChannel::sendMatchStartedSignal(usersSockets[user.second]);
 
-    std::cout<< "se ejecutó una partida"<<std::endl;
+    std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
 }
 

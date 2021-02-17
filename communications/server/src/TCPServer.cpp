@@ -3,7 +3,7 @@
 #include "../../common/include/Socket.h"
 #include <netdb.h>
 
-Socket TCPServer::getAcceptorSocket(char* port) {
+Socket TCPServer::getAcceptorSocket(const char* port) {
     struct addrinfo hints;
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_family = AF_INET;

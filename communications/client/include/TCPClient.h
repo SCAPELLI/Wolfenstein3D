@@ -5,7 +5,7 @@ class Socket;
 
 class TCPClient {
 public:
-    static Socket getClientSocket(char* domain, char* port);
+    static Socket getClientSocket(const char* domain, const char* port);
 };
 
 #endif

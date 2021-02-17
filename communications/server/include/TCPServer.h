@@ -7,7 +7,7 @@ class Socket;
 
 class TCPServer {
 public:
-    static Socket getAcceptorSocket(char* port);
+    static Socket getAcceptorSocket(const char* port);
 };
 
 #endif

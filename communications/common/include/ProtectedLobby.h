@@ -5,6 +5,9 @@
 #include <map>
 #include <list>
 #include <vector>
+
+#include <condition_variable>
+#include <mutex>
 #include "../include/Match.h"
 #include "../include/MatchInfo.h"
 
@@ -12,14 +15,24 @@ typedef std::string str;
 
 class Socket;
 
+
+
 class ProtectedLobby {
-    std::list<Match> matches; //partidas que aun no iniciaron
+    std::list<Match> matches;
     std::map<str, int> users;
+
+    std::condition_variable cv;
+    std::mutex m;
+
     int reference;
+    str getUserName(int userId);
 public:
     ProtectedLobby();
+
+    ProtectedLobby (const ProtectedLobby& anotherLobby) = delete;
+    ProtectedLobby& operator=(const ProtectedLobby& anotherLobby) = delete;
+
     int addUser(str& userName);
-    str getUserName(int userId);
     std::vector<MatchInfo> getMatchesInfo();
     int createANewMatch(int levelId, int maximumNumberOfPlayers, int adminId, Socket* adminSocket);
     int addUserToMatch(int matchId, int userId, Socket* userSocket);

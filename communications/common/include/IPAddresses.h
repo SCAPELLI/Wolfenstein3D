@@ -4,7 +4,7 @@
 class IPAddresses {
     struct addrinfo* addresses;
 public:
-    IPAddresses(char* domain, char* port, struct addrinfo* hints);
+    IPAddresses(const char* domain, const char* port, struct addrinfo* hints);
 
     struct addrinfo* firstAddress() const;
 

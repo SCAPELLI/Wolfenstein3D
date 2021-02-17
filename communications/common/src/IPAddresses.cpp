@@ -3,8 +3,8 @@
 #include <string>
 #include "../include/Exception.h"
 
-IPAddresses::IPAddresses(char* domain,
-                         char* port,
+IPAddresses::IPAddresses(const char* domain,
+                         const char* port,
                          struct addrinfo* hints) {
     int getAddrInfoCode;
     addresses = nullptr;
