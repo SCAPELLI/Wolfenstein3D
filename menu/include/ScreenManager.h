@@ -19,6 +19,8 @@ class ScreenManager: public QMainWindow {
     public:
         ScreenManager(QWidget *parent = 0);
         ~ScreenManager();
+        void goNext();
+        void goBack();
 };
 
 
