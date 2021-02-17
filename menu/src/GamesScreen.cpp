@@ -21,11 +21,6 @@ GamesScreen::GamesScreen(QWidget *parent, ScreenManager *screenManager)
 
     QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
 
-    MatchInfo match1(1, 666, 15, 8);
-    this->addMatch(match1);
-    MatchInfo match2(2, 420, 10, 2);
-    this->addMatch(match2);
-
     this->connectEvents();
 }
 
@@ -46,19 +41,30 @@ void GamesScreen::connectEvents() {
 
 void GamesScreen::onJoinButtonClick() {
     QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
+
     if (dataTable->currentRow() >= 0) {
-        std::cout << "Id del match seleccionado: " << this->idMatches.at(dataTable->currentRow()) << "\n";
+        //std::cout << "Id del match seleccionado: " << this->idMatches.at(dataTable->currentRow()) << "\n";
+
+        this->screenManager->tryToJoin(this->idMatches.at(dataTable->currentRow()));
     }
 }
 
 void GamesScreen::onRefreshButtonClick() {
-    this->clearTable();
-
-    //Aca llenamos la nueva info
+    this->refresh();
 }
 
 void GamesScreen::onCreateButtonClick() {
     this->screenManager->goNext();
+}
+
+void GamesScreen::refresh() {
+    this->clearTable();
+
+    std::vector<MatchInfo> matches = this->screenManager->requestMatches();
+
+    for (auto &match: matches) {
+        this->addMatch(match);
+    }
 }
 
 void GamesScreen::addMatch(MatchInfo match) {
@@ -91,6 +97,8 @@ void GamesScreen::setDataTable() {
 
     QStringList labels = {"Mapa", "Cantidad de jugadores"};
     dataTable->setHorizontalHeaderLabels(labels);
+
+    this->refresh();
 }
 
 void GamesScreen::setStyle() {

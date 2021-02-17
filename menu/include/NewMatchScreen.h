@@ -13,6 +13,11 @@ class NewMatchScreen: public QWidget {
         Ui::NewMatchScreen *ui;
         ScreenManager *screenManager;
 
+    private:
+        void connectEvents();
+        void onAcceptButtonClick();
+        void onCancelButtonClick();
+
     public:
         NewMatchScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);
         ~NewMatchScreen();
