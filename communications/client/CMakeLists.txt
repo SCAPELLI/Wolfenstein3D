@@ -14,4 +14,5 @@ add_executable(Client
         ../common/src/ProtectedLobby.cpp
         ../common/src/MatchInfo.cpp
         ../common/src/Match.cpp
+        ../common/src/Thread.cpp
         )

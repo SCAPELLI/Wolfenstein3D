@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <unistd.h>
 #include "../include/ProtectedLobby.h"
 
 ProtectedLobby::ProtectedLobby(): reference(0) {};
@@ -43,11 +44,14 @@ int ProtectedLobby::createANewMatch(int levelId, int maximumNumberOfPlayers, int
 int ProtectedLobby::addUserToMatch(int matchId, int userId, Socket* userSocket) {
     auto it = std::find_if(matches.begin(), matches.end(),
                            [&] (const Match& match) { return match.sameIdAs(matchId);});
-    if (it != matches.end() and it->isNotFull()) {
-        it->addUser(getUserName(userId), userId, userSocket);
-        return 0;
-    } else {
+    if (!(it != matches.end() and it->isNotFull() and it->notStarted())) {
         return -1;
+    } else {
+        it->addUser(getUserName(userId), userId, userSocket);
+        while (std::find_if(matches.begin(), matches.end(),
+                            [&] (const Match& match) { return match.sameIdAs(matchId);}) != matches.end())
+            usleep(500000);
+        return 0;
     }
 }
 void ProtectedLobby::removeUser(int userId) {
@@ -80,6 +84,19 @@ int ProtectedLobby::cancelMatch(int matchId) {
             matches.begin(), matches.end(),
             [&] (const Match& match) { return match.sameIdAs(matchId);});
     if (it == matches.end()) return -1;
+    if (it->notStarted())
+        matches.erase(it);
+    return 0;
+}
+
+int ProtectedLobby::startMatch(int matchId) {
+    auto it = std::find_if(
+            matches.begin(), matches.end(),
+            [&] (const Match& match) { return match.sameIdAs(matchId);});
+    if (it == matches.end()) return -1;
+    it->start();
+    //cuando agreges el mutex aca hay que desbloquear, sino nunca se va a habilitar el lobby
+    it->join();
     matches.erase(it);
     return 0;
 }

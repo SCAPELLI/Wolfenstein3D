@@ -14,29 +14,31 @@ int main() {
         CommunicationChannel channel(client, lobby);
 
         channel.sendUserNameSubmit("Urches");
-        int urchesId = channel.reciveClientIdFromServer();
+        int urchesId = channel.receiveClientIdFromServer();
 
         //channel.sendUserNameSubmit("asd");
         //int carpinchoId = channel.reciveClientIdFromServer();
 //----------------------------------
         channel.sendRequestOfMatchCreation(1, 54, urchesId);
-        int matchId = channel.reciveRespondToRequestOfMatchCreation();
+        int matchId = channel.receiveResponseToRequestOfMatchCreation();
 
         //channel.sendRequestOfJoiningAMatch(matchId, carpinchoId);
         //int response1 = channel.reciveRespondOfJoiningAMatch();
 
         channel.sendRequestOfAvailableMatches();
-        std::vector<MatchInfo> matches1 = channel.reciveListOfMatches();
+        std::vector<MatchInfo> matches1 = channel.receiveListOfMatches();
 
         channel.sendRequestOfNumberOfUsersInMatch(matchId);
-        int response2 = channel.reciveRespondOfNumberOfMatches();
+        int response2 = channel.receiveResponseOfNumberOfMatches();
 
-        channel.sendRequestOfMatchCancellation(matchId);
-        int response3 = channel.reciveRespondOfMatchCancellation();
+        //channel.sendRequestOfMatchCancellation(matchId);
+        //int response3 = channel.receiveResponseOfMatchCancellation();
 
         channel.sendRequestOfAvailableMatches();
-        std::vector<MatchInfo> matches2 = channel.reciveListOfMatches();
+        std::vector<MatchInfo> matches2 = channel.receiveListOfMatches();
 
+        channel.sendRequestOfStartMatch(matchId);
+        int response4 = channel.receiveResponseToRequestOfStartMatch();
 
         client.doClose();
     } catch (const std::exception& error) {

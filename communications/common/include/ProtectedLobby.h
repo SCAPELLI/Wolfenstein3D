@@ -26,5 +26,6 @@ public:
     void removeUser(int userId);
     int numberOfUsersInMatch(int matchId);
     int cancelMatch(int matchId);
+    int startMatch(int matchId);
 };
 #endif

@@ -22,8 +22,8 @@ const int MATCH_NOT_CREATED = 6;
 const str MATCH_NOT_CREATED_STRING = "006";
 const int REQUEST_OF_START_MATCH = 7;
 const str REQUEST_OF_START_MATCH_STRING = "007";
-const int MATCH_STARTED_SUCCESSFULLY = 8;
-const str MATCH_STARTED_SUCCESSFULLY_STRING = "008";
+const int MATCH_FINISHED_SUCCESSFULLY = 8;
+const str MATCH_FINISHED_SUCCESSFULLY_STRING = "008";
 const int MATCH_NOT_STARTED = 9;
 const str MATCH_NOT_STARTED_STRING = "009";
 const int REQUEST_OF_MATCH_CANCELLATION = 10;
@@ -34,8 +34,8 @@ const int MATCH_NOT_CANCELLED = 12;
 const str MATCH_NOT_CANCELLED_STRING = "012";
 const int REQUEST_OF_JOINING_A_MATCH = 13;
 const str REQUEST_OF_JOINING_A_MATCH_STRING = "013";
-const int SUCCESSFULLY_JOINED_TO_MATCH = 14;
-const str SUCCESSFULLY_JOINED_TO_MATCH_STRING = "014";
+const int MATCH_STARTED_SIGNAL = 14;
+const str MATCH_STARTED_SIGNAL_STRING = "014";
 const int FAILED_TO_JOIN_TO_MATCH = 15;
 const str FAILED_TO_JOIN_TO_MATCH_STRING = "015";
 const int REQUEST_OF_NUMBER_OF_USERS_IN_MATCH = 16;
@@ -160,8 +160,6 @@ void CommunicationChannel::sendResponseToRequestOfJoiningAMatch(str &messageRece
     int response = lobby.addUserToMatch(matchId, userId, &socket);
     if (response == -1)
         socket.sendAll(FAILED_TO_JOIN_TO_MATCH_STRING);
-    else
-        socket.sendAll(SUCCESSFULLY_JOINED_TO_MATCH_STRING);
 }
 void CommunicationChannel::sendRequestOfNumberOfUsersInMatch(int matchId) {
     str matchIdString = std::to_string(matchId);
@@ -176,11 +174,23 @@ void CommunicationChannel::sendResponseToRequestOfNumberOfUsersInMatch(str& mess
         socket.sendAll(SUCCESSFULLY_GOT_THE_NUMBER_OF_USERS_IN_MATCH_STRING + std::to_string(response));
 }
 
-//void CommunicationChannel::sendResponseToRequestOfStartMatch(str& messageReceived) {
+void CommunicationChannel::sendRequestOfStartMatch(int matchId) {
+    str matchIdString = std::to_string(matchId);
+    socket.sendAll(REQUEST_OF_START_MATCH_STRING + matchIdString);
+}
 
-    //int matchId;
+void CommunicationChannel::sendResponseToRequestOfStartMatch(str& messageReceived) {
+    int matchId = std::stoi(messageReceived.substr(3));
 
-//}
+    int response = lobby.startMatch(matchId);
+
+    if (response == -1)
+        socket.sendAll(MATCH_NOT_STARTED_STRING);
+}
+
+void CommunicationChannel::sendMatchStartedSignal(Socket* socket) {
+    socket->sendAll(MATCH_STARTED_SIGNAL_STRING);
+}
 
 int CommunicationChannel::respondUserNameSubmitFromClient() {
     str messageReceived;
@@ -220,14 +230,14 @@ void CommunicationChannel::respondMessageFromClient(int userId) {
             sendResponseToRequestOfNumberOfUsersInMatch(messageReceived);
             break;
         case REQUEST_OF_START_MATCH:
-            //sendResponseToRequestOfStartMatch(messageReceived);
+            sendResponseToRequestOfStartMatch(messageReceived);
             break;
         default:
             throw Exception("Invalid message from client");
             break;
     }
 }
-int CommunicationChannel::reciveClientIdFromServer() {
+int CommunicationChannel::receiveClientIdFromServer() {
     str messageReceived;
     socket.reciveAll(messageReceived);
     int messageCode = std::stoi(messageReceived.substr(0, 3));
@@ -256,7 +266,7 @@ std::vector<MatchInfo> CommunicationChannel::getMatches(str messageReceived) {
     return matches;
 }
 
-std::vector<MatchInfo> CommunicationChannel::reciveListOfMatches() {
+std::vector<MatchInfo> CommunicationChannel::receiveListOfMatches() {
     str messageReceived;
     socket.reciveAll(messageReceived);
     int messageCode = std::stoi(messageReceived.substr(0, 3));
@@ -265,7 +275,7 @@ std::vector<MatchInfo> CommunicationChannel::reciveListOfMatches() {
     return getMatches(messageReceived);
 }
 
-int CommunicationChannel::reciveRespondToRequestOfMatchCreation() {
+int CommunicationChannel::receiveResponseToRequestOfMatchCreation() {
     str messageReceived;
     socket.reciveAll(messageReceived);
     int messageCode = std::stoi(messageReceived.substr(0, 3));
@@ -276,17 +286,17 @@ int CommunicationChannel::reciveRespondToRequestOfMatchCreation() {
     throw Exception("Message not expected");
 }
 
-int CommunicationChannel::reciveRespondOfJoiningAMatch() {
+int CommunicationChannel::receiveResponseOfJoiningAMatch() {
     str messageReceived;
     socket.reciveAll(messageReceived);
     int messageCode = std::stoi(messageReceived.substr(0, 3));
-    if (messageCode == SUCCESSFULLY_JOINED_TO_MATCH)
+    if (messageCode == MATCH_STARTED_SIGNAL)
         return 0;
     if (messageCode == FAILED_TO_JOIN_TO_MATCH)
         return -1;
     throw Exception("Message not expected");
 }
-int CommunicationChannel::reciveRespondOfMatchCancellation() {
+int CommunicationChannel::receiveResponseOfMatchCancellation() {
     str messageReceived;
     socket.reciveAll(messageReceived);
     int messageCode = std::stoi(messageReceived.substr(0, 3));
@@ -296,7 +306,7 @@ int CommunicationChannel::reciveRespondOfMatchCancellation() {
         return -1;
     throw Exception("Message not expected");
 }
-int CommunicationChannel::reciveRespondOfNumberOfMatches() {
+int CommunicationChannel::receiveResponseOfNumberOfMatches() {
     str messageReceived;
     socket.reciveAll(messageReceived);
     int messageCode = std::stoi(messageReceived.substr(0, 3));
@@ -305,4 +315,15 @@ int CommunicationChannel::reciveRespondOfNumberOfMatches() {
     if (messageCode == FAILED_TO_GET_THE_NUMBER_OF_USERS_IN_MATCH)
         return -1;
     throw Exception("Message not expected");
+}
+int CommunicationChannel::receiveResponseToRequestOfStartMatch() {
+    str messageReceived;
+    socket.reciveAll(messageReceived);
+    int messageCode = std::stoi(messageReceived.substr(0, 3));
+
+    if (messageCode == MATCH_NOT_STARTED)
+        return -1;
+    if(messageCode == MATCH_STARTED_SIGNAL)
+        return 0;
+    throw Exception("Message not excepted");
 }

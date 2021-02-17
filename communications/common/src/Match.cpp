@@ -1,6 +1,8 @@
 
 #include "../include/Match.h"
 #include "../include/Socket.h"
+#include "../include/CommunicationChannel.h"
+
 Match::Match(int matchId, int levelId, int maximumNumberOfPlayers,
              int adminUserId, str adminUserName, Socket* adminUserSocket):
              matchId(matchId),levelId(levelId),
@@ -46,6 +48,9 @@ MatchInfo Match::getMatchInfo() const {
     return {matchId, levelId, maximumNumberOfPlayers, (int)users.size()};
 }
 void Match::run() {
-    //logica de juego
+    for (auto& user: users)
+        CommunicationChannel::sendMatchStartedSignal(usersSockets[user.second]);
+
+    std::cout<< "se ejecutó una partida"<<std::endl;
 }
 

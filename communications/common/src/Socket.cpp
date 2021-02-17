@@ -140,9 +140,11 @@ Socket Socket::doAccept() const {
 }
 
 void Socket::doClose() {
-    shutdown(fd, SHUT_RDWR);
-    close(fd);
-    fd = -1;
+    if (fd != -1) {
+        shutdown(fd, SHUT_RDWR);
+        close(fd);
+        fd = -1;
+    }
 }
 
 bool Socket::isAvailable() const {
