@@ -9,11 +9,30 @@
 NicknameScreen::NicknameScreen(QWidget *parent, ScreenManager *screenManager)
         : QWidget(parent), ui(new Ui::NicknameScreen) {
     this->ui->setupUi(this);
+    this->screenManager = screenManager;
     this->setStyle();
+
+    connectEvents();
 }
 
 NicknameScreen::~NicknameScreen() {
     delete this->ui;
+}
+
+void NicknameScreen::connectEvents() {
+    QPushButton *acceptButton = findChild<QPushButton*>("acceptButton");
+    QObject::connect(acceptButton, &QPushButton::clicked, this, &NicknameScreen::onAcceptButtonClick);
+
+    QPushButton *cancelButton = findChild<QPushButton*>("cancelButton");
+    QObject::connect(cancelButton, &QPushButton::clicked, this, &NicknameScreen::onCancelButtonClick);
+}
+
+void NicknameScreen::onAcceptButtonClick() {
+    this->screenManager->goNext();
+}
+
+void NicknameScreen::onCancelButtonClick() {
+    this->screenManager->goBack();
 }
 
 void NicknameScreen::paintEvent(QPaintEvent *event) {

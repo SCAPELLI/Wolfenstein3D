@@ -15,6 +15,7 @@
 GamesScreen::GamesScreen(QWidget *parent, ScreenManager *screenManager)
         : QWidget(parent), ui(new Ui::GamesScreen) {
     this->ui->setupUi(this);
+    this->screenManager = screenManager;
     this->setDataTable();
     this->setStyle();
 
@@ -24,7 +25,7 @@ GamesScreen::GamesScreen(QWidget *parent, ScreenManager *screenManager)
     this->addMatch(match1);
     MatchInfo match2(2, 420, 10, 2);
     this->addMatch(match2);
-    
+
     this->connectEvents();
 }
 
@@ -39,6 +40,8 @@ void GamesScreen::connectEvents() {
     QPushButton *refreshButton = findChild<QPushButton*>("refreshButton");
     QObject::connect(refreshButton, &QPushButton::clicked, this, &GamesScreen::onRefreshButtonClick);
 
+    QPushButton *createButton = findChild<QPushButton*>("createButton");
+    QObject::connect(createButton, &QPushButton::clicked, this, &GamesScreen::onCreateButtonClick);
 }
 
 void GamesScreen::onJoinButtonClick() {
@@ -52,6 +55,10 @@ void GamesScreen::onRefreshButtonClick() {
     this->clearTable();
 
     //Aca llenamos la nueva info
+}
+
+void GamesScreen::onCreateButtonClick() {
+    this->screenManager->goNext();
 }
 
 void GamesScreen::addMatch(MatchInfo match) {

@@ -24,6 +24,7 @@ class GamesScreen: public QWidget {
         void setStyle();
         void onJoinButtonClick();
         void onRefreshButtonClick();
+        void onCreateButtonClick();
         void clearTable();
 
     public:

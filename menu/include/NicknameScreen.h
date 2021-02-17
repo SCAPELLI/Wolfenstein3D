@@ -19,6 +19,9 @@ class NicknameScreen : public QWidget {
     private:
         void paintEvent(QPaintEvent *event);
         void setStyle();
+        void connectEvents();
+        void onAcceptButtonClick();
+        void onCancelButtonClick();
 
     public:
         NicknameScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);

@@ -30,7 +30,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="createGameButton">
+      <widget class="QPushButton" name="createButton">
        <property name="text">
         <string>Create</string>
        </property>

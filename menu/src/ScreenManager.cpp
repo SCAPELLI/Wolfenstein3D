@@ -1,6 +1,8 @@
 #include <StartScreen.h>
 #include <NicknameScreen.h>
 #include <GamesScreen.h>
+#include <NewMatchScreen.h>
+#include <InfoScreen.h>
 #include "ScreenManager.h"
 #include "ui_ScreenManager.h"
 
@@ -13,13 +15,19 @@ ScreenManager::ScreenManager(QWidget *parent)
     StartScreen *startScreen = new StartScreen(0, this);
     this->screens->addWidget(startScreen);
 
+    InfoScreen *infoScreen = new InfoScreen(0, this);
+    this->screens->addWidget(infoScreen);
+
     NicknameScreen *nicknameScreen = new NicknameScreen(0, this);
     this->screens->addWidget(nicknameScreen);
 
     GamesScreen *gamesScreen = new GamesScreen(0, this);
     this->screens->addWidget(gamesScreen);
 
-    this->screens->setCurrentIndex(2);
+    NewMatchScreen *newMatchScreen = new NewMatchScreen(0, this);
+    this->screens->addWidget(newMatchScreen);
+
+    this->screens->setCurrentIndex(0);
 
 
     /**
@@ -37,7 +45,9 @@ ScreenManager::~ScreenManager() noexcept {
 }
 
 void ScreenManager::goNext() {
-    this->screens->setCurrentIndex(this->screens->currentIndex() + 1);
+    if (this->screens->currentIndex() + 1 < this->screens->count()) {
+        this->screens->setCurrentIndex(this->screens->currentIndex() + 1);
+    }
 }
 
 void ScreenManager::goBack() {
