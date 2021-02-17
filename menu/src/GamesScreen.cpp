@@ -6,6 +6,9 @@
 #include "GamesScreen.h"
 #include "ui_GamesScreen.h"
 
+#define MAPA 0
+#define CANTIDAD_JUGADORES 1
+
 
 GamesScreen::GamesScreen(QWidget *parent, ScreenManager *screenManager)
         : QWidget(parent), ui(new Ui::GamesScreen) {
@@ -15,12 +18,20 @@ GamesScreen::GamesScreen(QWidget *parent, ScreenManager *screenManager)
 
     QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
 
+    /**
     dataTable->insertRow(0);
     dataTable->setItem(0, 0, new QTableWidgetItem("Mapa 1"));
     dataTable->setItem(0, 1, new QTableWidgetItem("5/6"));
     dataTable->insertRow(1);
     dataTable->setItem(1, 0, new QTableWidgetItem("Mapa 2"));
     dataTable->setItem(1, 1, new QTableWidgetItem("2/10"));
+     **/
+
+    MatchInfo match1(1, 666, 15, 8);
+    this->addMatch(match1);
+    MatchInfo match2(2, 420, 10, 2);
+    this->addMatch(match2);
+
 
     this->connectEvents();
 }
@@ -32,12 +43,36 @@ GamesScreen::~GamesScreen() {
 void GamesScreen::connectEvents() {
     QPushButton *joinButton = findChild<QPushButton*>("joinButton");
     QObject::connect(joinButton, &QPushButton::clicked, this, &GamesScreen::onJoinButtonClick);
+
+    QPushButton *refreshButton = findChild<QPushButton*>("refreshButton");
+    //QObject::connect(joinButton, &QPushButton::clicked, this, &GamesScreen::onJoinButtonClick);
+
 }
 
 void GamesScreen::onJoinButtonClick() {
+    /**
     QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
     QList<QTableWidgetItem*> list = dataTable->selectedItems();
     std::cout << "Seleccionado: " << dataTable->currentRow() << "\n";
+     **/
+
+    QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
+    if (dataTable->currentRow() >= 0) {
+        std::cout << "Id del match seleccionado: " << this->idMatches.at(dataTable->currentRow()) << "\n";
+    }
+}
+
+void GamesScreen::addMatch(MatchInfo match) {
+    this->idMatches.push_back(match.getMatchId());
+
+    QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
+    dataTable->insertRow(dataTable->rowCount());
+    dataTable->setItem(dataTable->rowCount() - 1, MAPA, new QTableWidgetItem(QString::number(match.getLevelId())));
+    QString numberOfPlayers;
+    numberOfPlayers.append(QString::number(match.getActualNumberOfUsers()));
+    numberOfPlayers.append(" / ");
+    numberOfPlayers.append(QString::number((match.getMaximumNumberOfUsers())));
+    dataTable->setItem(dataTable->rowCount() - 1, CANTIDAD_JUGADORES, new QTableWidgetItem(numberOfPlayers));
 }
 
 void GamesScreen::setDataTable() {

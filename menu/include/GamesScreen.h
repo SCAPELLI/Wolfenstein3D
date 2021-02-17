@@ -4,6 +4,8 @@
 
 #include <QtWidgets/QWidget>
 #include "ScreenManager.h"
+#include "../../common/MatchInfo.h"
+
 
 namespace Ui {
     class GamesScreen;
@@ -15,9 +17,13 @@ class GamesScreen: public QWidget {
     private:
         Ui::GamesScreen *ui;
         ScreenManager *screenManager;
+        std::vector<int> idMatches;
+
+    private:
         void setDataTable();
         void setStyle();
         void onJoinButtonClick();
+        void addMatch(MatchInfo match);
 
     public:
         GamesScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);
