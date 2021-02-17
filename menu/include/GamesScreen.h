@@ -23,12 +23,14 @@ class GamesScreen: public QWidget {
         void setDataTable();
         void setStyle();
         void onJoinButtonClick();
-        void addMatch(MatchInfo match);
+        void onRefreshButtonClick();
+        void clearTable();
 
     public:
         GamesScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);
         ~GamesScreen();
         void connectEvents();
+        void addMatch(MatchInfo match);
 };
 
 
