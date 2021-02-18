@@ -42,19 +42,6 @@ void NicknameScreen::onCancelButtonClick() {
     this->screenManager->goBack();
 }
 
-void NicknameScreen::paintEvent(QPaintEvent *event) {
-    QPainter painter(this);
-    painter.drawPixmap(0, 0, QPixmap("../../resources/redBackground.png").scaled(size()));
-    QWidget::paintEvent(event);
-
-    /**
-     * Asi lo repite:
-    QPainter painter(this);
-    QPixmap pixmap("../../resources/redBackground.png");
-    painter.fillRect(event->rect(), QBrush(pixmap));
-     **/
-}
-
 void NicknameScreen::setStyle() {
     Style style;
     style.setButtonStyle(this->ui->acceptButton, 20, 50, 150);

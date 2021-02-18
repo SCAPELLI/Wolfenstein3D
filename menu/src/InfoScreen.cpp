@@ -1,15 +1,18 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QLineEdit>
 #include <iostream>
+#include <QtGui/QPainter>
 #include "InfoScreen.h"
 #include "ui_InfoScreen.h"
+#include "../../common/Style.h"
 
 InfoScreen::InfoScreen(QWidget *parent, ScreenManager *screenManager)
     : QWidget(parent), ui(new Ui::InfoScreen) {
     this->ui->setupUi(this);
     this->screenManager = screenManager;
 
-    connectEvents();
+    this->setStyle();
+    this->connectEvents();
 }
 
 InfoScreen::~InfoScreen() {
@@ -38,4 +41,14 @@ void InfoScreen::onAcceptButtonClick() {
 
 void InfoScreen::onCancelButtonClick() {
     this->screenManager->goBack();
+}
+
+void InfoScreen::setStyle() {
+    Style style;
+    style.setButtonStyle(this->ui->acceptButton, 20, 50, 150);
+    style.setButtonStyle(this->ui->cancelButton, 20, 50, 150);
+    style.setRetroFont(this->ui->portLabel, 30);
+    style.setRetroFont(this->ui->portLineEdit, 20);
+    style.setRetroFont(this->ui->serverLabel, 30);
+    style.setRetroFont(this->ui->serverLineEdit, 20);
 }

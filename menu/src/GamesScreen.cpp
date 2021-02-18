@@ -5,22 +5,25 @@
 #include <QtWidgets/QPushButton>
 #include <QtCore/QEventLoop>
 #include <QtCore/QCoreApplication>
+#include <QtGui/QPainter>
 #include "GamesScreen.h"
 #include "ui_GamesScreen.h"
+#include "../../common/Style.h"
 
 #define MAPA 0
 #define CANTIDAD_JUGADORES 1
+
+#define HEADER_FONT 15
+#define INFO_FONT 8
 
 
 GamesScreen::GamesScreen(QWidget *parent, ScreenManager *screenManager)
         : QWidget(parent), ui(new Ui::GamesScreen) {
     this->ui->setupUi(this);
     this->screenManager = screenManager;
+
     this->setDataTable();
     this->setStyle();
-
-    QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
-
     this->connectEvents();
 }
 
@@ -101,12 +104,29 @@ void GamesScreen::setDataTable() {
 
     QStringList labels = {"Mapa", "Cantidad de jugadores"};
     dataTable->setHorizontalHeaderLabels(labels);
-
-    //this->refresh();   se esta pidiendo informacion del server antes de que se logre conectar a un port/domain
 }
 
 void GamesScreen::setStyle() {
     QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
     dataTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     dataTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
+    Style style;
+    style.setRetroFont(dataTable, INFO_FONT);
+    style.setRetroFont(dataTable->horizontalHeader(), HEADER_FONT);
+
+    QString stylesheet = "QTableWidget {"
+                         "  background: rgb(80, 0, 0);"
+                         "  gridline-color: red"
+                         "}"
+                         "QHeaderView::section {"
+                         "  background: rgb(80, 0, 0);"
+                         "}";
+
+    dataTable->setStyleSheet(stylesheet);
+
+    style.setButtonStyle(this->ui->joinButton, 15, 30, 120);
+    style.setButtonStyle(this->ui->refreshButton, 15, 30, 120);
+    style.setButtonStyle(this->ui->createButton, 15, 30, 120);
 }
+

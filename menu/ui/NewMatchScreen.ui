@@ -157,7 +157,7 @@ border:  0</string>
        </spacer>
       </item>
       <item row="3" column="1">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="maxPlayersLabel">
         <property name="styleSheet">
          <string notr="true">color: red</string>
         </property>

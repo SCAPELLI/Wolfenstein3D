@@ -2,12 +2,14 @@
 #include <QtWidgets/QLabel>
 #include "WaitingRoomScreen.h"
 #include "ui_WaitingRoomScreen.h"
+#include "../../common/Style.h"
 
 WaitingRoomScreen::WaitingRoomScreen(QWidget *parent, ScreenManager *screenManager)
         : QWidget(parent), ui(new Ui::WaitingRoomScreen) {
     this->ui->setupUi(this);
     this->screenManager = screenManager;
 
+    this->setStyle();
     this->connectEvents();
 }
 
@@ -51,7 +53,7 @@ void WaitingRoomScreen::refresh() {
     int actualPlayers = this->screenManager->getActualPlayers();
     int maxPlayers = this->screenManager->getMaxPlayers();
 
-    QLabel *levelLabel = findChild<QLabel*>("levelLabel");
+    QLabel *levelLabel = findChild<QLabel*>("levelInputLabel");
     levelLabel->setText(QString::number(level));
 
     QLabel *actualLabel = findChild<QLabel*>("actualLabel");
@@ -59,5 +61,15 @@ void WaitingRoomScreen::refresh() {
 
     QLabel *maxLabel = findChild<QLabel*>("maxLabel");
     maxLabel->setText(QString::number(maxPlayers));
+
+}
+
+void WaitingRoomScreen::setStyle() {
+    Style style;
+    style.setRetroFont(this->ui->levelLabel, 30);
+    style.setRetroFont(this->ui->levelInputLabel, 30);
+    style.setRetroFont(this->ui->actualLabel, 30);
+    style.setRetroFont(this->ui->slashLabel, 30);
+    style.setRetroFont(this->ui->maxLabel, 30);
 
 }
