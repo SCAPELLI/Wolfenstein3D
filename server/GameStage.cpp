@@ -6,16 +6,16 @@
 #include "../common/MovementEvent.h"
 #include "../common/ProtectedEventsQueue.h"
 #include "../common/Event.h"
-#include "GameLoader.h"
 #include "../common/ShootingEvent.h"
 #include "ServerEvents/KillEvent.h"
 #include "ServerEvents/PositionEvent.h"
 #include "ServerEvents/GameOverEvent.h"
+#include "ServerEvents/HealthChangeEvent.h"
 #include "../common/OpenDoorEvent.h"
 #include "ServerEvents/SpawnEvent.h"
 
 #define PI 3.141592
-#define MAX_PLAYERS 1
+#define MAX_PLAYERS 2
 
 GameStage::GameStage(ProtectedEventsQueue& updateEvents)
     : updateEvents(updateEvents), newEvents(), playersNames() {
@@ -39,22 +39,12 @@ void GameStage::processEvent(TurnEvent& event) {
 
 
 void GameStage::processEvent(ShootingEvent& event) {
-    int idHit = game.shoot(event.idPlayer);
+    int idHit = game.shoot(event.idPlayer, newEvents);
     if (idHit == -2) return;
-    if ( idHit != -1){
-        if (game.players[idHit].isGameOver()){
-            GameOverEvent dead(GameOverEventType, idHit);
-            Event anotherEvent(&dead, GameOverEventType);
-            updateEvents.push(anotherEvent);
-            return;
-        }
-        KillEvent decreasedLife(KillEventType, idHit);
-        Event anotherEvent(&decreasedLife, KillEventType);
-        updateEvents.push(anotherEvent);
-    }
     ShootingEvent shoot(event.idPlayer);
     Event anotherEvent(&shoot, ShootingEventType);
     updateEvents.push(anotherEvent);
+    pushNewEvents();
 }
 
 void GameStage::processEvent(MovementEvent& event) {
@@ -79,7 +69,7 @@ void GameStage::processEvent(MovementEvent& event) {
 void GameStage::pushNewEvents(){
     for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
         Event anotherEvent(newEvents[i], newEvents[i]->getEventType());
-        updateEvents.push(anotherEvent); // aca no deberia borrar el newEvent[i] o si?
+        updateEvents.push(anotherEvent);
     }
     newEvents.clear();
 }

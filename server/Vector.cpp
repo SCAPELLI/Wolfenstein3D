@@ -10,6 +10,9 @@ Vector::Vector(double x, double y):
 Vector Vector::operator+(const Vector& v){
 	return Vector(this->x + v.x, this->y + v.y);
 }
+Vector Vector::operator/(double z){
+	return Vector(this->x / z, this->y / z);
+}
 
 Vector Vector::operator-(const Vector& v){
 	return Vector(this->x - v.x, this->y - v.y);

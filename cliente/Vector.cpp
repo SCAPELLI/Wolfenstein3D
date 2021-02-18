@@ -49,4 +49,8 @@ Vector Vector::scale(){ // Only scale positions
 	return Vector(int(this->x / 32), int(this->y / 32)); // 32 hardcodeado, es tamanio de sprite
 }
 
+Vector Vector::operator/(double z){
+    return Vector(this->x / z, this->y / z);
+}
+
 Vector::~Vector(){}

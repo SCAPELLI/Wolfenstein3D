@@ -1,5 +1,4 @@
 #include "ShootingEvent.h"
-#include "Renderer.h"
 #include "../cliente/CGame.h"
 #include "../server/GameStage.h"
 #include "EventSerializer.h"

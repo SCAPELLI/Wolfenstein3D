@@ -30,6 +30,8 @@ public:
                                std::vector<AbstractEvent*>& newEvents);
         bool isADoor(Player& player, std::vector<AbstractEvent*>& newEvents);
         void increaseCooldown();
+    void launchRocket(Rocket* rocket, Vector& direction,
+                           std::vector<AbstractEvent*>& newEvents);
 
 };
 

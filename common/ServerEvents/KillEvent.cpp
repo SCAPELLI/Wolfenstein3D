@@ -1,5 +1,4 @@
 #include "ServerEvents/KillEvent.h"
-#include "Renderer.h"
 #include "cliente/CGame.h"
 #include "Event.h"
 #include "../EventSerializer.h"

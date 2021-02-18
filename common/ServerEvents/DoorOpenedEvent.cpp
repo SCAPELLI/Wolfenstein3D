@@ -2,7 +2,6 @@
 
 #include "DoorOpenedEvent.h"
 #include "../EventSerializer.h"
-#include "../Renderer.h"
 #include "../../cliente/CGame.h"
 
 DoorOpenedEvent::DoorOpenedEvent (updateEventType eventType, int uniqueId)

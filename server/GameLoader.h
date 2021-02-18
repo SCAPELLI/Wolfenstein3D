@@ -20,9 +20,6 @@ public:
     void configWeapon(std::string& name, int& effect, int& minBullets, double& speed);
     OpenableItem* setTexture(int& idItem);
     Item* itemLoader(std::string& idItem);
-//    void configItem(int& id, std::string&  itemName, int& effect);
-    //    void mapLoader(std::vector<std::vector<int>>& map,
-//                   std::vector<Player>& players, YAML::Node& matrix);
     ~GameLoader();
 };
 #endif

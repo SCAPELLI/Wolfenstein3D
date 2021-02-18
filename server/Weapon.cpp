@@ -1,21 +1,17 @@
 #include "Weapon.h"
 #include "../server/GameLoader.h"
-#include "Player.h"
 #include <bits/stdc++.h>
-
+#include "Constants.h"
+#include "Items/Rocket.h"
+#include "Player.h"
 Weapon::Weapon(int id, std::string name, int uniqueId, int damage,
-               int minBullets, double speed)
+               int minBullets, int cooldownTimer)
     : id(id), uniqueId(uniqueId), presicion(damage),name(name),
-    minBullets(minBullets), speed(speed), Item(id, name, damage, uniqueId)
+    minBullets(minBullets), cooldown(0), cooldownTimer(cooldownTimer),
+    isShooting(false), Item(id, name, damage, uniqueId)// arreglar nombres ffs
 {}
 
-Weapon::Weapon(int id, std::string name)
-    : id(id), name (name)
-{
-    GameLoader yaml;
-    yaml.configWeapon(name, presicion, minBullets, speed);
-    Item(id, name, presicion, 0);
-}
+
 
 int Weapon::generateRandom(){
     std::random_device rd;
@@ -24,31 +20,31 @@ int Weapon::generateRandom(){
     return distr(gen);
 }
 
-int Weapon::attack(int bullets, int distance, int angle){ // ver con la presicion
-    if ((id == 1 || id == 2 || id == 3 || id == 4) && bullets > minBullets) //borrar esto?
-        return 0;
-    if (id == 4)
-       return launchRocket(distance);
-    if (id == 0){
+int Weapon::attack(int bullets, int distance, double angle){
+    if (id == Knife){
         return generateRandom();
     }
-    return  generateRandom() * presicion * angle * (1/distance);
+    return generateRandom() * 1/angle * (1/(double)distance) * minBullets;  //acotar daÑo a un max y * #balas
 }
 
-int Weapon::launchRocket(int distance){
-    return generateRandom() * 1/distance;
+Rocket* Weapon::launchRocket(){
+    int damage = generateRandom();
+    return new Rocket(damage);
 }
 
-Weapon::Weapon() {}
+bool Weapon::canShoot(int bullets, int distance, double angle){
+   return (generateRandom() * 1/(double)distance * (1/angle) >= presicion) &&
+            bullets >= minBullets && !isShooting;
+}
+
+Weapon::Weapon() {
+}
 
 
-int Weapon::getDamage()const{
+
+int Weapon::getDamage()const {
     return presicion;
 }
-int Weapon::getSpeed(){
-    return speed;
-}
-
 bool Weapon::operator<(const Weapon& t) const{
     return (this->id < t.id);
 }
@@ -60,4 +56,12 @@ bool Weapon::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) 
     return player.getItem(this, newEvents);
 }
 
-void Weapon::incrementCooldown(){}
+void Weapon::incrementCooldown(){ //decrease
+    if (isShooting) {
+        cooldown += 1;
+        cooldown %= cooldownTimer;
+    }
+    if (cooldown == 0){
+        isShooting = false;
+    }
+}
