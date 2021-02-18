@@ -37,6 +37,7 @@ class ScreenManager: public QMainWindow {
         int getMaxPlayers();
         void refreshWaitingRoom();
         bool tryToCancelMatch();
+        bool tryToStartMatch();
 };
 
 

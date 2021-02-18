@@ -1,83 +1,95 @@
 #include <iostream>
 #include "Client.h"
+#include "../../communications/client//include/TCPClient.h"
 
 Client::Client() {
-
+    channel = new CommunicationChannel(userSocket, lobby);
+    userId = -1;
+    matchId = -1;
+    maximumNumberOfPlayers = -1;
+    levelId = -1;
 }
-
 Client::~Client() {
-
+    delete channel;
 }
 
 bool Client::tryToConnect(std::string port, std::string domain) {
-    // Conectarse
-
-    std::cout << "Port: " << port << "\n";
-    std::cout << "Domain: " << domain << "\n";
-
-    return true;
+    try {
+        userSocket = std::move(TCPClient::getClientSocket("localhost", "7777"));
+        return true;
+    } catch (const std::exception& error) {
+        return false;
+    }
 }
 
-bool Client::tryToSubmitUsername(std::string nickname) {
-    // Cosas
+bool Client::tryToSubmitUsername(std::string userName) {
 
-    std::cout << "Username: " << nickname << "\n";
-
-    return true;
+    channel->sendUserNameSubmit(userName);
+    userId = channel->receiveClientIdFromServer();
+    if (userId == -1) return false;
+    else return true;
 }
 
 bool Client::tryToJoin(int matchId) {
-    // COSAS
-
-    std::cout << "matchId:" << matchId << "\n";
-
-    return true;
+    channel->sendRequestOfJoiningAMatch(matchId, userId);
+    int response = channel->receiveResponseOfJoiningAMatch();
+    if (response == -1) {
+        return false;
+    } else {
+        playMatch();
+        return true;
+    }
 }
 
 std::vector<MatchInfo> Client::requestMatches() {
-    MatchInfo match1(6, 1, 30, 8);
+    channel->sendRequestOfAvailableMatches();
+    std::vector<MatchInfo> matches = channel->receiveListOfMatches();
 
-    MatchInfo match2(7, 2, 55, 2);
-
-    MatchInfo match3(8, 3, 5, 1);
-
-    std::vector<MatchInfo> matches = {match1, match2, match3};
     return matches;
 }
 
 bool Client::tryToCreateAMatch(int level, int maxPlayer) {
-    // COSAS
-    std::cout << "Level:" << level << "\n";
-    std::cout << "Max players:" << maxPlayer << "\n";
-    return true;
+    levelId = level;
+    maximumNumberOfPlayers = maxPlayer;
+    channel->sendRequestOfMatchCreation(level, maxPlayer, userId);
+    matchId = channel->receiveResponseToRequestOfMatchCreation();
+    if (matchId == -1) return false;
+    else return true;
 }
 
 int Client::getLevel() {
-    // COSAS
-    return 9999;
+    return levelId;
 }
 
 int Client::getActualPlayers() {
-    // Cosas
-    return 666;
+    channel->sendRequestOfNumberOfUsersInMatch(matchId);
+    return channel->receiveResponseOfNumberOfMatches();
 }
 
 int Client::getMaxPlayers() {
-    return 42;
+    return maximumNumberOfPlayers;
 }
 
 bool Client::tryToCancelMatch() {
-    return true;
+    channel->sendRequestOfMatchCancellation(matchId);
+    int response = channel->receiveResponseOfMatchCancellation();
+    if (response == -1) {
+        return false;
+    } else {
+        maximumNumberOfPlayers = -1;
+        levelId = -1;
+        return true;
+    }
 }
-
 bool Client::tryToStartMatch() {
-    /**
-    channel.sendRequestToStartMatch(matchId);
-    channel.recibeRespondOnStartMatch();
-     if (-1) {
-     return false
-     }
-     lanzar hilos;
-     **/
-     return true;
+    channel->sendRequestOfStartMatch(matchId);
+    if (channel->receiveResponseToRequestOfStartMatch() != -1) {
+        playMatch();
+        return true;
+    } else {
+        return false;
+    }
+}
+void Client::playMatch() {
+    //codigo de separacion de threads etc.
 }

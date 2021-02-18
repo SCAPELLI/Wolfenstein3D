@@ -42,10 +42,14 @@ void GamesScreen::connectEvents() {
 void GamesScreen::onJoinButtonClick() {
     QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
 
+    //mostrar mensaje que diga esperando que comienze la partida
+    // (cuando apretas join se queda "trabado" hasta que termina la partida)
     if (dataTable->currentRow() >= 0) {
         //std::cout << "Id del match seleccionado: " << this->idMatches.at(dataTable->currentRow()) << "\n";
-
-        this->screenManager->tryToJoin(this->idMatches.at(dataTable->currentRow()));
+        if (!(this->screenManager->tryToJoin(this->idMatches.at(dataTable->currentRow())))) {
+        //imprimir mensaje de error al conectarse a la partida
+        }
+        refresh();
     }
 }
 
@@ -98,7 +102,7 @@ void GamesScreen::setDataTable() {
     QStringList labels = {"Mapa", "Cantidad de jugadores"};
     dataTable->setHorizontalHeaderLabels(labels);
 
-    this->refresh();
+    //this->refresh();   se esta pidiendo informacion del server antes de que se logre conectar a un port/domain
 }
 
 void GamesScreen::setStyle() {

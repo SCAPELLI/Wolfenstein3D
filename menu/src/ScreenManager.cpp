@@ -33,7 +33,7 @@ ScreenManager::ScreenManager(QWidget *parent, Client *client)
 
     this->screens->setCurrentIndex(0);
 
-
+    this->client = client;
     /**
     QPixmap background("../sprites/menu.png");
     background = background.scaled(size(), Qt::IgnoreAspectRatio);
@@ -85,15 +85,15 @@ int ScreenManager::getLevel() {
 int ScreenManager::getActualPlayers() {
     return this->client->getActualPlayers();
 }
-
 int ScreenManager::getMaxPlayers() {
     return this->client->getMaxPlayers();
 }
-
 void ScreenManager::refreshWaitingRoom() {
     this->waitingRoomScreen->refresh();
 }
-
 bool ScreenManager::tryToCancelMatch() {
     return this->client->tryToCancelMatch();
+}
+bool ScreenManager::tryToStartMatch() {
+    return this->client->tryToStartMatch();
 }

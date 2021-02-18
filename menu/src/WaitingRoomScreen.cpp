@@ -27,7 +27,12 @@ void WaitingRoomScreen::connectEvents() {
 }
 
 void WaitingRoomScreen::onStartButtonClick() {
-
+    if (this->screenManager->tryToStartMatch()) {
+        this->screenManager->goBack();
+        this->screenManager->goBack();
+    } else {
+        //mensaje de error
+    }
 }
 
 void WaitingRoomScreen::onRefreshButtonClick() {

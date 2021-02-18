@@ -29,6 +29,10 @@ void InfoScreen::onAcceptButtonClick() {
     QLineEdit *serverLine = findChild<QLineEdit*>("serverLineEdit");
     if (this->screenManager->tryToConnect(portLine->text().toStdString(), serverLine->text().toStdString())) {
         this->screenManager->goNext();
+    } else {
+        //sacar mensaje de error al conectarse, reintentar
+        portLine->clear();
+        serverLine->clear();
     }
 }
 

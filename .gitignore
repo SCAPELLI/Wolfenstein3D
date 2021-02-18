@@ -21,3 +21,5 @@ communications/client/.idea
 /communications/server/.idea/
 /common/Pruebas.cpp
 /menu/build/
+/menu/.idea/
+/menu/cmake-build-debug/
