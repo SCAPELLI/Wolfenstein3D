@@ -8,11 +8,10 @@
 #include "ui_ScreenManager.h"
 
 
-ScreenManager::ScreenManager(QWidget *parent)
+ScreenManager::ScreenManager(QWidget *parent, Client *client)
 : QMainWindow(parent), ui(new Ui::ScreenManager) {
     this->ui->setupUi(this);
     this->screens = this->ui->screens;
-    this->client = new Client();
 
     StartScreen *startScreen = new StartScreen(0, this);
     this->screens->addWidget(startScreen);
@@ -47,7 +46,6 @@ ScreenManager::ScreenManager(QWidget *parent)
 
 ScreenManager::~ScreenManager() {
     delete this->ui;
-    delete this->client;
 }
 
 void ScreenManager::goNext() {
@@ -94,4 +92,8 @@ int ScreenManager::getMaxPlayers() {
 
 void ScreenManager::refreshWaitingRoom() {
     this->waitingRoomScreen->refresh();
+}
+
+bool ScreenManager::tryToCancelMatch() {
+    return this->client->tryToCancelMatch();
 }

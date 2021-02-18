@@ -31,11 +31,14 @@ void WaitingRoomScreen::onStartButtonClick() {
 }
 
 void WaitingRoomScreen::onRefreshButtonClick() {
-
+    this->refresh();
 }
 
 void WaitingRoomScreen::onCancelButtonClick() {
-    // avisar que se cancelo al cliente
+    if (this->screenManager->tryToCancelMatch()) {
+        this->screenManager->goBack();
+        this->screenManager->goBack();
+    }
 }
 
 void WaitingRoomScreen::refresh() {

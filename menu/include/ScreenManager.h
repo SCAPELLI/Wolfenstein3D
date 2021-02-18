@@ -22,7 +22,7 @@ class ScreenManager: public QMainWindow {
         WaitingRoomScreen *waitingRoomScreen;
 
     public:
-        ScreenManager(QWidget *parent = 0);
+        ScreenManager(QWidget *parent = 0, Client *client = NULL);
         ~ScreenManager();
         void goNext();
         void goBack();
@@ -36,6 +36,7 @@ class ScreenManager: public QMainWindow {
         int getActualPlayers();
         int getMaxPlayers();
         void refreshWaitingRoom();
+        bool tryToCancelMatch();
 };
 
 

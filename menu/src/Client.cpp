@@ -66,3 +66,18 @@ int Client::getMaxPlayers() {
     return 42;
 }
 
+bool Client::tryToCancelMatch() {
+    return true;
+}
+
+bool Client::tryToStartMatch() {
+    /**
+    channel.sendRequestToStartMatch(matchId);
+    channel.recibeRespondOnStartMatch();
+     if (-1) {
+     return false
+     }
+     lanzar hilos;
+     **/
+     return true;
+}

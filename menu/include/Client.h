@@ -18,6 +18,8 @@ class Client {
         int getLevel();
         int getActualPlayers();
         int getMaxPlayers();
+        bool tryToCancelMatch();
+        bool tryToStartMatch();
 };
 
 
