@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(menu)
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS -pthread)
 
 set(CMAKE_AUTOMOC ON)
 
@@ -16,10 +17,24 @@ include_directories(${PROJECT_BINARY_DIR})
 qt5_wrap_ui(UIS_HEADERS
         ui/MenuScreen.ui
         ui/ScreenManager.ui
-        ui/StartScreen.ui)
+        ui/StartScreen.ui
+        ui/NicknameScreen.ui
+        ui/GamesScreen.ui
+        ui/NewMatchScreen.ui
+        ui/InfoScreen.ui
+        ui/WaitingRoomScreen.ui)
 
 message("Headers generados: ${UIS_HEADERS}")
 
-add_executable(menu ${UIS_HEADERS} src/main.cpp src/MenuScreen.cpp include/MenuScreen.h src/ScreenManager.cpp include/ScreenManager.h src/StartScreen.cpp include/StartScreen.h)
+add_executable(menu ${UIS_HEADERS} src/main.cpp src/MenuScreen.cpp include/MenuScreen.h src/ScreenManager.cpp include/ScreenManager.h src/StartScreen.cpp include/StartScreen.h ../common/Style.cpp ../common/Style.h src/NicknameScreen.cpp include/NicknameScreen.h src/GamesScreen.cpp include/GamesScreen.h src/DataTable.cpp include/DataTable.h ../communications/common/src/MatchInfo.cpp ../communications/common/include/MatchInfo.h src/NewMatchScreen.cpp include/NewMatchScreen.h src/InfoScreen.cpp include/InfoScreen.h src/Client.cpp include/Client.h src/WaitingRoomScreen.cpp include/WaitingRoomScreen.h
+        ../communications/common/src/CommunicationChannel.cpp
+        ../communications/common/src/Socket.cpp
+        ../communications/common/src/ProtectedLobby.cpp
+        ../communications/common/src/IPAddresses.cpp
+        ../communications/common/src/Exception.cpp
+        ../communications/common/src/Match.cpp
+        ../communications/common/src/Thread.cpp
+        ../communications/client/src/TCPClient.cpp
+        )
 
 target_link_libraries(menu Qt5::Widgets)

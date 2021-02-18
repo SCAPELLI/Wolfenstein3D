@@ -16,8 +16,10 @@ class StartScreen: public QWidget {
         ScreenManager *screenManager;
 
     private:
+        void connectEvents();
         void paintEvent(QPaintEvent *e);
         void setStyle();
+        void clickJoinButton();
 
     public:
         StartScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);

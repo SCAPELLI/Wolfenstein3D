@@ -12,6 +12,9 @@ void CPlayer::loadWeapons(SDL_Renderer* renderer){
     }
 }
 
+int CPlayer::getActiveWeapon() {
+    return activeWeapon;
+}
 
 Camera* CPlayer::getCamera(){
 	return &this->camera;
@@ -35,8 +38,8 @@ void CPlayer::drawWeapon(SDL_Renderer* renderer){
     weapons[activeWeapon]->draw(renderer, rw / 2, rh, 5);
 }
 
-void CPlayer::shoot(){
-    weapons[activeWeapon]->shoot();
+bool CPlayer::shoot(){
+    return weapons[activeWeapon]->shoot();
 }
 
 void CPlayer::respawn(){

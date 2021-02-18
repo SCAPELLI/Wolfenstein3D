@@ -6,6 +6,7 @@
 #include "Renderable.h"
 #include "Wall.h"
 #include <map>
+#include "SoundManager.h"
 
 class PositionEvent;
 class GameOverEvent;
@@ -26,12 +27,14 @@ class CGame{
 	std::vector<std::vector<int>> map;
 	std::map<int, Renderable*> renderables;
 	std::map<int, CPlayer> players;
+    SoundManager soundQueue;
 
 	public:
 		CGame(double x, double y, double fov);
 		void draw();
 		void rotate(double degrees);
 		void advanceTime();
+		void playSounds();
 		void processEvent(ShootingEvent& event);
         void processEvent(TurnEvent& event);
         void processEvent(GameOverEvent& event);

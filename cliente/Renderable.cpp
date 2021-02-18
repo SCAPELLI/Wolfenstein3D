@@ -22,8 +22,8 @@ void Renderable::drawFrom(Camera* origin,
     Vector facingDirection = origin->getFacingPosition();
 
     double invDet = 1.0 / (planeDirection.x * facingDirection.y - facingDirection.x * planeDirection.y);
-    double transformX = invDet * (facingDirection.y * relativePosition.x / 32 - facingDirection.x * relativePosition.y / 32);
-    double transformY = invDet * (-planeDirection.y * relativePosition.x / 32 + planeDirection.x * relativePosition.y / 32);
+    double transformX = invDet * (facingDirection.y * relativePosition.y / 32 - facingDirection.x * relativePosition.x / 32);
+    double transformY = invDet * (-planeDirection.y * relativePosition.y / 32 + planeDirection.x * relativePosition.x / 32);
     sprite.rayCast(renderer, transformX, transformY, wallDistances);
 }
 

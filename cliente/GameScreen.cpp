@@ -1,6 +1,7 @@
 #include "GameScreen.h"
 #include <algorithm>
 #include <iostream>
+#include <SDL_mixer.h>
 
 GameScreen::GameScreen(CPlayer* activePlayer, int h, int w):
 	activePlayer(activePlayer){
@@ -8,6 +9,7 @@ GameScreen::GameScreen(CPlayer* activePlayer, int h, int w):
             this->window = NULL;
             this->renderer = NULL;
             SDL_CreateWindowAndRenderer(w, h, 0, &this->window, &this->renderer);
+            Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
         }
         for (int i = 100; i < 158; i++){
             wallTextures[i] = new Wall(i, this->renderer);
@@ -42,7 +44,6 @@ void GameScreen::draw(std::vector<std::vector<int>>& map,
 
     this->ui->draw(renderer);
     activePlayer->drawWeapon(renderer);
-    //activePlayer->shoot(); // borrar luego con logica de eventos
     SDL_RenderPresent(renderer);
 }
 
