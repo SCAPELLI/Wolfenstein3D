@@ -43,23 +43,26 @@ void Game::moveAngle(double angle, int idPlayer){
 int Game::getDamage(int idPlayer){
     return players[idPlayer].damageCurrentWeapon();
 }
-//if (players[idPlayer].hasRocketLauncher()) player.getposition
-// map[x][y].setMisile??????? // fijarme la direccion donde miro y checkeo adyacentes hasta imparctar con algo
-//checkeo adyacente si hay jugadores o no e inflijo daÑo
+
 int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     WallRay ray = WallRay(players[idPlayer].getPosition(), players[idPlayer].getAngle());
     int distanceToWall = ray.distanceToWall(map);
+    if (players[idPlayer].hasRocketLauncher()){
+        Rocket* rocket = players[idPlayer].setRocket();//ver tema speed
+        Vector shotDirection = calculateDirection(idPlayer) / speed;
+        map.launchRocket(rocket, shotDirection, newEvents);
+        return 0;
+    }
     for (int i = 0; i < players.size(); i++){
-
         if ( i == idPlayer)
             continue;
         int distancePlayer = players[idPlayer].distanceWith(players[i]);
         if (distancePlayer < distanceToWall) {
             if (!canShoot(idPlayer, i)) return -2;
-            //fijarme aca si es rocket launcher o como??
             int damage = players[idPlayer].hits(players[i]);
             players[i].getDamage(damage);
             if (players[i].isGameOver()) {
+                players[idPlayer].updateKills();
                 AbstractEvent *event = new GameOverEvent(GameOverEventType, i);
                 newEvents.push_back(event);
             }

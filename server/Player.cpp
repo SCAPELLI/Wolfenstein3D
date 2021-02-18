@@ -44,7 +44,7 @@ void Player::initializePlayer(bool dead){
         for (YAML::const_iterator it=fileNode["Weapons"].begin();
              it != fileNode["Weapons"].end(); ++it){
             std::string weaponType = it->first.as<std::string>();
-            if(weaponType == "knife" || weaponType == "pistol"){
+            if(weaponType == "knife" || weaponType == "rocket launcher"){
                 YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
                 auto equip = Weapon(cont, weaponType, 0, data["damage"].as<int>(), // usar constructor
                                     data["minBullets"].as<int>(),
@@ -107,7 +107,6 @@ int Player::distanceWith(Player& otherPlayer) {
 }
 
 int Player::hits(Player& otherPlayer){
-    //checkear ROcket launcher y knife para devolver daÑo;
     double deltaAngle = angleWithOther(otherPlayer);
     int distance = position.distance(otherPlayer.getPosition());
     int damage = bag[idWeapon].attack(bullets, distance,deltaAngle);
@@ -126,6 +125,16 @@ int Player::hits(Player& otherPlayer){
         }
     }
     return damage;
+}
+
+bool Player::hasRocketLauncher() {
+    return bag[idWeapon].name == "rocket launcher";
+}
+
+Rocket* Player::setRocket(){
+    Rocket* rocket = bag[idWeapon].launchRocket();
+    rocket->sender = this;
+    return rocket;
 }
 
 bool Player::pickupWeapon(Weapon weapon,

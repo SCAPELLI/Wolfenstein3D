@@ -4,7 +4,7 @@
 
 
 #include "../common/Item.h"
-
+#include "Items/Rocket.h"
 class Weapon : public Item{
 public:
     int id;
@@ -23,7 +23,7 @@ public:
     Weapon();
     int attack(int bullets, int distance, double angle);
     int generateRandom();
-    int launchRocket(int distance);
+    Rocket* launchRocket();
     //int getSpeed();
     bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
     bool operator<(const Weapon& t) const;

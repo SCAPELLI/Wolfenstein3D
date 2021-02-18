@@ -9,7 +9,7 @@
 #include "../common/Items/AmmoItem.h"
 #include "../common/Items/PointGainItem.h"
 #include "../common/Items/KeyItem.h"
-
+//#include "Items/Rocket.h"
 
 class Player {
     std::string name;
@@ -94,6 +94,8 @@ public:
     bool canShoot(Player& otherPlayer);
     double angleWithOther(Player& otherPlayer);
     void updateKills();
+    bool hasRocketLauncher();
+    Rocket* setRocket();
     ~Player();
 
 };

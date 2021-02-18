@@ -17,6 +17,7 @@ class Vector{
 		double angle(const Vector& v);
 		Vector operator*(double z);
 		Vector scale();
+        Vector operator/(double z);
 		~Vector();
 };
 

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Items/OpenableItem.h"
+#include "Items/Rocket.h"
 
 
 class Item;
@@ -32,6 +33,8 @@ public:
     bool isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents);
     bool isOpen();
     virtual void incrementCooldown();
+    bool impacts(Rocket* rocket, std::vector<AbstractEvent*>& newEvents);
+    void explode(Rocket* rocket, std::vector<AbstractEvent *> &newEvents);
 
 
 };

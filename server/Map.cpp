@@ -75,6 +75,30 @@ void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
 //    }
 }
 
+void Map::launchRocket(Rocket* rocket, Vector& direction,
+                                    std::vector<AbstractEvent*>& newEvents){
+    Player* sender = rocket->sender;
+    int impactPointX = sender->getScaledPosition().x;
+    int impactPointY = sender->getScaledPosition().y;
+    while (impactPointY < width && impactPointX < height &&
+            !matrix[impactPointY][impactPointX].isSolid()) {
+        if (matrix[impactPointY][impactPointX].impacts(rocket,newEvents))
+            break;
+        impactPointX += direction.x;
+        impactPointY += direction.y;
+    }
+    rocket->impactPoint = Vector(impactPointX, impactPointY);
+    if ((impactPointY +1) < width && (impactPointY +1) > 0)
+        matrix[impactPointY + 1][impactPointX].explode(rocket, newEvents);
+    if ((impactPointY -1) < width && (impactPointY -1) > 0)
+        matrix[impactPointY - 1][impactPointX].explode(rocket, newEvents);
+    if ((impactPointX +1) < height && (impactPointX +1) > 0)
+        matrix[impactPointY][impactPointX + 1].explode(rocket, newEvents);
+    if ((impactPointX -1) < height && (impactPointY -1) > 0)
+        matrix[impactPointY][impactPointX - 1].explode(rocket, newEvents);
+    delete(rocket);
+}
+
 bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
     Vector& pos = player.getScaledPosition();
     if (matrix[pos.y + 1][pos.x].isOpenable(player, newEvents) ||
