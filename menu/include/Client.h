@@ -5,13 +5,24 @@
 #include <string>
 #include <vector>
 #include "../../communications/common/include/MatchInfo.h"
+#include "../../communications/common/include/Socket.h"
+#include "../../communications/common/include/ProtectedLobby.h"
+#include "../../communications/common/include/CommunicationChannel.h"
 
 class Client {
-    public:
+    Socket userSocket;
+    ProtectedLobby lobby;
+    CommunicationChannel* channel;
+    int userId;
+    int matchId;
+    int levelId;
+    int maximumNumberOfPlayers;
+
+public:
         Client();
         ~Client();
         bool tryToConnect(std::string port, std::string domain);
-        bool tryToSubmitUsername(std::string nickname);
+        bool tryToSubmitUsername(std::string userName);
         bool tryToJoin(int matchId);
         std::vector<MatchInfo> requestMatches();
         bool tryToCreateAMatch(int level, int maxPlayer);
@@ -20,6 +31,7 @@ class Client {
         int getMaxPlayers();
         bool tryToCancelMatch();
         bool tryToStartMatch();
+        void playMatch();
 };
 
 
