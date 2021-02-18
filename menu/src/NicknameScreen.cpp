@@ -28,7 +28,14 @@ void NicknameScreen::connectEvents() {
 }
 
 void NicknameScreen::onAcceptButtonClick() {
-    this->screenManager->goNext();
+    QLineEdit *nicknameLine = findChild<QLineEdit*>("nicknameLineEdit");
+
+    if (this->screenManager->tryToSubmitUsername(nicknameLine->text().toStdString())) {
+        this->screenManager->goNext();
+    } else {
+        // TIRAR VENTANA "Usuario invalido"
+        nicknameLine->clear();
+    }
 }
 
 void NicknameScreen::onCancelButtonClick() {

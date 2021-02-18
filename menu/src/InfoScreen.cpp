@@ -1,4 +1,6 @@
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QLineEdit>
+#include <iostream>
 #include "InfoScreen.h"
 #include "ui_InfoScreen.h"
 
@@ -23,7 +25,11 @@ void InfoScreen::connectEvents() {
 }
 
 void InfoScreen::onAcceptButtonClick() {
-    this->screenManager->goNext();
+    QLineEdit *portLine = findChild<QLineEdit*>("portLineEdit");
+    QLineEdit *serverLine = findChild<QLineEdit*>("serverLineEdit");
+    if (this->screenManager->tryToConnect(portLine->text().toStdString(), serverLine->text().toStdString())) {
+        this->screenManager->goNext();
+    }
 }
 
 void InfoScreen::onCancelButtonClick() {

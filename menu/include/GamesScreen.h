@@ -26,6 +26,7 @@ class GamesScreen: public QWidget {
         void onRefreshButtonClick();
         void onCreateButtonClick();
         void clearTable();
+        void refresh();
 
     public:
         GamesScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);
