@@ -25,6 +25,6 @@ qt5_wrap_ui(UIS_HEADERS
 
 message("Headers generados: ${UIS_HEADERS}")
 
-add_executable(menu ${UIS_HEADERS} src/main.cpp src/MenuScreen.cpp include/MenuScreen.h src/ScreenManager.cpp include/ScreenManager.h src/StartScreen.cpp include/StartScreen.h ../common/Style.cpp ../common/Style.h src/NicknameScreen.cpp include/NicknameScreen.h src/GamesScreen.cpp include/GamesScreen.h src/DataTable.cpp include/DataTable.h ../common/MatchInfo.cpp ../common/MatchInfo.h src/NewMatchScreen.cpp include/NewMatchScreen.h src/InfoScreen.cpp include/InfoScreen.h src/Client.cpp include/Client.h src/WaitingRoomScreen.cpp include/WaitingRoomScreen.h)
+add_executable(menu ${UIS_HEADERS} src/main.cpp src/MenuScreen.cpp include/MenuScreen.h src/ScreenManager.cpp include/ScreenManager.h src/StartScreen.cpp include/StartScreen.h ../common/Style.cpp ../common/Style.h src/NicknameScreen.cpp include/NicknameScreen.h src/GamesScreen.cpp include/GamesScreen.h src/DataTable.cpp include/DataTable.h ../communications/common/src/MatchInfo.cpp ../communications/common/include/MatchInfo.h src/NewMatchScreen.cpp include/NewMatchScreen.h src/InfoScreen.cpp include/InfoScreen.h src/Client.cpp include/Client.h src/WaitingRoomScreen.cpp include/WaitingRoomScreen.h)
 
 target_link_libraries(menu Qt5::Widgets)

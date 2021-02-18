@@ -4,7 +4,7 @@
 
 #include <string>
 #include <vector>
-#include "../../common/MatchInfo.h"
+#include "../../communications/common/include/MatchInfo.h"
 
 class Client {
     public:

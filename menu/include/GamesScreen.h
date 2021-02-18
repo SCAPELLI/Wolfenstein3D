@@ -4,7 +4,7 @@
 
 #include <QtWidgets/QWidget>
 #include "ScreenManager.h"
-#include "../../common/MatchInfo.h"
+#include "../../communications/common/include/MatchInfo.h"
 
 
 namespace Ui {
