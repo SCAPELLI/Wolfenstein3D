@@ -39,28 +39,12 @@ void GameStage::processEvent(TurnEvent& event) {
 
 
 void GameStage::processEvent(ShootingEvent& event) {
-    int idHit = game.shoot(event.idPlayer);
+    int idHit = game.shoot(event.idPlayer, newEvents);
     if (idHit == -2) return;
-    if ( idHit != -1){
-        if (game.players[idHit].isGameOver()){
-            GameOverEvent dead(GameOverEventType, idHit);
-            Event anotherEvent(&dead, GameOverEventType);
-            updateEvents.push(anotherEvent);
-            return;
-        } else if (game.players[idHit].isDead()) {
-            KillEvent killed(KillEventType, idHit);
-            Event anotherEvent(&killed, KillEventType);
-            updateEvents.push(anotherEvent);
-            game.respawnPlayer(idHit);
-            return;
-        }
-        HealthChangeEvent decreasedLife(HealthChangeType, idHit);
-        Event anotherEvent(&decreasedLife, HealthChangeType);
-        updateEvents.push(anotherEvent);
-    }
     ShootingEvent shoot(event.idPlayer);
     Event anotherEvent(&shoot, ShootingEventType);
     updateEvents.push(anotherEvent);
+    pushNewEvents();
 }
 
 void GameStage::processEvent(MovementEvent& event) {

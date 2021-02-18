@@ -2,12 +2,15 @@
 #include "Vector.h"
 #include "GameLoader.h"
 #include "ServerEvents/PositionEvent.h"
+#include "ServerEvents/KillEvent.h"
+#include "ServerEvents/HealthChangeEvent.h"
+#include "ServerEvents/GameOverEvent.h"
+#include <vector>
 #include "WallRay.h"
 #include <cmath>
 #include <iostream>
 #include <random>
 #include <vector>
-#define DAMAGEBULLET 1
 
 
 Game::Game( std::vector<AbstractEvent*>& newEvents,
@@ -22,12 +25,12 @@ Game::Game( std::vector<AbstractEvent*>& newEvents,
 
 Game::Game() {}
 
- int Game::generateRandom(){
-     std::random_device rd;
-     std::mt19937 gen(rd());
-     std::uniform_int_distribution<int> distr(1, 10);
-     return distr(gen);
- }
+// int Game::generateRandom(){
+//     std::random_device rd;
+//     std::mt19937 gen(rd());
+//     std::uniform_int_distribution<int> distr(1, 10);
+//     return distr(gen);
+// }
 
 Vector Game::calculateDirection(int idPlayer){
     return Vector(-sin(players[idPlayer].getAngle()),
@@ -40,23 +43,40 @@ void Game::moveAngle(double angle, int idPlayer){
 int Game::getDamage(int idPlayer){
     return players[idPlayer].damageCurrentWeapon();
 }
-
-int Game::shoot(int idPlayer){
+//if (players[idPlayer].hasRocketLauncher()) player.getposition
+// map[x][y].setMisile??????? // fijarme la direccion donde miro y checkeo adyacentes hasta imparctar con algo
+//checkeo adyacente si hay jugadores o no e inflijo daÑo
+int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     WallRay ray = WallRay(players[idPlayer].getPosition(), players[idPlayer].getAngle());
     int distanceToWall = ray.distanceToWall(map);
     for (int i = 0; i < players.size(); i++){
+
         if ( i == idPlayer)
             continue;
-        int distancePlayer = players[idPlayer].distanceWith(players[i]); //ver si es un jugador para el lado donde estoy mirando
+        int distancePlayer = players[idPlayer].distanceWith(players[i]);
         if (distancePlayer < distanceToWall) {
             if (!canShoot(idPlayer, i)) return -2;
+            //fijarme aca si es rocket launcher o como??
             int damage = players[idPlayer].hits(players[i]);
-            players[i].getDamage(damage);// deberia devolver si lo mató o no y cambio valores en el que lo mato.
-            if (players[i].isDead()) players[idPlayer].updateKills();
+            players[i].getDamage(damage);
+            if (players[i].isGameOver()) {
+                AbstractEvent *event = new GameOverEvent(GameOverEventType, i);
+                newEvents.push_back(event);
+            }
+            else if (players[i].isDead()){
+                players[idPlayer].updateKills();
+                AbstractEvent* event = new KillEvent(KillEventType, i);
+                newEvents.push_back(event);
+                respawnPlayer(i);
+            }
+            else{
+                AbstractEvent* event = new HealthChangeEvent(HealthChangeType, damage);
+                newEvents.push_back(event);
+            }
             return i;// devolves a quien le pegaste
         }
     }
-    return -1;
+    return -2;
 }
 
 bool Game::changeWeapon(int idPlayer, int idWeapon) {
@@ -76,16 +96,6 @@ void Game::changePosition(Vector changeTo, int idPlayer,
     }
 }
 
-//void Game::decrementLife(int idPlayer) {
-//    players[idPlayer].getDamage(players[idPlayer].damageCurrentWeapon());
-//    if (players[idPlayer].isDead()) {
-//        map.dropAllItems(players[idPlayer]);
-//        map.removePlayer(players[idPlayer]);
-//        players[idPlayer].died();
-//        map.addPlayer(players[idPlayer]);
-//        return;
-//    }
-//}
 
 bool Game::openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     return map.isADoor(players[idPlayer], newEvents);
