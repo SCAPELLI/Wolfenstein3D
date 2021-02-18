@@ -8,7 +8,9 @@ Match::Match(int matchId, int levelId, int maximumNumberOfPlayers,
              matchId(matchId),levelId(levelId),
              maximumNumberOfPlayers(maximumNumberOfPlayers),
              adminUserId(adminUserId),
-             matchStarted(false) {
+             matchStarted(false),
+             matchFinished(false),
+             matchCancelled(false) {
     addUser(adminUserName, adminUserId, adminUserSocket);
     }
 void Match::addUser(str userName, int userId, Socket* userSocket) {
@@ -44,13 +46,23 @@ void Match::removeUser(str userName, int userId) {
 bool Match::notStarted() const {
     return !matchStarted;
 }
+void Match::cancelMatch() {
+    matchCancelled = true;
+}
 MatchInfo Match::getMatchInfo() const {
     return {matchId, levelId, maximumNumberOfPlayers, (int)users.size()};
 }
 void Match::run() {
     for (auto& user: users)
         CommunicationChannel::sendMatchStartedSignal(usersSockets[user.second]);
-
+    matchStarted = true;
     std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
+    matchFinished = true;
 }
 
+bool Match::notFinished() const {
+    return !matchFinished;
+}
+bool Match::notCancelled() const {
+    return !matchCancelled;
+}

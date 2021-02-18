@@ -7,8 +7,10 @@ UserThread::UserThread(Socket& user, ProtectedLobby& lobby):
 
 void UserThread::run() {
     CommunicationChannel channel(user, lobby);
+    int userId = -1;
 
-    int userId = channel.respondUserNameSubmitFromClient();
+    while (userId == -1)
+        userId = channel.respondUserNameSubmitFromClient();
 
     while (user.isAvailable())
         channel.respondMessageFromClient(userId);

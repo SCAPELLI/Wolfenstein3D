@@ -11,6 +11,8 @@ class Socket;
 
 class Match: public Thread {
     bool matchStarted;
+    bool matchFinished;
+    bool matchCancelled;
     std::map<str, int> users;
     std::map<int, Socket*> usersSockets;
     int maximumNumberOfPlayers;
@@ -33,6 +35,9 @@ public:
     bool userIsPartOfTheMatch (str userName, int userId) const;
     bool userIsAdmin(int userId) const;
     void removeUser(str userName, int userId);
+    void cancelMatch();
+    bool notFinished() const;
+    bool notCancelled() const;
     void run() override;
 };
 
