@@ -31,7 +31,7 @@ std::vector<MatchInfo> ProtectedLobby::getMatchesInfo() {
 
     std::vector<MatchInfo> matchesInfo;
     for (Match& match: matches)
-        if (match.notStarted())
+        if (match.notStarted() and match.notFinished() and match.notCancelled())
             matchesInfo.emplace_back(match.getMatchInfo());
     return matchesInfo;
 }
@@ -55,15 +55,16 @@ int ProtectedLobby::addUserToMatch(int matchId, int userId, Socket* userSocket) 
     auto it = std::find_if(matches.begin(), matches.end(),
                            [&] (const Match& match) { return match.sameIdAs(matchId);});
 
-    if (!(it != matches.end() and it->isNotFull() and it->notStarted()))
+    if (!(it != matches.end() and it->isNotFull() and it->notStarted() and it->notCancelled()))
         return -1;
     it->addUser(getUserName(userId), userId, userSocket);
 
-    while (std::find_if(matches.begin(), matches.end(),
-                        [&] (const Match& match) { return match.sameIdAs(matchId);}) != matches.end())
+    //while (std::find_if(matches.begin(), matches.end(),
+    //                    [&] (const Match& match) { return match.sameIdAs(matchId);}) != matches.end())
+    while (it->notFinished() and it->notCancelled())
         cv.wait(lock);
-    return 0;
-
+    if (it->notCancelled()) return 0;
+    else return -1;
 }
 
 void ProtectedLobby::removeUser(int userId) {
@@ -80,10 +81,13 @@ void ProtectedLobby::removeUser(int userId) {
 
     if (it == matches.end()) return;
 
-    if (it->userIsAdmin(userId))
-        matches.erase(it);
-    else
+    if (it->userIsAdmin(userId)) {
+        it->cancelMatch();
+        cv.notify_all();
+        //matches.erase(it);
+    } else {
         it->removeUser(userName, userId);
+    }
 }
 int ProtectedLobby::numberOfUsersInMatch(int matchId) {
     std::unique_lock<std::mutex> lock(m);
@@ -95,6 +99,7 @@ int ProtectedLobby::numberOfUsersInMatch(int matchId) {
 
     return it->getActualNumberOfUsers();
 }
+//Solo se puede cancelar un match que aun no comenzo
 int ProtectedLobby::cancelMatch(int matchId) {
     std::unique_lock<std::mutex> lock(m);
 
@@ -102,8 +107,11 @@ int ProtectedLobby::cancelMatch(int matchId) {
             matches.begin(), matches.end(),
             [&] (const Match& match) { return match.sameIdAs(matchId);});
     if (it == matches.end()) return -1;
-    if (it->notStarted())
-        matches.erase(it);
+    if (it->notStarted()) {
+        //matches.erase(it);
+        it->cancelMatch();
+        cv.notify_all();
+    }
     return 0;
 }
 
@@ -118,7 +126,7 @@ int ProtectedLobby::startMatch(int matchId) {
     lock.unlock();
     it->join();
     lock.lock();
-    matches.erase(it);
+    //matches.erase(it);
     cv.notify_all();
     return 0;
 }

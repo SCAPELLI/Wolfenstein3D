@@ -167,29 +167,6 @@ int main() {
                     break;
             }
         }
-        //channel.sendRequestOfMatchCreation(1, 54, urchesId);
-        //int matchId = channel.receiveResponseToRequestOfMatchCreation();
-
-        //int matchId = matches1.back().getMatchId();
-
-        //channel.sendRequestOfJoiningAMatch(matchId, carpinchoId);
-        //int response1 = channel.receiveResponseOfJoiningAMatch();
-
-        //channel.sendRequestOfNumberOfUsersInMatch(matchId);
-        //int response2 = channel.receiveResponseOfNumberOfMatches();
-
-        //channel.sendRequestOfMatchCancellation(matchId);
-        //int response3 = channel.receiveResponseOfMatchCancellation();
-
-        //channel.sendRequestOfAvailableMatches();
-        //std::vector<MatchInfo> matches2 = channel.receiveListOfMatches();
-
-        //std::cout<<"ingresar x para empezar la partida: "<<std::endl;
-        //char entrada = ' ';
-        //while (entrada!='x') std::cin >> entrada;
-
-        //channel.sendRequestOfStartMatch(matchId);
-        //int response4 = channel.receiveResponseToRequestOfStartMatch();
 
         userSocket.doClose();
     } catch (const std::exception& error) {
