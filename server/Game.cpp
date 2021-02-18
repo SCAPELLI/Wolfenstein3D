@@ -49,12 +49,10 @@ int Game::shoot(int idPlayer){
             continue;
         int distancePlayer = players[idPlayer].distanceWith(players[i]); //ver si es un jugador para el lado donde estoy mirando
         if (distancePlayer < distanceToWall) {
-            //ver alguna forma que le diga si mato a alguien o no.
-            players[idPlayer].hits(distancePlayer, players[idPlayer].getAngle()); // ojo que aca puse el angulo del jug no el angulo respecto a los jugs
-            Vector posPlayer = players[idPlayer].getPosition();
-            double distance = posPlayer.distance(players[i].getPosition());
-            double randomHit = generateRandom();
-            players[i].getDamage((int) ((DAMAGEBULLET * randomHit) / distance));
+            if (!canShoot(idPlayer, i)) return -2;
+            int damage = players[idPlayer].hits(players[i]);
+            players[i].getDamage(damage);// deberia devolver si lo mató o no y cambio valores en el que lo mato.
+            if (players[i].isDead()) players[idPlayer].updateKills();
             return i;// devolves a quien le pegaste
         }
     }
@@ -78,16 +76,16 @@ void Game::changePosition(Vector changeTo, int idPlayer,
     }
 }
 
-void Game::decrementLife(int idPlayer) {
-    players[idPlayer].getDamage(players[idPlayer].damageCurrentWeapon());
-    if (players[idPlayer].isDead()) {
-        map.dropAllItems(players[idPlayer]);
-        map.removePlayer(players[idPlayer]);
-        players[idPlayer].died();
-        map.addPlayer(players[idPlayer]);
-        return;
-    }
-}
+//void Game::decrementLife(int idPlayer) {
+//    players[idPlayer].getDamage(players[idPlayer].damageCurrentWeapon());
+//    if (players[idPlayer].isDead()) {
+//        map.dropAllItems(players[idPlayer]);
+//        map.removePlayer(players[idPlayer]);
+//        players[idPlayer].died();
+//        map.addPlayer(players[idPlayer]);
+//        return;
+//    }
+//}
 
 bool Game::openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     return map.isADoor(players[idPlayer], newEvents);
@@ -98,4 +96,12 @@ void Game::increaseCooldown() {
     for (int i = 0; i < players.size(); i++) {
         players[i].incrementCooldown();
     }
+}
+
+bool Game::canShoot(int idPlayer, int otherPlayerId){
+    return players[idPlayer].canShoot(players[otherPlayerId]);
+}
+
+void Game::respawnPlayer(int idPlayer){
+    players[idPlayer].respawn();
 }

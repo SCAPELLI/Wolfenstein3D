@@ -1,6 +1,5 @@
 
 #include "OpenDoorEvent.h"
-#include "Renderer.h"
 #include "../cliente/CGame.h"
 #include "EventSerializer.h"
 

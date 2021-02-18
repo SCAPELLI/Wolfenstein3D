@@ -11,6 +11,7 @@ enum updateEventType {KillEventType, ShootingEventType,
     HealthChangeType, PickUpKeyType, PickUpWeaponType,
     ScoreChangeType, SpawnNotMovableType, MovementEventType};
 
+enum weaponName {Knife, Pistol, MachineGun, ChainGun, RocketLauncher};
 #define PLAYER_ID 1
 #define TILE 32
 

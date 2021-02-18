@@ -4,7 +4,8 @@
 #include "unistd.h"
 
 OpenableItem::OpenableItem(int id,std::string name, int effect,int uniqueId)
-:  id(id), name(name), effect(effect), uniqueId(uniqueId), Item(id, name, effect, uniqueId){}
+:  id(id), name(name), effect(effect), uniqueId(uniqueId),
+    cooldown(0), Item(id, name, effect, uniqueId){}
 
 
 bool OpenableItem::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) {

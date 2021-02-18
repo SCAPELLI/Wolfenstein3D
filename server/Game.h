@@ -25,9 +25,11 @@ public:
     bool changeWeapon(int idPlayer, int idWeapon);
     int getDamage(int idPlyr);
     int shoot(int idPlayer);
-    void decrementLife(int idPlyr);
+    //void decrementLife(int idPlyr);
     bool openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     void increaseCooldown();
+    bool canShoot(int idPlayer, int otherPlayer);
+    void respawnPlayer(int idPlayer);
 
 };
 

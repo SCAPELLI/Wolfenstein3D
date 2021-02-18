@@ -12,22 +12,24 @@ public:
     int uniqueId;
     int presicion;
     int minBullets;
-    double speed;
+    int cooldownTimer;
     int cooldown;
+    bool isShooting;
 
 public:
     int getDamage()const;
-    Weapon(int id, std::string name, int uniqueId, int damage, int minBullets, double speed);
-    Weapon(int id, std::string name);
+    Weapon(int id, std::string name, int uniqueId, int damage, int minBullets, int cooldownTimer);
+    //Weapon(int id, std::string name);
     Weapon();
-    int attack(int bullets, int distance, int angle);
+    int attack(int bullets, int distance, double angle);
     int generateRandom();
     int launchRocket(int distance);
-    int getSpeed();
+    //int getSpeed();
     bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
     bool operator<(const Weapon& t) const;
     bool operator==(const Weapon& t) const;
     void incrementCooldown();
+    bool canShoot(int bullets, int distance, double angle);
 };
 
 #endif //WOLFENSTEIN3D_WEAPON_H

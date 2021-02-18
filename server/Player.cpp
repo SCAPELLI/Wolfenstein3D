@@ -15,6 +15,7 @@
 #include <iostream>
 #include <limits>
 
+#define PI 3.141592
 
 #define MAXHEALTH 100
 
@@ -47,7 +48,7 @@ void Player::initializePlayer(bool dead){
                 YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
                 auto equip = Weapon(cont, weaponType, 0, data["damage"].as<int>(), // usar constructor
                                     data["minBullets"].as<int>(),
-                                    data["speed"].as<double>());
+                                    data["cooldownTimer"].as<int>());
                 bag.insert(std::make_pair(cont, equip));
                 idWeapon = cont;
             }
@@ -70,10 +71,21 @@ void Player::setPosition(Vector initial){
 
 void Player::rotate(double newAngle){
     angle += newAngle;
+    if (angle >= 2*PI)
+        angle = angle - 2*PI;
 }
 
 double Player::getAngle() const {
     return angle;
+}
+
+double Player::angleWithOther(Player& otherPlayer){
+    int deltaX = otherPlayer.getPosition().x - position.x; //adyacente
+    int distanceWith = position.distance(otherPlayer.position);
+    double angleWithOtherPlayer = acos(deltaX / distanceWith);
+    double deltaAngle = angleWithOtherPlayer - angle;
+    if ((deltaAngle)== 0) deltaAngle += 0.01;
+    return deltaAngle;
 }
 
 int Player::damageCurrentWeapon() { //borrar?
@@ -94,11 +106,13 @@ int Player::distanceWith(Player& otherPlayer) {
     return std::numeric_limits<int>::max();
 }
 
-void Player::hits(int distance, int angle){
-    if (bag[idWeapon].name == "knife" && ! collideWith(distance, radius)) return;
-    bag[idWeapon].attack(bullets, distance, angle);
+int Player::hits(Player& otherPlayer){
+    //checkear ROcket launcher y knife para devolver daÑo;
+    double deltaAngle = angleWithOther(otherPlayer);
+    int distance = position.distance(otherPlayer.getPosition());
+    int damage = bag[idWeapon].attack(bullets, distance,deltaAngle);
     bullets -= bag[idWeapon].minBullets;
-    bulletsShot += bag[idWeapon].minBullets;
+    bulletsShot += bag[idWeapon].minBullets;  // englobar en funcion de balas
     if (bullets <= 0 || bullets < bag[idWeapon].minBullets){
         for (auto const& arm : bag) {
             if (bullets <= 0 && arm.second.name == "knife"){
@@ -111,6 +125,7 @@ void Player::hits(int distance, int angle){
             }
         }
     }
+    return damage;
 }
 
 bool Player::pickupWeapon(Weapon weapon,
@@ -135,6 +150,7 @@ bool Player::changeWeaponTo(int idTochange){
     }
     return false;
 }
+
 bool Player::hasKey(){
     return keys > 0;
 }
@@ -154,7 +170,7 @@ Weapon Player::getWeapon(){
 bool Player::isDead(){
     return dead;
 }
-void Player::died(){
+void Player::respawn(){
     lifes -=1;
     position = initialPosition;
     scaledPosition = initialPosition.scale();
@@ -166,17 +182,26 @@ int Player::getBullets(){
     return bullets;
 }
 
-void Player::getDamage(int damage){
+void Player::getDamage(int damage) {
     health -= damage;
-    if (health <= 0)
-       dead = true;
+    if (health <= 0){
+        dead = true;
+        health = 0;
+    }
 }
 
 bool Player::collideWith(int distance, int radius) {
-    int dist;
-    return dist < radius + radius;
+    return distance / TILE < radius + radius;
 }
 
+bool Player::canShoot(Player& otherPlayer){
+    double deltaAngle = angleWithOther(otherPlayer);
+    int distance = position.distance(otherPlayer.getPosition());
+    std::cout << (bag[idWeapon].name == "knife") << "\n" << !collideWith(distance, radius) << "paso el collide \n";
+    if (bag[idWeapon].name == "knife" && collideWith(distance, radius)
+        && deltaAngle <= PI/3) return true;
+    return bag[idWeapon].canShoot(bullets, distance, deltaAngle) && deltaAngle <= PI/3;
+}
 
 Vector& Player::getPosition(){
     return position;
@@ -228,6 +253,7 @@ bool Player::getItem(KeyItem* item,
     newEvents.push_back(new PickUpKeyEvent(PickUpKeyType));
     return true;
 }
+
 bool Player::getItem(AmmoItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
     if (bullets == maxBullets) return false;
@@ -252,6 +278,10 @@ bool Player::operator==(const Player& player) const{
 
 int Player::getId() const {
     return id;
+}
+
+void Player::updateKills(){
+    playersKilled+=1;
 }
 
 Player::~Player() {}

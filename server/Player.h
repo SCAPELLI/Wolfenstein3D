@@ -38,11 +38,11 @@ public:
     /*setea constructor del jugador*/
     Player(int parsed_id, std::string name, Vector position);
 
-    /*Jugador es dañado y baja su vida*/
+    /*Jugador es dañado y baja su vida devolviendo si murió o no*/
     void getDamage(int damage);
 
-    /*Actualiza valores de balas cuando daña otro jugador*/
-    void hits(int distance, int angle);  //cambiar nombre funcion
+    /*Devuelve daño causado y actualiza valores de balas cuando daña otro jugador*/
+    int hits(Player& otherPlayer);  //cambiar nombre funcion
 
     /* Devuelve distancia con otro jugador*/
     int distanceWith(Player& otherPlayer);
@@ -76,7 +76,7 @@ public:
     bool pickupWeapon(Weapon weapon, std::vector<AbstractEvent*>& newEvents);
     void resetBagWeapons();
     int getBullets();
-    void died();
+    void respawn();
     bool isDead();
     bool isGameOver();
     bool getItem(AmmoItem* item, std::vector<AbstractEvent*>& newEvents);
@@ -91,6 +91,9 @@ public:
     void incrementCooldown();
     void initializePlayer(bool dead);
     int getId() const;
+    bool canShoot(Player& otherPlayer);
+    double angleWithOther(Player& otherPlayer);
+    void updateKills();
     ~Player();
 
 };
