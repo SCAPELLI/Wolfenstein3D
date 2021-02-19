@@ -13,6 +13,7 @@
 #include "ServerEvents/ChangeWeaponEvent.h"
 #include "ServerEvents/DespawnEvent.h"
 #include "ServerEvents/SpawnNotMovableEvent.h"
+#include "common/OpenDoorEvent.h"
 /*----------*/
 
 #define PI 3.141592
@@ -89,6 +90,8 @@ AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
             return new ChangeWeaponEvent(0, 3);
         case SDLK_5:
             return new ChangeWeaponEvent(0, 4);
+        case SDLK_e:
+            return new OpenDoorEvent(0,0);
         default:
             return nullptr;
     }

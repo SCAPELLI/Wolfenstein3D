@@ -8,9 +8,9 @@
 
 class DoorOpenedEvent  : public AbstractEvent{
 public:
-    int uniqueId;
+    int x, y;
     updateEventType eventType;
-    explicit DoorOpenedEvent (updateEventType eventType, int uniqueId);
+    explicit DoorOpenedEvent (updateEventType eventType, int x, int y);
     updateEventType getEventType();
     void runHandler(CGame& renderer) override;
     //std::string getSerialization() override;

@@ -11,7 +11,7 @@ GameScreen::GameScreen(CPlayer* activePlayer, int h, int w):
             SDL_CreateWindowAndRenderer(w, h, 0, &this->window, &this->renderer);
             Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
         }
-        for (int i = 100; i < 158; i++){
+        for (int i = 100; i < 163; i++){
             wallTextures[i] = new Wall(i, this->renderer);
         }
         this->ui = new UI(renderer, activePlayer);

@@ -4,8 +4,8 @@
 #include "../EventSerializer.h"
 #include "../../cliente/CGame.h"
 
-DoorOpenedEvent::DoorOpenedEvent (updateEventType eventType, int uniqueId)
-: uniqueId(uniqueId), eventType(eventType) {}
+DoorOpenedEvent::DoorOpenedEvent (updateEventType eventType, int x, int y)
+: x(x), y(y), eventType(eventType) {}
 
 updateEventType DoorOpenedEvent::getEventType() {
     return eventType;

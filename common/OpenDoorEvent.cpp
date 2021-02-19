@@ -2,6 +2,7 @@
 #include "OpenDoorEvent.h"
 #include "../cliente/CGame.h"
 #include "EventSerializer.h"
+#include "../server/GameStage.h"
 
 OpenDoorEvent::OpenDoorEvent(int idPlayer, bool isOpen)
         :idPlayer(idPlayer), opened(isOpen){}
@@ -15,5 +16,9 @@ std::string OpenDoorEvent::getSerialization() {
     return EventSerializer::serialize(*this);
 }
 void OpenDoorEvent::runHandler(CGame& game) {
+    game.processEvent(*this);
+};
+
+void OpenDoorEvent::runHandler(GameStage& game) {
     game.processEvent(*this);
 };

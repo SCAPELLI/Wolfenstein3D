@@ -3,6 +3,7 @@
 #define OPENDOOREVENT_H
 #include "AbstractEvent.h"
 class CGame;
+class GameStage;
 
 class OpenDoorEvent : public AbstractEvent {
 public:
@@ -12,6 +13,7 @@ public:
     //OpenDoorEvent(OpenDoorEvent& openDoorEvent);
     void changeStatusDoor(bool status);
     void runHandler(CGame& renderer) override;
+    void runHandler(GameStage& renderer) override;
     std::string getSerialization() override;
     };
 

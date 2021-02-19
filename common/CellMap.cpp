@@ -105,7 +105,7 @@ void CellMap::incrementCooldown(){
 }
 
 bool CellMap::isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents){
-    return door->isConsumed(player, newEvents);
+    return door ? door->isConsumed(player, newEvents) : false;
 }
 
 void CellMap::dropItems(Player& player,GameLoader& factory,

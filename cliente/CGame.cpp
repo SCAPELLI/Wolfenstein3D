@@ -42,6 +42,9 @@ void CGame::processEvent(SpawnEvent& event) {
     if (event.type == 1){
         return; // crear player
     }
+    if (event.type == 161) {
+        map[event.posY][event.posX] = event.type;
+    }
     renderables.emplace(event.id, new Renderable(event.posX, event.posY,std::string("prueba1.bmp"), screen.getRenderer()));
 }
 
@@ -86,7 +89,10 @@ void CGame::processEvent(ChangeWeaponEvent& event){
 
 void CGame::processEvent(KillEvent& event){}
 void CGame::processEvent(OpenDoorEvent& event){}
-void CGame::processEvent(DoorOpenedEvent& event){}
+void CGame::processEvent(DoorOpenedEvent& event){
+    map[event.y][event.x] = 0;
+    soundQueue.push(PICKUP_SOUND, MIX_MAX_VOLUME);
+}
 void CGame::processEvent(CreateMapEvent& event){}
 
 void CGame::advanceTime() {}

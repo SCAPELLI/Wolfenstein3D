@@ -10,6 +10,7 @@
 #include "../common/ServerEvents/SpawnEvent.h"
 #include "../common/ServerEvents/CreateMapEvent.h"
 #include "../common/ServerEvents/SpawnNotMovableEvent.h"
+#include "ServerEvents/DoorOpenedEvent.h"
 
 Map::Map(){}
 
@@ -60,7 +61,7 @@ void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
             newEvents.push_back(event);
         }
         else{
-            auto event = new SpawnEvent(SpawnEventType, door->getUniqueId(), door->getId(), pos1, pos2);
+            auto event = new SpawnEvent(SpawnEventType, door->getUniqueId(), door->getId(), pos2, pos1);
             newEvents.push_back(event);
             tileMap.addItem(door);
             doors.push_back(door);
@@ -98,18 +99,25 @@ void Map::launchRocket(Rocket* rocket, Vector& direction,
 
 bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
     Vector& pos = player.getScaledPosition();
+    Vector doorPos(-1, -1);
     if (pos.y +1 < width &&
         matrix[pos.y + 1][pos.x].isOpenable(player, newEvents))
-        return true;
+        doorPos += Vector(pos.y + 2, pos.x + 1);
     if (pos.y -1 > 0 &&
             matrix[pos.y - 1][pos.x].isOpenable(player, newEvents))
-        return true;
+        doorPos += Vector(pos.y, pos.x + 1);
     if (pos.x +1 < height &&
         matrix[pos.y][pos.x + 1].isOpenable(player, newEvents))
-        return true;
+        doorPos += Vector(pos.y + 1, pos.x + 2);
     if (pos.y -1 > 0 &&
         matrix[pos.y][pos.x - 1].isOpenable(player, newEvents))
+        doorPos += Vector(pos.y + 1, pos.x);
+
+    if (doorPos.x != -1){
+        newEvents.push_back(new DoorOpenedEvent(DoorOpenedEventType, doorPos.y, doorPos.x));
         return true;
+    }
+
     return false;
 }
 
