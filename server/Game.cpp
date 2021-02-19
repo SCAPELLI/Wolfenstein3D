@@ -5,6 +5,7 @@
 #include "ServerEvents/KillEvent.h"
 #include "ServerEvents/HealthChangeEvent.h"
 #include "ServerEvents/GameOverEvent.h"
+#include "ServerEvents/ChangeWeaponEvent.h"
 #include "ServerEvents/SpawnEvent.h"
 #include <vector>
 #include "WallRay.h"
@@ -44,20 +45,24 @@ int Game::getDamage(int idPlayer){
 }
 
 int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
+    if (!players[idPlayer].canShoot()){
+        return -2;
+    }
+    if (!players[idPlayer].shoot()) return -3;
     WallRay ray = WallRay(players[idPlayer].getPosition(), players[idPlayer].getAngle());
     int distanceToWall = ray.distanceToWall(map);
     if (players[idPlayer].hasRocketLauncher()){
         Rocket* rocket = players[idPlayer].setRocket();
         Vector shotDirection = calculateDirection(idPlayer) / speed;
         map.launchRocket(rocket, shotDirection, newEvents);
-        return 0;
+        return -1;
     }
     for (int i = 0; i < players.size(); i++){
         if ( i == idPlayer)
             continue;
         int distancePlayer = players[idPlayer].distanceWith(players[i]);
         if (distancePlayer < distanceToWall) {
-            if (!canShoot(idPlayer, i)) return -2;
+            if (!canShoot(idPlayer, i)) continue;
             int damage = players[idPlayer].hits(players[i]);
             players[i].getDamage(damage);
             if (players[i].isGameOver()) {
@@ -80,7 +85,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
             return i;// devolves a quien le pegaste
         }
     }
-    return -2;
+    return -1;
 }
 
 bool Game::changeWeapon(int idPlayer, int idWeapon) {
@@ -113,7 +118,7 @@ void Game::increaseCooldown() {
 }
 
 bool Game::canShoot(int idPlayer, int otherPlayerId){
-    return players[idPlayer].canShoot(players[otherPlayerId]);
+    return players[idPlayer].doesHit(players[otherPlayerId]);
 }
 
 void Game::respawnPlayer(int idPlayer){

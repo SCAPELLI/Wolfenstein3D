@@ -10,6 +10,7 @@
 #include "ServerEvents/CreateMapEvent.h"
 #include "ServerEvents/SpawnNotMovableEvent.h"
 #include "ServerEvents/ScoreChangeEvent.h"
+#include "ServerEvents/AmmoChangeEvent.h"
 
 #define PICKUP_SOUND 7
 
@@ -85,12 +86,16 @@ void CGame::processEvent(ScoreChangeEvent& event){
 }
 
 void CGame::processEvent(KillEvent& event){}
-void CGame::processEvent(OpenDoorEvent& event){}
 void CGame::processEvent(DoorOpenedEvent& event){
     map[event.y][event.x] = 0;
     soundQueue.push(PICKUP_SOUND, MIX_MAX_VOLUME);
 }
+
 void CGame::processEvent(CreateMapEvent& event){}
+
+void CGame::processEvent(AmmoChangeEvent& event){
+    activePlayer.changeAmmo(event.ammo);
+}
 
 void CGame::advanceTime() {}
 

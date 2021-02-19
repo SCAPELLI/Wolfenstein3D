@@ -21,6 +21,7 @@ class DespawnEvent;
 class CreateMapEvent;
 class SpawnNotMovableEvent;
 class ScoreChangeEvent;
+class AmmoChangeEvent;
 
 class CGame{
 	CPlayer activePlayer;
@@ -41,13 +42,13 @@ class CGame{
         void processEvent(GameOverEvent& event);
 		void processEvent(KillEvent& event);
 		void processEvent(PositionEvent& event);
-		void processEvent(OpenDoorEvent& event);
         void processEvent(ChangeWeaponEvent& event);
 		void processEvent(SpawnEvent& event);
 		void processEvent(SpawnNotMovableEvent& event);
 		void processEvent(DespawnEvent& event);
         void processEvent(DoorOpenedEvent& event);
         void processEvent(CreateMapEvent& event);
+        void processEvent(AmmoChangeEvent& event);
         void processEvent(ScoreChangeEvent& event);
 		~CGame();
 };

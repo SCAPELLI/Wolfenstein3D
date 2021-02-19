@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ServerEvents/SpawnEvent.h>
 #include <ServerEvents/ChangeWeaponEvent.h>
+#include <ServerEvents/AmmoChangeEvent.h>
 #include "GameStage.h"
 #include "../common/TurnEvent.h"
 #include "../common/MovementEvent.h"
@@ -41,9 +42,18 @@ void GameStage::processEvent(TurnEvent& event) {
 void GameStage::processEvent(ShootingEvent& event) {
     int idHit = game.shoot(event.idPlayer, newEvents);
     if (idHit == -2) return;
+    if (idHit == -3){
+        ChangeWeaponEvent newEvent(event.idPlayer, 0);
+        Event anotherEvent(&newEvent, ChangeWeaponType);
+        updateEvents.push(anotherEvent);
+        return;
+    }
+    AmmoChangeEvent ammo(AmmoChangeType, -1 * game.players[event.idPlayer].getWeapon().minBullets);
     ShootingEvent shoot(event.idPlayer);
     Event anotherEvent(&shoot, ShootingEventType);
     updateEvents.push(anotherEvent);
+    Event ammoEvent(&ammo, AmmoChangeType);
+    updateEvents.push(ammoEvent);
     pushNewEvents();
 }
 

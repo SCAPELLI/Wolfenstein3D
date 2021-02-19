@@ -15,9 +15,6 @@ void OpenDoorEvent::changeStatusDoor(bool status){
 std::string OpenDoorEvent::getSerialization() {
     return EventSerializer::serialize(*this);
 }
-void OpenDoorEvent::runHandler(CGame& game) {
-    game.processEvent(*this);
-};
 
 void OpenDoorEvent::runHandler(GameStage& game) {
     game.processEvent(*this);

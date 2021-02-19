@@ -59,3 +59,7 @@ void CPlayer::decreaseLife(int damage){
 CPlayer::~CPlayer(){
     for (int i = 0; i < weapons.size(); i++) delete weapons[i];
 }
+
+void CPlayer::changeAmmo(int deltaAmmo) {
+    ammo += deltaAmmo;
+}

@@ -5,11 +5,14 @@
 #include "../AbstractEvent.h"
 #include "Event.h"
 
+class CGame;
+
 class AmmoChangeEvent  : public AbstractEvent{
     updateEventType eventType;
-    int ammo;
 public:
+    int ammo;
     AmmoChangeEvent (updateEventType eventType, int Ammo);
+    void runHandler(CGame& game);
     updateEventType getEventType();
 };
 

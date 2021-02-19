@@ -91,7 +91,9 @@ public:
     void incrementCooldown();
     void initializePlayer(bool dead);
     int getId() const;
-    bool canShoot(Player& otherPlayer);
+    bool doesHit(Player& otherPlayer);
+    bool canShoot();
+    bool shoot();
     double angleWithOther(Player& otherPlayer);
     void updateKills();
     bool hasRocketLauncher();

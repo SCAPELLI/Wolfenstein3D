@@ -29,7 +29,8 @@ public:
     bool operator<(const Weapon& t) const;
     bool operator==(const Weapon& t) const;
     void incrementCooldown();
-    bool canShoot(int bullets, int distance, double angle);
+    bool canShoot(int bullets);
+    bool doesHit(int distance, double angle);
 };
 
 #endif //WOLFENSTEIN3D_WEAPON_H

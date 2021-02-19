@@ -25,6 +25,7 @@ class CPlayer{
 		void respawn();
 		void changeWeapon(int weaponID);
 		void increaseScore(int deltaScore);
+		void changeAmmo(int deltaAmmo);
 		void decreaseLife(int damage);
 		~CPlayer();
 };

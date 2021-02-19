@@ -32,9 +32,12 @@ Rocket* Weapon::launchRocket(){
     return new Rocket(damage);
 }
 
-bool Weapon::canShoot(int bullets, int distance, double angle){
-   return (generateRandom() * 1/(double)distance * (1/angle) >= presicion) &&
-            bullets >= minBullets && !isShooting;
+bool Weapon::doesHit(int distance, double angle){ // doesHit
+   return (generateRandom() * 1/(double)distance * (1/angle) >= presicion);
+}
+
+bool Weapon::canShoot(int bullets){
+    return bullets >= minBullets && !isShooting;
 }
 
 Weapon::Weapon() {
