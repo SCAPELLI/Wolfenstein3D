@@ -10,7 +10,7 @@ GameOverEvent::GameOverEvent (GameOverEvent& gameOverEvent){}
 GameOverEvent::GameOverEvent (updateEventType eventType, int idPlayer) : idPlayer(idPlayer), eventType(eventType){}
 
 void GameOverEvent::runHandler(CGame& game){
-
+    return game.processEvent(*this);
 }
 
 updateEventType GameOverEvent::getEventType() {

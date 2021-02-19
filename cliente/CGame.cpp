@@ -11,6 +11,7 @@
 #include "ServerEvents/SpawnNotMovableEvent.h"
 #include "ServerEvents/ScoreChangeEvent.h"
 #include "ServerEvents/AmmoChangeEvent.h"
+#include "ServerEvents/HealthChangeEvent.h"
 
 #define PICKUP_SOUND 7
 
@@ -49,6 +50,8 @@ void CGame::processEvent(SpawnEvent& event) {
     }
     renderables.emplace(event.id, new Renderable(event.posX, event.posY,std::string("prueba1.bmp"), screen.getRenderer()));
 }
+void CGame::processEvent(HealthChangeEvent& event) {}
+
 
 void CGame::processEvent(DespawnEvent &event) {
     delete renderables[event.id];

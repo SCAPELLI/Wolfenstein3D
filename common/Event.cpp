@@ -14,6 +14,8 @@
 #include "ServerEvents/DespawnEvent.h"
 #include "ServerEvents/SpawnNotMovableEvent.h"
 #include "ServerEvents/ScoreChangeEvent.h"
+#include "ServerEvents/HealthChangeEvent.h"
+#include "ServerEvents/GameOverEvent.h"
 #include "ServerEvents/AmmoChangeEvent.h"
 #include "common/OpenDoorEvent.h"
 /*----------*/
@@ -57,6 +59,9 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
             break;
         case AmmoChangeType:
             event = new AmmoChangeEvent(*(AmmoChangeEvent*)updateEvent);
+            break;
+        case HealthChangeType:
+            event = new HealthChangeEvent(*(HealthChangeEvent*)updateEvent);
             break;
         default:
             this->event = nullptr;

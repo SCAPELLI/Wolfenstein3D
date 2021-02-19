@@ -22,6 +22,7 @@ class CreateMapEvent;
 class SpawnNotMovableEvent;
 class ScoreChangeEvent;
 class AmmoChangeEvent;
+class HealthChangeEvent;
 
 class CGame{
 	CPlayer activePlayer;
@@ -50,6 +51,7 @@ class CGame{
         void processEvent(CreateMapEvent& event);
         void processEvent(AmmoChangeEvent& event);
         void processEvent(ScoreChangeEvent& event);
+        void processEvent(HealthChangeEvent& event);
 		~CGame();
 };
 
