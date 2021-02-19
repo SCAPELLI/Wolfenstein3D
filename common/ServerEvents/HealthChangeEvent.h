@@ -6,12 +6,12 @@
 #include "Event.h"
 
 class HealthChangeEvent  : public AbstractEvent{
-
     int health;
     updateEventType eventType;
 public:
     HealthChangeEvent (updateEventType eventType, int health);
     updateEventType getEventType();
+    void runHandler(CGame &game);
 };
 
 

@@ -94,7 +94,7 @@ void CellMap::setSolid() {
 }
 bool CellMap::isOpen(){
     if (door == nullptr) return true;
-    return door->getEffect() == 0;
+    return door->getEffect() != 0;
 }
 
 void CellMap::incrementCooldown(){
