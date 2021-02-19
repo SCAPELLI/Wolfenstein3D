@@ -20,6 +20,7 @@ class ChangeWeaponEvent;
 class DespawnEvent;
 class CreateMapEvent;
 class SpawnNotMovableEvent;
+class ScoreChangeEvent;
 
 class CGame{
 	CPlayer activePlayer;
@@ -47,6 +48,7 @@ class CGame{
 		void processEvent(DespawnEvent& event);
         void processEvent(DoorOpenedEvent& event);
         void processEvent(CreateMapEvent& event);
+        void processEvent(ScoreChangeEvent& event);
 		~CGame();
 };
 

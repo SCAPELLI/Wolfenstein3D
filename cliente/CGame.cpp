@@ -9,6 +9,7 @@
 #include "ServerEvents/DespawnEvent.h"
 #include "ServerEvents/CreateMapEvent.h"
 #include "ServerEvents/SpawnNotMovableEvent.h"
+#include "ServerEvents/ScoreChangeEvent.h"
 
 #define PICKUP_SOUND 7
 
@@ -77,6 +78,10 @@ void CGame::processEvent(ChangeWeaponEvent& event){
 //    } else {
 //        players[playerID].changeWeapon(weaponID);
 //    }
+}
+
+void CGame::processEvent(ScoreChangeEvent& event){
+    activePlayer.increaseScore(event.score);
 }
 
 void CGame::processEvent(KillEvent& event){}

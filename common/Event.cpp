@@ -13,6 +13,7 @@
 #include "ServerEvents/ChangeWeaponEvent.h"
 #include "ServerEvents/DespawnEvent.h"
 #include "ServerEvents/SpawnNotMovableEvent.h"
+#include "ServerEvents/ScoreChangeEvent.h"
 #include "common/OpenDoorEvent.h"
 /*----------*/
 
@@ -49,6 +50,9 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
             break;
         case SpawnNotMovableType:
             event = new SpawnNotMovableEvent(*(SpawnNotMovableEvent*)updateEvent);
+            break;
+        case ScoreChangeType:
+            event = new ScoreChangeEvent(*(ScoreChangeEvent*)updateEvent);
             break;
         default:
             this->event = nullptr;

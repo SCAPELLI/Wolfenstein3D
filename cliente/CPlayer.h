@@ -9,7 +9,7 @@
 class CPlayer{
 	Camera camera;
 	Vector spawnPoint;
-	int hp, lives, ammo, activeWeapon;
+	int hp, lives, ammo, activeWeapon, score;
 	std::vector<CWeapon*> weapons;
 
 	public:
@@ -24,6 +24,7 @@ class CPlayer{
 		bool shoot();
 		void respawn();
 		void changeWeapon(int weaponID);
+		void increaseScore(int deltaScore);
 		void decreaseLife(int damage);
 		~CPlayer();
 };

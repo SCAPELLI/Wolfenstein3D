@@ -4,7 +4,7 @@
 
 CPlayer::CPlayer(double x, double y, double fov, int id):
 	camera(x, y, fov), spawnPoint(x, y),
-	hp(100), lives(3), ammo(10), activeWeapon(0), id(id){}
+	hp(100), lives(3), ammo(10), activeWeapon(0), score(0), id(id){}
 
 void CPlayer::loadWeapons(SDL_Renderer* renderer){
     for (int i = 0; i < TOTAL_GUNS; i++){
@@ -14,6 +14,10 @@ void CPlayer::loadWeapons(SDL_Renderer* renderer){
 
 int CPlayer::getActiveWeapon() {
     return activeWeapon;
+}
+
+void CPlayer::increaseScore(int deltaScore) {
+    score += deltaScore;
 }
 
 Camera* CPlayer::getCamera(){
