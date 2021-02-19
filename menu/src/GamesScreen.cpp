@@ -54,6 +54,8 @@ void GamesScreen::onJoinButtonClick() {
         }
         refresh();
     }
+
+     //this->screenManager->close();
 }
 
 void GamesScreen::onRefreshButtonClick() {
