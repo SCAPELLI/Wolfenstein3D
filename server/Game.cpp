@@ -5,12 +5,11 @@
 #include "ServerEvents/KillEvent.h"
 #include "ServerEvents/HealthChangeEvent.h"
 #include "ServerEvents/GameOverEvent.h"
+#include "ServerEvents/SpawnEvent.h"
 #include <vector>
 #include "WallRay.h"
 #include <cmath>
 #include <iostream>
-#include <random>
-#include <vector>
 
 
 Game::Game( std::vector<AbstractEvent*>& newEvents,
@@ -21,16 +20,16 @@ Game::Game( std::vector<AbstractEvent*>& newEvents,
         players.emplace_back(Player(i, playersNames[i], Vector(0, 0)));
     }
     map = Map(players, newEvents);
+    for (int i = 0; i < playersNames.size(); i++){
+        Vector pos = players[i].getPosition();
+        auto event = new SpawnEvent(SpawnEventType, players[i].getId(),
+                                    PLAYER_ID, pos.x, pos.y);
+        newEvents.push_back(event);
+    }
 }
 
 Game::Game() {}
 
-// int Game::generateRandom(){
-//     std::random_device rd;
-//     std::mt19937 gen(rd());
-//     std::uniform_int_distribution<int> distr(1, 10);
-//     return distr(gen);
-// }
 
 Vector Game::calculateDirection(int idPlayer){
     return Vector(-sin(players[idPlayer].getAngle()),
@@ -48,7 +47,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     WallRay ray = WallRay(players[idPlayer].getPosition(), players[idPlayer].getAngle());
     int distanceToWall = ray.distanceToWall(map);
     if (players[idPlayer].hasRocketLauncher()){
-        Rocket* rocket = players[idPlayer].setRocket();//ver tema speed
+        Rocket* rocket = players[idPlayer].setRocket();
         Vector shotDirection = calculateDirection(idPlayer) / speed;
         map.launchRocket(rocket, shotDirection, newEvents);
         return 0;
@@ -63,6 +62,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
             players[i].getDamage(damage);
             if (players[i].isGameOver()) {
                 players[idPlayer].updateKills();
+                map.dropAllItems(players[i], newEvents);
                 AbstractEvent *event = new GameOverEvent(GameOverEventType, i);
                 newEvents.push_back(event);
             }
@@ -70,6 +70,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
                 players[idPlayer].updateKills();
                 AbstractEvent* event = new KillEvent(KillEventType, i);
                 newEvents.push_back(event);
+                map.dropAllItems(players[i], newEvents);
                 respawnPlayer(i);
             }
             else{

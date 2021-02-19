@@ -42,9 +42,6 @@ void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
                             int elem, std::vector<AbstractEvent*>& newEvents){
     if (elem == PLAYER_ID) {
         players[numOfPlayer].setPosition(Vector(pos2 * TILE, pos1 * TILE));
-        auto event = new SpawnEvent(SpawnEventType, players[numOfPlayer].getId(),
-                                    PLAYER_ID, pos2 * TILE, pos1 * TILE);
-        newEvents.push_back(event);
         tileMap.addPlayer(players.at(numOfPlayer));
         numOfPlayer++;
     } if (elem > 1 && elem < 100){
@@ -101,9 +98,16 @@ void Map::launchRocket(Rocket* rocket, Vector& direction,
 
 bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
     Vector& pos = player.getScaledPosition();
-    if (matrix[pos.y + 1][pos.x].isOpenable(player, newEvents) ||
-        matrix[pos.y - 1][pos.x].isOpenable(player, newEvents) ||
-        matrix[pos.y][pos.x + 1].isOpenable(player, newEvents) ||
+    if (pos.y +1 < width &&
+        matrix[pos.y + 1][pos.x].isOpenable(player, newEvents))
+        return true;
+    if (pos.y -1 > 0 &&
+            matrix[pos.y - 1][pos.x].isOpenable(player, newEvents))
+        return true;
+    if (pos.x +1 < height &&
+        matrix[pos.y][pos.x + 1].isOpenable(player, newEvents))
+        return true;
+    if (pos.y -1 > 0 &&
         matrix[pos.y][pos.x - 1].isOpenable(player, newEvents))
         return true;
     return false;
@@ -127,9 +131,9 @@ bool Map::isOkToMove(Vector& futurePos){
             matrix[futurePos.y][futurePos.x].isOpen();
 }
 
-void Map::dropAllItems(Player& player){ //deberia llamar a newEvents
+void Map::dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents){ //deberia llamar a newEvents
     Vector positionPlayer = player.getScaledPosition();
-    matrix[positionPlayer.y][positionPlayer.x].dropItems(player);
+    matrix[positionPlayer.y][positionPlayer.x].dropItems(player, factory, newEvents);
 }
 
 void Map::dropItemPlayer(Player& player, Item itemPlayer){

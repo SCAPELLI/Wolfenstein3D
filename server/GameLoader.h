@@ -17,7 +17,8 @@ public:
     GameLoader();
     void readData(int& speed);
     Item* itemLoader(int& idItem);
-    void configWeapon(std::string& name, int& effect, int& minBullets, double& speed);
+    int assignUniqueId();
+    //void configWeapon(std::string& name, int& effect, int& minBullets, double& speed);
     OpenableItem* setTexture(int& idItem);
     Item* itemLoader(std::string& idItem);
     ~GameLoader();

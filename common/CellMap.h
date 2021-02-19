@@ -8,6 +8,7 @@
 
 class Item;
 class Player;
+class GameLoader;
 
 class CellMap{
     bool occupied;
@@ -28,7 +29,8 @@ public:
     void addItem(Item* item);
     virtual void addItem(OpenableItem* item);
     void setSolid();
-    void dropItems(Player& player);
+    void dropItems(Player& player,GameLoader& factory,
+                            std::vector<AbstractEvent*>& newEvents);
     void dropItemPlayer(Item* item);
     bool isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents);
     bool isOpen();

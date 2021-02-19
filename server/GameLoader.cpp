@@ -7,9 +7,7 @@
 #include <string>
 #include "Exception.h"
 #include "../common/Items/LockedDoor.h"
-#include "../common/Items/OpenableItem.h"
-#include "../common/Items/AmmoItem.h"
-#define PLAYER_ID 1
+
 
 GameLoader::GameLoader() : uniqueId(0){
     sprites = YAML::LoadFile("../Editor/sprites/sprites.yaml");
@@ -25,6 +23,11 @@ void GameLoader::readData(int& speed){
     //mapLoader(map, players, matrix);
 }
 
+int GameLoader::assignUniqueId(){
+    int idToAssign = uniqueId;
+    uniqueId++;
+    return idToAssign;
+}
 
 Item* GameLoader::itemLoader(int& idItem) {
     std::string elem = sprites["items"][idItem]["type"].as<std::string>();
