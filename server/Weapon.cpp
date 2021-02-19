@@ -64,7 +64,7 @@ void Weapon::incrementCooldown(){ //decrease
         cooldown += 1;
         cooldown %= cooldownTimer;
     }
-    if (cooldown == 0){
+    if (cooldown == cooldownTimer){
         isShooting = false;
     }
 }

@@ -38,8 +38,6 @@ set(SERVER_SOURCE_FILES
         server/Player.cpp
         server/Map.cpp
         server/GameLoader.cpp
-        #        server/Knife.cpp
-        #        server/Gun.cpp
         server/Game.cpp
         cliente/CGame.cpp
         cliente/CPlayer.cpp
