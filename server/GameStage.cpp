@@ -95,6 +95,6 @@ void GameStage::processEvent(int objId, int type, int posX, int posY) {
     updateEvents.push(anotherEvent);
 }
 
-void GameStage::IncrementCooldown(){
+void GameStage::incrementCooldown(){
     game.increaseCooldown();
 }

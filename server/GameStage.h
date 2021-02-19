@@ -39,7 +39,7 @@ public:
     void processEvent(SpawnEvent& event);
     void processEvent(int objId,int type, int posX, int posY);
     void pushNewEvents();
-    void IncrementCooldown();
+    void incrementCooldown();
 
     };
 

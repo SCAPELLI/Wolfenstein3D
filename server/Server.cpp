@@ -19,6 +19,7 @@ void Server::operator()() {
             event.runHandler(gameStage);
             if (event.thisIsTheQuitEvent()) quit = true;
         }
+        gameStage.incrementCooldown();
         usleep(2000);
     }
 }

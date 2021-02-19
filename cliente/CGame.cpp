@@ -68,14 +68,6 @@ void CGame::processEvent(ShootingEvent& event){
 
 void CGame::processEvent(GameOverEvent& event){}
 
-//void CGame::processEvent(OpenDoorEvent& event){
-//    int doorID = event.getID();
-//    Renderable* door = renderables[doorID];
-//    door->animate();
-//    Vector mapPos = door.position.scale();
-//    map[mapPos.y][mapPos.x] = 0;
-//}
-
 void CGame::processEvent(ChangeWeaponEvent& event){
     int weaponID = event.type;
     int playerID = event.idPlayer;

@@ -10,8 +10,8 @@ private:
     std::string name;
     int effect;
     int uniqueId;
-    int openTimeLimit;
     int cooldown;
+    int openTimeLimit;
 public:
     OpenableItem(int id,std::string name, int effect, int uniqueId);
     bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
