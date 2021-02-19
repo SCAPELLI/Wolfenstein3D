@@ -20,7 +20,7 @@ public:
         std::vector<std::vector<CellMap>>& getMatrix();
         void changePosition(Vector& newPos, Player& player,
                             std::vector<AbstractEvent*>& newEvents);
-        void dropAllItems(Player& player);
+        void dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents);
         bool isOkToMove(Vector& futurePos);
         void removePlayer(Player& player);
         void addPlayer(Player& player);

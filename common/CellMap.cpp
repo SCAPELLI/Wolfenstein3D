@@ -108,17 +108,21 @@ bool CellMap::isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents)
     return door->isConsumed(player, newEvents);
 }
 
-void CellMap::dropItems(Player& player){ //poner spawneo, cambiar el harcodeo?
-    GameLoader yaml;
-    items.push_back(new AmmoItem(3,"ammo", 10, 0));
+void CellMap::dropItems(Player& player,GameLoader& factory,
+                        std::vector<AbstractEvent*>& newEvents){
+    std::string ammo = "ammo";
+    Item* ammoToDrop= factory.itemLoader(ammo);
+    ammoToDrop += 2;
+    items.push_back(ammoToDrop);
     std::string blood = "blood";
-    items.push_back(yaml.itemLoader(blood));
+    items.push_back(factory.itemLoader(blood));
     Weapon currentWeapon = player.getWeapon();
     if (currentWeapon.name != "gun")
+        currentWeapon.uniqueId = factory.assignUniqueId();
         items.push_back(&currentWeapon);
     if (player.hasKey()) {
         std::string key = "key";
-        items.push_back(yaml.itemLoader(key));
+        items.push_back(factory.itemLoader(key));
     }
 }
 void CellMap::dropItemPlayer(Item* item){

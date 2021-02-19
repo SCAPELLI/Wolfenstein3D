@@ -44,7 +44,7 @@ void Player::initializePlayer(bool dead){
         for (YAML::const_iterator it=fileNode["Weapons"].begin();
              it != fileNode["Weapons"].end(); ++it){
             std::string weaponType = it->first.as<std::string>();
-            if(weaponType == "knife" || weaponType == "rocket launcher"){
+            if(weaponType == "knife" || weaponType == "pistol"){
                 YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
                 auto equip = Weapon(cont, weaponType, 0, data["damage"].as<int>(), // usar constructor
                                     data["minBullets"].as<int>(),
