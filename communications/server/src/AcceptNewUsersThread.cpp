@@ -1,6 +1,5 @@
 #include "../include/AcceptNewUsers.h"
-#include "../include/UserThread.h"
-#include "../include/Thread.h"
+#include "../../common/include/Socket.h"
 
 bool AcceptNewUsersThread::deadThread(UserThread& thread) {
     if (thread.runFinished) {

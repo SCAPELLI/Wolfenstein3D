@@ -2,8 +2,8 @@
 #define MATCH_H
 
 #include <map>
-#include "../include/Thread.h"
-#include "../include/MatchInfo.h"
+#include "../../common/include/Thread.h"
+#include "../../common/include/MatchInfo.h"
 
 typedef std::string str;
 

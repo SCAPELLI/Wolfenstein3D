@@ -2,7 +2,6 @@
 #define ACCEPTNEWUSERSTHREAD_H
 
 #include <list>
-#include "../include/Socket.h"
 #include "../include/ProtectedLobby.h"
 #include "../include/UserThread.h"
 

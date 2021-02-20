@@ -10,20 +10,10 @@ add_executable(Server
         ../common/src/IPAddresses.cpp
         ../common/src/Exception.cpp
         ../common/src/Socket.cpp
-        ../common/src/Match.cpp
+        ../server/src/Match.cpp
         ../common/src/MatchInfo.cpp
-        ../common/src/ProtectedLobby.cpp
-        ../common/src/CommunicationChannel.cpp
+        ../server/src/ProtectedLobby.cpp
         ../common/src/Thread.cpp
-        ../common/src/AcceptNewUsersThread.cpp
-        ../common/src/UserThread.cpp
-        ../common/include/IPAddresses.h
-        ../common/include/Exception.h
-        ../common/include/Socket.h
-        ../common/include/Match.h
-        ../common/include/MatchInfo.h
-        ../common/include/ProtectedLobby.h
-        ../common/include/CommunicationChannel.h
-        ../common/include/Thread.h
-        ../common/include/AcceptNewUsers.h
-        ../common/include/UserThread.h)
+        ../server/src/CommunicationChannelServer.cpp
+        ../server/src/AcceptNewUsersThread.cpp
+        ../server/src/UserThread.cpp)

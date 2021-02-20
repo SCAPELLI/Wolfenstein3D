@@ -29,8 +29,11 @@ int main(int argc, char *argv[]) {
 **/
 
 /////////////////
-    Client client;
-    initQt(argc, argv, &client);
-
+    try {
+        Client client;
+        initQt(argc, argv, &client);
+    } catch (const std::exception& error) {
+        std::cout<<error.what()<<std::endl;
+    }
     return 0;
 }

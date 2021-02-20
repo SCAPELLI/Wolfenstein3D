@@ -2,9 +2,7 @@
 #include <list>
 #include "../../common/include/Socket.h"
 #include "../include/TCPServer.h"
-#include "../../common/include/ProtectedLobby.h"
-#include "../../common/include/CommunicationChannel.h"
-#include "../../common/include/AcceptNewUsers.h"
+#include "../include/AcceptNewUsers.h"
 
 int main() {
     try {

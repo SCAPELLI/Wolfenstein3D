@@ -9,7 +9,7 @@
 #include <condition_variable>
 #include <mutex>
 #include "../include/Match.h"
-#include "../include/MatchInfo.h"
+#include "../../common/include/MatchInfo.h"
 
 typedef std::string str;
 
