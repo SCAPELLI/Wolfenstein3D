@@ -80,12 +80,14 @@ double Player::getAngle() const {
 }
 
 double Player::angleWithOther(Player& otherPlayer){
-    int deltaX = otherPlayer.getPosition().x - position.x; //adyacente
-    int distanceWith = position.distance(otherPlayer.position);
-    double angleWithOtherPlayer = acos(deltaX / distanceWith);
-    double deltaAngle = angleWithOtherPlayer - angle;
-    if ((deltaAngle)== 0) deltaAngle += 0.01;
-    return deltaAngle;
+    double angleWithOrigin = otherPlayer.getPosition().angle();
+    return angle - angleWithOrigin;
+//    int deltaX = otherPlayer.getPosition().x - position.x; //adyacente
+//    int distanceWith = position.distance(otherPlayer.position);
+//    double angleWithOtherPlayer = acos(deltaX / distanceWith);
+//    double deltaAngle = angleWithOtherPlayer - angle;
+//    if ((deltaAngle)== 0) deltaAngle += 0.01;
+//    return deltaAngle;
 }
 
 int Player::damageCurrentWeapon() { //borrar?
@@ -98,12 +100,13 @@ void Player::move(Vector& newPos){
 }
 
 int Player::distanceWith(Player& otherPlayer) {
-    int distance = position.distance(otherPlayer.position); //distancia otro jugador
-    int d = cos(angle) * distance; // opuesto
-    if (abs(distance - d) < radius + otherPlayer.radius){
-        return distance;
-    }
-    return std::numeric_limits<int>::max();
+
+//    int distance = position.distance(otherPlayer.position); //distancia otro jugador
+//    int d = cos(angle) * distance; // opuesto
+//    if (abs(distance - d) < radius + otherPlayer.radius){
+//        return distance;
+//    }
+//    return std::numeric_limits<int>::max();
 }
 
 bool Player::shoot(){
@@ -121,6 +124,7 @@ int Player::hits(Player& otherPlayer){
     double deltaAngle = angleWithOther(otherPlayer);
     int distance = position.distance(otherPlayer.getPosition());
     int damage = bag[idWeapon].attack(bullets, distance,deltaAngle);
+    std::cout << "Se aplico " << damage << " de danio de " << id << " a " << otherPlayer.id << ".\n";
     return damage;
 }
 
@@ -209,7 +213,9 @@ bool Player::doesHit(Player& otherPlayer){
     int distance = position.distance(otherPlayer.getPosition());
     std::cout << (bag[idWeapon].name == "knife") << "\n" << !collideWith(distance, radius) << "paso el collide \n";
     if (bag[idWeapon].name == "knife" && collideWith(distance, radius)
-        && deltaAngle <= PI/3) return true;
+        && deltaAngle <= PI/3) {
+        return true;
+    }
     return bag[idWeapon].doesHit(distance, deltaAngle) && deltaAngle <= PI/3;
 }
 

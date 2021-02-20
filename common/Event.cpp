@@ -18,6 +18,7 @@
 #include "ServerEvents/GameOverEvent.h"
 #include "ServerEvents/AmmoChangeEvent.h"
 #include "common/OpenDoorEvent.h"
+#include "ServerEvents/CreateMapEvent.h"
 /*----------*/
 
 #define PI 3.141592
@@ -62,6 +63,9 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
             break;
         case HealthChangeType:
             event = new HealthChangeEvent(*(HealthChangeEvent*)updateEvent);
+            break;
+        case CreateMapType:
+            event = new CreateMapEvent(*(CreateMapEvent*)updateEvent);
             break;
         default:
             this->event = nullptr;

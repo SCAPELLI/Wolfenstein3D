@@ -26,7 +26,7 @@ class CPlayer{
 		void changeWeapon(int weaponID);
 		void increaseScore(int deltaScore);
 		void changeAmmo(int deltaAmmo);
-		void decreaseLife(int damage);
+		void setHealth(int newHp);
 		~CPlayer();
 };
 

@@ -22,8 +22,6 @@ Map::Map(std::vector<Player>& players,
     int numOfPlayer = 0;
     height = matrixConfig.size() - 1;
     width = matrixConfig[0].size() - 1;
-    auto event = new CreateMapEvent(width, height);
-    newEvents.push_back(event);
     for (std::size_t i = 0; i < matrixConfig.size(); i++) {
         std::vector<CellMap> row;
         for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {
@@ -161,4 +159,11 @@ void Map::increaseCooldown() {
     for (std::size_t i = 0; i < doors.size(); i++) {
         doors[i]->incrementCooldown();
     }
+}
+
+double Map::getWidth() {
+    return width;
+}
+double Map::getHeight() {
+    return height;
 }

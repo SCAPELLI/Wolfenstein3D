@@ -1,5 +1,6 @@
 #include "CGame.h"
 #include <string>
+#include <utility>
 #include "common/TurnEvent.h"
 #include "ServerEvents/PositionEvent.h"
 #include "ServerEvents/DoorOpenedEvent.h"
@@ -12,20 +13,15 @@
 #include "ServerEvents/ScoreChangeEvent.h"
 #include "ServerEvents/AmmoChangeEvent.h"
 #include "ServerEvents/HealthChangeEvent.h"
+#include "ServerEvents/GameOverEvent.h"
 
 #define PICKUP_SOUND 7
 
 
-CGame::CGame(double x, double y, double fov):
+CGame::CGame(double x, double y, double fov, std::vector<std::vector<int>> map):
 	activePlayer(x, y, fov, 0),
 	screen(&activePlayer, 480, 640),
-	map({
-  {118,118,118,118,118},
-  {118,0,0,0,118},
-  {118,0,0,0,118},
-  {118,0,0,0,118},
-  {118,118,118,118,118}
-}), renderables(), players(), soundQueue(){
+	map(std::move(map)), renderables(), players(), soundQueue(){
     activePlayer.loadWeapons(screen.getRenderer());
 }
 
@@ -51,8 +47,8 @@ void CGame::processEvent(SpawnEvent& event) {
     renderables.emplace(event.id, new Renderable(event.posX, event.posY,std::string("prueba1.bmp"), screen.getRenderer()));
 }
 void CGame::processEvent(HealthChangeEvent& event) {
-    activePlayer.decreaseLife(event.health);
-    //faltaria uno de increaseLife o como lo quieras implementar...
+    //if (event.idPlayer != activePlayer.id) return;
+    activePlayer.setHealth(event.health);
 }
 
 
@@ -74,6 +70,8 @@ void CGame::processEvent(ShootingEvent& event){
 }
 
 void CGame::processEvent(GameOverEvent& event){
+    //if (event.idPlayer != activePlayer.id) players[event.idPlayer].despawn();
+    // mostrar top
 }
 
 void CGame::processEvent(ChangeWeaponEvent& event){
@@ -88,10 +86,14 @@ void CGame::processEvent(ChangeWeaponEvent& event){
 }
 
 void CGame::processEvent(ScoreChangeEvent& event){
+    //if (event.idPlayer != activePlayer.id) return;
     activePlayer.increaseScore(event.score);
 }
 
-void CGame::processEvent(KillEvent& event){}
+void CGame::processEvent(KillEvent& event){
+    //if (event.idPlayer != activePlayer.id) return; // players[event.idPlayer].kill();
+    activePlayer.respawn();
+}
 
 
 void CGame::processEvent(DoorOpenedEvent& event){
@@ -102,6 +104,7 @@ void CGame::processEvent(DoorOpenedEvent& event){
 void CGame::processEvent(CreateMapEvent& event){}
 
 void CGame::processEvent(AmmoChangeEvent& event){
+    //if (event.idPlayer != activePlayer.id) return;
     activePlayer.changeAmmo(event.ammo);
 }
 
@@ -112,9 +115,11 @@ void CGame::playSounds() {
 }
 
 void CGame::processEvent(TurnEvent& event) {
+    if (event.idPlayer != activePlayer.id) return;
     this->activePlayer.rotate(event.getDegrees());
 }
 void CGame::processEvent(PositionEvent& event){
+    //if (event.idPlayer != activePlayer.id) return; // players[event.idPlayer].moveTo(event.x, event.y)
     this->activePlayer.moveTo(event.x, event.y);
 }
 

@@ -7,6 +7,7 @@
 #include "ServerEvents/GameOverEvent.h"
 #include "ServerEvents/ChangeWeaponEvent.h"
 #include "ServerEvents/SpawnEvent.h"
+#include "ServerEvents/CreateMapEvent.h"
 #include <vector>
 #include "WallRay.h"
 #include <cmath>
@@ -21,12 +22,11 @@ Game::Game( std::vector<AbstractEvent*>& newEvents,
         players.emplace_back(Player(i, playersNames[i], Vector(0, 0)));
     }
     map = Map(players, newEvents);
+    auto startEvent = new CreateMapEvent(CreateMapType, map.getWidth(), map.getHeight());
     for (int i = 0; i < playersNames.size(); i++){
-        Vector pos = players[i].getPosition();
-        auto event = new SpawnEvent(SpawnEventType, players[i].getId(),
-                                    PLAYER_ID, pos.x, pos.y);
-        newEvents.push_back(event);
+        startEvent->addPlayer(players[i].getPosition());
     }
+    newEvents.insert(newEvents.begin(), startEvent);
 }
 
 Game::Game() {}
@@ -48,7 +48,9 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     if (!players[idPlayer].canShoot()){
         return -2;
     }
-    if (!players[idPlayer].shoot()) return -3;
+    if (!players[idPlayer].shoot()) {
+        return -3;
+    }
     WallRay ray = WallRay(players[idPlayer].getPosition(), players[idPlayer].getAngle());
     int distanceToWall = ray.distanceToWall(map);
     if (players[idPlayer].hasRocketLauncher()){
@@ -62,7 +64,8 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
             continue;
         int distancePlayer = players[idPlayer].distanceWith(players[i]);
         if (distancePlayer < distanceToWall) {
-            if (!canShoot(idPlayer, i)) continue;
+            if (!canShoot(idPlayer, i))
+                continue;
             int damage = players[idPlayer].hits(players[i]);
             players[i].getDamage(damage);
             if (players[i].isGameOver()) {

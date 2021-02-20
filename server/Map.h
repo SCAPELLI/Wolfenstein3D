@@ -22,6 +22,8 @@ public:
                             std::vector<AbstractEvent*>& newEvents);
         void dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents);
         bool isOkToMove(Vector& futurePos);
+        double getWidth();
+        double getHeight();
         void removePlayer(Player& player);
         void addPlayer(Player& player);
         void dropItemPlayer(Player& player, Item itemPlayer);
