@@ -300,4 +300,7 @@ void Player::updateKills(){
     playersKilled+=1;
 }
 
+int Player::getLifes() const {
+    return lifes;
+}
 Player::~Player() {}

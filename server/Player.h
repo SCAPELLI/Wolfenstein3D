@@ -91,6 +91,7 @@ public:
     void incrementCooldown();
     void initializePlayer(bool dead);
     int getId() const;
+    int getLifes()const;
     bool doesHit(Player& otherPlayer);
     bool canShoot();
     bool shoot();

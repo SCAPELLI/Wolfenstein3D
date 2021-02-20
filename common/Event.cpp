@@ -21,7 +21,6 @@
 #include "ServerEvents/CreateMapEvent.h"
 /*----------*/
 
-#define PI 3.141592
 
 Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
     switch (eventType) {
@@ -72,47 +71,47 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
     }
 }
 
-Event::Event(SDL_Event& sdlEvent) {
-    switch (sdlEvent.type) {
-        case SDL_QUIT:
-            event = new QuitEvent;
-            break;
-        case SDL_KEYDOWN:
-            event = keyCodeLookUp(sdlEvent);
-            break;
-        default:
-            event = nullptr;
-    }
-}
-
-AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
-    switch (sdlEvent.key.keysym.sym) {
-        case SDLK_UP:
-            return new MovementEvent(FORWARD, 0);
-        case SDLK_DOWN:
-            return new MovementEvent(BACKWARD, 0);
-        case SDLK_LEFT:
-            return new TurnEvent(0, PI/180);
-        case SDLK_RIGHT:
-            return new TurnEvent(0, -PI/180);
-        case SDLK_SPACE:
-            return new ShootingEvent(0);
-        case SDLK_1:
-            return new ChangeWeaponEvent(0, 0);
-        case SDLK_2:
-            return new ChangeWeaponEvent(0, 1);
-        case SDLK_3:
-            return new ChangeWeaponEvent(0, 2);
-        case SDLK_4:
-            return new ChangeWeaponEvent(0, 3);
-        case SDLK_5:
-            return new ChangeWeaponEvent(0, 4);
-        case SDLK_e:
-            return new OpenDoorEvent(0,0);
-        default:
-            return nullptr;
-    }
-}
+//Event::Event(SDL_Event& sdlEvent) {
+//    switch (sdlEvent.type) {
+//        case SDL_QUIT:
+//            event = new QuitEvent;
+//            break;
+//        case SDL_KEYDOWN:
+//            event = keyCodeLookUp(sdlEvent);
+//            break;
+//        default:
+//            event = nullptr;
+//    }
+//}
+//
+//AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
+//    switch (sdlEvent.key.keysym.sym) {
+//        case SDLK_UP:
+//            return new MovementEvent(FORWARD, 0);
+//        case SDLK_DOWN:
+//            return new MovementEvent(BACKWARD, 0);
+//        case SDLK_LEFT:
+//            return new TurnEvent(0, PI/180);
+//        case SDLK_RIGHT:
+//            return new TurnEvent(0, -PI/180);
+//        case SDLK_SPACE:
+//            return new ShootingEvent(0);
+//        case SDLK_1:
+//            return new ChangeWeaponEvent(0, 0);
+//        case SDLK_2:
+//            return new ChangeWeaponEvent(0, 1);
+//        case SDLK_3:
+//            return new ChangeWeaponEvent(0, 2);
+//        case SDLK_4:
+//            return new ChangeWeaponEvent(0, 3);
+//        case SDLK_5:
+//            return new ChangeWeaponEvent(0, 4);
+//        case SDLK_e:
+//            return new OpenDoorEvent(0,0);
+//        default:
+//            return nullptr;
+//    }
+//}
 Event::Event() {
     event = nullptr;
 }

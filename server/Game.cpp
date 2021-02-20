@@ -127,3 +127,4 @@ bool Game::canShoot(int idPlayer, int otherPlayerId){
 void Game::respawnPlayer(int idPlayer){
     players[idPlayer].respawn();
 }
+

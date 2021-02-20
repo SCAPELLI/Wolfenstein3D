@@ -65,3 +65,4 @@ GameScreen::~GameScreen(){
     delete this->ui;
     SDL_Quit();
 }
+

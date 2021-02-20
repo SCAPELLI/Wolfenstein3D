@@ -53,7 +53,7 @@ set(SERVER_SOURCE_FILES
         cliente/UI.cpp cliente/UI.h cliente/AnimatedSprite.cpp cliente/AnimatedSprite.h
         common/Items/AmmoItem.h cliente/CWeapon.cpp cliente/CWeapon.h
         common/WallRay.cpp common/WallRay.h
-        common/EventSerializer.cpp common/EventSerializer.h common/ServerEvents/CreateMapEvent.cpp common/ServerEvents/CreateMapEvent.h common/ServerEvents/SpawnNotMovableEvent.cpp common/ServerEvents/SpawnNotMovableEvent.h cliente/SoundManager.cpp cliente/SoundManager.h  common/Items/Rocket.cpp common/Items/Rocket.h)
+        common/EventSerializer.cpp common/EventSerializer.h common/ServerEvents/CreateMapEvent.cpp common/ServerEvents/CreateMapEvent.h common/ServerEvents/SpawnNotMovableEvent.cpp common/ServerEvents/SpawnNotMovableEvent.h cliente/SoundManager.cpp cliente/SoundManager.h  common/Items/Rocket.cpp common/Items/Rocket.h EventClient.cpp EventClient.h)
         
         
 
