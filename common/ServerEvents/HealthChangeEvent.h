@@ -6,9 +6,9 @@
 #include "Event.h"
 
 class HealthChangeEvent  : public AbstractEvent{
-    int health;
     updateEventType eventType;
 public:
+    int health;
     HealthChangeEvent (updateEventType eventType, int health);
     updateEventType getEventType();
     void runHandler(CGame &game);

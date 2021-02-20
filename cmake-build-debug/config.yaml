@@ -1,6 +1,6 @@
 Player:
   lifes: 3
-  health: 100
+  health: 20
   radius: 2
   angle: 0
   bullets: 8
