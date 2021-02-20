@@ -12,30 +12,33 @@ const int DO_NOTHING = 5;
 
 ////////////////////////////////////////////////////////////////////////
 //"class Player" se borrará en la integración con server
-class Player {
+/*class Player {
 public:
     float x;
     float y;
     float angle;
+
+    int lifeNumber;
+
     Player(float x, float y, float angle): x(x), y(y), angle(angle) {}
-};
+};*/
 ////////////////////////////////////////////////////////////////////////
 
 class lua_State;
+class ProtectedEventsQueue;
+class PlayerInfo;
 
 class AI {
-    std::vector<std::vector<int>>& map;
-    std::vector<Player>& players;
     int botId;
     lua_State* L;
-    bool& quit;
 public:
-    AI(std::vector<std::vector<int>>& map, std::vector<Player>& players, int botId, bool& quit);
+    //AI(std::vector<std::vector<int>>& map, std::vector<Player>& players, int botId, bool& quit);
+    explicit AI(int levelId);
     ~AI();
     void execute(int error);
-    void initializeGameContext();
-    int getBotActionId();
-    void operator()();
+    void initializeGameContext(std::vector<std::vector<int>>& map);
+    int getBotActionId(std::vector<PlayerInfo>& players);
+    void generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players);
 };
 
 #endif
