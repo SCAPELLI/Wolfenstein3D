@@ -12,6 +12,8 @@
 #include "ui_EditorScreen.h"
 #include "../../common/Style.h"
 
+#define FONT_SIZE 15
+
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
     : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/sprite100.png", 100)) {
 
@@ -81,7 +83,6 @@ void EditorScreen::saveMap() {
         std::string aux = filePath.toUtf8().toStdString();
         if (!aux.empty()) {
             this->fileName = aux + ".yaml";
-            std::cout << "Filename: " << this->fileName << "\n";
             this->createMapYalm();
         }
     }
@@ -118,7 +119,7 @@ void EditorScreen::openMap() {
     }
 }
 
-void EditorScreen::changeCurrentTexture(Texture newTexture) {
+void EditorScreen::changeCurrentTexture(Texture &newTexture) {
     this->currentTexture = newTexture;
 }
 
@@ -164,7 +165,7 @@ void EditorScreen::setButtonsState(bool state) {
     eraseButton->setEnabled(state);
 }
 
-void EditorScreen::setNewTilemapScene(size_t rows, size_t columns, std::string newMapFileName) {
+void EditorScreen::setNewTilemapScene(size_t rows, size_t columns, const std::string &newMapFileName) {
     delete this->tilemapScene;
     this->tilemapScene = new TilemapScene(this, rows, columns);
     QGraphicsView* tilemap = findChild<QGraphicsView*>("tilemap");
@@ -176,10 +177,9 @@ void EditorScreen::setNewTilemapScene(size_t rows, size_t columns, std::string n
 
 void EditorScreen::setStyle() {
     Style style;
-    int fontSize = 15;
-    style.setButtonStyle(this->ui->saveButton, fontSize);
-    style.setButtonStyle(this->ui->openButton, fontSize);
-    style.setButtonStyle(this->ui->newButton, fontSize);
-    style.setButtonStyle(this->ui->drawButton, fontSize);
-    style.setButtonStyle(this->ui->eraseButton, fontSize);
+    style.setButtonStyle(this->ui->saveButton, FONT_SIZE);
+    style.setButtonStyle(this->ui->openButton, FONT_SIZE);
+    style.setButtonStyle(this->ui->newButton, FONT_SIZE);
+    style.setButtonStyle(this->ui->drawButton, FONT_SIZE);
+    style.setButtonStyle(this->ui->eraseButton, FONT_SIZE);
 }

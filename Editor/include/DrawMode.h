@@ -7,7 +7,7 @@ class DrawMode : public Mode {
     public:
         DrawMode(TilemapScene *tilemapScene);
         ~DrawMode();
-        void executeClickResponse(Coordinate coordinate, QGraphicsItem *item) override;
+        void executeClickResponse(Coordinate &coordinate, QGraphicsItem *item) override;
 
 };
 

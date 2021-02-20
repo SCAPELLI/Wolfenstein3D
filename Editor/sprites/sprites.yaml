@@ -8,9 +8,6 @@ items:
     3:
         type: ammo
         value: 5
-    4:
-        type: machine gun
-        value: -1
     5:
         type: chest
         value: 100
@@ -20,15 +17,9 @@ items:
     8:
         type: food
         value: 10
-    9:
-        type: chain gun
-        value: -1
     10:
         type: crown
         value: 200
-    11:
-        type: rocket launcher
-        value: -1
     12:
         type: key
         value: 1
@@ -44,15 +35,25 @@ items:
     19:
         type: chalice
         value: 50
-    20:
-        type: pistol
-        value: -1
     21:
         type: blood
         value: 1
     22:
         type: cross
         value: 10
+weapons:
+    50:
+        type: machine gun
+        value: -1
+    51:
+        type: chain gun
+        value: -1
+    52:
+        type: rocket launcher
+        value: -1
+    53:
+        type: pistol
+        value: -1
 textures:
     100: wall
     101: wall
@@ -117,8 +118,6 @@ textures:
     161: door
     162: wall
 decorations:
-    200: object
-    201: object
     202: object
     203: object
     204: object
@@ -129,13 +128,16 @@ decorations:
     209: object
     210: object
     211: object
-    212: object
     213: object
     214: object
     215: object
-    216: object
     217: object
     218: object
     219: object
     220: object
     221: object
+walkable:
+    300: object
+    301: object
+    302: object
+    303: object

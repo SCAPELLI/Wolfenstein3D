@@ -13,7 +13,7 @@ class Mode {
     public:
         Mode(TilemapScene *tilemapScene);
         ~Mode();
-        virtual void executeClickResponse(Coordinate coordinate, QGraphicsItem *item);
+        virtual void executeClickResponse(Coordinate &coordinate, QGraphicsItem *item);
 
 };
 

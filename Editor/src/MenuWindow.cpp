@@ -9,6 +9,11 @@
 
 #define EDITOR_SCREEN 1
 
+#define TITLE_WIDTH 516
+#define TITLE_HEIGHT 120
+#define TITLE_FONT_SIZE 25
+#define BUTTON_FONT_SIZE 15
+
 MenuWindow::MenuWindow(QWidget *parent, ScreenManager *screenManager)
     : QMainWindow(parent), ui(new Ui::MenuWindow) {
     this->ui->setupUi(this);
@@ -34,10 +39,10 @@ void MenuWindow::nextScreen() {
 
 void MenuWindow::setStyle() {
     QPixmap title("../resources/title.png");
-    this->ui->titleLabel->setPixmap(title.scaled(516, 120, Qt::KeepAspectRatio));
+    this->ui->titleLabel->setPixmap(title.scaled(TITLE_WIDTH, TITLE_HEIGHT, Qt::KeepAspectRatio));
 
     Style style;
-    style.setRetroFont(static_cast<QWidget*>(this->ui->subtitleLabel), 25);
-    style.setButtonStyle(this->ui->createMapButton, 15);
+    style.setRetroFont(static_cast<QWidget*>(this->ui->subtitleLabel), TITLE_FONT_SIZE);
+    style.setButtonStyle(this->ui->createMapButton, BUTTON_FONT_SIZE);
     style.setBrickBackgroundToScreen(this);
 }
