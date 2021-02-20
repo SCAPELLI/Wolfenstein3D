@@ -2,7 +2,7 @@
 #define USERTHREAD_H
 
 #include <atomic>
-#include "../include/Thread.h"
+#include "../../common/include/Thread.h"
 
 class Socket;
 class ProtectedLobby;

@@ -6,13 +6,12 @@
 #include <vector>
 #include "../../communications/common/include/MatchInfo.h"
 #include "../../communications/common/include/Socket.h"
-#include "../../communications/common/include/ProtectedLobby.h"
-#include "../../communications/common/include/CommunicationChannel.h"
+
+class CommunicationChannelClient;
 
 class Client {
     Socket userSocket;
-    ProtectedLobby lobby;
-    CommunicationChannel* channel;
+    CommunicationChannelClient* channel;
     int userId;
     int matchId;
     int levelId;
