@@ -12,6 +12,8 @@
 #include "ui_EditorScreen.h"
 #include "../../common/Style.h"
 
+#define FONT_SIZE 15
+
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
     : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/sprite100.png", 100)) {
 
@@ -175,10 +177,9 @@ void EditorScreen::setNewTilemapScene(size_t rows, size_t columns, const std::st
 
 void EditorScreen::setStyle() {
     Style style;
-    int fontSize = 15;
-    style.setButtonStyle(this->ui->saveButton, fontSize);
-    style.setButtonStyle(this->ui->openButton, fontSize);
-    style.setButtonStyle(this->ui->newButton, fontSize);
-    style.setButtonStyle(this->ui->drawButton, fontSize);
-    style.setButtonStyle(this->ui->eraseButton, fontSize);
+    style.setButtonStyle(this->ui->saveButton, FONT_SIZE);
+    style.setButtonStyle(this->ui->openButton, FONT_SIZE);
+    style.setButtonStyle(this->ui->newButton, FONT_SIZE);
+    style.setButtonStyle(this->ui->drawButton, FONT_SIZE);
+    style.setButtonStyle(this->ui->eraseButton, FONT_SIZE);
 }
