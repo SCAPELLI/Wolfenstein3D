@@ -50,7 +50,10 @@ void CGame::processEvent(SpawnEvent& event) {
     }
     renderables.emplace(event.id, new Renderable(event.posX, event.posY,std::string("prueba1.bmp"), screen.getRenderer()));
 }
-void CGame::processEvent(HealthChangeEvent& event) {}
+void CGame::processEvent(HealthChangeEvent& event) {
+    activePlayer.decreaseLife(event.health);
+    //faltaria uno de increaseLife o como lo quieras implementar...
+}
 
 
 void CGame::processEvent(DespawnEvent &event) {
@@ -59,7 +62,6 @@ void CGame::processEvent(DespawnEvent &event) {
     soundQueue.push(PICKUP_SOUND, MIX_MAX_VOLUME);
 }
 
-//void CGame::processEvent(LifeDecrementEvent& event){}
 
 void CGame::processEvent(ShootingEvent& event){
     int playerID = event.idPlayer;
@@ -71,7 +73,8 @@ void CGame::processEvent(ShootingEvent& event){
 //    }
 }
 
-void CGame::processEvent(GameOverEvent& event){}
+void CGame::processEvent(GameOverEvent& event){
+}
 
 void CGame::processEvent(ChangeWeaponEvent& event){
     int weaponID = event.type;
@@ -89,6 +92,8 @@ void CGame::processEvent(ScoreChangeEvent& event){
 }
 
 void CGame::processEvent(KillEvent& event){}
+
+
 void CGame::processEvent(DoorOpenedEvent& event){
     map[event.y][event.x] = 0;
     soundQueue.push(PICKUP_SOUND, MIX_MAX_VOLUME);
