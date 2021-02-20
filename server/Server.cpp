@@ -12,11 +12,13 @@ Server::Server(ProtectedEventsQueue& userEvents, ProtectedEventsQueue& updateEve
         userEvents(userEvents), updateEvents(updateEvents), quit(quit) {}
 
 void Server::operator()() {
+    //std::vector<Event> updateEvents
     GameStage gameStage(updateEvents);
     while (!quit) {
         while (!userEvents.empty() && !quit) {
             Event event = std::move(userEvents.pop());
             event.runHandler(gameStage);
+            //bot.generateEvents(userEvents, "map.yaml" o firstEvent.route);
             if (event.thisIsTheQuitEvent()) quit = true;
         }
         gameStage.incrementCooldown();

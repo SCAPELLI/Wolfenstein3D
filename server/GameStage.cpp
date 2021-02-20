@@ -108,3 +108,15 @@ void GameStage::processEvent(int objId, int type, int posX, int posY) {
 void GameStage::incrementCooldown(){
     game.increaseCooldown();
 }
+
+std::vector<PlayerInfo> GameStage::getPlayersInfo(){
+    for (int i = 0; i < game.players.size(); i++){
+        PlayerInfo playerInfo;
+        playerInfo.idPlayer = game.players[i].getId();
+        playerInfo.angle =  game.players[i].getAngle();
+        playerInfo.x =  game.players[i].getPosition().x;
+        playerInfo.y =  game.players[i].getPosition().y;
+        playerInfo.life =  game.players[i].getLifes();
+
+    }
+}
