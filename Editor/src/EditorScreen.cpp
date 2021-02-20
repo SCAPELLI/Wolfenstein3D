@@ -81,7 +81,6 @@ void EditorScreen::saveMap() {
         std::string aux = filePath.toUtf8().toStdString();
         if (!aux.empty()) {
             this->fileName = aux + ".yaml";
-            std::cout << "Filename: " << this->fileName << "\n";
             this->createMapYalm();
         }
     }
@@ -118,7 +117,7 @@ void EditorScreen::openMap() {
     }
 }
 
-void EditorScreen::changeCurrentTexture(Texture newTexture) {
+void EditorScreen::changeCurrentTexture(Texture &newTexture) {
     this->currentTexture = newTexture;
 }
 
@@ -164,7 +163,7 @@ void EditorScreen::setButtonsState(bool state) {
     eraseButton->setEnabled(state);
 }
 
-void EditorScreen::setNewTilemapScene(size_t rows, size_t columns, std::string newMapFileName) {
+void EditorScreen::setNewTilemapScene(size_t rows, size_t columns, const std::string &newMapFileName) {
     delete this->tilemapScene;
     this->tilemapScene = new TilemapScene(this, rows, columns);
     QGraphicsView* tilemap = findChild<QGraphicsView*>("tilemap");

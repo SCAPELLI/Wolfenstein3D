@@ -16,8 +16,8 @@ class TextureList : public QListWidget {
     public:
         TextureList(QWidget *parent = 0, SpriteTabs *spriteTabs = NULL);
         ~TextureList();
-        void addTexture(std::string texturePath, std::string textureType, int id);
-        void setSpriteList(std::map<int, std::string> spriteMap);
+        void addTexture(const std::string &texturePath, const std::string &textureType, int id);
+        void setSpriteList(std::map<int, std::string> &spriteMap);
 
     private:
        void mousePressEvent(QMouseEvent *event) override;

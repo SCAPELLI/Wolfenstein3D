@@ -7,8 +7,8 @@ class SpriteFileManager {
     public:
         SpriteFileManager();
         ~SpriteFileManager();
-        std::map<int, std::string> createMapFromTextureFileWithoutValues(std::string key);
-        std::map<int, std::string> createMapFromTextureFileWithValues(std::string key);
+        std::map<int, std::string> createMapFromTextureFileWithoutValues(const std::string &key);
+        std::map<int, std::string> createMapFromTextureFileWithValues(const std::string &key);
 };
 
 #endif //EDITOR_SPRITEFILEMANAGER_H

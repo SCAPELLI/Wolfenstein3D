@@ -7,7 +7,7 @@ SpriteFileManager::SpriteFileManager() {}
 
 SpriteFileManager::~SpriteFileManager() {}
 
-std::map<int, std::string> SpriteFileManager::createMapFromTextureFileWithoutValues(std::string key) {
+std::map<int, std::string> SpriteFileManager::createMapFromTextureFileWithoutValues(const std::string &key) {
     YAML::Node node = YAML::LoadFile("../sprites/sprites.yaml");
     YAML::Node category = node[key];
 
@@ -20,7 +20,7 @@ std::map<int, std::string> SpriteFileManager::createMapFromTextureFileWithoutVal
     return map;
 }
 
-std::map<int, std::string> SpriteFileManager::createMapFromTextureFileWithValues(std::string key) {
+std::map<int, std::string> SpriteFileManager::createMapFromTextureFileWithValues(const std::string &key) {
     YAML::Node node = YAML::LoadFile("../sprites/sprites.yaml");
     YAML::Node category = node[key];
 

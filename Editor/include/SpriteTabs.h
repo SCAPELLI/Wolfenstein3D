@@ -18,7 +18,7 @@ class SpriteTabs: public QTabWidget {
     public:
         SpriteTabs(QWidget *parent = 0, EditorScreen *editorScreen = NULL);
         ~SpriteTabs();
-        void changeCurrentTexture(Texture texture);
+        void changeCurrentTexture(Texture &texture);
 };
 
 

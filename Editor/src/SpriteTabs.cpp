@@ -37,6 +37,6 @@ SpriteTabs::~SpriteTabs() {
     delete this->decorationsList;
 }
 
-void SpriteTabs::changeCurrentTexture(Texture texture) {
+void SpriteTabs::changeCurrentTexture(Texture &texture) {
     this->editorScreen->changeCurrentTexture(texture);
 }
