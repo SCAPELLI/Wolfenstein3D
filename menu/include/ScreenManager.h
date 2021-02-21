@@ -21,12 +21,14 @@ class ScreenManager: public QMainWindow {
         Client *client;
         WaitingRoomScreen *waitingRoomScreen;
 
+    private:
+        void paintEvent(QPaintEvent *event);
+
     public:
         ScreenManager(QWidget *parent = 0, Client *client = NULL);
         ~ScreenManager();
         void goNext();
         void goBack();
-
         bool tryToConnect(std::string port, std::string domain);
         bool tryToSubmitUsername(std::string nickname);
         bool tryToJoin(int matchId);

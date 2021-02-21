@@ -4,6 +4,7 @@
 #include <NewMatchScreen.h>
 #include <InfoScreen.h>
 #include <WaitingRoomScreen.h>
+#include <QtGui/QPainter>
 #include "ScreenManager.h"
 #include "ui_ScreenManager.h"
 
@@ -52,10 +53,12 @@ void ScreenManager::goNext() {
     if (this->screens->currentIndex() + 1 < this->screens->count()) {
         this->screens->setCurrentIndex(this->screens->currentIndex() + 1);
     }
+    this->update();
 }
 
 void ScreenManager::goBack() {
     this->screens->setCurrentIndex(this->screens->currentIndex() - 1);
+    this->update();
 }
 
 bool ScreenManager::tryToConnect(std::string port, std::string domain) {
@@ -96,4 +99,15 @@ bool ScreenManager::tryToCancelMatch() {
 }
 bool ScreenManager::tryToStartMatch() {
     return this->client->tryToStartMatch();
+}
+
+void ScreenManager::paintEvent(QPaintEvent *event) {
+    QPainter painter(this);
+    if (this->screens->currentIndex() == 0) {
+        painter.drawPixmap(0, 0, QPixmap("../sprites/menu.png").scaled(size()));
+    } else {
+        painter.drawPixmap(0, 0, QPixmap("../../resources/redBackground.png").scaled(size()));
+
+    }
+    QWidget::paintEvent(event);
 }

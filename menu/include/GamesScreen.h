@@ -20,13 +20,13 @@ class GamesScreen: public QWidget {
         std::vector<int> idMatches;
 
     private:
-        void setDataTable();
-        void setStyle();
         void onJoinButtonClick();
         void onRefreshButtonClick();
         void onCreateButtonClick();
         void clearTable();
         void refresh();
+        void setDataTable();
+        void setStyle();
 
     public:
         GamesScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);
