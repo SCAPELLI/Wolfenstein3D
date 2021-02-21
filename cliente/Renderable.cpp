@@ -27,6 +27,10 @@ void Renderable::drawFrom(Camera* origin,
     sprite->rayCast(renderer, transformX, transformY, wallDistances);
 }
 
+void Renderable::moveTo(Vector& newPos){
+    position = newPos;
+}
+
 Renderable::Renderable(Renderable&& other):
     position(std::move(other.position)), sprite(other.sprite){}
 

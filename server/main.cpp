@@ -34,7 +34,7 @@ int main() {
         CreateMapEvent* start = (CreateMapEvent*) event.event;
         Vector spawnPoint = start->startingLocations[0];
 
-        // Create map
+        // Create empty map
         std::vector<std::vector<int>> map;
         for (int i = 0; i <= start->width; i++){
             std::vector<int> row;
@@ -45,6 +45,7 @@ int main() {
         }
 
         CGame game(spawnPoint.x, spawnPoint.y, FOV, map);
+        game.spawnEnemy(1, Vector(35, 95));
         while (!quit) {
             userEvents.insertEvents(eventsCatcher);
 

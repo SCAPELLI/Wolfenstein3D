@@ -6,7 +6,7 @@
 class CWeapon {
     AnimatedSprite animatedSprite;
     public:
-        CWeapon(int weaponID, SDL_Renderer *renderer);
+        CWeapon(int weaponID, std::map<std::pair<int, int>, Sprite>& sprites);
         bool shoot();
         void draw(SDL_Renderer* renderer, int posX, int posY, int scale);
         ~CWeapon();

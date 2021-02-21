@@ -22,11 +22,11 @@ CGame::CGame(double x, double y, double fov, std::vector<std::vector<int>> map):
 	activePlayer(x, y, fov, 0),
 	screen(&activePlayer, 480, 640),
 	map(std::move(map)), renderables(), players(), soundQueue(), sprites(screen.getRenderer()){
-    activePlayer.loadWeapons(screen.getRenderer());
+        activePlayer.loadWeapons(screen.getRenderer(), sprites);
 }
 
 void CGame::draw(){
-	screen.draw(map, renderables, &players);
+	screen.draw(map, renderables, players);
 }
 
 void CGame::rotate(double degrees){
@@ -37,9 +37,13 @@ void CGame::processEvent(SpawnNotMovableEvent& event) {
     map[event.posX][event.posY] = event.type;
 }
 
+void CGame::spawnEnemy(int playerId, Vector spawnPoint){
+    players[playerId] = new EnemyPlayer(screen.getRenderer(), -1, spawnPoint, sprites);
+}
+
 void CGame::processEvent(SpawnEvent& event) {
     if (event.type == 1){
-        players[event.id] = new EnemyPlayer(screen.getRenderer(), event.id, Vector(event.posY, event.posX)); // crear player
+        players[event.id] = new EnemyPlayer(screen.getRenderer(), event.id, Vector(event.posY, event.posX), sprites); // crear player
     }
     if (event.type == 161) {
         map[event.posY][event.posX] = event.type;

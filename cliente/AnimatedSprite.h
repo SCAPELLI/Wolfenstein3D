@@ -3,18 +3,29 @@
 
 #include <string>
 #include <vector>
-#include "Sprite.h"
+#include <map>
+#include "Renderable.h"
 #include "SDL2/SDL.h"
 
 
 class AnimatedSprite {
     int animatedTime, currentTime;
-    std::vector<Sprite*> sprites;
+    std::vector<Renderable> sprites;
     public:
         bool isAnimating;
-        AnimatedSprite(const std::string& path, SDL_Renderer* renderer, int amountOfFrames, int animatedTime);
+        AnimatedSprite();
+        AnimatedSprite(const AnimatedSprite&) = delete;
+        AnimatedSprite& operator=(const AnimatedSprite&) = delete;
+        AnimatedSprite(AnimatedSprite&& other);
+        AnimatedSprite& operator=(AnimatedSprite&& other);
+        AnimatedSprite(std::map<std::pair<int, int>, Sprite>& sprites, Vector pos, int animationId,
+                       int amountOfFrames, int animatedTime);
         void draw(SDL_Renderer* renderer, int posX, int posY, int scale);
-        void rayCast(SDL_Renderer* renderer, double posX, double posY, std::vector<double> &wallDistances);
+        void moveTo(Vector& newPos);
+        void drawFrom(Camera* origin,
+                     std::vector<std::vector<int>>& map,
+                     SDL_Renderer* renderer,
+                     std::vector<double> &wallDistances);
         ~AnimatedSprite();
 };
 

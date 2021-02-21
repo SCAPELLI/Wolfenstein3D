@@ -22,7 +22,7 @@ class GameScreen{
 		SDL_Renderer* getRenderer();
 		void draw(std::vector<std::vector<int>>& map,
 			std::map<int, Renderable>& renderables,
-			std::map<int, EnemyPlayer*>* players);
+			std::map<int, EnemyPlayer*>& players);
 		~GameScreen();
 };
 

@@ -23,7 +23,7 @@ bool distanceSort(std::pair<int, double> a, std::pair<int, double> b){
 
 void GameScreen::draw(std::vector<std::vector<int>>& map,
             std::map<int, Renderable>& renderables,
-            std::map<int, EnemyPlayer*>* players){
+            std::map<int, EnemyPlayer*>& players){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
     std::vector<double> wallDistances;
@@ -39,7 +39,11 @@ void GameScreen::draw(std::vector<std::vector<int>>& map,
     }
     std::sort(toDraw.begin(), toDraw.end(), distanceSort);
     for (int i = 0; i < toDraw.size(); i++) {
-        renderables[toDraw[i].first].drawFrom(activePlayer->getCamera(), map, renderer, wallDistances);
+        if (players.find(toDraw[i].first) == players.end()) {
+            renderables[toDraw[i].first].drawFrom(activePlayer->getCamera(), map, renderer, wallDistances);
+        } else {
+            (*players[toDraw[i].first]).drawFrom(activePlayer->getCamera(), map, renderer, wallDistances);
+        }
     }
 
     this->ui->draw(renderer);

@@ -19,6 +19,7 @@ class Renderable{
         Renderable& operator=(Renderable&& other);
 		Renderable(double x, double y, Sprite* sprite);
 		void drawOnScreen(SDL_Renderer*, int posX, int posY, int scale);
+		void moveTo(Vector& newPos);
 		void drawFrom(Camera* origin,
                       std::vector<std::vector<int>>& map,
                       SDL_Renderer* renderer,

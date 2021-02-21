@@ -3,19 +3,26 @@
 
 #define FILE_EXTENTION ".bmp"
 
-AnimatedSprite::AnimatedSprite(const std::string &path, SDL_Renderer *renderer, int amountOfFrames, int animatedTime):
+AnimatedSprite::AnimatedSprite(std::map<std::pair<int, int>, Sprite>& sprites, Vector pos, int animationId,
+                               int amountOfFrames, int animatedTime):
     animatedTime(animatedTime),
     currentTime(0){
         for (int i = 0; i < amountOfFrames; i++) {
-            this->sprites.emplace_back(new Sprite(path + std::to_string(i) + FILE_EXTENTION, renderer)); // maybe leak, maybe use new, missing .png
+            this->sprites.push_back(std::move(Renderable(pos.x, pos.y, &sprites[std::make_pair(animationId, i)])));
         }
         this->isAnimating = false;
+}
+
+void AnimatedSprite::moveTo(Vector& newPos){
+    for (int i = 0; i < sprites.size(); i++){
+        sprites[i].moveTo(newPos);
+    }
 }
 
 void AnimatedSprite::draw(SDL_Renderer* renderer, int posX, int posY, int scale){
     int framesPerImage = int(animatedTime / sprites.size());
     int frameToDraw = int(currentTime / framesPerImage);
-    sprites[frameToDraw]->draw(renderer, posX, posY, scale);
+    sprites[frameToDraw].drawOnScreen(renderer, posX, posY, scale);
     currentTime += 1;
     currentTime %= animatedTime;
     if (isAnimating == false){
@@ -26,10 +33,13 @@ void AnimatedSprite::draw(SDL_Renderer* renderer, int posX, int posY, int scale)
     }
 }
 
-void AnimatedSprite::rayCast(SDL_Renderer* renderer, double posX, double posY, std::vector<double> &wallDistances){
+void AnimatedSprite::drawFrom(Camera* origin,
+                             std::vector<std::vector<int>>& map,
+                             SDL_Renderer* renderer,
+                             std::vector<double> &wallDistances){
     int framesPerImage = int(animatedTime / sprites.size());
     int frameToDraw = int(currentTime / framesPerImage);
-    sprites[frameToDraw]->rayCast(renderer, posX, posY, wallDistances);
+    sprites[frameToDraw].drawFrom(origin, map, renderer,wallDistances);
     currentTime += 1;
     currentTime %= animatedTime;
     if (isAnimating == false){
@@ -40,6 +50,18 @@ void AnimatedSprite::rayCast(SDL_Renderer* renderer, double posX, double posY, s
     }
 }
 
-AnimatedSprite::~AnimatedSprite() {
-    for (int i = 0; i < sprites.size(); i++) delete sprites[i];
+AnimatedSprite::~AnimatedSprite() {}
+
+AnimatedSprite::AnimatedSprite(AnimatedSprite &&other):
+    animatedTime(other.animatedTime), currentTime(other.currentTime),
+    sprites(std::move(other.sprites)), isAnimating(other.isAnimating){}
+
+AnimatedSprite &AnimatedSprite::operator=(AnimatedSprite &&other) {
+    animatedTime = std::move(other.animatedTime);
+    currentTime = std::move(other.currentTime);
+    sprites = std::move(other.sprites);
+    isAnimating = other.isAnimating;
+    return *this;
 }
+
+AnimatedSprite::AnimatedSprite() {}

@@ -8,10 +8,8 @@
 #define ROUTE "../cliente/sprites/weapons/"
 
 
-CWeapon::CWeapon(int weaponID, SDL_Renderer *renderer):
-    animatedSprite(ROUTE + std::to_string(weaponID) + "-", renderer, ANIMATED_FRAMES, ANIMATED_TIME){
-
-}
+CWeapon::CWeapon(int weaponID, std::map<std::pair<int, int>, Sprite>& sprites):
+    animatedSprite(sprites, Vector(0,0), weaponID, ANIMATED_FRAMES, ANIMATED_TIME){}
 
 bool CWeapon::shoot(){
     if (animatedSprite.isAnimating) return false;

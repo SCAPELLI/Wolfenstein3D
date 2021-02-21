@@ -55,6 +55,8 @@ class CGame{
         void processEvent(AmmoChangeEvent& event);
         void processEvent(ScoreChangeEvent& event);
         void processEvent(HealthChangeEvent& event);
+        void spawnEnemy(int playerId, Vector spawnPoint);
+
 		~CGame();
 };
 

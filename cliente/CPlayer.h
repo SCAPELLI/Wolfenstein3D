@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include "Renderable.h"
 #include "CWeapon.h"
+#include "BagOfSprites.h"
 
 class CPlayer{
 	Camera camera;
@@ -15,7 +16,7 @@ class CPlayer{
 	public:
         int id;
 		CPlayer(double x, double y, double fov, int id);
-		void loadWeapons(SDL_Renderer* renderer);
+		void loadWeapons(SDL_Renderer* renderer, BagOfSprites& sprites);
 		Camera* getCamera();
 		void moveTo(double x, double y);
 		void rotate(double degree);

@@ -7,23 +7,35 @@
 #define SHOOT_PATH "../cliente/sprites/enemy_sprites/shooting/1-"
 #define DYING_PATH "../cliente/sprites/enemy_sprites/dying/1-"
 #define TIME_PER_IMAGE 5
-#define ANIMATED_FRAMES_WALK 5
-#define ANIMATED_FRAMES_SHOOT 3
-#define ANIMATED_FRAMES_DEAD 4
+#define ANIMATED_FRAMES 5
+#define WALKING_TYPE 0
+#define SHOOTING_TYPE 1
+#define DYING_TYPE 2
+#define ENEMY_TYPES 5
 
-EnemyPlayer::EnemyPlayer(SDL_Renderer *renderer, int id, Vector spawnPoint):
-    renderer(renderer), activeWeapon(1), id(id), position(spawnPoint), spawnPoint(spawnPoint), // active animation
-    walkingAnimation(WALK_PATH, renderer, ANIMATED_FRAMES_WALK, ANIMATED_FRAMES_WALK * TIME_PER_IMAGE),
-    dyingAnimation(DYING_PATH, renderer, ANIMATED_FRAMES_SHOOT, ANIMATED_FRAMES_SHOOT * TIME_PER_IMAGE),
-    shootingAnimation(SHOOT_PATH, renderer, ANIMATED_FRAMES_DEAD, ANIMATED_FRAMES_DEAD * TIME_PER_IMAGE){}
+EnemyPlayer::EnemyPlayer(SDL_Renderer *renderer, int id, Vector spawnPoint, BagOfSprites& sprites):
+    renderer(renderer), activeWeapon(1), id(id), position(spawnPoint), spawnPoint(spawnPoint) // active animation
+    {
+        for (int i = 0; i < ENEMY_TYPES; i++){
+            walkingAnimation.push_back(std::move(
+                    AnimatedSprite(sprites.animationSprites[WALKING_TYPE], spawnPoint, i,
+                                   ANIMATED_FRAMES, ANIMATED_FRAMES * TIME_PER_IMAGE)));
+            shootingAnimation.push_back(std::move(
+                    AnimatedSprite(sprites.animationSprites[SHOOTING_TYPE], spawnPoint, i,
+                                   ANIMATED_FRAMES, ANIMATED_FRAMES * TIME_PER_IMAGE)));
+            dyingAnimation.push_back(std::move(
+                    AnimatedSprite(sprites.animationSprites[DYING_TYPE], spawnPoint, i,
+                                   ANIMATED_FRAMES, ANIMATED_FRAMES * TIME_PER_IMAGE)));
+        }
+    }
 
 void EnemyPlayer::walkTo(Vector newPosition) {
-    position = newPosition;
+    position = newPosition; // recorrer
 }
 
 void EnemyPlayer::shoot() {
-    if (shootingAnimation.isAnimating) return ;
-    shootingAnimation.isAnimating = true;
+    if (shootingAnimation[activeWeapon].isAnimating) return;
+    shootingAnimation[activeWeapon].isAnimating = true;
     // cambiar animacion activa
 }
 
@@ -33,12 +45,15 @@ void EnemyPlayer::changeWeapon(int idWeapon) {
 }
 
 void EnemyPlayer::die() {
-    if (dyingAnimation.isAnimating) return;
-    dyingAnimation.isAnimating = true;
+    if (dyingAnimation[activeWeapon].isAnimating) return;
+    dyingAnimation[activeWeapon].isAnimating = true;
 }
 
-void EnemyPlayer::draw(std::vector<double> &wallDistances) {
-    shootingAnimation.rayCast(renderer, position.y, position.x,wallDistances);
+void EnemyPlayer::drawFrom(Camera* origin,
+                           std::vector<std::vector<int>>& map,
+                           SDL_Renderer* renderer,
+                           std::vector<double> &wallDistances) {
+    shootingAnimation[activeWeapon].drawFrom(origin, map, renderer, wallDistances);
 }
 
 int EnemyPlayer::getId() {
