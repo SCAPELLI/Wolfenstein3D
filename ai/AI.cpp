@@ -98,7 +98,9 @@ int AI::getBotActionId(std::vector<PlayerInfo>& players) {
         lua_pushnumber(L, players[i].y);
         lua_setfield(L, -2, "y");
         lua_setfield(L, -2, "position");
-        lua_pushnumber(L, players[i].angle);
+        float angle = (float)players[i].angle - (3*PI/2);
+        if (angle<0) angle=angle+2*PI;
+        lua_pushnumber(L, angle);
         lua_setfield(L, -2, "angle");
         lua_setfield(L, -2, std::to_string(players[i].idPlayer).c_str());
     }
@@ -132,24 +134,15 @@ void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> pla
     switch (getBotActionId(players)) {
         case MOVE_FOWARD:
             addMovementEventToQueue(events);
-            //addTurnEventToQueue(events, 1);
-            //addShootingEventToQueue(events);
-
             break;
         case TURN_ANTICLOCKWISE:
-            //addMovementEventToQueue(events);
             addTurnEventToQueue(events, 1);
-            //addShootingEventToQueue(events);
             break;
         case TURN_CLOCKWISE:
-            //addMovementEventToQueue(events);
             addTurnEventToQueue(events, -1);
-            //addShootingEventToQueue(events);
             break;
         case ATTACK:
-            //addMovementEventToQueue(events);
-            //addTurnEventToQueue(events, 1);
-            //addShootingEventToQueue(events);
+            addShootingEventToQueue(events);
             break;
         case DO_NOTHING:
             std::cout<<"[c++] Do nothing"<<std::endl;
