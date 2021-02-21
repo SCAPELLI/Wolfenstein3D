@@ -36,6 +36,8 @@ void WaitingRoomScreen::connectEvents() {
 void WaitingRoomScreen::onStartButtonClick() {
     if (this->screenManager->tryToStartMatch()) {
         // que empiece el match
+        this->screenManager->goBack();
+        this->screenManager->goBack();
     } else {
         //mensaje de error
     }

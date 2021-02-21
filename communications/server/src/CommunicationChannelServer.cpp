@@ -95,9 +95,13 @@ void CommunicationChannelServer::sendResponseToRequestOfMatches() {
 
 void CommunicationChannelServer::sendResponseToRequestOfMatchCreation(str &messageReceived) {
     int levelId = std::stoi(messageReceived.substr(3, 3));
-    int maximumNumberOfPlayers = std::stoi(messageReceived.substr(6, 3));
-    int userId = std::stoi(messageReceived.substr(9,3));
+    int userId = std::stoi(messageReceived.substr(6,3));
+    int maximumNumberOfPlayers = std::stoi(messageReceived.substr(9));
 
+    if (maximumNumberOfPlayers > 999) {
+        socket.sendAll(MATCH_NOT_CREATED_STRING);
+        return;
+    }
     int matchId = lobby.createANewMatch(levelId, maximumNumberOfPlayers, userId, &socket);
     if (matchId == -1) {
         socket.sendAll(MATCH_NOT_CREATED_STRING);

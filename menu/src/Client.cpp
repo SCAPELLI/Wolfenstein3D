@@ -52,6 +52,7 @@ std::vector<MatchInfo> Client::requestMatches() {
 bool Client::tryToCreateAMatch(int level, int maxPlayer) {
     levelId = level;
     maximumNumberOfPlayers = maxPlayer;
+    if (maximumNumberOfPlayers>999) return false;
     channel->sendRequestOfMatchCreation(level, maxPlayer, userId);
     matchId = channel->receiveResponseToRequestOfMatchCreation();
     if (matchId == -1) return false;

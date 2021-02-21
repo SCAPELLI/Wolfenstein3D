@@ -8,6 +8,7 @@ int ProtectedLobby::addUser(str& userName) {
     std::unique_lock<std::mutex> lock(m);
 
     int userId = -1;
+    if (userName.empty()) return userId;
     if (users[userName] == 0) {
         userId = (int)users.size();
         users[userName] = userId;

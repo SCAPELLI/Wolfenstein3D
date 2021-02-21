@@ -66,13 +66,13 @@ void CommunicationChannelClient::sendRequestOfMatchCreation(int level, int maxim
     str levelString = std::to_string(level);
     addZerosToLeft(levelString, 3);
 
-    str maximumPlayersString = std::to_string(maximumNumberOfPlayers);
-    addZerosToLeft(maximumPlayersString, 3);
-
     str userIdString = std::to_string(userId);
     addZerosToLeft(userIdString, 3);
 
-    socket.sendAll(REQUEST_OF_MATCH_CREATION_STRING + levelString + maximumPlayersString + userIdString);
+    str maximumPlayersString = std::to_string(maximumNumberOfPlayers);
+    addZerosToLeft(maximumPlayersString, 3);
+
+    socket.sendAll(REQUEST_OF_MATCH_CREATION_STRING + levelString + userIdString + maximumPlayersString);
 }
 
 void CommunicationChannelClient::sendRequestOfMatchCancellation(int matchId) {
