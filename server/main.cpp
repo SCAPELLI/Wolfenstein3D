@@ -35,9 +35,9 @@ int main() {
 
         // Create empty map
         std::vector<std::vector<int>> map;
-        for (int i = 0; i <= start->width; i++){
+        for (int i = 0; i <= start->height; i++){
             std::vector<int> row;
-            for (int j = 0; j <= start->height; j++){
+            for (int j = 0; j <= start->width; j++){
                 row.push_back(0);
             }
             map.push_back(row);

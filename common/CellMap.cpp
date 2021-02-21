@@ -130,6 +130,7 @@ void CellMap::dropItemPlayer(Item* item){
 }
 void CellMap::getItemsTile(Player& player,
                             std::vector<AbstractEvent*>& newEvents) {
+    //ignorar en caso de ser bot
     auto it = items.begin();
     while (it != items.end()) {
         if ((*it)->isConsumed(player, newEvents)) {

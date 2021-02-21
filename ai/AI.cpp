@@ -129,8 +129,6 @@ void addShootingEventToQueue(ProtectedEventsQueue& events) {
 }
 
 void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players) {
-    std::cout<<"anguloDelBot:   "<<players.at(0).angle<<std::endl;
-    std::cout<<"posicionDelBot: "<<players.at(0).x<<","<<players.at(0).y<<std::endl;
     switch (getBotActionId(players)) {
         case MOVE_FOWARD:
             addMovementEventToQueue(events);
