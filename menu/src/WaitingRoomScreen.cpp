@@ -71,5 +71,8 @@ void WaitingRoomScreen::setStyle() {
     style.setRetroFont(this->ui->actualLabel, 30);
     style.setRetroFont(this->ui->slashLabel, 30);
     style.setRetroFont(this->ui->maxLabel, 30);
+    style.setButtonStyle(this->ui->startButton, 20, 50, 150);
+    style.setButtonStyle(this->ui->refreshButton, 20, 50, 150);
+    style.setButtonStyle(this->ui->cancelButton, 20, 50, 150);
 
 }

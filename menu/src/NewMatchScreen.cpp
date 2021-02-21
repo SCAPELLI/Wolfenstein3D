@@ -30,7 +30,7 @@ void NewMatchScreen::onAcceptButtonClick() {
 
     if (this->screenManager->tryToCreateAMatch(levelLineEdit->text().toInt(),
                                                maxPlayersLineEdit->text().toInt())) {
-        //this->screenManager->refreshWaitingRoom();
+        this->screenManager->refreshWaitingRoom();
         this->screenManager->goNext();
     } else {
         //sacar mensaje de error

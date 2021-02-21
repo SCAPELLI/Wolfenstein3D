@@ -15,6 +15,9 @@
 
 #define HEADER_FONT 15
 #define INFO_FONT 8
+#define BUTTON_FONT 15
+#define BUTTON_HEIGHT 30
+#define BUTTON_WIDTH 120
 
 
 GamesScreen::GamesScreen(QWidget *parent, ScreenManager *screenManager)
@@ -110,8 +113,10 @@ void GamesScreen::setDataTable() {
 
 void GamesScreen::setStyle() {
     QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
-    dataTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
-    dataTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    dataTable->horizontalHeader()->setSectionResizeMode(0,
+                                                        QHeaderView::Stretch);
+    dataTable->horizontalHeader()->setSectionResizeMode(1,
+                                                        QHeaderView::ResizeToContents);
 
     Style style;
     style.setRetroFont(dataTable, INFO_FONT);
@@ -119,16 +124,23 @@ void GamesScreen::setStyle() {
 
     QString stylesheet = "QTableWidget {"
                          "  background: rgb(80, 0, 0);"
-                         "  gridline-color: red"
+                         "  gridline-color: red;"
+                         "  color: red;"
                          "}"
                          "QHeaderView::section {"
-                         "  background: rgb(80, 0, 0);"
+                         "  color: rgb(80, 0, 0);"
                          "}";
 
     dataTable->setStyleSheet(stylesheet);
 
-    style.setButtonStyle(this->ui->joinButton, 15, 30, 120);
-    style.setButtonStyle(this->ui->refreshButton, 15, 30, 120);
-    style.setButtonStyle(this->ui->createButton, 15, 30, 120);
+    style.setButtonStyle(this->ui->joinButton,
+                         BUTTON_FONT, BUTTON_HEIGHT,
+                         BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->refreshButton,
+                         BUTTON_FONT, BUTTON_HEIGHT,
+                         BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->createButton,
+                         BUTTON_FONT, BUTTON_HEIGHT,
+                         BUTTON_WIDTH);
 }
 
