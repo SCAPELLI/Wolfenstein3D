@@ -18,9 +18,7 @@ Game::Game( std::vector<AbstractEvent*>& newEvents,
             std::map<int, std::string>& playersNames){
     GameLoader yaml;
     yaml.readData(speed);
-    int cont = 1;
-    players.push_back(Player(0 ,0, "bot", Vector(0,0)));
-    ids[0] = 0;
+    int cont = 0;
     for (auto it=playersNames.begin(); it!=playersNames.end(); ++it){
         ids[it->first] = cont;
         players.emplace_back(Player(it->first, cont, it->second, Vector(0, 0)));
