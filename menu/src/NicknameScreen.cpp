@@ -6,6 +6,11 @@
 #include <QPaintEvent>
 #include <QtWidgets/QMessageBox>
 
+#define BUTTON_FONT 20
+#define BUTTON_HEIGHT 50
+#define BUTTON_WIDTH 150
+#define FIELD_FONT 20
+#define LABEL_FONT 30
 
 NicknameScreen::NicknameScreen(QWidget *parent, ScreenManager *screenManager)
         : QWidget(parent), ui(new Ui::NicknameScreen) {
@@ -47,8 +52,10 @@ void NicknameScreen::onCancelButtonClick() {
 
 void NicknameScreen::setStyle() {
     Style style;
-    style.setButtonStyle(this->ui->acceptButton, 20, 50, 150);
-    style.setButtonStyle(this->ui->cancelButton, 20, 50, 150);
-    style.setRetroFont(this->ui->nicknameLabel, 30);
-    style.setRetroFont(this->ui->nicknameLineEdit, 20);
+    style.setButtonStyle(this->ui->acceptButton, BUTTON_FONT,
+                         BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->cancelButton, BUTTON_FONT,
+                         BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setRetroFont(this->ui->nicknameLabel, LABEL_FONT);
+    style.setRetroFont(this->ui->nicknameLineEdit, FIELD_FONT);
 }

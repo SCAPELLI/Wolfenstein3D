@@ -4,6 +4,11 @@
 #include "ui_WaitingRoomScreen.h"
 #include "../../common/Style.h"
 
+#define BUTTON_FONT 20
+#define BUTTON_HEIGHT 50
+#define BUTTON_WIDTH 150
+#define LABEL_FONT 30
+
 WaitingRoomScreen::WaitingRoomScreen(QWidget *parent, ScreenManager *screenManager)
         : QWidget(parent), ui(new Ui::WaitingRoomScreen) {
     this->ui->setupUi(this);
@@ -30,8 +35,7 @@ void WaitingRoomScreen::connectEvents() {
 
 void WaitingRoomScreen::onStartButtonClick() {
     if (this->screenManager->tryToStartMatch()) {
-        this->screenManager->goBack();
-        this->screenManager->goBack();
+        // que empiece el match
     } else {
         //mensaje de error
     }
@@ -61,18 +65,20 @@ void WaitingRoomScreen::refresh() {
 
     QLabel *maxLabel = findChild<QLabel*>("maxLabel");
     maxLabel->setText(QString::number(maxPlayers));
-
 }
 
 void WaitingRoomScreen::setStyle() {
     Style style;
-    style.setRetroFont(this->ui->levelLabel, 30);
-    style.setRetroFont(this->ui->levelInputLabel, 30);
-    style.setRetroFont(this->ui->actualLabel, 30);
-    style.setRetroFont(this->ui->slashLabel, 30);
-    style.setRetroFont(this->ui->maxLabel, 30);
-    style.setButtonStyle(this->ui->startButton, 20, 50, 150);
-    style.setButtonStyle(this->ui->refreshButton, 20, 50, 150);
-    style.setButtonStyle(this->ui->cancelButton, 20, 50, 150);
+    style.setRetroFont(this->ui->levelLabel, LABEL_FONT);
+    style.setRetroFont(this->ui->levelInputLabel, LABEL_FONT);
+    style.setRetroFont(this->ui->actualLabel, LABEL_FONT);
+    style.setRetroFont(this->ui->slashLabel, LABEL_FONT);
+    style.setRetroFont(this->ui->maxLabel, LABEL_FONT);
+    style.setButtonStyle(this->ui->startButton, BUTTON_FONT,
+                         BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->refreshButton, BUTTON_FONT,
+                         BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->cancelButton, BUTTON_FONT,
+                         BUTTON_HEIGHT, BUTTON_WIDTH);
 
 }

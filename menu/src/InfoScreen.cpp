@@ -6,6 +6,12 @@
 #include "ui_InfoScreen.h"
 #include "../../common/Style.h"
 
+#define BUTTON_FONT 20
+#define BUTTON_HEIGHT 50
+#define BUTTON_WIDTH 150
+#define FIELD_FONT 20
+#define LABEL_FONT 30
+
 InfoScreen::InfoScreen(QWidget *parent, ScreenManager *screenManager)
     : QWidget(parent), ui(new Ui::InfoScreen) {
     this->ui->setupUi(this);
@@ -45,10 +51,12 @@ void InfoScreen::onCancelButtonClick() {
 
 void InfoScreen::setStyle() {
     Style style;
-    style.setButtonStyle(this->ui->acceptButton, 20, 50, 150);
-    style.setButtonStyle(this->ui->cancelButton, 20, 50, 150);
-    style.setRetroFont(this->ui->portLabel, 30);
-    style.setRetroFont(this->ui->portLineEdit, 20);
-    style.setRetroFont(this->ui->serverLabel, 30);
-    style.setRetroFont(this->ui->serverLineEdit, 20);
+    style.setButtonStyle(this->ui->acceptButton, BUTTON_FONT,
+                         BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->cancelButton, BUTTON_FONT,
+                         BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setRetroFont(this->ui->portLabel, LABEL_FONT);
+    style.setRetroFont(this->ui->portLineEdit, FIELD_FONT);
+    style.setRetroFont(this->ui->serverLabel, LABEL_FONT);
+    style.setRetroFont(this->ui->serverLineEdit, FIELD_FONT);
 }

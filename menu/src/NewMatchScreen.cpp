@@ -63,8 +63,10 @@ void NewMatchScreen::setLevels() {
 
 void NewMatchScreen::setStyle() {
     Style style;
-    style.setButtonStyle(this->ui->acceptButton, BUTTON_FONT, BUTTON_HEIGHT, BUTTON_WIDTH);
-    style.setButtonStyle(this->ui->cancelButton, BUTTON_FONT, BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->acceptButton, BUTTON_FONT,
+                         BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->cancelButton, BUTTON_FONT,
+                         BUTTON_HEIGHT, BUTTON_WIDTH);
 
     style.setRetroFont(this->ui->mapLabel, LABEL_FONT);
     style.setRetroFont(this->ui->maxPlayersLabel, LABEL_FONT);
