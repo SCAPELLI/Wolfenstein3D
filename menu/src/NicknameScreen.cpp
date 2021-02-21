@@ -4,6 +4,7 @@
 #include "../../common/Style.h"
 #include "qpainter.h"
 #include <QPaintEvent>
+#include <QtWidgets/QMessageBox>
 
 
 NicknameScreen::NicknameScreen(QWidget *parent, ScreenManager *screenManager)
@@ -33,7 +34,9 @@ void NicknameScreen::onAcceptButtonClick() {
     if (this->screenManager->tryToSubmitUsername(nicknameLine->text().toStdString())) {
         this->screenManager->goNext();
     } else {
-        // TIRAR VENTANA "Usuario invalido"
+        QMessageBox badInputMessage;
+        badInputMessage.setText("Invalid username");
+        badInputMessage.exec();
         nicknameLine->clear();
     }
 }

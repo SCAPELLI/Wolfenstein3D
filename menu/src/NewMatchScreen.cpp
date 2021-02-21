@@ -1,3 +1,4 @@
+#include <QtWidgets/QMessageBox>
 #include "NewMatchScreen.h"
 #include "ui_NewMatchScreen.h"
 #include "../../common/Style.h"
@@ -33,7 +34,9 @@ void NewMatchScreen::onAcceptButtonClick() {
         this->screenManager->refreshWaitingRoom();
         this->screenManager->goNext();
     } else {
-        //sacar mensaje de error
+        QMessageBox badInputMessage;
+        badInputMessage.setText("Invalid fields");
+        badInputMessage.exec();
         levelLineEdit->clear();
         maxPlayersLineEdit->clear();
     }
