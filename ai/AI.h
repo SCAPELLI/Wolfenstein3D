@@ -1,7 +1,6 @@
 #ifndef AI_H
 #define AI_H
 
-#include <vector>
 
 const float PI = 3.14159265358979323846;
 const int MOVE_FOWARD = 1;
@@ -23,6 +22,8 @@ public:
     Player(float x, float y, float angle): x(x), y(y), angle(angle) {}
 };*/
 ////////////////////////////////////////////////////////////////////////
+
+#include <vector>
 
 class lua_State;
 class ProtectedEventsQueue;

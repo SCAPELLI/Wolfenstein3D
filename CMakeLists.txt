@@ -54,7 +54,8 @@ set(SERVER_SOURCE_FILES
         common/Items/AmmoItem.h cliente/CWeapon.cpp cliente/CWeapon.h
         common/WallRay.cpp common/WallRay.h
         common/EventSerializer.cpp common/EventSerializer.h common/ServerEvents/CreateMapEvent.cpp common/ServerEvents/CreateMapEvent.h common/ServerEvents/SpawnNotMovableEvent.cpp common/ServerEvents/SpawnNotMovableEvent.h cliente/SoundManager.cpp cliente/SoundManager.h  common/Items/Rocket.cpp common/Items/Rocket.h
-        ai/AI.cpp server/PlayerInfo.h)
+        ai/AI.cpp ai/AI.h
+        server/PlayerInfo.h)
         
         
 
@@ -88,3 +89,7 @@ target_link_libraries(Wolf yaml-cpp ${SDL2_LIBRARY}
         ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}
         ${SDL2_TTF_LIBRARIES} -lSDL2_ttf pthread)
 target_link_libraries(Wolf  ${YAML_CPP_LIBRARIES})
+
+
+target_link_libraries(Wolf lua)
+target_link_libraries(Wolf dl)

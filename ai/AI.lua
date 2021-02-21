@@ -1,5 +1,5 @@
-dofile("../IdealStepsCalculator.lua")
-dofile("../TurnOrMoveAnalysis.lua")
+dofile("../ai/IdealStepsCalculator.lua")
+dofile("../ai/TurnOrMoveAnalysis.lua")
 
 TILE = 32
 ATTACK_DISTANCE = 64
@@ -41,13 +41,14 @@ function detectPlayersInASightingDistance(players, markedPlayerId)
 			end
 		end
 	end
+	print (markedPlayerId)
+	io.read()
 	return markedPlayerId
 end
 
 function getBotActionId(players)
 
 	markedPlayerId = detectPlayersInASightingDistance(players, markedPlayerId)
-
 	if markedPlayerId ~= NONE_PLAYER then
 		if distace(players[markedPlayerId].position, players[botId].position) > ATTACK_DISTANCE then
 			

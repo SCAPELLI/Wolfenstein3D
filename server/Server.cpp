@@ -20,7 +20,7 @@ void Server::operator()() {
         while (!userEvents.empty() && !quit) {
             Event event = std::move(userEvents.pop());
             event.runHandler(gameStage);
-            ai.generateEvent(userEvents, gameStage.getPlayersInfo());
+            //ai.generateEvent(userEvents, gameStage.getPlayersInfo());
             if (event.thisIsTheQuitEvent()) quit = true;
         }
         gameStage.incrementCooldown();
