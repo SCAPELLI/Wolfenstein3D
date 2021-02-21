@@ -30,7 +30,12 @@ EnemyPlayer::EnemyPlayer(SDL_Renderer *renderer, int id, Vector spawnPoint, BagO
     }
 
 void EnemyPlayer::walkTo(Vector newPosition) {
-    position = newPosition; // recorrer
+    position = newPosition;
+    for (int i = 0; i < ENEMY_TYPES; i++){
+        walkingAnimation[i].moveTo(newPosition);
+        shootingAnimation[i].moveTo(newPosition);
+        dyingAnimation[i].moveTo(newPosition);
+    }
 }
 
 void EnemyPlayer::shoot() {

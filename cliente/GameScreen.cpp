@@ -41,9 +41,9 @@ void GameScreen::draw(std::vector<std::vector<int>>& map,
     std::map<int, EnemyPlayer*>::iterator itPlayers;
     for (itPlayers = players.begin(); itPlayers != players.end(); ++itPlayers){
         double distance = itPlayers->second->position.distance(activePlayer->getCamera()->getPosition());
-        if (distance < 150) {
+        //if (distance < 150) {
             toDraw.push_back(std::make_pair(itPlayers->first *-1, distance));
-        }
+        //}
     }
 
     std::sort(toDraw.begin(), toDraw.end(), distanceSort);

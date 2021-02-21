@@ -95,9 +95,9 @@ AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent, int playerId) {
         case SDLK_DOWN:
             return new MovementEvent(BACKWARD, playerId);
         case SDLK_LEFT:
-            return new TurnEvent(playerId, PI/180);
+            return new TurnEvent(playerId, PI/30);
         case SDLK_RIGHT:
-            return new TurnEvent(playerId, -PI/180);
+            return new TurnEvent(playerId, -PI/30);
         case SDLK_SPACE:
             return new ShootingEvent(playerId);
         case SDLK_1:

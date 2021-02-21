@@ -22,7 +22,7 @@ void Server::operator()() {
             event.runHandler(gameStage);
             if (event.thisIsTheQuitEvent()) quit = true;
         }
-        //ai.generateEvent(userEvents, gameStage.getPlayersInfo());
+        ai.generateEvent(userEvents, gameStage.getPlayersInfo());
         gameStage.incrementCooldown();
         usleep(20000);
     }

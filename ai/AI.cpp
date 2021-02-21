@@ -34,11 +34,11 @@ AI::AI(int levelId) {
     std::string levelPath = std::to_string(levelId) + ".yaml";
     YAML::Node file = YAML::LoadFile("../server/maps/" + levelPath);
     YAML::Node matrixConfig = file["map"];
-    for (std::size_t i = 0; i < matrixConfig.size(); i++) {
+    for (std::size_t i = 0; i < matrixConfig[0].size(); i++) {
         std::vector<int> fila;
         map.push_back(fila);
-        for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {
-            int elem = matrixConfig[i][j].as<int>();
+        for (std::size_t j = 0; j < matrixConfig.size(); j++) {
+            int elem = matrixConfig[j][i].as<int>();
             if (elem < 100 || elem > 300)
                 map.back().push_back(0);
             else
@@ -127,12 +127,14 @@ void addShootingEventToQueue(ProtectedEventsQueue& events) {
 }
 
 void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players) {
-    std::cout<<players.at(0).angle<<std::endl;
+    std::cout<<"anguloDelBot:   "<<players.at(0).angle<<std::endl;
+    std::cout<<"posicionDelBot: "<<players.at(0).x<<","<<players.at(0).y<<std::endl;
     switch (getBotActionId(players)) {
         case MOVE_FOWARD:
-            //addMovementEventToQueue(events);
+            addMovementEventToQueue(events);
             //addTurnEventToQueue(events, 1);
             //addShootingEventToQueue(events);
+
             break;
         case TURN_ANTICLOCKWISE:
             //addMovementEventToQueue(events);
@@ -141,8 +143,7 @@ void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> pla
             break;
         case TURN_CLOCKWISE:
             //addMovementEventToQueue(events);
-            //addTurnEventToQueue(events, 1);
-            //addTurnEventToQueue(events, -1);
+            addTurnEventToQueue(events, -1);
             //addShootingEventToQueue(events);
             break;
         case ATTACK:

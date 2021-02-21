@@ -116,8 +116,8 @@ std::vector<PlayerInfo> GameStage::getPlayersInfo(){
         PlayerInfo playerInfo;
         playerInfo.idPlayer = game.players[i].getId();
         playerInfo.angle =  game.players[i].getAngle();
-        playerInfo.x =  (float)game.players[i].getPosition().y;
-        playerInfo.y =  (float)game.players[i].getPosition().x;
+        playerInfo.x =  (float)game.players[i].getPosition().x;
+        playerInfo.y =  (float)game.players[i].getPosition().y;
         playerInfo.life =  game.players[i].getLifes();
         playersInfo.push_back(playerInfo);
     }
