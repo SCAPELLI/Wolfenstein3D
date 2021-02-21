@@ -20,6 +20,7 @@ class ShootingEvent;
 class OpenDoorEvent;
 class SpawnEvent;
 class ChangeWeaponEvent;
+#include "PlayerInfo.h"
 
 class GameStage {
     ProtectedEventsQueue& updateEvents;
@@ -39,6 +40,7 @@ public:
     void processEvent(SpawnEvent& event);
     void processEvent(int objId,int type, int posX, int posY);
     void pushNewEvents();
+    std::vector<PlayerInfo> getPlayersInfo();
     void incrementCooldown();
 
     };

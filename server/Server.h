@@ -6,6 +6,7 @@
 class ProtectedEventsQueue;
 
 class Server {
+   // std::vector<Event> updateEvents;
     ProtectedEventsQueue& userEvents;
     ProtectedEventsQueue& updateEvents;
     std::atomic<bool>& quit;

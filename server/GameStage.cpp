@@ -14,6 +14,7 @@
 #include "ServerEvents/HealthChangeEvent.h"
 #include "../common/OpenDoorEvent.h"
 #include "ServerEvents/SpawnEvent.h"
+#include "PlayerInfo.h"
 
 #define PI 3.141592
 #define MAX_PLAYERS 2
@@ -107,4 +108,18 @@ void GameStage::processEvent(int objId, int type, int posX, int posY) {
 
 void GameStage::incrementCooldown(){
     game.increaseCooldown();
+}
+
+std::vector<PlayerInfo> GameStage::getPlayersInfo(){
+    std::vector<PlayerInfo> playersInfo;
+    for (int i = 0; i < game.players.size(); i++){
+        PlayerInfo playerInfo;
+        playerInfo.idPlayer = game.players[i].getId();
+        playerInfo.angle =  game.players[i].getAngle();
+        playerInfo.x =  (float)game.players[i].getPosition().x;
+        playerInfo.y =  (float)game.players[i].getPosition().y;
+        playerInfo.life =  game.players[i].getLifes();
+        playersInfo.push_back(playerInfo);
+    }
+    return playersInfo;
 }

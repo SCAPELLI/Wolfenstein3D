@@ -6,4 +6,4 @@ Mode::Mode(TilemapScene *tilemapScene)
 
 Mode::~Mode() {}
 
-void Mode::executeClickResponse(Coordinate coordinate, QGraphicsItem *item) {}
+void Mode::executeClickResponse(Coordinate &coordinate, QGraphicsItem *item) {}

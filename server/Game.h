@@ -5,7 +5,6 @@
 #include "Map.h"
 #include "AbstractEvent.h"
 
-
 class Game {
     public:
     int speed;

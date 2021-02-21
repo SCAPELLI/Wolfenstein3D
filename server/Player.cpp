@@ -73,6 +73,8 @@ void Player::rotate(double newAngle){
     angle += newAngle;
     if (angle >= 2*PI)
         angle = angle - 2*PI;
+    if (angle < 0)
+        angle = angle + 2*PI;
 }
 
 double Player::getAngle() const {
@@ -300,4 +302,7 @@ void Player::updateKills(){
     playersKilled+=1;
 }
 
+int Player::getLifes() const {
+    return lifes;
+}
 Player::~Player() {}

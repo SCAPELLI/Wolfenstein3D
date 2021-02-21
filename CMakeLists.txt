@@ -53,7 +53,13 @@ set(SERVER_SOURCE_FILES
         cliente/UI.cpp cliente/UI.h cliente/AnimatedSprite.cpp cliente/AnimatedSprite.h
         common/Items/AmmoItem.h cliente/CWeapon.cpp cliente/CWeapon.h
         common/WallRay.cpp common/WallRay.h
+<<<<<<< HEAD
         common/EventSerializer.cpp common/EventSerializer.h common/ServerEvents/CreateMapEvent.cpp common/ServerEvents/CreateMapEvent.h common/ServerEvents/SpawnNotMovableEvent.cpp common/ServerEvents/SpawnNotMovableEvent.h cliente/SoundManager.cpp cliente/SoundManager.h  common/Items/Rocket.cpp common/Items/Rocket.h cliente/EnemyPlayer.cpp cliente/EnemyPlayer.h cliente/BagOfSprites.cpp cliente/BagOfSprites.h)
+=======
+        common/EventSerializer.cpp common/EventSerializer.h common/ServerEvents/CreateMapEvent.cpp common/ServerEvents/CreateMapEvent.h common/ServerEvents/SpawnNotMovableEvent.cpp common/ServerEvents/SpawnNotMovableEvent.h cliente/SoundManager.cpp cliente/SoundManager.h  common/Items/Rocket.cpp common/Items/Rocket.h
+        ai/AI.cpp ai/AI.h
+        server/PlayerInfo.h)
+>>>>>>> 3a6a71b535037ab36609876e42c43bc399f0d724
         
         
 
@@ -87,3 +93,7 @@ target_link_libraries(Wolf yaml-cpp ${SDL2_LIBRARY}
         ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}
         ${SDL2_TTF_LIBRARIES} -lSDL2_ttf pthread)
 target_link_libraries(Wolf  ${YAML_CPP_LIBRARIES})
+
+
+target_link_libraries(Wolf lua)
+target_link_libraries(Wolf dl)

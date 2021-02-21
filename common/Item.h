@@ -16,8 +16,8 @@ class Item {
 public:
     Item() : id(-1), name(""), effect(0), uniqueId(0) {};
     Item(int id, std::string name, int effect, int uniqueId);
-    int getEffect();
-    void changeValue(int toChange);
+    virtual int getEffect();
+    virtual void changeValue(int toChange);
     std::string getItemName();
     int getId();
     virtual bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents);

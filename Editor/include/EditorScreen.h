@@ -34,13 +34,13 @@ class EditorScreen : public QMainWindow {
         void newMap();
         void saveMap();
         void openMap();
-        void changeCurrentTexture(Texture newTexture);
+        void changeCurrentTexture(Texture &newTexture);
         Texture getCurrentTexture();
         void changeToDrawMode();
         void changeToEraseMode();
         void createMapYalm();
         void setButtonsState(bool state);
-        void setNewTilemapScene(size_t rows, size_t columns, std::string newMapFileName);
+        void setNewTilemapScene(size_t rows, size_t columns, const std::string &newMapFileName);
         void setStyle();
 
 };

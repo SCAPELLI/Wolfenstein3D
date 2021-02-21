@@ -109,7 +109,7 @@ std::vector<std::vector<int>> TilemapScene::getMapMatrix() {
     return this->vector;
 }
 
-void TilemapScene::setMapMatrix(std::vector<std::vector<int>> matrix) {
+void TilemapScene::setMapMatrix(std::vector<std::vector<int>> &matrix) {
     this->vector = matrix;
     int row, column;
     for (int row = 0; row != this->vector.size(); row++){

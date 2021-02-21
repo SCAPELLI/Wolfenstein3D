@@ -19,9 +19,9 @@
 #include "ServerEvents/AmmoChangeEvent.h"
 #include "common/OpenDoorEvent.h"
 #include "ServerEvents/CreateMapEvent.h"
+#define PI 3.141592
 /*----------*/
 
-#define PI 3.141592
 
 Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
     switch (eventType) {
@@ -66,6 +66,9 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
             break;
         case CreateMapType:
             event = new CreateMapEvent(*(CreateMapEvent*)updateEvent);
+            break;
+        case MovementEventType:
+            event = new MovementEvent(*(MovementEvent*)updateEvent);
             break;
         default:
             this->event = nullptr;
