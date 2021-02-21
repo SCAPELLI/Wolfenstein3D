@@ -19,6 +19,7 @@ class WaitingRoomScreen: public QWidget {
         void onStartButtonClick();
         void onRefreshButtonClick();
         void onCancelButtonClick();
+        void setStyle();
 
     public:
         WaitingRoomScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);

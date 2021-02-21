@@ -14,9 +14,11 @@ class NewMatchScreen: public QWidget {
         ScreenManager *screenManager;
 
     private:
+        void setLevels();
         void connectEvents();
         void onAcceptButtonClick();
         void onCancelButtonClick();
+        void setStyle();
 
     public:
         NewMatchScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);

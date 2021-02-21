@@ -17,7 +17,6 @@ class StartScreen: public QWidget {
 
     private:
         void connectEvents();
-        void paintEvent(QPaintEvent *e);
         void setStyle();
         void clickJoinButton();
 
