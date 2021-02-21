@@ -5,22 +5,28 @@
 #include <QtWidgets/QPushButton>
 #include <QtCore/QEventLoop>
 #include <QtCore/QCoreApplication>
+#include <QtGui/QPainter>
 #include "GamesScreen.h"
 #include "ui_GamesScreen.h"
+#include "../../common/Style.h"
 
 #define MAPA 0
 #define CANTIDAD_JUGADORES 1
+
+#define HEADER_FONT 15
+#define INFO_FONT 8
+#define BUTTON_FONT 15
+#define BUTTON_HEIGHT 30
+#define BUTTON_WIDTH 120
 
 
 GamesScreen::GamesScreen(QWidget *parent, ScreenManager *screenManager)
         : QWidget(parent), ui(new Ui::GamesScreen) {
     this->ui->setupUi(this);
     this->screenManager = screenManager;
+
     this->setDataTable();
     this->setStyle();
-
-    QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
-
     this->connectEvents();
 }
 
@@ -51,6 +57,8 @@ void GamesScreen::onJoinButtonClick() {
         }
         refresh();
     }
+
+     //this->screenManager->close();
 }
 
 void GamesScreen::onRefreshButtonClick() {
@@ -101,12 +109,38 @@ void GamesScreen::setDataTable() {
 
     QStringList labels = {"Mapa", "Cantidad de jugadores"};
     dataTable->setHorizontalHeaderLabels(labels);
-
-    //this->refresh();   se esta pidiendo informacion del server antes de que se logre conectar a un port/domain
 }
 
 void GamesScreen::setStyle() {
     QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
-    dataTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
-    dataTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    dataTable->horizontalHeader()->setSectionResizeMode(0,
+                                                        QHeaderView::Stretch);
+    dataTable->horizontalHeader()->setSectionResizeMode(1,
+                                                        QHeaderView::ResizeToContents);
+
+    Style style;
+    style.setRetroFont(dataTable, INFO_FONT);
+    style.setRetroFont(dataTable->horizontalHeader(), HEADER_FONT);
+
+    QString stylesheet = "QTableWidget {"
+                         "  background: rgb(80, 0, 0);"
+                         "  gridline-color: red;"
+                         "  color: red;"
+                         "}"
+                         "QHeaderView::section {"
+                         "  color: rgb(80, 0, 0);"
+                         "}";
+
+    dataTable->setStyleSheet(stylesheet);
+
+    style.setButtonStyle(this->ui->joinButton,
+                         BUTTON_FONT, BUTTON_HEIGHT,
+                         BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->refreshButton,
+                         BUTTON_FONT, BUTTON_HEIGHT,
+                         BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->createButton,
+                         BUTTON_FONT, BUTTON_HEIGHT,
+                         BUTTON_WIDTH);
 }
+

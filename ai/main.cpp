@@ -9,8 +9,8 @@ int main() {
 
     std::vector<int> row1;
     row1.push_back(1);
-    row1.push_back(1);
-    row1.push_back(0);
+    row1.push_back(1);                      111
+    row1.push_back(0);                      000
     map.push_back(row1);
 
     std::vector<int> row2;

@@ -20,8 +20,9 @@ class InfoScreen: public QWidget {
         void connectEvents();
         void onAcceptButtonClick();
         void onCancelButtonClick();
+        void setStyle();
 
-    public:
+public:
         InfoScreen(QWidget *parent = 0, ScreenManager *screenManager = NULL);
         ~InfoScreen();
 };

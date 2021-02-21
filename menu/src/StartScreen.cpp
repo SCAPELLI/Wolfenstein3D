@@ -26,18 +26,6 @@ void StartScreen::clickJoinButton() {
     this->screenManager->goNext();
 }
 
-void StartScreen::paintEvent(QPaintEvent *e) {
-    /**
-    QStyleOption opt;
-    opt.init(this);
-    QPainter p(this);
-    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-     **/
-    QPainter painter(this);
-    painter.drawPixmap(0, 0, QPixmap("../sprites/menu.png").scaled(size()));
-    QWidget::paintEvent(e);
-}
-
 void StartScreen::setStyle() {
     QString sheetStyle =
             "QPushButton {"
@@ -58,13 +46,4 @@ void StartScreen::setStyle() {
     Style style;
     this->ui->startButton->setStyleSheet(sheetStyle);
     style.setRetroFont(this->ui->startButton, 25);
-    //this->setStyleSheet("StartScreen {border-image: url(../sprites/menu.png); background-repeat: no-repeat}");
-
-    /**
-    QPixmap background("../sprites/menu.png");
-    background = background.scaled(size(), Qt::IgnoreAspectRatio);
-    QPalette palette;
-    palette.setBrush(QPalette::Background, background);
-    this->setPalette(palette);
-     **/
 }
