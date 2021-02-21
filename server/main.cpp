@@ -16,8 +16,7 @@
 
 int main() {
     try {
-        EventsCatcher eventsCatcher;
-
+        EventsCatcher eventsCatcher(1); // esta en client
         //-----------------
         ProtectedEventsQueue userEvents;
         ProtectedEventsQueue updateEvents;
@@ -32,7 +31,7 @@ int main() {
         }
         Event event = std::move(updateEvents.pop());
         CreateMapEvent* start = (CreateMapEvent*) event.event;
-        Vector spawnPoint = start->startingLocations[0];
+        Vector spawnPoint = start->startingLocations[1];
 
         // Create empty map
         std::vector<std::vector<int>> map;
@@ -44,8 +43,8 @@ int main() {
             map.push_back(row);
         }
 
-        CGame game(spawnPoint.x, spawnPoint.y, FOV, map);
-        game.spawnEnemy(1, Vector(35, 95));
+        CGame game(spawnPoint.x, spawnPoint.y, FOV, map, 1);
+        game.spawnEnemy(0, start->startingLocations[0]);
         while (!quit) {
             userEvents.insertEvents(eventsCatcher);
 

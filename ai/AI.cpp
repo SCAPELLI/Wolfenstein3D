@@ -12,9 +12,9 @@
 #include "../common/ShootingEvent.h"
 
 extern "C" {
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
+#include <lua.h>
+#include <lualib.h>
+#include <lauxlib.h>
 }
 
 /*AI::AI(std::vector<std::vector<int>>& map, std::vector<Player>& players, int botId, bool& quit):

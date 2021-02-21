@@ -18,8 +18,8 @@
 #define PICKUP_SOUND 7
 
 
-CGame::CGame(double x, double y, double fov, std::vector<std::vector<int>> map):
-	activePlayer(x, y, fov, 0),
+CGame::CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId):
+	activePlayer(x, y, fov, playerId),
 	screen(&activePlayer, 480, 640),
 	map(std::move(map)), renderables(), players(), soundQueue(), sprites(screen.getRenderer()){
         activePlayer.loadWeapons(screen.getRenderer(), sprites);
@@ -38,13 +38,10 @@ void CGame::processEvent(SpawnNotMovableEvent& event) {
 }
 
 void CGame::spawnEnemy(int playerId, Vector spawnPoint){
-    players[playerId] = new EnemyPlayer(screen.getRenderer(), -1, spawnPoint, sprites);
+    players[playerId] = new EnemyPlayer(screen.getRenderer(), playerId, spawnPoint, sprites);
 }
 
 void CGame::processEvent(SpawnEvent& event) {
-    if (event.type == 1){
-        players[event.id] = new EnemyPlayer(screen.getRenderer(), event.id, Vector(event.posY, event.posX), sprites); // crear player
-    }
     if (event.type == 161) {
         map[event.posY][event.posX] = event.type;
     }
@@ -122,8 +119,12 @@ void CGame::processEvent(TurnEvent& event) {
     this->activePlayer.rotate(event.getDegrees());
 }
 void CGame::processEvent(PositionEvent& event){
-    //if (event.idPlayer != activePlayer.id) return; // players[event.idPlayer].moveTo(event.x, event.y)
-    this->activePlayer.moveTo(event.x, event.y);
+
+    if (event.playerId != activePlayer.id) {
+        players[event.playerId]->walkTo(Vector(event.x, event.y));
+    } else {
+        this->activePlayer.moveTo(event.x, event.y);
+    }
 }
 
 CGame::~CGame(){

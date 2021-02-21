@@ -97,7 +97,7 @@ bool Game::changeWeapon(int idPlayer, int idWeapon) {
 
 void Game::changePosition(Vector changeTo, int idPlayer,
                                    std::vector<AbstractEvent*>& newEvents){
-    idPlayer = 0;
+    //idPlayer = 0;
     Vector futurePos = (players[idPlayer].getPosition() + changeTo).scale();
     if (map.isOkToMove(futurePos)){
         map.changePosition(futurePos, players[idPlayer], newEvents);

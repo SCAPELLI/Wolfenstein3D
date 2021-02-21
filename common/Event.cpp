@@ -75,43 +75,43 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
     }
 }
 
-Event::Event(SDL_Event& sdlEvent) {
+Event::Event(SDL_Event& sdlEvent, int playerId) {
     switch (sdlEvent.type) {
         case SDL_QUIT:
             event = new QuitEvent;
             break;
         case SDL_KEYDOWN:
-            event = keyCodeLookUp(sdlEvent);
+            event = keyCodeLookUp(sdlEvent, playerId);
             break;
         default:
             event = nullptr;
     }
 }
 
-AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent) {
+AbstractEvent* Event::keyCodeLookUp(SDL_Event& sdlEvent, int playerId) {
     switch (sdlEvent.key.keysym.sym) {
         case SDLK_UP:
-            return new MovementEvent(FORWARD, 0);
+            return new MovementEvent(FORWARD, playerId);
         case SDLK_DOWN:
-            return new MovementEvent(BACKWARD, 0);
+            return new MovementEvent(BACKWARD, playerId);
         case SDLK_LEFT:
-            return new TurnEvent(0, PI/180);
+            return new TurnEvent(playerId, PI/180);
         case SDLK_RIGHT:
-            return new TurnEvent(0, -PI/180);
+            return new TurnEvent(playerId, -PI/180);
         case SDLK_SPACE:
-            return new ShootingEvent(0);
+            return new ShootingEvent(playerId);
         case SDLK_1:
-            return new ChangeWeaponEvent(0, 0);
+            return new ChangeWeaponEvent(playerId, 0);
         case SDLK_2:
-            return new ChangeWeaponEvent(0, 1);
+            return new ChangeWeaponEvent(playerId, 1);
         case SDLK_3:
-            return new ChangeWeaponEvent(0, 2);
+            return new ChangeWeaponEvent(playerId, 2);
         case SDLK_4:
-            return new ChangeWeaponEvent(0, 3);
+            return new ChangeWeaponEvent(playerId, 3);
         case SDLK_5:
-            return new ChangeWeaponEvent(0, 4);
+            return new ChangeWeaponEvent(playerId, 4);
         case SDLK_e:
-            return new OpenDoorEvent(0,0);
+            return new OpenDoorEvent(playerId,0);
         default:
             return nullptr;
     }

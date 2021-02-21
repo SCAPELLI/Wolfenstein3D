@@ -5,7 +5,7 @@ void PositionEvent::runHandler(CGame& game) {
     game.processEvent (*this);
 };
 PositionEvent::PositionEvent (updateEventType eventType, int idPlayer, double x, double y):
-        x(x), y(y), eventType(eventType){}
+        playerId(idPlayer), x(x), y(y), eventType(eventType){}
 
 
 updateEventType PositionEvent::getEventType() {

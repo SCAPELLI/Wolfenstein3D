@@ -9,11 +9,12 @@ class EnemyPlayer {
 
     SDL_Renderer* renderer;
     int activeWeapon, id;
-    Vector position, spawnPoint;
     std::vector<AnimatedSprite> walkingAnimation, dyingAnimation, shootingAnimation;
 
     public:
-        EnemyPlayer(SDL_Renderer* renderer, int id, Vector spawnPoint, BagOfSprites& sprites);
+
+    Vector position, spawnPoint;
+    EnemyPlayer(SDL_Renderer* renderer, int id, Vector spawnPoint, BagOfSprites& sprites);
         void walkTo(Vector newPosition);
         void shoot();
         void changeWeapon(int idWeapon);

@@ -10,7 +10,6 @@ include_directories(${PROJECT_SOURCE_DIR}/server)
 include_directories(${PROJECT_SOURCE_DIR}/common)
 include_directories(${PROJECT_SOURCE_DIR})
 
-
 set(SERVER_SOURCE_FILES
         server/GameStage.cpp
 
@@ -62,7 +61,8 @@ set(SERVER_SOURCE_FILES
 
 add_executable(Wolf server/main.cpp ${SERVER_SOURCE_FILES})
 
-
+find_package(Lua REQUIRED)
+include_directories(${LUA_INCLUDE_DIR})
 find_package(yaml-cpp)
 INCLUDE(FindPkgConfig)
 

@@ -11,12 +11,12 @@ class Event {
 public:
     AbstractEvent* event;
     Event(AbstractEvent* updateEvent, updateEventType eventType);
-    explicit Event(SDL_Event& sdlEvent);
+    Event(SDL_Event& sdlEvent, int playerId);
     Event(Event&& originalEvent) noexcept;
     Event();
     Event& operator= (Event&& anotherEvent) noexcept;
 
-    AbstractEvent* keyCodeLookUp(SDL_Event& sdlEvent);
+    AbstractEvent* keyCodeLookUp(SDL_Event& sdlEvent, int playerId);
 
     Event(const Event& anotherEvent) = delete;
     Event& operator = (const Event& anotherEvent) = delete;

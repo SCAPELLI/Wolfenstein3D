@@ -5,8 +5,11 @@
 #include "Event.h"
 
 class EventsCatcher {
+    int playerId;
 public:
+    EventsCatcher(int playerId);
     std::queue<Event> getEvents();
+    ~EventsCatcher() = default;
 };
 
 #endif
