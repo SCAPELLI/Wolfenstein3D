@@ -132,7 +132,7 @@ void Map::addPlayer(Player& player){
 }
 bool Map::isOkToMove(Vector& futurePos){
     return !matrix[futurePos.y][futurePos.x].isSolid() &&
-            futurePos.y < width && futurePos.x < height &&
+            futurePos.x < width && futurePos.y < height &&
             futurePos.y > 0 && futurePos.x > 0 &&
             matrix[futurePos.y][futurePos.x].isOpen();
 }

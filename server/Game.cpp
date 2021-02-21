@@ -15,16 +15,21 @@
 
 
 Game::Game( std::vector<AbstractEvent*>& newEvents,
-            std::vector<std::string>& playersNames){
+            std::map<int, std::string>& playersNames){
     GameLoader yaml;
     yaml.readData(speed);
-    for (int i = 0; i < playersNames.size(); i++){
-        players.emplace_back(Player(i, playersNames[i], Vector(0, 0)));
+    int cont = 1;
+    players.push_back(Player(0 ,0, "bot", Vector(0,0)));
+    ids[0] = 0;
+    for (auto it=playersNames.begin(); it!=playersNames.end(); ++it){
+        ids[it->first] = cont;
+        players.emplace_back(Player(it->first, cont, it->second, Vector(0, 0)));
+        cont++;
     }
     map = Map(players, newEvents);
     auto startEvent = new CreateMapEvent(CreateMapType, map.getWidth(), map.getHeight());
-    for (int i = 0; i < playersNames.size(); i++){
-        startEvent->addPlayer(players[i].getPosition());
+    for (int i = 0; i < players.size(); i++){
+        startEvent->addPlayer(players[i].getId(), players[i].getPosition());
     }
     newEvents.insert(newEvents.begin(), startEvent);
 }
@@ -33,28 +38,28 @@ Game::Game() {}
 
 
 Vector Game::calculateDirection(int idPlayer){
-    return Vector(-sin(players[idPlayer].getAngle()),
-                  cos(players[idPlayer].getAngle())) * speed;
+    return Vector(-sin(players[ids[idPlayer]].getAngle()),
+                  cos(players[ids[idPlayer]].getAngle())) * speed;
 }
 
 void Game::moveAngle(double angle, int idPlayer){
-    players[idPlayer].rotate(angle);
+    players[ids[idPlayer]].rotate(angle);
 }
 int Game::getDamage(int idPlayer){
-    return players[idPlayer].damageCurrentWeapon();
+    return players[ids[idPlayer]].damageCurrentWeapon();
 }
 
 int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
-    if (!players[idPlayer].canShoot()){
+    if (!players[ids[idPlayer]].canShoot()){
         return -2;
     }
-    if (!players[idPlayer].shoot()) {
+    if (!players[ids[idPlayer]].shoot()) {
         return -3;
     }
-    WallRay ray = WallRay(players[idPlayer].getPosition(), players[idPlayer].getAngle());
+    WallRay ray = WallRay(players[ids[idPlayer]].getPosition(), players[ids[idPlayer]].getAngle());
     int distanceToWall = ray.distanceToWall(map);
-    if (players[idPlayer].hasRocketLauncher()){
-        Rocket* rocket = players[idPlayer].setRocket();
+    if (players[ids[idPlayer]].hasRocketLauncher()){
+        Rocket* rocket = players[ids[idPlayer]].setRocket();
         Vector shotDirection = calculateDirection(idPlayer) / speed;
         map.launchRocket(rocket, shotDirection, newEvents);
         return -1;
@@ -62,20 +67,20 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     for (int i = 0; i < players.size(); i++){
         if ( i == idPlayer)
             continue;
-        int distancePlayer = players[idPlayer].distanceWith(players[i]);
+        int distancePlayer = players[ids[idPlayer]].distanceWith(players[i]);
         if (distancePlayer < distanceToWall) {
             if (!canShoot(idPlayer, i))
                 continue;
-            int damage = players[idPlayer].hits(players[i]);
+            int damage = players[ids[idPlayer]].hits(players[i]);
             players[i].getDamage(damage);
             if (players[i].isGameOver()) {
-                players[idPlayer].updateKills();
+                players[ids[idPlayer]].updateKills();
                 map.dropAllItems(players[i], newEvents);
                 AbstractEvent *event = new GameOverEvent(GameOverEventType, i);
                 newEvents.push_back(event);
             }
             else if (players[i].isDead()){
-                players[idPlayer].updateKills();
+                players[ids[idPlayer]].updateKills();
                 AbstractEvent* event = new KillEvent(KillEventType, i);
                 newEvents.push_back(event);
                 map.dropAllItems(players[i], newEvents);
@@ -92,25 +97,25 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
 }
 
 bool Game::changeWeapon(int idPlayer, int idWeapon) {
-    return players[idPlayer].changeWeaponTo(idWeapon);
+    return players[ids[idPlayer]].changeWeaponTo(idWeapon);
 }
 
 void Game::changePosition(Vector changeTo, int idPlayer,
                                    std::vector<AbstractEvent*>& newEvents){
     //idPlayer = 0;
-    Vector futurePos = (players[idPlayer].getPosition() + changeTo).scale();
+    Vector futurePos = (players[ids[idPlayer]].getPosition() + changeTo).scale();
     if (map.isOkToMove(futurePos)){
-        map.changePosition(futurePos, players[idPlayer], newEvents);
-        players[idPlayer].move(changeTo);
+        map.changePosition(futurePos, players[ids[idPlayer]], newEvents);
+        players[ids[idPlayer]].move(changeTo);
         newEvents.push_back(new PositionEvent(PositionEventType,
-                                              idPlayer, players[idPlayer].getPosition().x,
-                                              players[idPlayer].getPosition().y));
+                                              idPlayer, players[ids[idPlayer]].getPosition().x,
+                                              players[ids[idPlayer]].getPosition().y));
     }
 }
 
 
 bool Game::openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents){
-    return map.isADoor(players[idPlayer], newEvents);
+    return map.isADoor(players[ids[idPlayer]], newEvents);
 }
 
 void Game::increaseCooldown() {
@@ -121,10 +126,10 @@ void Game::increaseCooldown() {
 }
 
 bool Game::canShoot(int idPlayer, int otherPlayerId){
-    return players[idPlayer].doesHit(players[otherPlayerId]);
+    return players[ids[idPlayer]].doesHit(players[otherPlayerId]);
 }
 
 void Game::respawnPlayer(int idPlayer){
-    players[idPlayer].respawn();
+    players[ids[idPlayer]].respawn();
 }
 

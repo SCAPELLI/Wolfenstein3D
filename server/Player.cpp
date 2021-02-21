@@ -20,8 +20,9 @@
 #define MAXHEALTH 100
 
 
-Player::Player(int parsed_id, std::string name, Vector position)
+Player::Player(int parsed_id, int relativeId, std::string name, Vector position)
 :   id(parsed_id),
+    relativeId(relativeId),
     name(name),
     position(position),
     initialPosition(position),
@@ -102,7 +103,7 @@ void Player::move(Vector& newPos){
 }
 
 int Player::distanceWith(Player& otherPlayer) {
-
+    return 0;
 //    int distance = position.distance(otherPlayer.position); //distancia otro jugador
 //    int d = cos(angle) * distance; // opuesto
 //    if (abs(distance - d) < radius + otherPlayer.radius){
@@ -285,8 +286,8 @@ bool Player::getItem(AmmoItem* item,
 }
 
 void Player::incrementCooldown() {
-    for (auto  &arm : bag) {
-        arm.second.incrementCooldown();
+    for (auto it=bag.begin(); it!=bag.end(); ++it){
+        (it->second).incrementCooldown();
     }
 }
 

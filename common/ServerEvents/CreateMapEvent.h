@@ -14,9 +14,9 @@ public:
     updateEventType eventType;
     int width;
     int height;
-    std::vector<Vector> startingLocations;
+    std::map<int, std::pair<int, int>> startingLocations;
     CreateMapEvent (updateEventType eventType, int width, int height);
-    void addPlayer(Vector startingLocation);
+    void addPlayer(int idPlayer, Vector& startingLocation);
     void runHandler(CGame& renderer) override;
     updateEventType getEventType() override;
 };

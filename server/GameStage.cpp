@@ -19,12 +19,8 @@
 #define PI 3.141592
 #define MAX_PLAYERS 2
 
-GameStage::GameStage(ProtectedEventsQueue& updateEvents)
-    : updateEvents(updateEvents), newEvents(), playersNames() {
-    for (int i = 0; i < MAX_PLAYERS; i++) {
-        std::string name = "";
-        playersNames.push_back(name);  // esto despues va a estar en el startGameEvent
-    }
+GameStage::GameStage(ProtectedEventsQueue& updateEvents, std::map<int, std::string>& playersNames)
+    : updateEvents(updateEvents), newEvents() {
     game = Game(newEvents, playersNames);
     pushNewEvents();
 }
