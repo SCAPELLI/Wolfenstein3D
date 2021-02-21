@@ -7,6 +7,9 @@
 #include "../server/PlayerInfo.h"
 #include <yaml-cpp/yaml.h>
 #include "Event.h"
+#include "../common/MovementEvent.h"
+#include "../common/TurnEvent.h"
+#include "../common/ShootingEvent.h"
 
 extern "C" {
 #include "lua.h"
@@ -107,20 +110,45 @@ int AI::getBotActionId(std::vector<PlayerInfo>& players) {
     return actionId;
 }
 
-void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players) {
+void addMovementEventToQueue(ProtectedEventsQueue& events) {
+    MovementEvent movementEvent(FORWARD, 0);
+    Event event(&movementEvent, MovementEventType);
+    events.push(event);
+}
+void addTurnEventToQueue(ProtectedEventsQueue& events, float sentido) {
+    TurnEvent turnEvent(0, PI/180 * sentido);
+    Event event(&turnEvent, TurnEventType);
+    events.push(event);
+}
+void addShootingEventToQueue(ProtectedEventsQueue& events) {
+    ShootingEvent shootingEvent(0);
+    Event event(&shootingEvent, ShootingEventType);
+    events.push(event);
+}
 
+void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players) {
+    std::cout<<players.at(0).angle<<std::endl;
     switch (getBotActionId(players)) {
         case MOVE_FOWARD:
-            std::cout<<"[c++] Foward"<<std::endl;
+            //addMovementEventToQueue(events);
+            //addTurnEventToQueue(events, 1);
+            //addShootingEventToQueue(events);
             break;
         case TURN_ANTICLOCKWISE:
-            std::cout<<"[c++] Turn anticlockwise"<<std::endl;
+            //addMovementEventToQueue(events);
+            addTurnEventToQueue(events, 1);
+            //addShootingEventToQueue(events);
             break;
         case TURN_CLOCKWISE:
-            std::cout<<"[c++] Turn clockwise"<<std::endl;
+            //addMovementEventToQueue(events);
+            //addTurnEventToQueue(events, 1);
+            //addTurnEventToQueue(events, -1);
+            //addShootingEventToQueue(events);
             break;
         case ATTACK:
-            std::cout<<"[c++] Attack"<<std::endl;
+            //addMovementEventToQueue(events);
+            //addTurnEventToQueue(events, 1);
+            //addShootingEventToQueue(events);
             break;
         case DO_NOTHING:
             std::cout<<"[c++] Do nothing"<<std::endl;

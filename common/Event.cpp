@@ -67,6 +67,9 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
         case CreateMapType:
             event = new CreateMapEvent(*(CreateMapEvent*)updateEvent);
             break;
+        case MovementEventType:
+            event = new MovementEvent(*(MovementEvent*)updateEvent);
+            break;
         default:
             this->event = nullptr;
     }
