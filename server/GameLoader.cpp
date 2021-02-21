@@ -12,7 +12,7 @@
 GameLoader::GameLoader() : uniqueId(0){
     sprites = YAML::LoadFile("../Editor/sprites/sprites.yaml");
     idConfig = YAML::LoadFile("config.yaml");
-    map = YAML::LoadFile("map.yaml");
+    map = YAML::LoadFile("../server/maps/1.yaml");
 }
 
 

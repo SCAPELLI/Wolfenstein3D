@@ -16,7 +16,6 @@ function initializeGameContext(map, id)
 	botId = id
 	markedPlayerId = NONE_PLAYER
 	idealStepsForAllTiles = getIdealStepsForAllTiles(map)
-	--print("bot id",  id)
 end
 
 function distace(botPosition, playerPosition)
@@ -41,8 +40,6 @@ function detectPlayersInASightingDistance(players, markedPlayerId)
 			end
 		end
 	end
-	print (markedPlayerId)
-	io.read()
 	return markedPlayerId
 end
 
@@ -57,7 +54,7 @@ function getBotActionId(players)
 
 			local playerX = math.floor(players[markedPlayerId].position.x / TILE) + 1
 			local playerY = math.floor(players[markedPlayerId].position.y / TILE) + 1
-			
+
 			local idealStepId = 
 				idealStepsForAllTiles[botX .. "," .. botY][playerX .. "," .. playerY]
 			local xTile, yTile = Node:getCoordinatesFromId(idealStepId)
@@ -66,8 +63,8 @@ function getBotActionId(players)
 			idealY = yTile * TILE - TILE/2
 
 			local resultId = turnOrMoveAnalyzer(players[botId], idealX, idealY)
-			print("bot do the action: ", resultId)
-			print("bot next tile: ", xTile, yTile)
+			--print("bot do the action: ", resultId)
+			--print("bot next tile: ", xTile, yTile)
 			return resultId
 		else
 			
@@ -76,10 +73,10 @@ function getBotActionId(players)
 				players[markedPlayerId].position.x, 
 				players[markedPlayerId].position.y)
 			if action == MOVE_FOWARD then
-	      		print ("bot attacks")
+	      		--print ("bot attacks")
 	      		return ATTACK
 	    	else
-	    		print ("bot turns to attack")
+	    		--print ("bot turns to attack")
 	      		return action
 	    	end
 		end
