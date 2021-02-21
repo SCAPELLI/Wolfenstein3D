@@ -24,7 +24,20 @@ void AnimatedSprite::draw(SDL_Renderer* renderer, int posX, int posY, int scale)
     if (currentTime == 0){
         isAnimating = false;
     }
+}
 
+void AnimatedSprite::rayCast(SDL_Renderer* renderer, double posX, double posY, std::vector<double> &wallDistances){
+    int framesPerImage = int(animatedTime / sprites.size());
+    int frameToDraw = int(currentTime / framesPerImage);
+    sprites[frameToDraw]->rayCast(renderer, posX, posY, wallDistances);
+    currentTime += 1;
+    currentTime %= animatedTime;
+    if (isAnimating == false){
+        currentTime = 0;
+    }
+    if (currentTime == 0){
+        isAnimating = false;
+    }
 }
 
 AnimatedSprite::~AnimatedSprite() {

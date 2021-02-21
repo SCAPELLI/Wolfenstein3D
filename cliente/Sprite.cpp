@@ -4,8 +4,9 @@
 
 Sprite::Sprite(const std::string& path, SDL_Renderer* renderer){
 	SDL_Surface* temp = nullptr;
-	temp = SDL_LoadBMP(path.c_str());
+	temp = IMG_Load(path.c_str());
 	// manejar excepcion
+	if (!temp) return;
 	Uint32 transparentKey = SDL_MapRGB(temp->format, 152, 0, 136);
 	SDL_SetColorKey(temp, SDL_TRUE, transparentKey);
 	this->texture = SDL_CreateTextureFromSurface(renderer, temp);
@@ -44,6 +45,20 @@ void Sprite::drawLine(SDL_Renderer* renderer, int texX, int xPixel, int drawStar
     SDL_RenderCopy(renderer, this->texture, &src, &dest);
 }
 
+Sprite::Sprite(){}
+
 Sprite::~Sprite(){
 	SDL_DestroyTexture(texture);
+}
+
+Sprite::Sprite(Sprite &&other): h(other.h), w(other.w), texture(other.texture){
+    other.texture = nullptr;
+}
+
+Sprite &Sprite::operator=(Sprite &&other) {
+    this->h = std::move(other.h);
+    this->w = std::move(other.w);
+    this->texture = other.texture;
+    other.texture = nullptr;
+    return *this;
 }

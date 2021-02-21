@@ -45,15 +45,8 @@ int main() {
         }
 
         CGame game(spawnPoint.x, spawnPoint.y, FOV, map);
-
         while (!quit) {
             userEvents.insertEvents(eventsCatcher);
-            // Serializar eventos de usuario y enviar al server.
-            // Recibir Eventos de server serializados.
-
-            // Se carga el updateEvents
-
-            // Renderizar actualizaciones
 
             while (!updateEvents.empty()) {
                 Event event = std::move(updateEvents.pop());

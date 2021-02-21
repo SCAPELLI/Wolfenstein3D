@@ -21,12 +21,12 @@
 CGame::CGame(double x, double y, double fov, std::vector<std::vector<int>> map):
 	activePlayer(x, y, fov, 0),
 	screen(&activePlayer, 480, 640),
-	map(std::move(map)), renderables(), players(), soundQueue(){
+	map(std::move(map)), renderables(), players(), soundQueue(), sprites(screen.getRenderer()){
     activePlayer.loadWeapons(screen.getRenderer());
 }
 
 void CGame::draw(){
-	screen.draw(map, &renderables, &players);
+	screen.draw(map, renderables, &players);
 }
 
 void CGame::rotate(double degrees){
@@ -39,12 +39,12 @@ void CGame::processEvent(SpawnNotMovableEvent& event) {
 
 void CGame::processEvent(SpawnEvent& event) {
     if (event.type == 1){
-        return; // crear player
+        players[event.id] = new EnemyPlayer(screen.getRenderer(), event.id, Vector(event.posY, event.posX)); // crear player
     }
     if (event.type == 161) {
         map[event.posY][event.posX] = event.type;
     }
-    renderables.emplace(event.id, new Renderable(event.posX, event.posY,std::string("prueba1.bmp"), screen.getRenderer()));
+    renderables[event.id] =  Renderable(event.posX, event.posY, &sprites.items[event.type]);
 }
 void CGame::processEvent(HealthChangeEvent& event) {
     //if (event.idPlayer != activePlayer.id) return;
@@ -53,7 +53,6 @@ void CGame::processEvent(HealthChangeEvent& event) {
 
 
 void CGame::processEvent(DespawnEvent &event) {
-    delete renderables[event.id];
     renderables.erase(event.id);
     soundQueue.push(PICKUP_SOUND, MIX_MAX_VOLUME);
 }
@@ -124,10 +123,9 @@ void CGame::processEvent(PositionEvent& event){
 }
 
 CGame::~CGame(){
-    std::map<int, Renderable*>::iterator it;
-    for (it = renderables.begin(); it != renderables.end(); ++it){
-        delete it->second;
+    std::map<int, EnemyPlayer*>::iterator itp;
+    for (itp = players.begin(); itp != players.end(); ++itp){
+        delete itp->second;
     }
 }
-
 

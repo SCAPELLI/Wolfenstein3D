@@ -22,24 +22,24 @@ bool distanceSort(std::pair<int, double> a, std::pair<int, double> b){
 }
 
 void GameScreen::draw(std::vector<std::vector<int>>& map,
-            std::map<int, Renderable*>* renderables,
-            std::map<int, CPlayer>* players){
+            std::map<int, Renderable>& renderables,
+            std::map<int, EnemyPlayer*>* players){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
     std::vector<double> wallDistances;
     activePlayer->getCamera()->draw(renderer, map, &wallTextures, wallDistances);
 
-    std::map<int, Renderable*>::iterator it;
+    std::map<int, Renderable>::iterator it;
     std::vector<std::pair<int, double>> toDraw;
-    for (it = renderables->begin(); it != renderables->end(); ++it){
-        double distance = it->second->position.distance(activePlayer->getCamera()->getPosition());
+    for (it = renderables.begin(); it != renderables.end(); ++it){
+        double distance = it->second.position.distance(activePlayer->getCamera()->getPosition());
         if (distance < 150) {
             toDraw.push_back(std::make_pair(it->first, distance));
         }
     }
     std::sort(toDraw.begin(), toDraw.end(), distanceSort);
     for (int i = 0; i < toDraw.size(); i++) {
-        (*renderables)[toDraw[i].first]->drawFrom(activePlayer->getCamera(), map, renderer, wallDistances);
+        renderables[toDraw[i].first].drawFrom(activePlayer->getCamera(), map, renderer, wallDistances);
     }
 
     this->ui->draw(renderer);

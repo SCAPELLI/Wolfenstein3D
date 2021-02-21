@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "SDL2/SDL.h"
 #include "Renderable.h"
+#include "EnemyPlayer.h"
 #include "Wall.h"
 #include "CPlayer.h"
 #include "UI.h"
@@ -20,8 +21,8 @@ class GameScreen{
 		GameScreen(CPlayer* player, int h, int w);
 		SDL_Renderer* getRenderer();
 		void draw(std::vector<std::vector<int>>& map,
-			std::map<int, Renderable*>* renderables,
-			std::map<int, CPlayer>* players);
+			std::map<int, Renderable>& renderables,
+			std::map<int, EnemyPlayer*>* players);
 		~GameScreen();
 };
 

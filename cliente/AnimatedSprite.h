@@ -12,8 +12,9 @@ class AnimatedSprite {
     std::vector<Sprite*> sprites;
     public:
         bool isAnimating;
-        AnimatedSprite(const std::string& path, SDL_Renderer* renderer, int , int animatedTime);
+        AnimatedSprite(const std::string& path, SDL_Renderer* renderer, int amountOfFrames, int animatedTime);
         void draw(SDL_Renderer* renderer, int posX, int posY, int scale);
+        void rayCast(SDL_Renderer* renderer, double posX, double posY, std::vector<double> &wallDistances);
         ~AnimatedSprite();
 };
 

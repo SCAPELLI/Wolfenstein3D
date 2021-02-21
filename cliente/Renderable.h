@@ -10,8 +10,14 @@
 class Renderable{
 	public:
         Vector position;
-        Sprite sprite;
-		Renderable(double x, double y, std::string path, SDL_Renderer* renderer);
+        Sprite* sprite;
+
+        Renderable();
+        Renderable(const Renderable&) = delete;
+        Renderable& operator=(const Renderable&) = delete;
+        Renderable(Renderable&& other);
+        Renderable& operator=(Renderable&& other);
+		Renderable(double x, double y, Sprite* sprite);
 		void drawOnScreen(SDL_Renderer*, int posX, int posY, int scale);
 		void drawFrom(Camera* origin,
                       std::vector<std::vector<int>>& map,

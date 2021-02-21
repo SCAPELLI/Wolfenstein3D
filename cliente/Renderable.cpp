@@ -5,11 +5,11 @@
 
 #define PI 3.14159265
 
-Renderable::Renderable(double x, double y, std::string path, SDL_Renderer* renderer):
-	position(x,y), sprite(path, renderer){} // atributo animatedSprite y isAnimating?
+Renderable::Renderable(double x, double y, Sprite* sprite):
+	position(x,y), sprite(sprite){} // atributo animatedSprite y isAnimating?
 
 void Renderable::drawOnScreen(SDL_Renderer* renderer, int posX, int posY, int scale){
-    sprite.draw(renderer, posX, posY, scale);
+    sprite->draw(renderer, posX, posY, scale);
 }
 
 void Renderable::drawFrom(Camera* origin,
@@ -18,14 +18,25 @@ void Renderable::drawFrom(Camera* origin,
                           std::vector<double> &wallDistances){
     Vector referencePoint = origin->getPosition();
     Vector planeDirection = origin->getPlanePosition();
-    Vector relativePosition = position - referencePoint; // sistema de referencia
+    Vector relativePosition = position - referencePoint;
     Vector facingDirection = origin->getFacingPosition();
 
     double invDet = 1.0 / (planeDirection.x * facingDirection.y - facingDirection.x * planeDirection.y);
     double transformX = invDet * (facingDirection.y * relativePosition.y / 32 - facingDirection.x * relativePosition.x / 32);
     double transformY = invDet * (-planeDirection.y * relativePosition.y / 32 + planeDirection.x * relativePosition.x / 32);
-    sprite.rayCast(renderer, transformX, transformY, wallDistances);
+    sprite->rayCast(renderer, transformX, transformY, wallDistances);
 }
+
+Renderable::Renderable(Renderable&& other):
+    position(std::move(other.position)), sprite(other.sprite){}
+
+Renderable& Renderable::operator=(Renderable&& other){
+    this->position = std::move(other.position);
+    this->sprite = std::move(other.sprite);
+    return *this;
+}
+
+Renderable::Renderable(): position(0,0){}
 
 Renderable::~Renderable(){
 

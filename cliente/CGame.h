@@ -7,6 +7,8 @@
 #include "Wall.h"
 #include <map>
 #include "SoundManager.h"
+#include "EnemyPlayer.h"
+#include "BagOfSprites.h"
 
 class PositionEvent;
 class GameOverEvent;
@@ -28,9 +30,10 @@ class CGame{
 	CPlayer activePlayer;
 	GameScreen screen;
 	std::vector<std::vector<int>> map;
-	std::map<int, Renderable*> renderables;
-	std::map<int, CPlayer> players;
+	std::map<int, Renderable> renderables;
+	std::map<int, EnemyPlayer*> players;
     SoundManager soundQueue;
+    BagOfSprites sprites;
 
 	public:
 		CGame(double x, double y, double fov, std::vector<std::vector<int>> map);
