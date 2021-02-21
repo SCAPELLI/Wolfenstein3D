@@ -6,7 +6,6 @@
 
 int main() {
     try {
-
         const char* port = "7777";
 
         Socket peer;
