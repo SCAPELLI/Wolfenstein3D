@@ -2,7 +2,11 @@
 #include <iostream>
 #include <unistd.h>
 #include <vector>
+#include <ProtectedEventsQueue.h>
 #include "Exception.h"
+#include "../server/PlayerInfo.h"
+#include <yaml-cpp/yaml.h>
+#include "Event.h"
 
 extern "C" {
 #include "lua.h"
@@ -10,11 +14,37 @@ extern "C" {
 #include "lauxlib.h"
 }
 
-AI::AI(std::vector<std::vector<int>>& map, std::vector<Player>& players, int botId, bool& quit):
+/*AI::AI(std::vector<std::vector<int>>& map, std::vector<Player>& players, int botId, bool& quit):
         map(map), players(players), botId(botId), quit(quit) {
     L = luaL_newstate();
     luaL_openlibs(L);
+    //ruta de yaml, (id del bot siempre 0)
+}*/
+
+AI::AI(int levelId) {
+    L = luaL_newstate();
+    luaL_openlibs(L);
+
+    botId = 0;
+
+    std::vector<std::vector<int>> map;
+    std::string levelPath = std::to_string(levelId) + ".yaml";
+    YAML::Node file = YAML::LoadFile("../server/maps/" + levelPath);
+    YAML::Node matrixConfig = file["map"];
+    for (std::size_t i = 0; i < matrixConfig.size(); i++) {
+        std::vector<int> fila;
+        map.push_back(fila);
+        for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {
+            int elem = matrixConfig[i][j].as<int>();
+            if (elem < 100 || elem > 300)
+                map.back().push_back(0);
+            else
+                map.back().push_back(1);
+        }
+    }
+    initializeGameContext(map);
 }
+
 AI::~AI() {
     lua_close(L);
 }
@@ -27,8 +57,8 @@ void AI::execute(int error) {
     }
 }
 
-void AI::initializeGameContext() {
-    std::string moduleScript = "../AI.lua";
+void AI::initializeGameContext(std::vector<std::vector<int>>& map) {
+    std::string moduleScript = "../ai/AI.lua";
     execute(luaL_dofile(L, moduleScript.c_str()));
 
     lua_getglobal(L, "initializeGameContext");
@@ -51,7 +81,7 @@ void AI::initializeGameContext() {
     execute(lua_pcall(L, 2, 0, 0));
 }
 
-int AI::getBotActionId() {
+int AI::getBotActionId(std::vector<PlayerInfo>& players) {
     lua_getglobal(L, "getBotActionId");
     if (lua_isfunction(L, -1) != 1) throw Exception("Function not found");
 
@@ -67,7 +97,7 @@ int AI::getBotActionId() {
         lua_setfield(L, -2, "position");
         lua_pushnumber(L, players[i].angle);
         lua_setfield(L, -2, "angle");
-        lua_setfield(L, -2, std::to_string(i).c_str());
+        lua_setfield(L, -2, std::to_string(players[i].idPlayer).c_str());
     }
 
     execute(lua_pcall(L, 1, 1, 0));
@@ -77,30 +107,26 @@ int AI::getBotActionId() {
     return actionId;
 }
 
-void AI::operator()() {
-    initializeGameContext();
-    while (!quit) {
-        switch (getBotActionId()) {
-            case MOVE_FOWARD:
-                std::cout<<"[c++] Foward"<<std::endl;
-                break;
-            case TURN_ANTICLOCKWISE:
-                std::cout<<"[c++] Turn anticlockwise"<<std::endl;
-                break;
-            case TURN_CLOCKWISE:
-                std::cout<<"[c++] Turn clockwise"<<std::endl;
-                break;
-            case ATTACK:
-                std::cout<<"[c++] Attack"<<std::endl;
-                break;
-            case DO_NOTHING:
-                std::cout<<"[c++] Do nothing"<<std::endl;
-                break;
-            default:
-                std::cout<<"[c++] Should raise exception"<<std::endl;
-                break;
-        }
-        usleep(2000);
-        quit = true;
+void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players) {
+
+    switch (getBotActionId(players)) {
+        case MOVE_FOWARD:
+            std::cout<<"[c++] Foward"<<std::endl;
+            break;
+        case TURN_ANTICLOCKWISE:
+            std::cout<<"[c++] Turn anticlockwise"<<std::endl;
+            break;
+        case TURN_CLOCKWISE:
+            std::cout<<"[c++] Turn clockwise"<<std::endl;
+            break;
+        case ATTACK:
+            std::cout<<"[c++] Attack"<<std::endl;
+            break;
+        case DO_NOTHING:
+            std::cout<<"[c++] Do nothing"<<std::endl;
+            break;
+        default:
+            std::cout<<"[c++] Should raise exception"<<std::endl;
+            break;
     }
 }

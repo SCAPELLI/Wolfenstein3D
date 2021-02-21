@@ -20,6 +20,7 @@ class ShootingEvent;
 class OpenDoorEvent;
 class SpawnEvent;
 class ChangeWeaponEvent;
+#include "PlayerInfo.h"
 
 class GameStage {
     ProtectedEventsQueue& updateEvents;

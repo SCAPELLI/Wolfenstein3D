@@ -5,14 +5,6 @@
 #include "Map.h"
 #include "AbstractEvent.h"
 
-typedef struct PlayerInfo{
-    int idPlayer;
-    int x;
-    int y;
-    double angle;
-    int life;
-}PlayerInfo;
-
 class Game {
     public:
     int speed;

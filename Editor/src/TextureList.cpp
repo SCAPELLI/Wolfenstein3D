@@ -20,7 +20,7 @@ TextureList::~TextureList() {
     }
 }
 
-void TextureList::addTexture(std::string texturePath, std::string textureType, int id) {
+void TextureList::addTexture(const std::string &texturePath, const std::string &textureType, int id) {
     QString aux = QString::fromStdString(texturePath);
     QString auxType = QString::fromStdString(textureType);
     QListWidgetItem *tile = new QListWidgetItem(QIcon(aux), auxType);
@@ -38,7 +38,7 @@ void TextureList::mousePressEvent(QMouseEvent *event) {
     this->spriteTabs->changeCurrentTexture(this->textures[index]);
 }
 
-void TextureList::setSpriteList(std::map<int, std::string> spriteMap) {
+void TextureList::setSpriteList(std::map<int, std::string> &spriteMap) {
     for (auto it = spriteMap.begin(); it != spriteMap.end(); it++) {
         std::string path = "../sprites/sprite" + std::to_string(it->first) + ".png";
         std::string type = it->second;

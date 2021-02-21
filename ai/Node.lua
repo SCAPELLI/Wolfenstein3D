@@ -15,6 +15,8 @@ function Node:equals(node)
 end
 
 function Node:getCoordinatesFromId(nodeId)
+	print (nodeId)
+	io.read()
 	local commaPosition = string.find(nodeId,",")
 	local x = string.sub(nodeId, 1 , commaPosition-1)
 	local y = string.sub(nodeId, commaPosition+1)

@@ -7,7 +7,7 @@ class EraseMode : public Mode {
     public:
         EraseMode(TilemapScene *tilemapScene);
         ~EraseMode();
-        void executeClickResponse(Coordinate coordinate, QGraphicsItem *item) override;
+        void executeClickResponse(Coordinate &coordinate, QGraphicsItem *item) override;
 
 };
 
