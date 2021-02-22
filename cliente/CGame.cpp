@@ -47,7 +47,7 @@ void CGame::processEvent(SpawnEvent& event) {
     if (event.type == 161) {
         map[event.posY][event.posX] = event.type;
     }
-    renderables[event.id] =  Renderable(event.posX, event.posY, &sprites.items[event.type]);
+    renderables[event.id] =  Renderable(event.posY, event.posX, &sprites.items[event.type]);
 }
 void CGame::processEvent(HealthChangeEvent& event) {
     if (event.idPlayer != activePlayer.id) return;

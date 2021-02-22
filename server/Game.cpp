@@ -69,7 +69,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
         if (distancePlayer < distanceToWall) {
             if (!canShoot(idPlayer, i))
                 continue;
-            int damage = players[ids[idPlayer]].hits(players[i]);
+            int damage = players[ids[idPlayer]].hits(players[i]) + 70;
             int newHp = players[i].getDamage(damage);
             if (players[i].isGameOver()) {
                 players[ids[idPlayer]].updateKills();
