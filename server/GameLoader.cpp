@@ -91,7 +91,7 @@ Item* GameLoader::itemLoader(std::string& itemName) {
                     uniqueId++;
                     return item;
                 }
-                if (itemName == "ammo") {
+                 if (itemName == "ammo") {
                     Item* item = new AmmoItem(it->first.as<int>(), itemName, value, uniqueId);
                     uniqueId++;
                     return item;

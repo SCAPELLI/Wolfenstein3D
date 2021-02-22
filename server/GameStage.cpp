@@ -45,7 +45,8 @@ void GameStage::processEvent(ShootingEvent& event) {
         updateEvents.push(anotherEvent);
         return;
     }
-    AmmoChangeEvent ammo(AmmoChangeType, -1 * game.players[event.idPlayer].getWeapon().minBullets);
+
+    AmmoChangeEvent ammo(AmmoChangeType, -1 * game.players[game.ids[event.idPlayer]].getWeapon().minBullets);
     ShootingEvent shoot(event.idPlayer);
     Event anotherEvent(&shoot, ShootingEventType);
     updateEvents.push(anotherEvent);

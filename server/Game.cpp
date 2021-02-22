@@ -18,9 +18,9 @@ Game::Game( std::vector<AbstractEvent*>& newEvents,
             std::map<int, std::string>& playersNames){
     GameLoader yaml;
     yaml.readData(speed);
-    int cont = 1;
-    players.push_back(Player(0 ,0, "bot", Vector(0,0)));
-    ids[0] = 0;
+    int cont = 0;
+//    players.push_back(Player(0 ,0, "bot", Vector(0,0)));
+//    ids[0] = 0;
     for (auto it=playersNames.begin(); it!=playersNames.end(); ++it){
         ids[it->first] = cont;
         players.emplace_back(Player(it->first, cont, it->second, Vector(0, 0)));
@@ -84,7 +84,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
                 AbstractEvent* event = new KillEvent(KillEventType, i);
                 newEvents.push_back(event);
                 map.dropAllItems(players[i], newEvents);
-                respawnPlayer(i);
+                respawnPlayer(i, newEvents);
             }
             else{
                 AbstractEvent* event = new HealthChangeEvent(HealthChangeType, damage);
@@ -103,7 +103,11 @@ bool Game::changeWeapon(int idPlayer, int idWeapon) {
 void Game::changePosition(Vector changeTo, int idPlayer,
                                    std::vector<AbstractEvent*>& newEvents){
     //idPlayer = 0;
+
     Vector futurePos = (players[ids[idPlayer]].getPosition() + changeTo).scale();
+//    if (idPlayer == 0){
+//        futurePos = Vector(futurePos.y, futurePos.x);
+    //}
     if (map.isOkToMove(futurePos)){
         map.changePosition(futurePos, players[ids[idPlayer]], newEvents);
         players[ids[idPlayer]].move(changeTo);
@@ -129,7 +133,12 @@ bool Game::canShoot(int idPlayer, int otherPlayerId){
     return players[ids[idPlayer]].doesHit(players[otherPlayerId]);
 }
 
-void Game::respawnPlayer(int idPlayer){
+void Game::respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     players[ids[idPlayer]].respawn();
+    map.changePosition(players[ids[idPlayer]].getScaledPosition(), players[ids[idPlayer]], newEvents);
+    newEvents.push_back(new PositionEvent(PositionEventType,
+                                          idPlayer, players[ids[idPlayer]].getPosition().x,
+                                          players[ids[idPlayer]].getPosition().y));
+
 }
 

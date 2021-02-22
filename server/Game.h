@@ -29,7 +29,7 @@ public:
     bool openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     void increaseCooldown();
     bool canShoot(int idPlayer, int otherPlayer);
-    void respawnPlayer(int idPlayer);
+    void respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents);
 
 };
 

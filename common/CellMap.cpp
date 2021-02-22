@@ -11,6 +11,7 @@
 #include "GameLoader.h"
 #include "Items/AmmoItem.h"
 #include "ServerEvents/DespawnEvent.h"
+#include "ServerEvents/SpawnEvent.h"
 
 
 
@@ -21,11 +22,13 @@ CellMap::CellMap()
 void CellMap::removePlayer(Player& player) { //deberia recibir el player
     //dropItems(player);
     auto index = std::find(playerList.begin(), playerList.end(), player);
-    if (index != playerList.end()) return;
+    if (index == playerList.end()) return;
     playerList.erase(index);
 }
 
 void CellMap::addPlayer(Player& setPlayer) {
+    if (std::find(playerList.begin(), playerList.end(), setPlayer) != playerList.end())
+        return;
      playerList.emplace_back(setPlayer);
 }
 
@@ -110,19 +113,35 @@ bool CellMap::isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents)
 
 void CellMap::dropItems(Player& player,GameLoader& factory,
                         std::vector<AbstractEvent*>& newEvents){
+    Vector pos = player.getPosition();
     std::string ammo = "ammo";
     Item* ammoToDrop= factory.itemLoader(ammo);
-    ammoToDrop += 2;
+    ammoToDrop->changeValue(5);
     items.push_back(ammoToDrop);
+    auto* event = new SpawnEvent(SpawnEventType, ammoToDrop->getUniqueId(),
+                                   ammoToDrop->getId(), pos.y * 32, pos.x * 32);
+    newEvents.push_back(event);
     std::string blood = "blood";
-    items.push_back(factory.itemLoader(blood));
+    Item* bloodDropped = factory.itemLoader(blood);
+    items.push_back(bloodDropped);
+    auto* event1 = new SpawnEvent(SpawnEventType, bloodDropped->getUniqueId(),
+                                 bloodDropped->getId(), pos.y * 32, pos.x * 32);
+    newEvents.push_back(event1);
     Weapon currentWeapon = player.getWeapon();
-    if (currentWeapon.name != "gun")
+    if (currentWeapon.name != "gun" && currentWeapon.name != "knife") {
         currentWeapon.uniqueId = factory.assignUniqueId();
         items.push_back(&currentWeapon);
+        auto *event2 = new SpawnEvent(SpawnEventType, currentWeapon.getUniqueId(),
+                                      currentWeapon.getId(), pos.y * 32, pos.x * 32);
+        newEvents.push_back(event2);
+    }
     if (player.hasKey()) {
         std::string key = "key";
-        items.push_back(factory.itemLoader(key));
+        Item* keyToDrop = factory.itemLoader(key);
+        items.push_back(keyToDrop);
+        auto* event3 = new SpawnEvent(SpawnEventType, keyToDrop->getUniqueId(),
+                                      keyToDrop->getId(), pos.y * 32, pos.x * 32);
+        newEvents.push_back(event3);
     }
 }
 void CellMap::dropItemPlayer(Item* item){
@@ -131,6 +150,7 @@ void CellMap::dropItemPlayer(Item* item){
 void CellMap::getItemsTile(Player& player,
                             std::vector<AbstractEvent*>& newEvents) {
     //ignorar en caso de ser bot
+    if (player.getId() == 0) return;
     auto it = items.begin();
     while (it != items.end()) {
         if ((*it)->isConsumed(player, newEvents)) {

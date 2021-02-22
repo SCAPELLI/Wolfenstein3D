@@ -17,3 +17,21 @@ bool AmmoItem::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents
     return player.getItem(this, newEvents);
 }
 
+int AmmoItem::getEffect(){
+    return effect;
+}
+void AmmoItem::changeValue(int toChange){
+    effect+= toChange;
+}
+std::string AmmoItem::getItemName(){
+    return name;
+}
+int AmmoItem::getId(){
+    return id;
+}
+int AmmoItem::getUniqueId(){
+    return uniqueId;
+}
+//Item& operator-=(Item& otherItem){
+//
+//}
