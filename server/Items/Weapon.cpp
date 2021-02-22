@@ -20,12 +20,13 @@ int Weapon::generateRandom(){
     return distr(gen);
 }
 
-int Weapon::attack(int bullets, int distance, double angle){
+int Weapon::attack( int distance, double angle){
     if (id == Knife){
         return generateRandom();
     }
     int damage = generateRandom() * 1/std::abs(angle) * (30/(double)distance) * minBullets;  //acotar daÑo a un max
-    return damage;
+    int acot = damage % (10 * minBullets);
+    return acot;
 
 }
 

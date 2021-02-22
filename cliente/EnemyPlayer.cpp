@@ -48,7 +48,9 @@ void EnemyPlayer::changeWeapon(int idWeapon) {
     activeWeapon = idWeapon;
     // cambiar sprites
 }
-
+int EnemyPlayer::getActiveWeapon(){
+    return activeWeapon;
+}
 void EnemyPlayer::die() {
     if (dyingAnimation[activeWeapon].isAnimating) return;
     dyingAnimation[activeWeapon].isAnimating = true;

@@ -29,7 +29,7 @@ AI::AI(int levelId) {
     luaL_openlibs(L);
 
     botId = 0;
-
+//    cooldown(0);
     std::vector<std::vector<int>> map;
     std::string levelPath = std::to_string(levelId) + ".yaml";
     YAML::Node file = YAML::LoadFile("../server/maps/" + levelPath);

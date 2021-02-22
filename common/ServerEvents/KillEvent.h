@@ -8,10 +8,9 @@ class CGame;
 
 class KillEvent: public AbstractEvent {
 public:
-    int idPlayer;
     updateEventType eventType;
+    int idPlayer;
     KillEvent (updateEventType eventType, int idPlayer);
-    KillEvent ( KillEvent& KillEvent);
     updateEventType getEventType();
     void runHandler(CGame& renderer) override;
     std::string getSerialization() override;

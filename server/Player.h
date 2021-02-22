@@ -27,9 +27,6 @@ class Player {
     int bullets;
     int score;
     int keys;
-//    AmmoItem bullets;
-//    PointGainItem points;
-//    KeyItem keys;
     int bulletsShot;
     int playersKilled;
     int prevIdWeapon;
@@ -38,7 +35,7 @@ public:
     Player(int parsed_id,int relativeId, std::string name, Vector position);
 
     /*Jugador es dañado y baja su vida devolviendo si murió o no*/
-    void getDamage(int damage);
+    int getDamage(int damage);
 
     /*Devuelve daño causado y actualiza valores de balas cuando daña otro jugador*/
     int hits(Player& otherPlayer);  //cambiar nombre funcion

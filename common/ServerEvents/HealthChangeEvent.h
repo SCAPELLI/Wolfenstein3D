@@ -9,6 +9,7 @@ class HealthChangeEvent  : public AbstractEvent{
     updateEventType eventType;
 public:
     int health;
+    int idPlayer;
     HealthChangeEvent (updateEventType eventType, int health);
     updateEventType getEventType();
     void runHandler(CGame &game);

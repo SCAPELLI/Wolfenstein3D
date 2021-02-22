@@ -74,7 +74,8 @@ void Player::rotate(double newAngle){
     angle += newAngle;
     if (angle >= 2*PI)
         angle = angle - 2*PI;
-
+    if (angle <= -2*PI)
+        angle = angle + 2*PI;
 }
 
 double Player::getAngle() const {
@@ -125,8 +126,8 @@ bool Player::shoot(){
 int Player::hits(Player& otherPlayer){
     double deltaAngle = angleWithOther(otherPlayer);
     int distance = position.distance(otherPlayer.getPosition());
-    int damage = bag[idWeapon].attack(bullets, distance,deltaAngle);
-    std::cout << "Se aplico " << damage << " de danio de " << id << " a " << otherPlayer.id << ".\n";
+    int damage = bag[idWeapon].attack(distance,deltaAngle);
+//    std::cout << "Se aplico " << damage << " de danio de " << id << " a " << otherPlayer.id << ".\n";
     return damage;
 }
 
@@ -194,12 +195,13 @@ int Player::getBullets(){
     return bullets;
 }
 
-void Player::getDamage(int damage) {
+int Player::getDamage(int damage) {
     health -= damage;
     if (health <= 0){
         dead = true;
         health = 0;
     }
+    return health;
 }
 
 bool Player::collideWith(int distance, int radius) {
@@ -213,7 +215,7 @@ bool Player::canShoot() {
 bool Player::doesHit(Player& otherPlayer){
     double deltaAngle = angleWithOther(otherPlayer);
     int distance = position.distance(otherPlayer.getPosition());
-    std::cout << (bag[idWeapon].name == "knife") << "\n" << collideWith(distance, radius) << "paso el collide \n";
+    //std::cout << (bag[idWeapon].name == "knife") << "\n" << collideWith(distance, radius) << "paso el collide \n";
     if (bag[idWeapon].name == "knife" && collideWith(distance, radius)
         && deltaAngle <= PI/3) {
         return true;

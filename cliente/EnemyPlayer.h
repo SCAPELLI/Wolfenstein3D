@@ -24,6 +24,7 @@ class EnemyPlayer {
                       SDL_Renderer* renderer,
                       std::vector<double> &wallDistances);
         int getId();
+        int getActiveWeapon();
         ~EnemyPlayer();
 };
 
