@@ -310,4 +310,16 @@ int Player::getLifes() const {
 Vector Player::getInitialPosition(){
     return initialPosition;
 }
+int Player::getEnemiesKilled(){
+    return playersKilled;
+}
+int Player::getBulletsShoot(){
+    return bulletsShot;
+}
+int Player::getScore(){
+    return score;
+}
+std::string Player::getName(){
+    return name;
+}
 Player::~Player() {}

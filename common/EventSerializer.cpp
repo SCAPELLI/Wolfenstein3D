@@ -59,8 +59,8 @@ Event EventSerializer::createOpenDoorEvent(std::string eventString) {
 Event EventSerializer::createGameOverEvent(std::string eventString) {
     //EEEPPP
     int playerId = std::stoi(eventString.substr (3, 3));
-
-    GameOverEvent event(GameOverEventType, playerId);
+    std::map<std::string, std::vector<int>> highscores;
+    GameOverEvent event(GameOverEventType, playerId, highscores);
     return Event(&event, GameOverEventType);
 }
 

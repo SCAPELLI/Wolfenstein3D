@@ -96,6 +96,10 @@ public:
     bool hasRocketLauncher();
     Rocket* setRocket();
     Vector getInitialPosition();
+    int getEnemiesKilled();
+    int getBulletsShoot();
+    int getScore();
+    std::string getName();
     ~Player();
 
 };

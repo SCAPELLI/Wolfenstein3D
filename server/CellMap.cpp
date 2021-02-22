@@ -57,25 +57,26 @@ bool CellMap::impacts(Rocket* rocket, std::vector<AbstractEvent*>& newEvents){
 void CellMap::explode(Rocket* rocket, std::vector<AbstractEvent *> &newEvents) {
     if(occupied) return;
     for (int i = 0; i < playerList.size(); i++){
-        double distanceWithRocket = rocket->impactPoint.distance(playerList[i].getPosition());
-        playerList[i].getDamage(rocket->damage * 1/distanceWithRocket);
-        if (playerList[i].isGameOver()) {
-            rocket->sender->updateKills();
-            AbstractEvent *event = new GameOverEvent(GameOverEventType, i);
-            newEvents.push_back(event);
-        }
-        else if (playerList[i].isDead()){
-            rocket->sender->updateKills();
-            AbstractEvent* event = new KillEvent(KillEventType, i);
-            newEvents.push_back(event);
-            playerList[i].respawn();
-        }
-        else{
-            AbstractEvent* event = new
-                    HealthChangeEvent(HealthChangeType,
-                                      rocket->damage * 1/distanceWithRocket);
-            newEvents.push_back(event);
-        }
+        return;
+//        double distanceWithRocket = rocket->impactPoint.distance(playerList[i].getPosition());
+//        playerList[i].getDamage(rocket->damage * 1/distanceWithRocket);
+//        if (playerList[i].isGameOver()) {
+//            rocket->sender->updateKills();
+//            AbstractEvent *event = new GameOverEvent(GameOverEventType, i );
+//            newEvents.push_back(event);
+//        }
+//        else if (playerList[i].isDead()){
+//            rocket->sender->updateKills();
+//            AbstractEvent* event = new KillEvent(KillEventType, i);
+//            newEvents.push_back(event);
+//            playerList[i].respawn();
+//        }
+//        else{
+//            AbstractEvent* event = new
+//                    HealthChangeEvent(HealthChangeType,
+//                                      rocket->damage * 1/distanceWithRocket);
+//            newEvents.push_back(event);
+//        }
     }
 }
 

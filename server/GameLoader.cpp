@@ -60,7 +60,7 @@ Item* GameLoader::weaponLoader(int& idItem){
     if (elem == "machine gun" || elem == "chain gun" ||
         elem == "rocket launcher" || elem == "pistol") {
         YAML::Node data = idConfig["Weapons"][elem];
-        Item* item = new Weapon(idItem - 50, elem, uniqueId, data["damage"].as<int>(),
+        Item* item = new Weapon(idItem - 49, elem, uniqueId, data["damage"].as<int>(),
                                 data["minBullets"].as<int>(), data["cooldownTimer"].as<int>());
         uniqueId++;
         return item;

@@ -74,7 +74,10 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
             if (players[i].isGameOver()) {
                 players[ids[idPlayer]].updateKills();
                 map.dropAllItems(players[i], newEvents);
-                AbstractEvent *event = new GameOverEvent(GameOverEventType, ids[i]);
+                std::map<std::string, std::vector<int>> highscores;
+                getHighscores(highscores);
+                AbstractEvent *event = new GameOverEvent(GameOverEventType,
+                                                         ids[i], highscores);
                 newEvents.push_back(event);
             }
             else if (players[i].isDead()){
@@ -93,7 +96,41 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     }
     return -1;
 }
+//
+//bool Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents ){
+//    if (players[damaged].isGameOver()) {
+//        players[ids[sender]].updateKills();
+//        map.dropAllItems(players[damaged], newEvents);
+//        std::map<std::string, std::vector<int>> highscores;
+//        getHighscores(highscores);
+//        AbstractEvent *event = new GameOverEvent(GameOverEventType,
+//                                                 ids[damaged], highscores);
+//        newEvents.push_back(event);
+//    }
+//    else if (players[damaged].isDead()){
+//        players[ids[sender]].updateKills();
+//        AbstractEvent* event = new KillEvent(KillEventType, ids[damaged]);
+//        newEvents.push_back(event);
+//        map.dropAllItems(players[damaged], newEvents);// borrar directamente player aca?
+//        respawnPlayer(ids[damaged], newEvents);
+//    }
+//    else{
+//        AbstractEvent* event = new HealthChangeEvent(HealthChangeType, players[damaged].getHealth());
+//        newEvents.push_back(event);
+//    }
+//}
 
+void Game::getHighscores(std::map<std::string, std::vector<int>>& names){
+    std::vector<int> highscores;
+    for (int i = 0; i < players.size(); i++){
+        highscores.push_back(players[i].getBulletsShoot());
+        highscores.push_back(players[i].getEnemiesKilled());
+        highscores.push_back(players[i].getScore());
+        names[players[i].getName()] = highscores;
+        highscores.clear();
+    }
+    return;
+}
 bool Game::changeWeapon(int idPlayer, int idWeapon) {
     return players[ids[idPlayer]].changeWeaponTo(idWeapon);
 }
