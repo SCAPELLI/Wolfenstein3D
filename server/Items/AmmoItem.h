@@ -2,7 +2,7 @@
 
 #ifndef AMMOITEM_H
 #define AMMOITEM_H
-#include "../Item.h"
+#include "Item.h"
 #include "AbstractEvent.h"
 #include <vector>
 class AmmoItem : public Item{

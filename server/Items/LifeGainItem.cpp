@@ -1,6 +1,6 @@
 
 #include "LifeGainItem.h"
-#include "../../server/Player.h"
+#include "Player.h"
 
 
 //Item::Item(int id, Sprite &newSprite)

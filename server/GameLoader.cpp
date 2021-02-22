@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 #include "Exception.h"
-#include "../common/Items/LockedDoor.h"
+#include "Items/LockedDoor.h"
 
 
 GameLoader::GameLoader() : uniqueId(1){
