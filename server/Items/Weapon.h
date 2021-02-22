@@ -10,7 +10,7 @@ public:
     int id;
     std::string name;
     int uniqueId;
-    int presicion;
+    int precision;
     int minBullets;
     int cooldownTimer;
     int cooldown;
