@@ -1,4 +1,3 @@
-#include <NewMapWindow.h>
 #include <QtGui/QFontDatabase>
 #include <iostream>
 #include <QtWidgets/QLabel>

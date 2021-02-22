@@ -14,6 +14,8 @@
 #include "../../common/Style.h"
 
 #define FONT_SIZE 15
+#define BUTTON_HEIGHT 20
+#define BUTTON_WIDTH 150
 
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
     : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/sprite100.png", 100)) {
@@ -182,9 +184,9 @@ void EditorScreen::setNewTilemapScene(size_t rows, size_t columns, const std::st
 
 void EditorScreen::setStyle() {
     Style style;
-    style.setButtonStyle(this->ui->saveButton, FONT_SIZE);
-    style.setButtonStyle(this->ui->openButton, FONT_SIZE);
-    style.setButtonStyle(this->ui->newButton, FONT_SIZE);
-    style.setButtonStyle(this->ui->drawButton, FONT_SIZE);
-    style.setButtonStyle(this->ui->eraseButton, FONT_SIZE);
+    style.setButtonStyle(this->ui->saveButton, FONT_SIZE, BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->openButton, FONT_SIZE, BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->newButton, FONT_SIZE, BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->drawButton, FONT_SIZE, BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->eraseButton, FONT_SIZE, BUTTON_HEIGHT, BUTTON_WIDTH);
 }
