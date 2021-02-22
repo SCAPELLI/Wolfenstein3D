@@ -48,6 +48,7 @@ bool CPlayer::shoot(){
 
 void CPlayer::respawn(){
 	this->camera.moveTo(spawnPoint.x, spawnPoint.y);
+    this->camera.resetVision();
 	this->lives -= 1;
 	this->hp = 100;
 	this->activeWeapon = 1;

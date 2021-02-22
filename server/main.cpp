@@ -31,7 +31,8 @@ int main() {
         }
         Event event = std::move(updateEvents.pop());
         CreateMapEvent* start = (CreateMapEvent*) event.event;
-        Vector spawnPoint = start->startingLocations[1];
+        double spawnPointX = start->startingLocations[1].first;
+        double spawnPointY = start->startingLocations[1].second;
 
         // Create empty map
         std::vector<std::vector<int>> map;
@@ -43,8 +44,8 @@ int main() {
             map.push_back(row);
         }
 
-        CGame game(spawnPoint.x, spawnPoint.y, FOV, map, 1);
-        game.spawnEnemy(0, start->startingLocations[0]);
+        CGame game(spawnPointX, spawnPointY, FOV, map, 1);
+        game.spawnEnemy(0, Vector(start->startingLocations[0].first, start->startingLocations[0].second));
         while (!quit) {
             userEvents.insertEvents(eventsCatcher);
 

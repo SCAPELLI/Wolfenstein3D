@@ -20,8 +20,9 @@
 #define MAXHEALTH 100
 
 
-Player::Player(int parsed_id, std::string name, Vector position)
+Player::Player(int parsed_id, int relativeId, std::string name, Vector position)
 :   id(parsed_id),
+    relativeId(relativeId),
     name(name),
     position(position),
     initialPosition(position),
@@ -73,8 +74,7 @@ void Player::rotate(double newAngle){
     angle += newAngle;
     if (angle >= 2*PI)
         angle = angle - 2*PI;
-    if (angle < 0)
-        angle = angle + 2*PI;
+
 }
 
 double Player::getAngle() const {
@@ -102,7 +102,7 @@ void Player::move(Vector& newPos){
 }
 
 int Player::distanceWith(Player& otherPlayer) {
-
+    return position.distance(otherPlayer.getPosition());
 //    int distance = position.distance(otherPlayer.position); //distancia otro jugador
 //    int d = cos(angle) * distance; // opuesto
 //    if (abs(distance - d) < radius + otherPlayer.radius){
@@ -213,7 +213,7 @@ bool Player::canShoot() {
 bool Player::doesHit(Player& otherPlayer){
     double deltaAngle = angleWithOther(otherPlayer);
     int distance = position.distance(otherPlayer.getPosition());
-    std::cout << (bag[idWeapon].name == "knife") << "\n" << !collideWith(distance, radius) << "paso el collide \n";
+    std::cout << (bag[idWeapon].name == "knife") << "\n" << collideWith(distance, radius) << "paso el collide \n";
     if (bag[idWeapon].name == "knife" && collideWith(distance, radius)
         && deltaAngle <= PI/3) {
         return true;
@@ -285,8 +285,8 @@ bool Player::getItem(AmmoItem* item,
 }
 
 void Player::incrementCooldown() {
-    for (auto  &arm : bag) {
-        arm.second.incrementCooldown();
+    for (auto it=bag.begin(); it!=bag.end(); ++it){
+        (it->second).incrementCooldown();
     }
 }
 
@@ -304,5 +304,8 @@ void Player::updateKills(){
 
 int Player::getLifes() const {
     return lifes;
+}
+Vector Player::getInitialPosition(){
+    return initialPosition;
 }
 Player::~Player() {}

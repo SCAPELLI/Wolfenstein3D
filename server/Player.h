@@ -13,13 +13,12 @@
 
 class Player {
     std::string name;
-    int id;
+    int id, relativeId;
     Vector position;
     Vector initialPosition;
     Vector scaledPosition;
     bool dead;
-    int maxBullets;
-    int lifes;
+    int maxBullets, lifes;
     int health;
     int radius;
     double angle;
@@ -36,7 +35,7 @@ class Player {
     int prevIdWeapon;
 public:
     /*setea constructor del jugador*/
-    Player(int parsed_id, std::string name, Vector position);
+    Player(int parsed_id,int relativeId, std::string name, Vector position);
 
     /*Jugador es dañado y baja su vida devolviendo si murió o no*/
     void getDamage(int damage);
@@ -99,6 +98,7 @@ public:
     void updateKills();
     bool hasRocketLauncher();
     Rocket* setRocket();
+    Vector getInitialPosition();
     ~Player();
 
 };

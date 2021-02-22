@@ -3,7 +3,7 @@ dofile("../ai/TurnOrMoveAnalysis.lua")
 
 TILE = 32
 ATTACK_DISTANCE = 32
-SIGHTING_DISTANCE = 64
+SIGHTING_DISTANCE = 1000
 NONE_PLAYER = "none player has been spotted"
 
 MOVE_FOWARD = 1

@@ -9,12 +9,13 @@ class Game {
     public:
     int speed;
     Map map;
+    std::map<int, int> ids;
     std::vector<Player> players;
     //AbstractEvent newChanges;
 public:
     Game();
     Game(std::vector<AbstractEvent*>& newEvents,
-         std::vector<std::string>& playersNames);
+         std::map<int, std::string>& playersNames);
     Game(const Game& other) = default;
     int generateRandom();
     void moveAngle(double angle, int idPlayer);
@@ -28,7 +29,7 @@ public:
     bool openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     void increaseCooldown();
     bool canShoot(int idPlayer, int otherPlayer);
-    void respawnPlayer(int idPlayer);
+    void respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents);
 
 };
 

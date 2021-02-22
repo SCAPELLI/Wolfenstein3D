@@ -7,6 +7,9 @@ Vector::Vector(double x, double y):
 	x(x),
 	y(y){}
 
+
+Vector::Vector() {}
+
 Vector Vector::operator+(const Vector& v){
 	return Vector(this->x + v.x, this->y + v.y);
 }

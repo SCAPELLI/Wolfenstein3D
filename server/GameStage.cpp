@@ -19,12 +19,8 @@
 #define PI 3.141592
 #define MAX_PLAYERS 2
 
-GameStage::GameStage(ProtectedEventsQueue& updateEvents)
-    : updateEvents(updateEvents), newEvents(), playersNames() {
-    for (int i = 0; i < MAX_PLAYERS; i++) {
-        std::string name = "";
-        playersNames.push_back(name);  // esto despues va a estar en el startGameEvent
-    }
+GameStage::GameStage(ProtectedEventsQueue& updateEvents, std::map<int, std::string>& playersNames)
+    : updateEvents(updateEvents), newEvents() {
     game = Game(newEvents, playersNames);
     pushNewEvents();
 }
@@ -49,7 +45,8 @@ void GameStage::processEvent(ShootingEvent& event) {
         updateEvents.push(anotherEvent);
         return;
     }
-    AmmoChangeEvent ammo(AmmoChangeType, -1 * game.players[event.idPlayer].getWeapon().minBullets);
+
+    AmmoChangeEvent ammo(AmmoChangeType, -1 * game.players[game.ids[event.idPlayer]].getWeapon().minBullets);
     ShootingEvent shoot(event.idPlayer);
     Event anotherEvent(&shoot, ShootingEventType);
     updateEvents.push(anotherEvent);
@@ -115,7 +112,10 @@ std::vector<PlayerInfo> GameStage::getPlayersInfo(){
     for (int i = 0; i < game.players.size(); i++){
         PlayerInfo playerInfo;
         playerInfo.idPlayer = game.players[i].getId();
-        playerInfo.angle =  game.players[i].getAngle();
+        double anglePlayer = game.players[i].getAngle();
+        if (anglePlayer < 0)
+           anglePlayer = anglePlayer + 2*PI;
+        playerInfo.angle =  anglePlayer;
         playerInfo.x =  (float)game.players[i].getPosition().x;
         playerInfo.y =  (float)game.players[i].getPosition().y;
         playerInfo.life =  game.players[i].getLifes();

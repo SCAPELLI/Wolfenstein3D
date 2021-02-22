@@ -26,10 +26,10 @@ class GameStage {
     ProtectedEventsQueue& updateEvents;
     std::vector<AbstractEvent*> newEvents;
     std::vector<std::pair<int, std::string>> highScores;
-    std::vector< std::string> playersNames; // temporalmente una lista despues en realidad viene de startGame
+//    std::vector< std::string> playersNames; // temporalmente una lista despues en realidad viene de startGame
     Game game;
 public:
-    explicit GameStage(ProtectedEventsQueue& updateEvents);
+    explicit GameStage(ProtectedEventsQueue& updateEvents,std::map<int, std::string>& playersNames);
     void processEvent(TurnEvent& event);
     void processEvent(MovementEvent& event);
     void processEvent(KillEvent& event);

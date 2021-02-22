@@ -13,7 +13,10 @@ Server::Server(ProtectedEventsQueue& userEvents, ProtectedEventsQueue& updateEve
         userEvents(userEvents), updateEvents(updateEvents), quit(quit) {}
 
 void Server::operator()() {
-    GameStage gameStage(updateEvents);
+    std::map<int, std::string> players;
+    players[0] = "bot";
+    players[1] = "killn";
+    GameStage gameStage(updateEvents, players);
     int levelId = 1; //sacar cuando se haga el match::run()
     AI ai(levelId);
     while (!quit) {

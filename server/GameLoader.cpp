@@ -9,7 +9,7 @@
 #include "../common/Items/LockedDoor.h"
 
 
-GameLoader::GameLoader() : uniqueId(0){
+GameLoader::GameLoader() : uniqueId(1){
     sprites = YAML::LoadFile("../Editor/sprites/sprites.yaml");
     idConfig = YAML::LoadFile("config.yaml");
     map = YAML::LoadFile("../server/maps/1.yaml");
@@ -91,7 +91,7 @@ Item* GameLoader::itemLoader(std::string& itemName) {
                     uniqueId++;
                     return item;
                 }
-                if (itemName == "ammo") {
+                 if (itemName == "ammo") {
                     Item* item = new AmmoItem(it->first.as<int>(), itemName, value, uniqueId);
                     uniqueId++;
                     return item;

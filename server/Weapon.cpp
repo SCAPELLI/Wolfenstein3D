@@ -24,7 +24,7 @@ int Weapon::attack(int bullets, int distance, double angle){
     if (id == Knife){
         return generateRandom();
     }
-    return generateRandom() * 1/angle * (1/(double)distance) * minBullets;  //acotar daÑo a un max y * #balas
+    return generateRandom() * 1/angle * (30/(double)distance) * minBullets;  //acotar daÑo a un max y * #balas
 }
 
 Rocket* Weapon::launchRocket(){
@@ -33,7 +33,8 @@ Rocket* Weapon::launchRocket(){
 }
 
 bool Weapon::doesHit(int distance, double angle){ // doesHit
-   return (generateRandom() * 1/(double)distance * (1/angle) >= presicion);
+   return true;
+//   (generateRandom() * 100/(double)distance * (1/angle) >= presicion);
 }
 
 bool Weapon::canShoot(int bullets){

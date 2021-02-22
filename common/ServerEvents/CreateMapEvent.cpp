@@ -5,8 +5,8 @@
 CreateMapEvent::CreateMapEvent(updateEventType eventType, int width, int height)
 : eventType(eventType), width(width), height(height){}
 
-void CreateMapEvent::addPlayer(Vector startingLocation) {
-    startingLocations.push_back(startingLocation);
+void CreateMapEvent::addPlayer(int idPlayer, Vector& startingLocation) {
+    startingLocations[idPlayer] = std::make_pair(startingLocation.x, startingLocation.y);
 }
 
 void CreateMapEvent::runHandler(CGame &renderer) {
