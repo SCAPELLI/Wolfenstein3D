@@ -19,8 +19,6 @@ GameLoader::GameLoader() : uniqueId(1){
 void GameLoader::readData(int& speed){
     YAML::Node matrix = map["map"];
     speed = map["speed"].as<int>();
-    //int width = fileNode["width"].as<int>();
-    //mapLoader(map, players, matrix);
 }
 
 int GameLoader::assignUniqueId(){
