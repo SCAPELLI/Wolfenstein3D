@@ -10,13 +10,18 @@
 #define FIELD_FONT 20
 #define LABEL_FONT 30
 
+#define LEVELS_MAX_LEVEL 1
+#define PLAYERS_MIN_ALLOWED 2
+#define PLAYERS_MAX_ALLOWED 15
+
+const QStringList createQStringListOfNumbers(int min, int max);
+
 NewMatchScreen::NewMatchScreen(QWidget *parent, ScreenManager *screenManager)
     : QWidget(parent), ui(new Ui::NewMatchScreen) {
     this->ui->setupUi(this);
     this->screenManager = screenManager;
 
-    this->setLevels();
-
+    this->setOptions();
     this->setStyle();
     this->connectEvents();
 }
@@ -36,17 +41,16 @@ void NewMatchScreen::connectEvents() {
 
 void NewMatchScreen::onAcceptButtonClick() {
     QComboBox *levelBox = findChild<QComboBox*>("levelBox");
-    QLineEdit *maxPlayersLineEdit = findChild<QLineEdit*>("maxPlayersLineEdit");
+    QComboBox *maxPlayersBox = findChild<QComboBox*>("maxPlayersBox");
 
     if (this->screenManager->tryToCreateAMatch(levelBox->currentText().toInt(),
-                                               maxPlayersLineEdit->text().toInt())) {
+                                               maxPlayersBox->currentText().toInt())) {
         this->screenManager->refreshWaitingRoom();
         this->screenManager->goNext();
     } else {
         QMessageBox badInputMessage;
-        badInputMessage.setText("Invalid fields");
+        badInputMessage.setText("An error has occurred");
         badInputMessage.exec();
-        maxPlayersLineEdit->clear();
     }
 
 }
@@ -55,10 +59,14 @@ void NewMatchScreen::onCancelButtonClick() {
     this->screenManager->goBack();
 }
 
-void NewMatchScreen::setLevels() {
+void NewMatchScreen::setOptions() {
     QComboBox *levelBox = findChild<QComboBox*>("levelBox");
-    QStringList levelList = {"1"};
+    QStringList levelList = createQStringListOfNumbers(1, LEVELS_MAX_LEVEL);
     levelBox->addItems(levelList);
+
+    QComboBox *maxPlayersBox = findChild<QComboBox*>("maxPlayersBox");
+    QStringList maxPlayerList = createQStringListOfNumbers(PLAYERS_MIN_ALLOWED, PLAYERS_MAX_ALLOWED);
+    maxPlayersBox->addItems(maxPlayerList);
 }
 
 void NewMatchScreen::setStyle() {
@@ -70,8 +78,15 @@ void NewMatchScreen::setStyle() {
 
     style.setRetroFont(this->ui->mapLabel, LABEL_FONT);
     style.setRetroFont(this->ui->maxPlayersLabel, LABEL_FONT);
-    style.setRetroFont(this->ui->maxPlayersLineEdit, FIELD_FONT);
 
     style.setRetroFont(this->ui->levelBox, FIELD_FONT);
+    style.setRetroFont(this->ui->maxPlayersBox, FIELD_FONT);
+}
 
+const QStringList createQStringListOfNumbers(int min, int max) {
+    QStringList list = {};
+    for (int i = min; i != max + 1; i++) {
+        list.append(QString::number(i));
+    }
+    return list;
 }
