@@ -1,5 +1,5 @@
 #include "Mode.h"
-#include "Tilemap.h"
+#include "TilemapScene.h"
 
 Mode::Mode(TilemapScene *tilemapScene)
     : tilemapScene(tilemapScene){}

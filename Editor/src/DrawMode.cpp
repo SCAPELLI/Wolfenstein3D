@@ -1,5 +1,5 @@
 #include "DrawMode.h"
-#include "Tilemap.h"
+#include "TilemapScene.h"
 
 DrawMode::DrawMode(TilemapScene *tilemapScene) : Mode(tilemapScene) {}
 
