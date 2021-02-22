@@ -78,17 +78,18 @@ void Match::run() {
         senders[i]->start();
         i++;
     }
-    AI ai(levelId);
     std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
-    while (!matchFinished){
-        while(!usersEventQueue.empty() && !matchFinished){ //procesar eventos
-            Event event = std::move(userEvents.pop());
-            event.runHandler(gameStage);
-        } // agregar reap?
-        ai.generateEvent(usersEventQueue, gameStage.getPlayersInfo());
-        gameStage.incrementCooldown();
-        usleep(20000);
-    }
+    // agregar joins
+//    AI ai(levelId);
+//    while (!matchFinished){
+//        while(!usersEventQueue.empty() && !matchFinished){ //procesar eventos
+//            Event event = std::move(userEvents.pop());
+//            event.runHandler(gameStage);
+//        } // agregar reap?
+//        ai.generateEvent(usersEventQueue, gameStage.getPlayersInfo());
+//        gameStage.incrementCooldown();
+//        usleep(20000);
+//    }
     matchFinished = true;
 }
 

@@ -1,5 +1,5 @@
-#ifndef RECIVER_THREAD_H
-#define RECIVER_THREAD_H
+#ifndef RECEIVER_THREAD_H
+#define RECEIVER_THREAD_H
 
 #include "../../common/include/Thread.h"
 #include "../../common/include/Socket.h"
