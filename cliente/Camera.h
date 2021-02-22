@@ -10,7 +10,7 @@ class Camera{
 	Vector cameraPosition;
 	Vector planePosition;
 	Vector facingPosition;
-	int fov;
+	double fov;
 
 	public:
 		Camera(double x, double y, double fov);

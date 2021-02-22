@@ -98,6 +98,7 @@ public:
     void updateKills();
     bool hasRocketLauncher();
     Rocket* setRocket();
+    Vector getInitialPosition();
     ~Player();
 
 };

@@ -119,20 +119,20 @@ void CellMap::dropItems(Player& player,GameLoader& factory,
     ammoToDrop->changeValue(5);
     items.push_back(ammoToDrop);
     auto* event = new SpawnEvent(SpawnEventType, ammoToDrop->getUniqueId(),
-                                   ammoToDrop->getId(), pos.y * 32, pos.x * 32);
+                                   ammoToDrop->getId(), pos.y , pos.x );
     newEvents.push_back(event);
     std::string blood = "blood";
     Item* bloodDropped = factory.itemLoader(blood);
     items.push_back(bloodDropped);
     auto* event1 = new SpawnEvent(SpawnEventType, bloodDropped->getUniqueId(),
-                                 bloodDropped->getId(), pos.y * 32, pos.x * 32);
+                                 bloodDropped->getId(), pos.y , pos.x );
     newEvents.push_back(event1);
     Weapon currentWeapon = player.getWeapon();
-    if (currentWeapon.name != "gun" && currentWeapon.name != "knife") {
+    if (currentWeapon.name != "pistol" && currentWeapon.name != "knife") {
         currentWeapon.uniqueId = factory.assignUniqueId();
         items.push_back(&currentWeapon);
         auto *event2 = new SpawnEvent(SpawnEventType, currentWeapon.getUniqueId(),
-                                      currentWeapon.getId(), pos.y * 32, pos.x * 32);
+                                      currentWeapon.getId(), pos.y , pos.x );
         newEvents.push_back(event2);
     }
     if (player.hasKey()) {
@@ -140,7 +140,7 @@ void CellMap::dropItems(Player& player,GameLoader& factory,
         Item* keyToDrop = factory.itemLoader(key);
         items.push_back(keyToDrop);
         auto* event3 = new SpawnEvent(SpawnEventType, keyToDrop->getUniqueId(),
-                                      keyToDrop->getId(), pos.y * 32, pos.x * 32);
+                                      keyToDrop->getId(), pos.y , pos.x );
         newEvents.push_back(event3);
     }
 }

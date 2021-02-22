@@ -81,7 +81,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
                 players[ids[idPlayer]].updateKills();
                 AbstractEvent* event = new KillEvent(KillEventType, i);
                 newEvents.push_back(event);
-                map.dropAllItems(players[i], newEvents);
+                map.dropAllItems(players[i], newEvents);// borrar directamente player aca?
                 respawnPlayer(i, newEvents);
             }
             else{
@@ -132,11 +132,10 @@ bool Game::canShoot(int idPlayer, int otherPlayerId){
 }
 
 void Game::respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents){
+    Vector iniPos = players[ids[ idPlayer]].getInitialPosition().scale();
+    map.changePosition(iniPos, players[ids[idPlayer]], newEvents);
     players[ids[idPlayer]].respawn();
-    map.changePosition(players[ids[idPlayer]].getScaledPosition(), players[ids[idPlayer]], newEvents);
-    newEvents.push_back(new PositionEvent(PositionEventType,
-                                          idPlayer, players[ids[idPlayer]].getPosition().x,
-                                          players[ids[idPlayer]].getPosition().y));
+
 
 }
 
