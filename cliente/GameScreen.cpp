@@ -18,7 +18,7 @@ GameScreen::GameScreen(CPlayer* activePlayer, int h, int w):
 }
 
 bool distanceSort(std::pair<int, double> a, std::pair<int, double> b){
-    return a.second < b.second;
+    return a.second > b.second;
 }
 
 void GameScreen::draw(std::vector<std::vector<int>>& map,
