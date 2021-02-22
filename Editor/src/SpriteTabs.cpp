@@ -40,7 +40,6 @@ SpriteTabs::SpriteTabs(QWidget *parent, EditorScreen *editorScreen)
 
     Style style;
     style.setTabWidgetStyle(this);
-
 }
 
 SpriteTabs::~SpriteTabs() {

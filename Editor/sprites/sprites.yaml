@@ -8,39 +8,39 @@ items:
     3:
         type: ammo
         value: 5
+    4:
+        type: cross
+        value: 10
     5:
         type: chest
         value: 100
+    6:
+        type: ammo
+        value: 5
     7:
         type: key
         value: 1
     8:
         type: food
         value: 10
+    9:
+        type: blood
+        value: 1
     10:
         type: crown
         value: 200
+    11:
+        type: chalice
+        value: 50
     12:
         type: key
         value: 1
     13:
         type: med kit
         value: 20
-    16:
+    14:
         type: ammo
         value: 5
-    18:
-        type: ammo
-        value: 5
-    19:
-        type: chalice
-        value: 50
-    21:
-        type: blood
-        value: 1
-    22:
-        type: cross
-        value: 10
 weapons:
     50:
         type: machine gun
@@ -118,6 +118,8 @@ textures:
     161: door
     162: wall
 decorations:
+    200: object
+    201: object
     202: object
     203: object
     204: object
@@ -128,14 +130,12 @@ decorations:
     209: object
     210: object
     211: object
+    212: object
     213: object
     214: object
     215: object
     217: object
     218: object
-    219: object
-    220: object
-    221: object
 walkable:
     300: object
     301: object

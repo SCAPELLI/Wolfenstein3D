@@ -7,6 +7,7 @@
 #include <yaml-cpp/node/node.h>
 #include <yaml-cpp/yaml.h>
 #include <QtWidgets/QMessageBox>
+#include <SpriteFileManager.h>
 #include "../include/EditorScreen.h"
 #include "../include/TilemapScene.h"
 #include "ui_EditorScreen.h"
@@ -98,6 +99,10 @@ void EditorScreen::openMap() {
         std::string aux = filePath.toUtf8().toStdString();
         YAML::Node map = YAML::LoadFile(aux);
         std::vector<std::vector<int>> matrix = map["map"].as<std::vector<std::vector<int>>>();
+        SpriteFileManager spriteFileManager;
+        if (!spriteFileManager.mapHasValidIds(matrix)) {
+            throw "InvalidIds";
+        }
         this->setNewTilemapScene(matrix.size(), matrix[0].size(), aux);
         this->tilemapScene->setMapMatrix(matrix);
 
