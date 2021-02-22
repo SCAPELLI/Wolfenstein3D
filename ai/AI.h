@@ -32,6 +32,7 @@ class PlayerInfo;
 class AI {
     int botId;
     lua_State* L;
+    int cooldownToAttack;
 public:
     //AI(std::vector<std::vector<int>>& map, std::vector<Player>& players, int botId, bool& quit);
     explicit AI(int levelId);

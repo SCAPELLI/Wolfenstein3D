@@ -84,7 +84,7 @@ double Player::getAngle() const {
 
 double Player::angleWithOther(Player& otherPlayer){
     double angleWithOrigin = otherPlayer.getPosition().angle();
-    return angle - angleWithOrigin;
+    return position.angle() - angleWithOrigin;
 //    int deltaX = otherPlayer.getPosition().x - position.x; //adyacente
 //    int distanceWith = position.distance(otherPlayer.position);
 //    double angleWithOtherPlayer = acos(deltaX / distanceWith);

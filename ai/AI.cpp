@@ -24,12 +24,12 @@ extern "C" {
     //ruta de yaml, (id del bot siempre 0)
 }*/
 
-AI::AI(int levelId) {
+AI::AI(int levelId): cooldownToAttack(60) {
     L = luaL_newstate();
     luaL_openlibs(L);
 
     botId = 0;
-//    cooldown(0);
+//    cooldown();
     std::vector<std::vector<int>> map;
     std::string levelPath = std::to_string(levelId) + ".yaml";
     YAML::Node file = YAML::LoadFile("../server/maps/" + levelPath);
@@ -129,6 +129,7 @@ void addShootingEventToQueue(ProtectedEventsQueue& events) {
 }
 
 void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players) {
+    cooldownToAttack += 1;
     switch (getBotActionId(players)) {
         case MOVE_FOWARD:
             addMovementEventToQueue(events);
@@ -140,7 +141,9 @@ void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> pla
             addTurnEventToQueue(events, -1);
             break;
         case ATTACK:
+            if (cooldownToAttack < 60) return;
             addShootingEventToQueue(events);
+            cooldownToAttack = 0;
             break;
         case DO_NOTHING:
             std::cout<<"[c++] Do nothing"<<std::endl;
