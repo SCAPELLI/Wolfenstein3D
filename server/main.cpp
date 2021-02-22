@@ -9,6 +9,7 @@
 #include <ServerEvents/CreateMapEvent.h>
 #include "../cliente/CGame.h"
 #include "Map.h"
+#include "common/BlockingEventsQueue.h"
 
 #define FOV 0.66
 
@@ -16,8 +17,8 @@ int main() {
     try {
         EventsCatcher eventsCatcher(1); // esta en client
         //-----------------
-        ProtectedEventsQueue userEvents;
-        ProtectedEventsQueue updateEvents;
+        std::vector<BlockingEventsQueue> userEvents;
+        std::vector<BlockingEventsQueue> updateEvents;
         std::atomic<bool> quit(false);
         std::thread t (Server(userEvents, updateEvents, quit));
 
@@ -27,7 +28,7 @@ int main() {
                 hasStarted = true;
             }
         }
-        Event event = std::move(updateEvents.pop());
+        Event event = std::move(updateEvents[0].pop());
         CreateMapEvent* start = (CreateMapEvent*) event.event;
         double spawnPointX = start->startingLocations[1].first;
         double spawnPointY = start->startingLocations[1].second;
@@ -45,10 +46,10 @@ int main() {
         CGame game(spawnPointX, spawnPointY, FOV, map, 1);
         game.spawnEnemy(0, Vector(start->startingLocations[0].first, start->startingLocations[0].second));
         while (!quit) {
-            userEvents.insertEvents(eventsCatcher);
+            userEvents[0].insertEvents(eventsCatcher);
 
             while (!updateEvents.empty()) {
-                Event event = std::move(updateEvents.pop());
+                Event event = std::move(updateEvents[0].pop());
                 event.runHandler(game);
             }
             game.draw();

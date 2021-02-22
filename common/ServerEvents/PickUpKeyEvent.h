@@ -8,7 +8,8 @@
 class PickUpKeyEvent  : public AbstractEvent{
 public:
     updateEventType eventType;
-PickUpKeyEvent (updateEventType eventType);
+    int idPlayer;
+    PickUpKeyEvent (updateEventType eventType, int idPlayer);
     updateEventType getEventType();
 };
 

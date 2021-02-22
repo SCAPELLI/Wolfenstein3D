@@ -61,18 +61,18 @@ void CellMap::explode(Rocket* rocket, std::vector<AbstractEvent *> &newEvents) {
         playerList[i].getDamage(rocket->damage * 1/distanceWithRocket);
         if (playerList[i].isGameOver()) {
             rocket->sender->updateKills();
-            AbstractEvent *event = new GameOverEvent(GameOverEventType, i);
+            AbstractEvent *event = new GameOverEvent(GameOverEventType, playerList[i].getId());
             newEvents.push_back(event);
         }
         else if (playerList[i].isDead()){
             rocket->sender->updateKills();
-            AbstractEvent* event = new KillEvent(KillEventType, i);
+            AbstractEvent* event = new KillEvent(KillEventType, playerList[i].getId());
             newEvents.push_back(event);
             playerList[i].respawn();
         }
         else{
             AbstractEvent* event = new
-                    HealthChangeEvent(HealthChangeType,
+                    HealthChangeEvent(HealthChangeType,playerList[i].getId(),
                                       rocket->damage * 1/distanceWithRocket);
             newEvents.push_back(event);
         }

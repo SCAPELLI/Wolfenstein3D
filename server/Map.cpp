@@ -15,9 +15,10 @@
 Map::Map(){}
 
 Map::Map(std::vector<Player>& players,
-         std::vector<AbstractEvent*>& newEvents): factory(){
+         std::vector<AbstractEvent*>& newEvents, int levelId): factory(){
     std::vector<std::vector<CellMap>> map;
-    YAML::Node config = YAML::LoadFile("../server/maps/1.yaml");
+    std::string pathLevel = "../server/maps/" + std::to_string(levelId)+ ".yaml";
+    YAML::Node config = YAML::LoadFile(pathLevel);
     YAML::Node matrixConfig = config["map"];
     int numOfPlayer = 0;
     height = matrixConfig.size() - 1;

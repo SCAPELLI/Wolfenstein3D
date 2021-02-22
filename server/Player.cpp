@@ -148,7 +148,7 @@ bool Player::pickupWeapon(Weapon weapon,
             return false;
     }
     bag.insert(std::make_pair(weapon.id, weapon));
-    newEvents.push_back(new PickUpWeaponEvent(PickUpWeaponType,
+    newEvents.push_back(new PickUpWeaponEvent(PickUpWeaponType, id,
                                                 weapon.getUniqueId()));
     return true;
 }
@@ -251,14 +251,14 @@ bool Player::getItem(LifeGainItem* item,
         int extra = health % MAXHEALTH;
         health -= extra;
     }
-    newEvents.push_back(new HealthChangeEvent(HealthChangeType, health));
+    newEvents.push_back(new HealthChangeEvent(HealthChangeType, id, health));
     return true;
 }
 
 bool Player::getItem(PointGainItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
     score += item->getEffect();
-    newEvents.push_back(new ScoreChangeEvent(ScoreChangeType, item->getEffect()));
+    newEvents.push_back(new ScoreChangeEvent(ScoreChangeType, id, item->getEffect()));
     return true;
 }
 
@@ -270,7 +270,7 @@ bool Player::getItem(Weapon* item,
 bool Player::getItem(KeyItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
     keys += item->getEffect();
-    newEvents.push_back(new PickUpKeyEvent(PickUpKeyType));
+    newEvents.push_back(new PickUpKeyEvent(PickUpKeyType, id));
     return true;
 }
 
@@ -282,7 +282,7 @@ bool Player::getItem(AmmoItem* item,
         int extra = bullets % maxBullets;
         bullets -= extra;
     }
-    newEvents.push_back(new AmmoChangeEvent(AmmoChangeType, bullets));
+    newEvents.push_back(new AmmoChangeEvent(AmmoChangeType, id, bullets));
     return true;
 }
 

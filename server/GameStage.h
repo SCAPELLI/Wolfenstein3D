@@ -20,25 +20,28 @@ class ShootingEvent;
 class OpenDoorEvent;
 class SpawnEvent;
 class ChangeWeaponEvent;
+class BlockingEventsQueue;
+class Event;
 #include "PlayerInfo.h"
 
 class GameStage {
-    ProtectedEventsQueue& updateEvents;
+    //ProtectedEventsQueue& updateEvents;
     std::vector<AbstractEvent*> newEvents;
     std::vector<std::pair<int, std::string>> highScores;
+    int levelId;
+    std::vector<BlockingEventsQueue> queues;
 //    std::vector< std::string> playersNames; // temporalmente una lista despues en realidad viene de startGame
     Game game;
 public:
-    explicit GameStage(ProtectedEventsQueue& updateEvents,std::map<int, std::string>& playersNames);
+    explicit GameStage(std::vector<BlockingEventsQueue>& queues,
+                       std::map<int, std::string>& playersNames, int levelId);
     void processEvent(TurnEvent& event);
     void processEvent(MovementEvent& event);
-    void processEvent(KillEvent& event);
     void processEvent(ChangeWeaponEvent& event);
     void processEvent(ShootingEvent& event);
-    void processEvent(GameOverEvent& event);
     void processEvent(OpenDoorEvent& event);
-    void processEvent(SpawnEvent& event);
     void processEvent(int objId,int type, int posX, int posY);
+    void insertInAllQueuesEvent(Event& event);
     void pushNewEvents();
     std::vector<PlayerInfo> getPlayersInfo();
     void incrementCooldown();

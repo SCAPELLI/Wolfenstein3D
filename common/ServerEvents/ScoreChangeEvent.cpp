@@ -1,8 +1,8 @@
 #include "cliente/CGame.h"
 #include "ScoreChangeEvent.h"
 
-ScoreChangeEvent::ScoreChangeEvent (updateEventType eventType, int score)
-: score(score), eventType(eventType) {}
+ScoreChangeEvent::ScoreChangeEvent (updateEventType eventType, int idPlayer, int score)
+:  eventType(eventType),idPlayer(idPlayer),score(score) {}
 
 updateEventType ScoreChangeEvent::getEventType() {
     return eventType;

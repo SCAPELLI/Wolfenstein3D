@@ -3,7 +3,7 @@
 #include "Event.h"
 #include "../EventSerializer.h"
 
-KillEvent::KillEvent (updateEventType eventType, int idPlayer) //kil
+KillEvent::KillEvent (updateEventType eventType, int idPlayer)
     : eventType(eventType), idPlayer(idPlayer){}
 
 

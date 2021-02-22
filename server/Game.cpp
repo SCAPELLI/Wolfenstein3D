@@ -15,7 +15,8 @@
 
 
 Game::Game( std::vector<AbstractEvent*>& newEvents,
-            std::map<int, std::string>& playersNames){
+            std::map<int, std::string>& playersNames, int levelId)
+            :     levelId(levelId){
     GameLoader yaml;
     yaml.readData(speed);
     int cont = 0;
@@ -24,7 +25,7 @@ Game::Game( std::vector<AbstractEvent*>& newEvents,
         players.emplace_back(Player(it->first, cont, it->second, Vector(0, 0)));
         cont++;
     }
-    map = Map(players, newEvents);
+    map = Map(players, newEvents ,levelId);
     auto startEvent = new CreateMapEvent(CreateMapType, map.getWidth(), map.getHeight());
     for (int i = 0; i < players.size(); i++){
         startEvent->addPlayer(players[i].getId(), players[i].getPosition());
@@ -74,18 +75,20 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
             if (players[i].isGameOver()) {
                 players[ids[idPlayer]].updateKills();
                 map.dropAllItems(players[i], newEvents);
-                AbstractEvent *event = new GameOverEvent(GameOverEventType, ids[i]);
+                AbstractEvent *event = new GameOverEvent(GameOverEventType,
+                                                                players[i].getId());
                 newEvents.push_back(event);
             }
             else if (players[i].isDead()){
                 players[ids[idPlayer]].updateKills();
-                AbstractEvent* event = new KillEvent(KillEventType, ids[i]);
+                AbstractEvent* event = new KillEvent(KillEventType, players[i].getId());
                 newEvents.push_back(event);
-                map.dropAllItems(players[i], newEvents);// borrar directamente player aca?
-                respawnPlayer(ids[i], newEvents);
+                map.dropAllItems(players[i], newEvents);
+                respawnPlayer(players[i].getId(), newEvents);
             }
             else{
-                AbstractEvent* event = new HealthChangeEvent(HealthChangeType, newHp);
+                AbstractEvent* event = new HealthChangeEvent(HealthChangeType,
+                                                             players[i].getId(), newHp);
                 newEvents.push_back(event);
             }
             return i;// devolves a quien le pegaste

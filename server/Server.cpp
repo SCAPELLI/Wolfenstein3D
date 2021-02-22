@@ -8,24 +8,25 @@
 #include <iostream>
 #include "../ai/AI.h"
 
-Server::Server(ProtectedEventsQueue& userEvents, ProtectedEventsQueue& updateEvents,
-       std::atomic<bool>& quit):
+Server::Server(std::vector<BlockingEventsQueue>& usersEvents,
+                                std::vector<BlockingEventsQueue>& updateEvents,
+                                std::atomic<bool>& quit):
         userEvents(userEvents), updateEvents(updateEvents), quit(quit) {}
 
 void Server::operator()() {
     std::map<int, std::string> players;
     players[0] = "bot";
     players[1] = "killn";
-    GameStage gameStage(updateEvents, players);
     int levelId = 1; //sacar cuando se haga el match::run()
+    GameStage gameStage(updateEvents, players, levelId);
     AI ai(levelId);
     while (!quit) {
         while (!userEvents.empty() && !quit) {
-            Event event = std::move(userEvents.pop());
+            Event event = std::move((userEvents.at(0)).pop());
             event.runHandler(gameStage);
             if (event.thisIsTheQuitEvent()) quit = true;
         }
-        ai.generateEvent(userEvents, gameStage.getPlayersInfo());
+        ai.generateEvent(userEvents[0], gameStage.getPlayersInfo());
         gameStage.incrementCooldown();
         usleep(20000);
     }
