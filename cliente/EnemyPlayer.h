@@ -8,8 +8,8 @@
 class EnemyPlayer {
 
     SDL_Renderer* renderer;
-    int activeWeapon, id;
-    std::vector<AnimatedSprite> walkingAnimation, dyingAnimation, shootingAnimation;
+    int activeWeapon, id, activeAnimation;
+    std::vector<std::vector<AnimatedSprite>> animations;
 
     public:
 
