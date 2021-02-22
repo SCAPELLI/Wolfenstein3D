@@ -70,22 +70,22 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
             if (!canShoot(idPlayer, i))
                 continue;
             int damage = players[ids[idPlayer]].hits(players[i]);
-            players[i].getDamage(damage);
+            int newHp = players[i].getDamage(damage);
             if (players[i].isGameOver()) {
                 players[ids[idPlayer]].updateKills();
                 map.dropAllItems(players[i], newEvents);
-                AbstractEvent *event = new GameOverEvent(GameOverEventType, i);
+                AbstractEvent *event = new GameOverEvent(GameOverEventType, ids[i]);
                 newEvents.push_back(event);
             }
             else if (players[i].isDead()){
                 players[ids[idPlayer]].updateKills();
-                AbstractEvent* event = new KillEvent(KillEventType, i);
+                AbstractEvent* event = new KillEvent(KillEventType, ids[i]);
                 newEvents.push_back(event);
                 map.dropAllItems(players[i], newEvents);// borrar directamente player aca?
-                respawnPlayer(i, newEvents);
+                respawnPlayer(ids[i], newEvents);
             }
             else{
-                AbstractEvent* event = new HealthChangeEvent(HealthChangeType, damage);
+                AbstractEvent* event = new HealthChangeEvent(HealthChangeType, newHp);
                 newEvents.push_back(event);
             }
             return i;// devolves a quien le pegaste
@@ -100,12 +100,8 @@ bool Game::changeWeapon(int idPlayer, int idWeapon) {
 
 void Game::changePosition(Vector changeTo, int idPlayer,
                                    std::vector<AbstractEvent*>& newEvents){
-    //idPlayer = 0;
 
     Vector futurePos = (players[ids[idPlayer]].getPosition() + changeTo).scale();
-//    if (idPlayer == 0){
-//        futurePos = Vector(futurePos.y, futurePos.x);
-    //}
     if (map.isOkToMove(futurePos)){
         map.changePosition(futurePos, players[ids[idPlayer]], newEvents);
         players[ids[idPlayer]].move(changeTo);

@@ -36,7 +36,8 @@ class CGame{
     BagOfSprites sprites;
 
 	public:
-		CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId);
+	bool isOver;
+	CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId);
 		void draw();
 		void rotate(double degrees);
 		void advanceTime();

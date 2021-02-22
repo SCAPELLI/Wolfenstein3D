@@ -3,11 +3,10 @@
 #include "Event.h"
 #include "../EventSerializer.h"
 
-KillEvent::KillEvent (updateEventType eventType, int idPlayer) //kill
-    :idPlayer(idPlayer), eventType(eventType){}
+KillEvent::KillEvent (updateEventType eventType, int idPlayer) //kil
+    : eventType(eventType), idPlayer(idPlayer){}
 
-KillEvent::KillEvent (KillEvent& KillEvent)
-{}
+
 
 void KillEvent::runHandler(CGame& game) {
     game.processEvent(*this);

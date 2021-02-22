@@ -19,12 +19,10 @@ public:
 public:
     int getDamage()const;
     Weapon(int id, std::string name, int uniqueId, int damage, int minBullets, int cooldownTimer);
-    //Weapon(int id, std::string name);
     Weapon();
-    int attack(int bullets, int distance, double angle);
+    int attack( int distance, double angle);
     int generateRandom();
     Rocket* launchRocket();
-    //int getSpeed();
     bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
     bool operator<(const Weapon& t) const;
     bool operator==(const Weapon& t) const;

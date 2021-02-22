@@ -54,6 +54,7 @@ int main() {
             game.draw();
             game.playSounds();
             game.advanceTime();
+            quit = game.isOver;
             SDL_Delay(33);
         }
 
