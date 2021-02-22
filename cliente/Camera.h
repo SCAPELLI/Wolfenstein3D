@@ -10,6 +10,7 @@ class Camera{
 	Vector cameraPosition;
 	Vector planePosition;
 	Vector facingPosition;
+	int fov;
 
 	public:
 		Camera(double x, double y, double fov);
@@ -19,6 +20,7 @@ class Camera{
             std::vector<std::vector<int>>& map,
             std::map<int, Wall*>* wallTextures,
             std::vector<double> &wallDistances);
+        void resetVision();
 		Vector& getPosition();
 		Vector& getPlanePosition();
 		Vector& getFacingPosition();

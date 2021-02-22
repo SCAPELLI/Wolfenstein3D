@@ -5,7 +5,8 @@
 Camera::Camera(double x, double y, double fov):
 	cameraPosition(x,y),
 	planePosition(0, fov),
-	facingPosition(1,0){}
+	facingPosition(1,0),
+	fov(fov){}
 
 void Camera::moveTo(double x, double y){
 	this->cameraPosition = Vector(x,y);
@@ -29,6 +30,11 @@ void Camera::draw(SDL_Renderer* renderer,
 		Ray ray(this, cameraX, x);
 		wallDistances.push_back(ray.drawWall(renderer, h, map, wallTextures));
 	}
+}
+
+void Camera::resetVision(){
+    planePosition = Vector(0, fov);
+    facingPosition = Vector(1,0);
 }
 
 Vector& Camera::getPosition(){
