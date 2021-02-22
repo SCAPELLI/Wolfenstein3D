@@ -3,6 +3,7 @@
 #include "../../common/Style.h"
 #include <QMouseEvent>
 #include <SpriteFileManager.h>
+#include <iostream>
 
 #define ICON_SIZE 32
 
@@ -32,6 +33,9 @@ void TextureList::addTexture(const std::string &texturePath, const std::string &
 
 void TextureList::mousePressEvent(QMouseEvent *event) {
     QListWidgetItem *item = itemAt(event->pos());
+    if (!item) {
+        return;
+    }
     this->setCurrentItem(item);
     QModelIndex aux = this->indexFromItem(item);
     int index = aux.row();
