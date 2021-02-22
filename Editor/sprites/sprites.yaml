@@ -43,16 +43,16 @@ items:
         value: 5
 weapons:
     50:
-        type: machine gun
+        type: pistol
         value: -1
     51:
-        type: chain gun
+        type: machine gun
         value: -1
     52:
-        type: rocket launcher
+        type: chain gun
         value: -1
     53:
-        type: pistol
+        type: rocket launcher
         value: -1
 textures:
     100: wall
