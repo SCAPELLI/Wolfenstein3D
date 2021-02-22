@@ -1,14 +1,14 @@
 #include "Weapon.h"
-#include "../server/GameLoader.h"
 #include <bits/stdc++.h>
 #include "Constants.h"
 #include "Items/Rocket.h"
 #include "Player.h"
+#include <cmath>
 Weapon::Weapon(int id, std::string name, int uniqueId, int damage,
                int minBullets, int cooldownTimer)
-    : id(id), uniqueId(uniqueId), presicion(damage),name(name),
+    : id(id), uniqueId(uniqueId), precision(damage),name(name),
     minBullets(minBullets), cooldown(0), cooldownTimer(cooldownTimer),
-    isShooting(false), Item(id, name, damage, uniqueId)// arreglar nombres ffs
+    isShooting(false), Item(id, name, damage, uniqueId)
 {}
 
 
@@ -24,7 +24,7 @@ int Weapon::attack(int bullets, int distance, double angle){
     if (id == Knife){
         return generateRandom();
     }
-    int damage = generateRandom() * 1/abs(angle) * (30/(double)distance) * minBullets;  //acotar daÑo a un max
+    int damage = generateRandom() * 1/std::abs(angle) * (30/(double)distance) * minBullets;  //acotar daÑo a un max
     return damage;
 
 }
@@ -36,7 +36,7 @@ Rocket* Weapon::launchRocket(){
 
 bool Weapon::doesHit(int distance, double angle){ // doesHit
    return true;
-//   (generateRandom() * 100/(double)distance * (1/angle) >= presicion);
+//   (generateRandom() * 100/(double)distance * (1/angle) >= precision);
 }
 
 bool Weapon::canShoot(int bullets){
@@ -49,7 +49,7 @@ Weapon::Weapon() {
 
 
 int Weapon::getDamage()const {
-    return presicion;
+    return precision;
 }
 bool Weapon::operator<(const Weapon& t) const{
     return (this->id < t.id);
