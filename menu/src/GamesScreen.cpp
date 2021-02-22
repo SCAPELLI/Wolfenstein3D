@@ -6,6 +6,8 @@
 #include <QtCore/QEventLoop>
 #include <QtCore/QCoreApplication>
 #include <QtGui/QPainter>
+#include <QtWidgets/QMessageBox>
+#include <unistd.h>
 #include "GamesScreen.h"
 #include "ui_GamesScreen.h"
 #include "../../common/Style.h"
@@ -47,17 +49,23 @@ void GamesScreen::connectEvents() {
 
 void GamesScreen::onJoinButtonClick() {
     QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
-
-    //mostrar mensaje que diga esperando que comienze la partida
-    // (cuando apretas join se queda "trabado" hasta que termina la partida)
+    QMessageBox waitingMessage;
+    waitingMessage.setText("Waiting for the match to start...");
+    waitingMessage.setStandardButtons(0);
+    waitingMessage.setWindowFlag(Qt::WindowCloseButtonHint, false);
+    waitingMessage.setWindowFlags(Qt::WindowTitleHint);
+    waitingMessage.exec();
     if (dataTable->currentRow() >= 0) {
-        //std::cout << "Id del match seleccionado: " << this->idMatches.at(dataTable->currentRow()) << "\n";
         if (!(this->screenManager->tryToJoin(this->idMatches.at(dataTable->currentRow())))) {
-        //imprimir mensaje de error al conectarse a la partida
+            waitingMessage.close();
+            QMessageBox waitingMessage;
+            waitingMessage.setText("An error has occurred");
+            waitingMessage.exec();
+        } else {
+            waitingMessage.close();
         }
         refresh();
     }
-
      //this->screenManager->close();
 }
 

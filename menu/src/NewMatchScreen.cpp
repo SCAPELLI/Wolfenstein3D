@@ -21,8 +21,7 @@ NewMatchScreen::NewMatchScreen(QWidget *parent, ScreenManager *screenManager)
     this->ui->setupUi(this);
     this->screenManager = screenManager;
 
-    this->setLevels();
-
+    this->setOptions();
     this->setStyle();
     this->connectEvents();
 }
@@ -60,7 +59,7 @@ void NewMatchScreen::onCancelButtonClick() {
     this->screenManager->goBack();
 }
 
-void NewMatchScreen::setLevels() {
+void NewMatchScreen::setOptions() {
     QComboBox *levelBox = findChild<QComboBox*>("levelBox");
     QStringList levelList = createQStringListOfNumbers(1, LEVELS_MAX_LEVEL);
     levelBox->addItems(levelList);
