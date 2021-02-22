@@ -4,7 +4,7 @@
 #include <yaml-cpp/yaml.h>
 #include <Items/OpenableItem.h>
 //#include "Game.h"
-#include "../common/Item.h"
+#include "Item.h"
 
 
 

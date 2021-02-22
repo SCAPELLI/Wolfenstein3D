@@ -1,5 +1,5 @@
 #include "Item.h"
-#include "../cliente/Sprite.h"
+#include "cliente/Sprite.h"
 
 
 Item::Item(int id,std::string name, int effect, int uniqueId)

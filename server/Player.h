@@ -1,14 +1,14 @@
 #ifndef WOLFENSTEIN3D_PLAYER_H
 #define WOLFENSTEIN3D_PLAYER_H
 #include "Vector.h"
-#include "Weapon.h"
+#include "Items/Weapon.h"
 #include <map>
-#include "../common/Item.h"
+#include "Item.h"
 #include <vector>
-#include "../common/Items/LifeGainItem.h"
-#include "../common/Items/AmmoItem.h"
-#include "../common/Items/PointGainItem.h"
-#include "../common/Items/KeyItem.h"
+#include "Items/LifeGainItem.h"
+#include "Items/AmmoItem.h"
+#include "Items/PointGainItem.h"
+#include "Items/KeyItem.h"
 //#include "Items/Rocket.h"
 
 class Player {

@@ -1,7 +1,5 @@
 #include <SDL2/SDL.h>
 #include <atomic>
-//#include "../common/SDLContext.h"
-//#include "../common/Window.h"
 #include "../common/EventsCatcher.h"
 #include "GameStage.h"
 #include "../common/ProtectedEventsQueue.h"

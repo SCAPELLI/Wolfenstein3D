@@ -3,7 +3,7 @@
 #include "GameLoader.h"
 #include <vector>
 #include "Player.h"
-#include "../common/CellMap.h"
+#include "CellMap.h"
 
 
 class Map{

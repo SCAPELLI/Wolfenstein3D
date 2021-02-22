@@ -3,7 +3,7 @@
 #ifndef POINTGAINITEM_H
 #define POINTGAINITEM_H
 
-#include "../Item.h"
+#include "Item.h"
 
 class PointGainItem : public Item{
     private:

@@ -4,7 +4,7 @@
 #include <random>
 #include <vector>
 #include <iostream>
-#include "../common/CellMap.h"
+#include "CellMap.h"
 #include "Constants.h"
 #include "GameLoader.h"
 #include "../common/ServerEvents/SpawnEvent.h"

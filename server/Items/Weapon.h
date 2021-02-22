@@ -3,7 +3,7 @@
 #define WEAPON_H
 
 
-#include "../common/Item.h"
+#include "Item.h"
 #include "Items/Rocket.h"
 class Weapon : public Item{
 public:

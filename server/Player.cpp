@@ -3,7 +3,7 @@
 #include "Vector.h"
 #include <vector>
 #include "GameLoader.h"
-#include "Weapon.h"
+#include "Items/Weapon.h"
 #include "../common/ServerEvents/AmmoChangeEvent.h"
 #include "../common/ServerEvents/ChangeWeaponEvent.h"
 #include "../common/ServerEvents/DoorOpenedEvent.h"
