@@ -47,7 +47,7 @@ void Player::initializePlayer(bool dead){
             std::string weaponType = it->first.as<std::string>();
             if(weaponType == "knife" || weaponType == "pistol"){
                 YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
-                auto equip = Weapon(cont, weaponType, 0, data["damage"].as<int>(), // usar constructor
+                auto equip = Weapon(cont, weaponType, 0, data["damage"].as<int>(),
                                     data["minBullets"].as<int>(),
                                     data["cooldownTimer"].as<int>());
                 bag.insert(std::make_pair(cont, equip));

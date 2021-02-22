@@ -18,7 +18,7 @@ public:
 
 public:
     int getDamage()const;
-    Weapon(int id, std::string name, int uniqueId, int damage, int minBullets, int cooldownTimer);
+    Weapon(int id, std::string& name, int uniqueId, int damage, int minBullets, int cooldownTimer);
     Weapon();
     int attack( int distance, double angle);
     int generateRandom();
