@@ -1,8 +1,12 @@
 
 #include "../include/Match.h"
 #include "../../common/include/Socket.h"
+#include "../GameStage.h"
 #include "../../server/include/CommunicationChannelServer.h"
 #include "../../common/ProtectedEventsQueue.h"
+#include "../../common/BlockingEventsQueue.h"
+#include "../include/ReceiverThread.h"
+#include "../include/SenderThread.h"
 
 
 
@@ -55,12 +59,47 @@ void Match::cancelMatch() {
 MatchInfo Match::getMatchInfo() const {
     return {matchId, levelId, maximumNumberOfPlayers, (int)users.size()};
 }
+
 void Match::run() {
+
     for (auto& user: users)
         CommunicationChannelServer::sendMatchStartedSignal(usersSockets[user.second]);
     matchStarted = true;
-    //ProtectecEventsQueue queue;
+
+    ProtectedEventsQueue userEvents;
+    std::vector<BlockingEventsQueue*> updateEvents; // equivalente a updateEvents x N
+    for (int i = 0; i < users.size(); i++) {
+        updateEvents.emplace_back(new BlockingEventsQueue());
+    }
+
+    std::map<int, std::string> players;
+    for (auto it = users.begin(); it != users.end(); ++it)
+        players[it->second] = it->first;
+
+    GameStage gameStage(updateEvents, players, levelId); // agregar levelId a GameStage
+
+    std::vector<ReceiverThread*> receivers; // punteros?
+    std::vector<SenderThread*> senders;
+    int i = 0;
+    for (auto it = usersSockets.begin(); it != usersSockets.end(); ++it){
+        receivers.push_back(new ReceiverThread(it->second, userEvents)); // emplace_back o new?
+        senders.push_back(new SenderThread(it->second, updateEvents[i]));
+        receivers[i]->start();
+        senders[i]->start();
+        i++;
+    }
     std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
+    // agregar joins
+//    AI ai(levelId);
+//    while (!matchFinished){
+//        while(!usersEventQueue.empty() && !matchFinished){ //procesar eventos
+//            Event event = std::move(userEvents.pop());
+//            event.runHandler(gameStage);
+//        } // agregar reap?
+//        ai.generateEvent(usersEventQueue, gameStage.getPlayersInfo());
+//        gameStage.incrementCooldown();
+//        usleep(20000);
+//    }
     matchFinished = true;
 }
 

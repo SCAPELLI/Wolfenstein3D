@@ -23,6 +23,7 @@ add_library(common
         EventSerializer.cpp
         ServerEvents/CreateMapEvent.cpp
         ServerEvents/SpawnNotMovableEvent.cpp
+		BlockingEventsQueue.cpp
 
         Style.cpp
         src/Exception.cpp
@@ -48,6 +49,8 @@ add_library(common
         ../server/WallRay.cpp
         ../server/Items/Rocket.cpp
         ../server/ai/AI.cpp
+		../server/src/SenderThread.cpp
+		../server/src/ReceiverThread.cpp
 
         
     ../server/src/TCPServer.cpp
