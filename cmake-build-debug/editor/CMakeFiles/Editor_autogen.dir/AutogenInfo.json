@@ -1,0 +1,237 @@
+{
+	"BUILD_DIR" : "/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Editor_autogen",
+	"CMAKE_BINARY_DIR" : "/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor",
+	"CMAKE_EXECUTABLE" : "/snap/clion/139/bin/cmake/linux/bin/cmake",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/CMakeLists.txt"
+	],
+	"CMAKE_SOURCE_DIR" : "/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D",
+	"DEP_FILE" : "",
+	"DEP_FILE_RULE_NAME" : "",
+	"HEADERS" : 
+	[
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Style.h",
+			"Mu",
+			"JCYJFESCNI/moc_Style.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Coordinate.h",
+			"Mu",
+			"6YEA5652QU/moc_Coordinate.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/DrawMode.h",
+			"Mu",
+			"6YEA5652QU/moc_DrawMode.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/EditorScreen.h",
+			"Mu",
+			"6YEA5652QU/moc_EditorScreen.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/EraseMode.h",
+			"Mu",
+			"6YEA5652QU/moc_EraseMode.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/MenuWindow.h",
+			"Mu",
+			"6YEA5652QU/moc_MenuWindow.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Mode.h",
+			"Mu",
+			"6YEA5652QU/moc_Mode.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/NewMapDialog.h",
+			"Mu",
+			"6YEA5652QU/moc_NewMapDialog.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/NewMapWindow.h",
+			"Mu",
+			"6YEA5652QU/moc_NewMapWindow.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Prueba.h",
+			"Mu",
+			"6YEA5652QU/moc_Prueba.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/ScreenManager.h",
+			"Mu",
+			"6YEA5652QU/moc_ScreenManager.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/SpriteFileManager.h",
+			"Mu",
+			"6YEA5652QU/moc_SpriteFileManager.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/SpriteTabs.h",
+			"Mu",
+			"6YEA5652QU/moc_SpriteTabs.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Texture.h",
+			"Mu",
+			"6YEA5652QU/moc_Texture.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/TextureList.h",
+			"Mu",
+			"6YEA5652QU/moc_TextureList.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Tile.h",
+			"Mu",
+			"6YEA5652QU/moc_Tile.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Tilemap.h",
+			"Mu",
+			"6YEA5652QU/moc_Tilemap.cpp"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/TilemapScene.h",
+			"Mu",
+			"6YEA5652QU/moc_TilemapScene.cpp"
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Editor_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Editor_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : [],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/include",
+		"/usr/include/SDL2",
+		"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug",
+		"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D",
+		"/usr/include/c++/9",
+		"/usr/include/x86_64-linux-gnu/c++/9",
+		"/usr/include/c++/9/backward",
+		"/usr/lib/gcc/x86_64-linux-gnu/9/include",
+		"/usr/local/include",
+		"/usr/include/x86_64-linux-gnu",
+		"/usr/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/c++",
+		"-dM",
+		"-E",
+		"-c",
+		"/snap/clion/139/bin/cmake/linux/share/cmake-3.17/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Editor_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : 
+	[
+		"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/ui_EditorScreen.h",
+		"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/ui_MenuWindow.h",
+		"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/ui_NewMapDialog.h",
+		"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/ui_NewMapWindow.h",
+		"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/ui_ScreenManager.h"
+	],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/CMakeFiles/Editor_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib/qt5/bin/moc",
+	"QT_UIC_EXECUTABLE" : "",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 12,
+	"SETTINGS_FILE" : "/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/CMakeFiles/Editor_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Style.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/Coordinate.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/DrawMode.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/EditorScreen.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/EraseMode.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/MenuWindow.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/Mode.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/NewMapDialog.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/NewMapWindow.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/Prueba.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/ScreenManager.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/SpriteFileManager.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/SpriteTabs.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/Texture.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/TextureList.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/Tile.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/TilemapScene.cpp",
+			"Mu"
+		],
+		[
+			"/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/main.cpp",
+			"Mu"
+		]
+	],
+	"VERBOSITY" : 0
+}

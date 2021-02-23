@@ -1,0 +1,1116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Wolfenstein"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\yaml-cpp\;CMake Files\common\;CMake Files\client\;CMake Files\server\;CMake Files\editor\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="common">
+				<Option output="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/libcommon.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/common_autogen/include"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/include"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 common"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="common/fast">
+				<Option output="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/libcommon.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/common_autogen/include"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/include"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 common/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="common_autogen">
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 common_autogen"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="client">
+				<Option output="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/client" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/client_autogen/include"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/include"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 client"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="client/fast">
+				<Option output="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/client" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/client_autogen/include"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/include"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 client/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="client_autogen">
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 client_autogen"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="server">
+				<Option output="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/server_autogen/include"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/include"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 server"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="server/fast">
+				<Option output="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/server_autogen/include"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/include"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 server/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="server_autogen">
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 server_autogen"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Editor">
+				<Option output="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Editor" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Editor_autogen/include"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/include"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 Editor"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Editor/fast">
+				<Option output="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Editor" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Editor_autogen/include"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/include"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug"/>
+					<Add directory="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 Editor/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Editor_autogen">
+				<Option working_dir="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 Editor_autogen"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/AnimatedSprite.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/AnimatedSprite.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/BagOfSprites.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/BagOfSprites.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/CGame.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/CGame.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/CPlayer.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/CPlayer.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/CWeapon.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/CWeapon.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Camera.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Camera.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/EnemyPlayer.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/EnemyPlayer.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/GameScreen.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/GameScreen.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Ray.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Ray.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Renderable.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Renderable.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/SoundManager.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/SoundManager.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Sprite.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Sprite.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/UI.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/UI.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Vector.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Vector.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Wall.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Wall.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/include/DataTable.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/include/GamesScreen.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/include/InfoScreen.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/include/NewMatchScreen.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/include/NicknameScreen.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/include/ScreenManager.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/include/StartScreen.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/include/WaitingRoomScreen.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/Client.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/CommunicationChannelClient.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/DataTable.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/GamesScreen.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/InfoScreen.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/MenuScreen.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/NewMatchScreen.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/NicknameScreen.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/ScreenManager.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/StartScreen.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/TCPClient.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/WaitingRoomScreen.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/src/main.cpp">
+			<Option target="common"/>
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/ui/GamesScreen.ui">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/ui/InfoScreen.ui">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/ui/MenuScreen.ui">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/ui/NewMatchScreen.ui">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/ui/NicknameScreen.ui">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/ui/ScreenManager.ui">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/ui/StartScreen.ui">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/ui/WaitingRoomScreen.ui">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/client_autogen/mocs_compilation.cpp">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/ui_GamesScreen.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/ui_InfoScreen.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/ui_MenuScreen.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/ui_NewMatchScreen.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/ui_NicknameScreen.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/ui_ScreenManager.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/ui_StartScreen.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/client/ui_WaitingRoomScreen.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/common/common_autogen/mocs_compilation.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/Editor_autogen/mocs_compilation.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/ui_EditorScreen.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/ui_MenuWindow.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/ui_NewMapDialog.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/ui_NewMapWindow.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/editor/ui_ScreenManager.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/server/server_autogen/mocs_compilation.cpp">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventSerializer.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventSerializer.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventsCatcher.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventsCatcher.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/MovementEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/MovementEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/OpenDoorEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/OpenDoorEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ProtectedEventsQueue.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ProtectedEventsQueue.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/QuitEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/QuitEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/AmmoChangeEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/AmmoChangeEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ChangeWeaponEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ChangeWeaponEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/CreateMapEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/CreateMapEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DespawnEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DespawnEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DoorOpenedEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DoorOpenedEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/GameOverEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/GameOverEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/HealthChangeEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/HealthChangeEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/KillEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/KillEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PickUpKeyEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PickUpKeyEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PickUpWeaponEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PickUpWeaponEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PositionEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PositionEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ScoreChangeEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ScoreChangeEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnNotMovableEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnNotMovableEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ShootingEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ShootingEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Style.cpp">
+			<Option target="common"/>
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Style.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/TurnEvent.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/TurnEvent.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/src/Exception.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/src/IPAddresses.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/src/MatchInfo.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/src/Socket.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/src/Thread.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Coordinate.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/DrawMode.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/EditorScreen.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/EraseMode.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/MenuWindow.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Mode.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/NewMapDialog.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/NewMapWindow.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Prueba.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/ScreenManager.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/SpriteFileManager.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/SpriteTabs.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Texture.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/TextureList.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Tile.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/Tilemap.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/include/TilemapScene.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/Coordinate.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/DrawMode.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/EditorScreen.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/EraseMode.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/MenuWindow.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/Mode.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/NewMapDialog.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/NewMapWindow.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/Prueba.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/ScreenManager.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/SpriteFileManager.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/SpriteTabs.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/Texture.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/TextureList.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/Tile.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/TilemapScene.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/src/main.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/ui/EditorScreen.ui">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/ui/MenuWindow.ui">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/ui/NewMapDialog.ui">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/ui/NewMapWindow.ui">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/ui/ScreenManager.ui">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Game.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Game.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameStage.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameStage.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LockedDoor.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LockedDoor.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/OpenableItem.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/OpenableItem.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Map.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Map.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/WallRay.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/WallRay.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/ai/AI.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/ai/AI.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/src/AcceptNewUsersThread.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/src/CommunicationChannelServer.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/src/Match.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/src/ProtectedLobby.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/src/TCPServer.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/src/UserThread.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/src/main.cpp">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QComposePlatformInputContextPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSEmulatorIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSKmsGbmIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevKeyboardPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevMousePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevTabletPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevTouchScreenPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QLibInputPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QLinuxFbIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QMinimalEglIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QVncIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbEglIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbGlxIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/yaml-cpp-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\yaml-cpp\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/yaml-cpp-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\yaml-cpp\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/yaml-cpp-targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\yaml-cpp\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/../../../../../../usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/yaml-cpp-targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\yaml-cpp\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\common\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\client\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\server\"/>
+		</Unit>
+		<Unit filename="/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/editor/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\editor\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

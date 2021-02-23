@@ -1,0 +1,1 @@
+/usr/bin/c++  -pthread -g   CMakeFiles/client.dir/client_autogen/mocs_compilation.cpp.o CMakeFiles/client.dir/src/main.cpp.o  -o client  ../common/libcommon.a /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.12.8 /usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.6.2 -lSDL2_ttf -lpthread -llua -ldl /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.12.8 /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.12.8 

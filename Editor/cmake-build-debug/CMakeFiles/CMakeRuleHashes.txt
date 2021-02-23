@@ -1,0 +1,6 @@
+# Hashes of file build rules.
+7c3436592e3d0e77c9121ccfa80a4e2a CMakeFiles/Editor_autogen
+b76d4a92118ba33501a8f308ec887cb0 ui_EditorScreen.h
+d9c863b5d8dd9cff9b69ec2847bd94ca ui_MenuWindow.h
+e2a5e1239192287f2bed0100c3ef8b45 ui_NewMapDialog.h
+f7e0a0d6d9d44f87e375d47e65d0e1e3 ui_ScreenManager.h
