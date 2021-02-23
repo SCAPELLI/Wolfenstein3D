@@ -1,5 +1,4 @@
 add_executable(server
-	GameStage.cpp
     Items/Weapon.cpp
     Player.cpp
     Map.cpp
@@ -39,3 +38,5 @@ target_link_libraries(server
 
 target_link_libraries(server  
 	${YAML_CPP_LIBRARIES})
+
+target_link_libraries(server Qt5::Widgets)

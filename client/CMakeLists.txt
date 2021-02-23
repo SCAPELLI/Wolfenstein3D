@@ -21,17 +21,17 @@ add_executable(client
         src/Client.cpp
         src/WaitingRoomScreen.cpp
         src/NewMatchScreen.cpp
-		src/CommunicationChannelClient.cpp
+	src/CommunicationChannelClient.cpp
         src/TCPClient.cpp
 
-		CGame.cpp
+	CGame.cpp
         CPlayer.cpp
         Camera.cpp
         GameScreen.cpp
         Ray.cpp
         Renderable.cpp
         Vector.cpp
-        Sprite.cpp 
+        Sprite.cpp
         Wall.cpp 
         UI.cpp
         AnimatedSprite.cpp
@@ -40,8 +40,18 @@ add_executable(client
         BagOfSprites.cpp
         SoundManager.cpp)
 
+
+PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+pkg_check_modules(SDL2_Mixer REQUIRED IMPORTED_TARGET SDL2_mixer)
+INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2_MIXER_INCLUDE_DIRS})
+
+include_directories(${PROJECT_BINARY_DIR})
+
 target_link_libraries(client common)
+
 target_link_libraries(client Qt5::Widgets)
+
 target_link_libraries(client 
 	yaml-cpp 
 	${SDL2_LIBRARY} 
