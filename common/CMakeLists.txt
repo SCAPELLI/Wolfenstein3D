@@ -1,5 +1,4 @@
 add_library(common
-        Exception.cpp
         ProtectedEventsQueue.cpp
         ServerEvents/PositionEvent.cpp
         AbstractEvent.cpp
@@ -24,7 +23,8 @@ add_library(common
         EventSerializer.cpp
         ServerEvents/CreateMapEvent.cpp
         ServerEvents/SpawnNotMovableEvent.cpp
-        
+
+        src/Exception.cpp
         src/IPAddresses.cpp
         src/Socket.cpp
         src/MatchInfo.cpp

@@ -21,10 +21,10 @@ add_executable(client
         src/Client.cpp
         src/WaitingRoomScreen.cpp
         src/NewMatchScreen.cpp
-	src/CommunicationChannelClient.cpp
+		src/CommunicationChannelClient.cpp
         src/TCPClient.cpp
 
-	CGame.cpp
+		CGame.cpp
         CPlayer.cpp
         Camera.cpp
         GameScreen.cpp
