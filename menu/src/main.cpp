@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <QtWidgets/QApplication>
 #include <MenuScreen.h>
@@ -24,7 +25,6 @@ int main(int argc, char *argv[]) {
 /**
      ScreenManager screenManager;
      screenManager.show();
-
     return app.exec()''
 **/
 
