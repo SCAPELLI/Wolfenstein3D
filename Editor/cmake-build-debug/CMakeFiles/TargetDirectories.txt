@@ -1,4 +1,0 @@
-/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/Editor/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/Editor/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/Editor/cmake-build-debug/CMakeFiles/Editor.dir
-/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/Editor/cmake-build-debug/CMakeFiles/Editor_autogen.dir
