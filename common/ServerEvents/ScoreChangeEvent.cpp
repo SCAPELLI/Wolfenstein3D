@@ -1,4 +1,4 @@
-#include "cliente/CGame.h"
+#include "client/CGame.h"
 #include "ScoreChangeEvent.h"
 
 ScoreChangeEvent::ScoreChangeEvent (updateEventType eventType, int score)

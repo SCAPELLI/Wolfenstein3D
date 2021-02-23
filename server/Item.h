@@ -2,7 +2,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 #include <string>
-#include "AbstractEvent.h"
+#include "common/AbstractEvent.h"
 #include <vector>
 class Sprite;
 class Player;

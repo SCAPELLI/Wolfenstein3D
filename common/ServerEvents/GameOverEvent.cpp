@@ -1,8 +1,8 @@
 
 #include "GameOverEvent.h"
-#include "cliente/CGame.h"
-#include "Event.h"
-#include "../EventSerializer.h"
+#include "client/CGame.h"
+#include "common/Event.h"
+#include "common/EventSerializer.h"
 
 
 GameOverEvent::GameOverEvent (GameOverEvent& gameOverEvent){}

@@ -3,7 +3,7 @@
 #include <vector>
 #include "Player.h"
 #include "Map.h"
-#include "AbstractEvent.h"
+#include "common/AbstractEvent.h"
 
 class Game {
     public:

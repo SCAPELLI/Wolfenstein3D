@@ -2,6 +2,7 @@
 #include "../include/Match.h"
 #include "../../common/include/Socket.h"
 #include "../../server/include/CommunicationChannelServer.h"
+//#include "../../../common/ProtectedEventsQueue.h"
 
 Match::Match(int matchId, int levelId, int maximumNumberOfPlayers,
              int adminUserId, str adminUserName, Socket* adminUserSocket):
@@ -56,6 +57,7 @@ void Match::run() {
     for (auto& user: users)
         CommunicationChannelServer::sendMatchStartedSignal(usersSockets[user.second]);
     matchStarted = true;
+    //ProtectecEventsQueue queue;
     std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
     matchFinished = true;
 }

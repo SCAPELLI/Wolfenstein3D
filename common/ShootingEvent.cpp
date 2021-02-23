@@ -1,7 +1,7 @@
-#include "ShootingEvent.h"
-#include "../cliente/CGame.h"
-#include "../server/GameStage.h"
-#include "EventSerializer.h"
+#include "common/ShootingEvent.h"
+#include "client/CGame.h"
+#include "server/GameStage.h"
+#include "common/EventSerializer.h"
 
 
 //ShootingEvent::ShootingEvent(ShootingEvent& shootingEvent){}

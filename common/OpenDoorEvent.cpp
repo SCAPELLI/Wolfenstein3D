@@ -1,8 +1,8 @@
 
-#include "OpenDoorEvent.h"
-#include "../cliente/CGame.h"
+#include "common/OpenDoorEvent.h"
+#include "client/CGame.h"
 #include "EventSerializer.h"
-#include "../server/GameStage.h"
+#include "server/GameStage.h"
 
 OpenDoorEvent::OpenDoorEvent(int idPlayer, bool isOpen)
         :idPlayer(idPlayer), opened(isOpen){}

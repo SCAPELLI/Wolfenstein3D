@@ -1,0 +1,32 @@
+add_library(common
+        Exception.cpp
+        ProtectedEventsQueue.cpp
+        ServerEvents/PositionEvent.cpp
+        AbstractEvent.cpp
+        EventsCatcher.cpp
+        ServerEvents/KillEvent.cpp
+        QuitEvent.cpp
+        ShootingEvent.cpp
+        TurnEvent.cpp
+        MovementEvent.cpp
+        ServerEvents/GameOverEvent.cpp
+        Event.cpp
+        OpenDoorEvent.cpp
+        ServerEvents/SpawnEvent.cpp
+        ServerEvents/DespawnEvent.cpp
+        ServerEvents/ChangeWeaponEvent.cpp
+        ServerEvents/HealthChangeEvent.cpp
+        ServerEvents/AmmoChangeEvent.cpp
+        ServerEvents/ScoreChangeEvent.cpp
+        ServerEvents/PickUpKeyEvent.cpp
+        ServerEvents/PickUpWeaponEvent.cpp
+        ServerEvents/DoorOpenedEvent.cpp
+        EventSerializer.cpp
+        ServerEvents/CreateMapEvent.cpp
+        ServerEvents/SpawnNotMovableEvent.cpp
+        
+        src/IPAddresses.cpp
+        src/Exception.cpp
+        src/Socket.cpp
+        src/MatchInfo.cpp
+        src/Thread.cpp)

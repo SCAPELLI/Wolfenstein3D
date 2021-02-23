@@ -3,7 +3,7 @@
 #ifndef KEYITEM_H
 #define KEYITEM_H
 
-#include "Item.h"
+#include "server/Item.h"
 class KeyItem : public Item{
 private:
     int id;

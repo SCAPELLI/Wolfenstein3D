@@ -2,7 +2,7 @@
 
 #ifndef OPENABLEITEM_H
 #define OPENABLEITEM_H
-#include "Item.h"
+#include "server/Item.h"
 
 class OpenableItem : public Item {
 private:

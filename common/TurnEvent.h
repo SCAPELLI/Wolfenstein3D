@@ -2,8 +2,8 @@
 #define TURNEVENT_H
 
 #include "AbstractEvent.h"
-#include "../server/GameStage.h"
-#include "../cliente/CGame.h"
+#include "server/GameStage.h"
+#include "client/CGame.h"
 
 enum TurningSense {ANTICLOCKWISE, CLOCKWISE};
 

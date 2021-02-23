@@ -3,7 +3,7 @@
 #ifndef CAMERA_CPP_HEALTHCHANGEEVENT_H
 #define CAMERA_CPP_HEALTHCHANGEEVENT_H
 #include "../AbstractEvent.h"
-#include "Event.h"
+#include "common/Event.h"
 
 class HealthChangeEvent  : public AbstractEvent{
     updateEventType eventType;

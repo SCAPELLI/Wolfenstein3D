@@ -2,9 +2,9 @@
 #define GAMELOADER_H
 
 #include <yaml-cpp/yaml.h>
-#include <Items/OpenableItem.h>
+#include <server/Items/OpenableItem.h>
 //#include "Game.h"
-#include "Item.h"
+#include "server/Item.h"
 
 
 

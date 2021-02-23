@@ -1,8 +1,8 @@
 #ifndef KILLEVENT_H
 #define KILLEVENT_H
 
-#include "../AbstractEvent.h"
-#include "Event.h"
+#include "common/AbstractEvent.h"
+#include "common/Event.h"
 
 class CGame;
 

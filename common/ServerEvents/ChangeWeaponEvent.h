@@ -3,7 +3,7 @@
 #ifndef CAMERA_CPP_CHANGEWEAPONEVENT_H
 #define CAMERA_CPP_CHANGEWEAPONEVENT_H
 #include "../AbstractEvent.h"
-#include "Event.h"
+#include "common/Event.h"
 
 class ChangeWeaponEvent  : public AbstractEvent{
 

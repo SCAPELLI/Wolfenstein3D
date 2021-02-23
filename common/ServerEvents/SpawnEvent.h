@@ -2,9 +2,9 @@
 
 #ifndef SPAWNEVENT_H
 #define SPAWNEVENT_H
-#include "../AbstractEvent.h"
-#include "cliente/CGame.h"
-#include "Event.h"
+#include "common/AbstractEvent.h"
+#include "client/CGame.h"
+#include "common/Event.h"
 
 class SpawnEvent : public AbstractEvent {
     updateEventType eventType;

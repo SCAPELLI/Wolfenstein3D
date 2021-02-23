@@ -49,20 +49,20 @@ void GamesScreen::connectEvents() {
 
 void GamesScreen::onJoinButtonClick() {
     QTableWidget *dataTable = findChild<QTableWidget*>("dataTable");
-    QMessageBox waitingMessage;
-    waitingMessage.setText("Waiting for the match to start...");
+    //QMessageBox waitingMessage;
+    /*waitingMessage.setText("Waiting for the match to start...");
     waitingMessage.setStandardButtons(0);
     waitingMessage.setWindowFlag(Qt::WindowCloseButtonHint, false);
     waitingMessage.setWindowFlags(Qt::WindowTitleHint);
-    waitingMessage.exec();
+    waitingMessage.exec();*/
     if (dataTable->currentRow() >= 0) {
         if (!(this->screenManager->tryToJoin(this->idMatches.at(dataTable->currentRow())))) {
-            waitingMessage.close();
+            //waitingMessage.close();
             QMessageBox waitingMessage;
             waitingMessage.setText("An error has occurred");
             waitingMessage.exec();
         } else {
-            waitingMessage.close();
+            //waitingMessage.close();
         }
         refresh();
     }
