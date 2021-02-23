@@ -88,7 +88,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
                 respawnPlayer(ids[i], newEvents);
             }
             else{
-                AbstractEvent* event = new HealthChangeEvent(HealthChangeType, newHp);
+                AbstractEvent* event = new HealthChangeEvent(HealthChangeType, newHp, ids[i]);
                 newEvents.push_back(event);
             }
             return i;// devolves a quien le pegaste

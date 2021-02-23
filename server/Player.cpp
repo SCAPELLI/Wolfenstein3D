@@ -257,7 +257,7 @@ bool Player::getItem(LifeGainItem* item,
         int extra = health % MAXHEALTH;
         health -= extra;
     }
-    newEvents.push_back(new HealthChangeEvent(HealthChangeType, health));
+    newEvents.push_back(new HealthChangeEvent(HealthChangeType, health, id));
     return true;
 }
 
