@@ -109,7 +109,7 @@ void CGame::processEvent(DoorOpenedEvent& event){
 void CGame::processEvent(CreateMapEvent& event){}
 
 void CGame::processEvent(AmmoChangeEvent& event){
-    //if (event.idPlayer != activePlayer.id) return;
+    if (event.idPlayer != activePlayer.id) return;
     activePlayer.changeAmmo(event.ammo);
 }
 

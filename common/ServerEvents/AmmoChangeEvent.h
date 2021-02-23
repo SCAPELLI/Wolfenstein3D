@@ -11,7 +11,8 @@ class AmmoChangeEvent  : public AbstractEvent{
     updateEventType eventType;
 public:
     int ammo;
-    AmmoChangeEvent (updateEventType eventType, int Ammo);
+    int idPlayer;
+    AmmoChangeEvent (updateEventType eventType, int Ammo, int idPlayer);
     void runHandler(CGame& game);
     updateEventType getEventType();
 };

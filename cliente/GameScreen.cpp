@@ -24,8 +24,11 @@ bool distanceSort(std::pair<int, double> a, std::pair<int, double> b){
 void GameScreen::draw(std::vector<std::vector<int>>& map,
             std::map<int, Renderable>& renderables,
             std::map<int, EnemyPlayer*>& players){
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(renderer, 90, 90, 90, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer, 101, 67, 64, SDL_ALPHA_OPAQUE);
+    SDL_Rect fillRect = {0, 240, 640, 240};
+    SDL_RenderFillRect(renderer, &fillRect);
     std::vector<double> wallDistances;
     activePlayer->getCamera()->draw(renderer, map, &wallTextures, wallDistances);
 

@@ -1,8 +1,8 @@
 #include "AmmoChangeEvent.h"
 #include "cliente/CGame.h"
 
-AmmoChangeEvent::AmmoChangeEvent (updateEventType eventType, int ammo)
-: eventType(eventType), ammo(ammo){}
+AmmoChangeEvent::AmmoChangeEvent (updateEventType eventType, int ammo, int idPlayer)
+: eventType(eventType), ammo(ammo), idPlayer(idPlayer){}
 
 void AmmoChangeEvent::runHandler(CGame &game) {
     game.processEvent(*this);

@@ -288,7 +288,7 @@ bool Player::getItem(AmmoItem* item,
         int extra = bullets % maxBullets;
         bullets -= extra;
     }
-    newEvents.push_back(new AmmoChangeEvent(AmmoChangeType, bullets));
+    newEvents.push_back(new AmmoChangeEvent(AmmoChangeType, bullets, id));
     return true;
 }
 
