@@ -133,7 +133,7 @@ void CellMap::dropItems(Player& player,GameLoader& factory,
         currentWeapon.uniqueId = factory.assignUniqueId();
         items.push_back(&currentWeapon);
         auto *event2 = new SpawnEvent(SpawnEventType, currentWeapon.getUniqueId(),
-                                      currentWeapon.getId(), pos.y , pos.x );
+                                      currentWeapon.getId() + 49, pos.y , pos.x );
         newEvents.push_back(event2);
     }
     if (player.hasKey()) {
