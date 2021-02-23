@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ScoreWindow</class>
+ <widget class="QMainWindow" name="ScoreWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: rgb(136, 0, 0)</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="2" column="0">
+     <widget class="QTableWidget" name="scoreTable">
+      <property name="styleSheet">
+       <string notr="true">background: rgb(136, 0, 0)</string>
+      </property>
+      <property name="gridStyle">
+       <enum>Qt::NoPen</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="nameLabel">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(190, 193, 3)</string>
+        </property>
+        <property name="text">
+         <string>name</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="killsLabel">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(190, 193, 3)</string>
+        </property>
+        <property name="text">
+         <string>kills</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="bulletsLabel">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(190, 193, 3)</string>
+        </property>
+        <property name="text">
+         <string>bullets</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="scoreLabel">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(190, 193, 3)</string>
+        </property>
+        <property name="text">
+         <string>score</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="titleLabel">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

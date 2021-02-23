@@ -6,7 +6,7 @@
 #include <client/include/WaitingRoomScreen.h>
 #include <QtGui/QPainter>
 #include "client/include/ScreenManager.h"
-#include "client/ui/ui_ScreenManager.h"
+#include "../ui/ui_ScreenManager.h"
 
 
 ScreenManager::ScreenManager(QWidget *parent, Client *client)

@@ -6,7 +6,8 @@ qt5_wrap_ui(UIS_HEADERS
         ui/GamesScreen.ui
         ui/NewMatchScreen.ui
         ui/InfoScreen.ui
-        ui/WaitingRoomScreen.ui)
+        ui/WaitingRoomScreen.ui
+		ui/ScoreWindow.ui)
 
 add_executable(client
 	${UIS_HEADERS} 
