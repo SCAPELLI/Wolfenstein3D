@@ -1,5 +1,6 @@
 #include "Server.h"
 #include "../common/ProtectedEventsQueue.h"
+#include "../common/BlockingEventsQueue.h"
 #include "GameStage.h"
 #include "Game.h"
 #include "../common/Event.h"
@@ -8,7 +9,7 @@
 #include <iostream>
 #include "../ai/AI.h"
 
-Server::Server(std::vector<BlockingEventsQueue>& usersEvents,
+Server::Server(ProtectedEventsQueue& usersEvents,
                                 std::vector<BlockingEventsQueue>& updateEvents,
                                 std::atomic<bool>& quit):
         userEvents(userEvents), updateEvents(updateEvents), quit(quit) {}
@@ -22,11 +23,11 @@ void Server::operator()() {
     AI ai(levelId);
     while (!quit) {
         while (!userEvents.empty() && !quit) {
-            Event event = std::move((userEvents.at(0)).pop());
+            Event event = std::move((userEvents.pop()));
             event.runHandler(gameStage);
             if (event.thisIsTheQuitEvent()) quit = true;
         }
-        ai.generateEvent(userEvents[0], gameStage.getPlayersInfo());
+        ai.generateEvent(userEvents, gameStage.getPlayersInfo());
         gameStage.incrementCooldown();
         usleep(20000);
     }

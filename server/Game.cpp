@@ -11,7 +11,7 @@
 #include <vector>
 #include "WallRay.h"
 #include <cmath>
-#include <iostream>
+
 
 
 Game::Game( std::vector<AbstractEvent*>& newEvents,

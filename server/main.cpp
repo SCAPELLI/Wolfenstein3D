@@ -17,7 +17,7 @@ int main() {
     try {
         EventsCatcher eventsCatcher(1); // esta en client
         //-----------------
-        std::vector<BlockingEventsQueue> userEvents;
+        ProtectedEventsQueue userEvents;
         std::vector<BlockingEventsQueue> updateEvents;
         std::atomic<bool> quit(false);
         std::thread t (Server(userEvents, updateEvents, quit));
@@ -46,10 +46,10 @@ int main() {
         CGame game(spawnPointX, spawnPointY, FOV, map, 1);
         game.spawnEnemy(0, Vector(start->startingLocations[0].first, start->startingLocations[0].second));
         while (!quit) {
-            userEvents[0].insertEvents(eventsCatcher);
+            userEvents.insertEvents(eventsCatcher);
 
-            while (!updateEvents.empty()) {
-                Event event = std::move(updateEvents[0].pop());
+            while (!userEvents.empty()) {
+                Event event = std::move(userEvents.pop());
                 event.runHandler(game);
             }
             game.draw();

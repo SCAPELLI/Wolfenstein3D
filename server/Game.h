@@ -12,7 +12,6 @@ class Game {
     Map map;
     std::map<int, int> ids;
     std::vector<Player> players;
-    //AbstractEvent newChanges;
 public:
     Game();
     Game(std::vector<AbstractEvent*>& newEvents,
