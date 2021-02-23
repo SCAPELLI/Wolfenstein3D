@@ -4,14 +4,14 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include <ServerEvents/HealthChangeEvent.h>
-#include <ServerEvents/KillEvent.h>
-#include <ServerEvents/GameOverEvent.h>
+#include <common/ServerEvents/HealthChangeEvent.h>
+#include <common/ServerEvents/KillEvent.h>
+#include <common/ServerEvents/GameOverEvent.h>
 #include "Items/LockedDoor.h"
 #include "GameLoader.h"
 #include "Items/AmmoItem.h"
-#include "ServerEvents/DespawnEvent.h"
-#include "ServerEvents/SpawnEvent.h"
+#include "common/ServerEvents/DespawnEvent.h"
+#include "common/ServerEvents/SpawnEvent.h"
 
 
 

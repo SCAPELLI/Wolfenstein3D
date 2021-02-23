@@ -26,5 +26,5 @@ include_directories(${CMAKE_SOURCE_DIR})
 
 add_subdirectory(common)
 add_subdirectory(client)
-add_subdirectory(server)
-add_subdirectory(editor)
+#add_subdirectory(server)
+#add_subdirectory(editor)

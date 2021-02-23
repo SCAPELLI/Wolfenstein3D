@@ -29,3 +29,5 @@ add_library(common
         src/Socket.cpp
         src/MatchInfo.cpp
         src/Thread.cpp)
+
+target_link_libraries(common Qt5::Widgets)

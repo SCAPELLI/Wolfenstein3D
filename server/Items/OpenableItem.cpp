@@ -2,7 +2,7 @@
 
 #include "OpenableItem.h"
 #include "unistd.h"
-#include "Player.h"
+#include "server/Player.h"
 
 OpenableItem::OpenableItem(int id,std::string name, int effect,int uniqueId)
 :  id(id), name(name), effect(effect), uniqueId(uniqueId),

@@ -1,5 +1,5 @@
 #include "PointGainItem.h"
-#include "Player.h"
+#include "server/Player.h"
 
 PointGainItem::PointGainItem(int id,std::string name, int effect, int uniqueId)
         :id(id), name(name), effect(effect), uniqueId(uniqueId), Item(id, name, effect, uniqueId){}

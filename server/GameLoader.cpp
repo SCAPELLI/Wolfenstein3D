@@ -5,7 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include "Exception.h"
+#include "common/Exception.h"
 #include "Items/LockedDoor.h"
 
 

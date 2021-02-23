@@ -11,7 +11,7 @@
 #include "../common/ServerEvents/PickUpKeyEvent.h"
 #include "../common/ServerEvents/PickUpWeaponEvent.h"
 #include "../common/ServerEvents/ScoreChangeEvent.h"
-#include "Exception.h"
+#include "common/Exception.h"
 #include <iostream>
 #include <limits>
 

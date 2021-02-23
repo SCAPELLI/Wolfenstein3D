@@ -1,19 +1,19 @@
 #include <iostream>
-#include <ServerEvents/SpawnEvent.h>
-#include <ServerEvents/ChangeWeaponEvent.h>
-#include <ServerEvents/AmmoChangeEvent.h>
+#include <common/ServerEvents/SpawnEvent.h>
+#include <common/ServerEvents/ChangeWeaponEvent.h>
+#include <common/ServerEvents/AmmoChangeEvent.h>
 #include "GameStage.h"
 #include "../common/TurnEvent.h"
 #include "../common/MovementEvent.h"
 #include "../common/ProtectedEventsQueue.h"
 #include "../common/Event.h"
 #include "../common/ShootingEvent.h"
-#include "ServerEvents/KillEvent.h"
-#include "ServerEvents/PositionEvent.h"
-#include "ServerEvents/GameOverEvent.h"
-#include "ServerEvents/HealthChangeEvent.h"
+#include "common/ServerEvents/KillEvent.h"
+#include "common/ServerEvents/PositionEvent.h"
+#include "common/ServerEvents/GameOverEvent.h"
+#include "common/ServerEvents/HealthChangeEvent.h"
 #include "../common/OpenDoorEvent.h"
-#include "ServerEvents/SpawnEvent.h"
+#include "common/ServerEvents/SpawnEvent.h"
 #include "PlayerInfo.h"
 
 #define PI 3.141592

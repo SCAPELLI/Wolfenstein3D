@@ -2,14 +2,14 @@
 #include <iostream>
 #include <unistd.h>
 #include <vector>
-#include <ProtectedEventsQueue.h>
-#include "Exception.h"
-#include "../server/PlayerInfo.h"
+#include <common/ProtectedEventsQueue.h>
+#include "common/Exception.h"
+#include "server/PlayerInfo.h"
 #include <yaml-cpp/yaml.h>
-#include "Event.h"
-#include "../common/MovementEvent.h"
-#include "../common/TurnEvent.h"
-#include "../common/ShootingEvent.h"
+#include "common/Event.h"
+#include "common/MovementEvent.h"
+#include "common/TurnEvent.h"
+#include "common/ShootingEvent.h"
 
 extern "C" {
 #include <lua.h>
