@@ -6,6 +6,7 @@ Trabajo práctico final - El juego
 ## Librerías:
 
 ### YAML:
+- apt install libyaml-cpp-dev
 
 ### SDL:
 - apt-cache search libsdl2
