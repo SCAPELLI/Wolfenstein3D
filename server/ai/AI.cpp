@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <vector>
 #include <common/ProtectedEventsQueue.h>
-#include "common/Exception.h"
+#include "../common/include/Exception.h"
 #include "server/PlayerInfo.h"
 #include <yaml-cpp/yaml.h>
 #include "common/Event.h"

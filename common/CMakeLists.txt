@@ -31,7 +31,76 @@ add_library(common
         src/MatchInfo.cpp
         src/Thread.cpp
 
-        ../server/GameStage.cpp)
+        ../server/GameStage.cpp
+        ../server/Items/Weapon.cpp
+    ../server/Player.cpp
+    ../server/Map.cpp
+    ../server/GameLoader.cpp
+    ../server/Game.cpp
+    ../server/Item.cpp
+        ../server/CellMap.cpp
+        ../server/Items/LifeGainItem.cpp
+    ../server/Items/PointGainItem.cpp
+    ../server/Items/KeyItem.cpp
+    ../server/Items/OpenableItem.cpp
+    ../server/Items/LockedDoor.cpp
+    ../server/Items/AmmoItem.cpp
+        ../server/WallRay.cpp
+        ../server/Items/Rocket.cpp
+        ../server/ai/AI.cpp
+
+        
+    ../server/src/TCPServer.cpp
+        ../server/src/Match.cpp
+        ../server/src/ProtectedLobby.cpp
+        ../server/src/CommunicationChannelServer.cpp
+        ../server/src/AcceptNewUsersThread.cpp
+        ../server/src/UserThread.cpp
+
+		../client/src/main.cpp
+        ../client/src/MenuScreen.cpp
+        ../client/src/ScreenManager.cpp
+        ../client/include/ScreenManager.h
+        ../client/src/StartScreen.cpp
+        ../client/include/StartScreen.h
+        ../client/src/NicknameScreen.cpp
+        ../client/include/NicknameScreen.h
+        ../client/src/GamesScreen.cpp
+        ../client/include/GamesScreen.h
+        
+        ../client/src/DataTable.cpp
+        ../client/include/DataTable.h 
+
+        ../client/src/InfoScreen.cpp
+        ../client/include/InfoScreen.h
+
+        ../client/src/Client.cpp
+
+        ../client/src/WaitingRoomScreen.cpp
+        ../client/include/WaitingRoomScreen.h
+
+        ../client/src/NewMatchScreen.cpp
+        ../client/include/NewMatchScreen.h
+
+		../client/src/CommunicationChannelClient.cpp
+        ../client/src/TCPClient.cpp
+
+	../client/CGame.cpp
+        ../client/CPlayer.cpp
+        ../client/Camera.cpp
+        ../client/GameScreen.cpp
+        ../client/Ray.cpp
+        ../client/Renderable.cpp
+        ../client/Vector.cpp
+        ../client/Sprite.cpp
+        ../client/Wall.cpp 
+        ../client/UI.cpp
+        ../client/AnimatedSprite.cpp
+        ../client/CWeapon.cpp
+        ../client/EnemyPlayer.cpp
+        ../client/BagOfSprites.cpp
+        ../client/SoundManager.cpp
+        )
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)

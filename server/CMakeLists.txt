@@ -1,33 +1,9 @@
 add_executable(server
-    Items/Weapon.cpp
-    Player.cpp
-    Map.cpp
-    GameLoader.cpp
-    Game.cpp
-    Item.cpp
-	CellMap.cpp
-	Items/LifeGainItem.cpp
-    Items/PointGainItem.cpp
-    Items/KeyItem.cpp
-    Items/OpenableItem.cpp
-    Items/LockedDoor.cpp
-    Items/AmmoItem.cpp
-	WallRay.cpp
-	Items/Rocket.cpp
-	ai/AI.cpp
-
 	src/main.cpp
-    src/TCPServer.cpp
-	src/Match.cpp
-	src/ProtectedLobby.cpp
-	src/CommunicationChannelServer.cpp
-	src/AcceptNewUsersThread.cpp
-	src/UserThread.cpp)
-
+    )
 target_link_libraries(server common)
 
 target_link_libraries(server lua)
-
 target_link_libraries(server dl)
 
 target_link_libraries(server 

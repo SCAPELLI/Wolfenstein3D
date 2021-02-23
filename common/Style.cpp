@@ -4,7 +4,7 @@
 #include "Style.h"
 
 void Style::setRetroFont(QWidget *widget, size_t fontSize) {
-    int id = QFontDatabase::addApplicationFont("../fonts/retro.ttf");
+    int id = QFontDatabase::addApplicationFont("../../fonts/retro.ttf");
     QString retroFamily = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont retro(retroFamily);
     retro.setPointSize(fontSize);

@@ -104,7 +104,7 @@ bool ScreenManager::tryToStartMatch() {
 void ScreenManager::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     if (this->screens->currentIndex() == 0) {
-        painter.drawPixmap(0, 0, QPixmap("../sprites/menu.png").scaled(size()));
+        painter.drawPixmap(0, 0, QPixmap("../../client/sprites/menu.png").scaled(size()));
     } else {
         painter.drawPixmap(0, 0, QPixmap("../../resources/redBackground.png").scaled(size()));
 
