@@ -2,17 +2,19 @@
 #define COLADEEVENTOS_SERVER_H
 
 #include <atomic>
+#include <vector>
 
 class ProtectedEventsQueue;
+class BlockingEventsQueue;
 
 class Server {
-   // std::vector<Event> updateEvents;
-    ProtectedEventsQueue& userEvents;
-    ProtectedEventsQueue& updateEvents;
+   ProtectedEventsQueue* userEvents;
+    std::vector<BlockingEventsQueue*>& updateEvents;
     std::atomic<bool>& quit;
 public:
-    Server(ProtectedEventsQueue& userEvents, ProtectedEventsQueue& updateEvents,
-           std::atomic<bool>& quit);
+    Server(    ProtectedEventsQueue* userEvents,
+               std::vector<BlockingEventsQueue*>& updateEvents,
+               std::atomic<bool>& quit);
 
     void operator()();
 };

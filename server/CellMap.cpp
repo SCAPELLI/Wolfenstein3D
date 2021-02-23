@@ -9,7 +9,6 @@
 #include <ServerEvents/GameOverEvent.h>
 #include "Items/LockedDoor.h"
 #include "GameLoader.h"
-#include "Items/AmmoItem.h"
 #include "ServerEvents/DespawnEvent.h"
 #include "ServerEvents/SpawnEvent.h"
 
@@ -19,8 +18,7 @@ CellMap::CellMap()
 : occupied(false), items(), playerList(), door(nullptr){}
 
 
-void CellMap::removePlayer(Player& player) { //deberia recibir el player
-    //dropItems(player);
+void CellMap::removePlayer(Player& player) {
     auto index = std::find(playerList.begin(), playerList.end(), player);
     if (index == playerList.end()) return;
     playerList.erase(index);
@@ -32,12 +30,6 @@ void CellMap::addPlayer(Player& setPlayer) {
      playerList.emplace_back(setPlayer);
 }
 
-bool CellMap::hasPlayer() {
-    return playerList.size();
-}
-Item* CellMap::removeItem() {
-    return items.back();
-}
 
 bool CellMap::isSolid(){
     return occupied;
@@ -81,11 +73,6 @@ void CellMap::explode(Rocket* rocket, std::vector<AbstractEvent *> &newEvents) {
 }
 
 
-bool CellMap::hasItems() {
-    if (items.size() == 0)
-        return false;
-    return true;
-}
 void CellMap::addItem(OpenableItem* item) {
     door = item;
 }

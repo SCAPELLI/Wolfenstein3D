@@ -51,7 +51,8 @@ set(SERVER_SOURCE_FILES
         server/WallRay.cpp server/WallRay.h cliente/EnemyPlayer.cpp cliente/EnemyPlayer.h cliente/BagOfSprites.cpp cliente/BagOfSprites.h
         common/EventSerializer.cpp common/EventSerializer.h common/ServerEvents/CreateMapEvent.cpp common/ServerEvents/CreateMapEvent.h common/ServerEvents/SpawnNotMovableEvent.cpp common/ServerEvents/SpawnNotMovableEvent.h cliente/SoundManager.cpp cliente/SoundManager.h server/Items/Rocket.cpp server/Items/Rocket.h
         ai/AI.cpp ai/AI.h
-        server/PlayerInfo.h)
+        server/PlayerInfo.h
+        common/BlockingEventsQueue.h common/BlockingEventsQueue.cpp)
         
         
 

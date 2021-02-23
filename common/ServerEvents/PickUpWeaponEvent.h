@@ -6,10 +6,11 @@
 #include "Event.h"
 
 class PickUpWeaponEvent  : public AbstractEvent{
-    int uniqueId;
     updateEventType eventType;
 public:
-    PickUpWeaponEvent (updateEventType eventType, int uniqueId);
+    int idPlayer;
+    int uniqueId;
+    PickUpWeaponEvent (updateEventType eventType, int idPlayer, int uniqueId);
     updateEventType getEventType();
 };
 

@@ -2,8 +2,8 @@
 
 #include "HealthChangeEvent.h"
 #include "../cliente/CGame.h"
-HealthChangeEvent::HealthChangeEvent (updateEventType eventType, int health, int idPlayer)
-: health(health), eventType(eventType), idPlayer(idPlayer){}
+HealthChangeEvent::HealthChangeEvent (updateEventType eventType,int idPLayer, int health)
+:  eventType(eventType), idPlayer(idPLayer), health(health){}
 
 updateEventType HealthChangeEvent::getEventType() {
     return eventType;

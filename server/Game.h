@@ -7,15 +7,15 @@
 
 class Game {
     public:
+    int levelId;
     int speed;
     Map map;
     std::map<int, int> ids;
     std::vector<Player> players;
-    //AbstractEvent newChanges;
 public:
     Game();
     Game(std::vector<AbstractEvent*>& newEvents,
-         std::map<int, std::string>& playersNames);
+         std::map<int, std::string>& playersNames, int levelId);
     Game(const Game& other) = default;
     void moveAngle(double angle, int idPlayer);
     void changePosition(Vector changeTo, int idPlayer,

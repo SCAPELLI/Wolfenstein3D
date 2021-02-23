@@ -14,7 +14,7 @@ class Map{
     GameLoader factory;
 public:
     Map(std::vector<Player>& players,
-            std::vector<AbstractEvent*>& newEvents);
+            std::vector<AbstractEvent*>& newEvents, int levelId);
         Map();
         //Map(std::vector<int> matrix);
         std::vector<std::vector<CellMap>>& getMatrix();

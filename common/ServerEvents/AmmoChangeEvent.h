@@ -10,9 +10,9 @@ class CGame;
 class AmmoChangeEvent  : public AbstractEvent{
     updateEventType eventType;
 public:
-    int ammo;
     int idPlayer;
-    AmmoChangeEvent (updateEventType eventType, int Ammo, int idPlayer);
+    int ammo;
+    AmmoChangeEvent (updateEventType eventType,int idPlayer, int Ammo);
     void runHandler(CGame& game);
     updateEventType getEventType();
 };
