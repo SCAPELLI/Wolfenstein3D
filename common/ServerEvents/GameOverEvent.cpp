@@ -1,7 +1,7 @@
 
 #include "GameOverEvent.h"
 #include "client/CGame.h"
-#include "Event.h"
+#include "../Event.h"
 #include "../EventSerializer.h"
 
 

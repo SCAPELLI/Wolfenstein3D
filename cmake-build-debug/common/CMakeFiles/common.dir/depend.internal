@@ -18,18 +18,12 @@ common/CMakeFiles/common.dir/Event.cpp.o
  ../client/SoundManager.h
  ../client/Sprite.h
  ../client/UI.h
- ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../common/Event.h
  ../common/OpenDoorEvent.h
- ../server/GameStage.h
  ../server/Item.h
  ../server/Items/AmmoItem.h
  ../server/Items/KeyItem.h
  ../server/Items/LifeGainItem.h
- ../server/Items/OpenableItem.h
  ../server/Items/PointGainItem.h
  ../server/Items/Rocket.h
  ../server/Items/Weapon.h
@@ -64,6 +58,7 @@ common/CMakeFiles/common.dir/Event.cpp.o
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Map.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/PlayerInfo.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
  /usr/include/SDL2/SDL_atomic.h
  /usr/include/SDL2/SDL_audio.h
  /usr/include/SDL2/SDL_config.h
@@ -91,16 +86,11 @@ common/CMakeFiles/common.dir/EventSerializer.cpp.o
  ../client/SoundManager.h
  ../client/Sprite.h
  ../client/UI.h
- ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Event.h
- ../server/GameStage.h
  ../server/Item.h
  ../server/Items/AmmoItem.h
  ../server/Items/KeyItem.h
  ../server/Items/LifeGainItem.h
- ../server/Items/OpenableItem.h
  ../server/Items/PointGainItem.h
  ../server/Items/Rocket.h
  ../server/Items/Weapon.h
@@ -148,11 +138,6 @@ common/CMakeFiles/common.dir/EventsCatcher.cpp.o
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventsCatcher.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventsCatcher.h
 common/CMakeFiles/common.dir/MovementEvent.cpp.o
- ../client/Vector.h
- ../common/AbstractEvent.h
- ../server/Item.h
- ../server/Items/OpenableItem.h
- ../server/Items/Rocket.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventSerializer.h
@@ -189,26 +174,27 @@ common/CMakeFiles/common.dir/OpenDoorEvent.cpp.o
  ../client/UI.h
  ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../common/OpenDoorEvent.h
- ../server/CellMap.h
- ../server/Game.h
- ../server/GameLoader.h
- ../server/GameStage.h
- ../server/Item.h
- ../server/Items/AmmoItem.h
- ../server/Items/KeyItem.h
- ../server/Items/LifeGainItem.h
- ../server/Items/OpenableItem.h
- ../server/Items/PointGainItem.h
- ../server/Items/Rocket.h
- ../server/Items/Weapon.h
- ../server/Map.h
- ../server/Player.h
- ../server/PlayerInfo.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventSerializer.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/OpenDoorEvent.cpp
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/OpenDoorEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Game.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameStage.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/OpenableItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Map.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/PlayerInfo.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
  /usr/include/SDL2/SDL_atomic.h
  /usr/include/SDL2/SDL_audio.h
  /usr/include/SDL2/SDL_config.h
@@ -231,11 +217,6 @@ common/CMakeFiles/common.dir/ProtectedEventsQueue.cpp.o
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ProtectedEventsQueue.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ProtectedEventsQueue.h
 common/CMakeFiles/common.dir/QuitEvent.cpp.o
- ../client/Vector.h
- ../common/AbstractEvent.h
- ../server/Item.h
- ../server/Items/OpenableItem.h
- ../server/Items/Rocket.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/QuitEvent.cpp
@@ -271,10 +252,9 @@ common/CMakeFiles/common.dir/ServerEvents/AmmoChangeEvent.cpp.o
  ../client/UI.h
  ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/AmmoChangeEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/AmmoChangeEvent.h
  /usr/include/SDL2/SDL_atomic.h
@@ -307,8 +287,6 @@ common/CMakeFiles/common.dir/ServerEvents/ChangeWeaponEvent.cpp.o
  ../client/Vector.h
  ../client/Wall.h
  ../common/AbstractEvent.h
- ../common/Constants.h
- ../common/Event.h
  ../server/CellMap.h
  ../server/Game.h
  ../server/GameLoader.h
@@ -324,7 +302,10 @@ common/CMakeFiles/common.dir/ServerEvents/ChangeWeaponEvent.cpp.o
  ../server/Map.h
  ../server/Player.h
  ../server/PlayerInfo.h
+ ../server/Vector.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ChangeWeaponEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ChangeWeaponEvent.h
  /usr/include/SDL2/SDL_atomic.h
@@ -356,10 +337,11 @@ common/CMakeFiles/common.dir/ServerEvents/CreateMapEvent.cpp.o
  ../client/UI.h
  ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/CreateMapEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/CreateMapEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
  /usr/include/SDL2/SDL_atomic.h
  /usr/include/SDL2/SDL_audio.h
  /usr/include/SDL2/SDL_config.h
@@ -390,8 +372,6 @@ common/CMakeFiles/common.dir/ServerEvents/DespawnEvent.cpp.o
  ../client/Vector.h
  ../client/Wall.h
  ../common/AbstractEvent.h
- ../common/Constants.h
- ../common/Event.h
  ../server/CellMap.h
  ../server/Game.h
  ../server/GameLoader.h
@@ -407,6 +387,10 @@ common/CMakeFiles/common.dir/ServerEvents/DespawnEvent.cpp.o
  ../server/Map.h
  ../server/Player.h
  ../server/PlayerInfo.h
+ ../server/Vector.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DespawnEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DespawnEvent.h
  /usr/include/SDL2/SDL_atomic.h
@@ -438,10 +422,9 @@ common/CMakeFiles/common.dir/ServerEvents/DoorOpenedEvent.cpp.o
  ../client/UI.h
  ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventSerializer.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DoorOpenedEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DoorOpenedEvent.h
@@ -474,10 +457,10 @@ common/CMakeFiles/common.dir/ServerEvents/GameOverEvent.cpp.o
  ../client/UI.h
  ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../common/Event.h
- ../common/EventSerializer.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventSerializer.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/GameOverEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/GameOverEvent.h
  /usr/include/SDL2/SDL_atomic.h
@@ -509,10 +492,9 @@ common/CMakeFiles/common.dir/ServerEvents/HealthChangeEvent.cpp.o
  ../client/UI.h
  ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/HealthChangeEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/HealthChangeEvent.h
  /usr/include/SDL2/SDL_atomic.h
@@ -544,12 +526,12 @@ common/CMakeFiles/common.dir/ServerEvents/KillEvent.cpp.o
  ../client/UI.h
  ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../common/Event.h
- ../common/EventSerializer.h
- ../common/ServerEvents/KillEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventSerializer.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/KillEvent.cpp
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/KillEvent.h
  /usr/include/SDL2/SDL_atomic.h
  /usr/include/SDL2/SDL_audio.h
  /usr/include/SDL2/SDL_config.h
@@ -565,17 +547,15 @@ common/CMakeFiles/common.dir/ServerEvents/KillEvent.cpp.o
  /usr/include/SDL2/begin_code.h
  /usr/include/SDL2/close_code.h
 common/CMakeFiles/common.dir/ServerEvents/PickUpKeyEvent.cpp.o
- ../common/AbstractEvent.h
- ../common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PickUpKeyEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PickUpKeyEvent.h
 common/CMakeFiles/common.dir/ServerEvents/PickUpWeaponEvent.cpp.o
- ../common/AbstractEvent.h
- ../common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PickUpWeaponEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PickUpWeaponEvent.h
 common/CMakeFiles/common.dir/ServerEvents/PositionEvent.cpp.o
@@ -591,10 +571,8 @@ common/CMakeFiles/common.dir/ServerEvents/PositionEvent.cpp.o
  ../client/SoundManager.h
  ../client/Sprite.h
  ../client/UI.h
- ../client/Vector.h
  ../client/Wall.h
  ../common/AbstractEvent.h
- ../common/Event.h
  ../server/Item.h
  ../server/Items/AmmoItem.h
  ../server/Items/KeyItem.h
@@ -606,6 +584,7 @@ common/CMakeFiles/common.dir/ServerEvents/PositionEvent.cpp.o
  ../server/Vector.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventSerializer.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PositionEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PositionEvent.h
@@ -638,10 +617,9 @@ common/CMakeFiles/common.dir/ServerEvents/ScoreChangeEvent.cpp.o
  ../client/UI.h
  ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ScoreChangeEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ScoreChangeEvent.h
  /usr/include/SDL2/SDL_atomic.h
@@ -674,8 +652,6 @@ common/CMakeFiles/common.dir/ServerEvents/SpawnEvent.cpp.o
  ../client/Vector.h
  ../client/Wall.h
  ../common/AbstractEvent.h
- ../common/Constants.h
- ../common/Event.h
  ../server/CellMap.h
  ../server/Game.h
  ../server/GameLoader.h
@@ -691,6 +667,10 @@ common/CMakeFiles/common.dir/ServerEvents/SpawnEvent.cpp.o
  ../server/Map.h
  ../server/Player.h
  ../server/PlayerInfo.h
+ ../server/Vector.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnEvent.h
  /usr/include/SDL2/SDL_atomic.h
@@ -722,25 +702,26 @@ common/CMakeFiles/common.dir/ServerEvents/SpawnNotMovableEvent.cpp.o
  ../client/UI.h
  ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../server/CellMap.h
- ../server/Game.h
- ../server/GameLoader.h
- ../server/GameStage.h
- ../server/Item.h
- ../server/Items/AmmoItem.h
- ../server/Items/KeyItem.h
- ../server/Items/LifeGainItem.h
- ../server/Items/OpenableItem.h
- ../server/Items/PointGainItem.h
- ../server/Items/Rocket.h
- ../server/Items/Weapon.h
- ../server/Map.h
- ../server/Player.h
- ../server/PlayerInfo.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnNotMovableEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnNotMovableEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Game.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameStage.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/OpenableItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Map.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/PlayerInfo.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
  /usr/include/SDL2/SDL_atomic.h
  /usr/include/SDL2/SDL_audio.h
  /usr/include/SDL2/SDL_config.h
@@ -770,26 +751,27 @@ common/CMakeFiles/common.dir/ShootingEvent.cpp.o
  ../client/UI.h
  ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../common/EventSerializer.h
- ../common/ShootingEvent.h
- ../server/CellMap.h
- ../server/Game.h
- ../server/GameLoader.h
- ../server/GameStage.h
- ../server/Item.h
- ../server/Items/AmmoItem.h
- ../server/Items/KeyItem.h
- ../server/Items/LifeGainItem.h
- ../server/Items/OpenableItem.h
- ../server/Items/PointGainItem.h
- ../server/Items/Rocket.h
- ../server/Items/Weapon.h
- ../server/Map.h
- ../server/Player.h
- ../server/PlayerInfo.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventSerializer.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ShootingEvent.cpp
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ShootingEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Game.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameStage.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/OpenableItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Map.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/PlayerInfo.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
  /usr/include/SDL2/SDL_atomic.h
  /usr/include/SDL2/SDL_audio.h
  /usr/include/SDL2/SDL_config.h
@@ -956,27 +938,27 @@ common/CMakeFiles/common.dir/TurnEvent.cpp.o
  ../client/UI.h
  ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../server/CellMap.h
- ../server/Game.h
- ../server/GameLoader.h
- ../server/GameStage.h
- ../server/Item.h
- ../server/Items/AmmoItem.h
- ../server/Items/KeyItem.h
- ../server/Items/LifeGainItem.h
- ../server/Items/OpenableItem.h
- ../server/Items/PointGainItem.h
- ../server/Items/Rocket.h
- ../server/Items/Weapon.h
- ../server/Map.h
- ../server/Player.h
- ../server/PlayerInfo.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/EventSerializer.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/TurnEvent.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/TurnEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Game.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameStage.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/OpenableItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Map.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/PlayerInfo.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
  /usr/include/SDL2/SDL_atomic.h
  /usr/include/SDL2/SDL_audio.h
  /usr/include/SDL2/SDL_config.h
@@ -1005,22 +987,8 @@ common/CMakeFiles/common.dir/__/client/BagOfSprites.cpp.o
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Sprite.h
 common/CMakeFiles/common.dir/__/client/CGame.cpp.o
  ../client/CGame.h
- ../client/Vector.h
  ../common/AbstractEvent.h
  ../common/Constants.h
- ../common/Event.h
- ../common/ServerEvents/AmmoChangeEvent.h
- ../common/ServerEvents/ChangeWeaponEvent.h
- ../common/ServerEvents/CreateMapEvent.h
- ../common/ServerEvents/DespawnEvent.h
- ../common/ServerEvents/DoorOpenedEvent.h
- ../common/ServerEvents/GameOverEvent.h
- ../common/ServerEvents/HealthChangeEvent.h
- ../common/ServerEvents/KillEvent.h
- ../common/ServerEvents/PositionEvent.h
- ../common/ServerEvents/ScoreChangeEvent.h
- ../common/ServerEvents/SpawnEvent.h
- ../common/ServerEvents/SpawnNotMovableEvent.h
  ../common/ShootingEvent.h
  ../common/TurnEvent.h
  ../server/CellMap.h
@@ -1038,6 +1006,7 @@ common/CMakeFiles/common.dir/__/client/CGame.cpp.o
  ../server/Map.h
  ../server/Player.h
  ../server/PlayerInfo.h
+ ../server/Vector.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/AnimatedSprite.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/BagOfSprites.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/CGame.cpp
@@ -1053,6 +1022,22 @@ common/CMakeFiles/common.dir/__/client/CGame.cpp.o
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/UI.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Vector.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/client/Wall.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/AmmoChangeEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ChangeWeaponEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/CreateMapEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DespawnEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DoorOpenedEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/GameOverEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/HealthChangeEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/KillEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PositionEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ScoreChangeEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnNotMovableEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
  /usr/include/SDL2/SDL_atomic.h
  /usr/include/SDL2/SDL_audio.h
  /usr/include/SDL2/SDL_config.h
@@ -2833,23 +2818,20 @@ common/CMakeFiles/common.dir/__/server/CellMap.cpp.o
  ../client/SoundManager.h
  ../client/Sprite.h
  ../client/UI.h
- ../client/Vector.h
  ../client/Wall.h
  ../common/AbstractEvent.h
- ../common/Constants.h
  ../common/Event.h
- ../common/ServerEvents/DespawnEvent.h
  ../common/ServerEvents/GameOverEvent.h
  ../common/ServerEvents/HealthChangeEvent.h
  ../common/ServerEvents/KillEvent.h
- ../common/ServerEvents/SpawnEvent.h
  ../server/Game.h
  ../server/GameStage.h
- ../server/Item.h
- ../server/Items/OpenableItem.h
- ../server/Items/Rocket.h
  ../server/Map.h
  ../server/PlayerInfo.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DespawnEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.h
@@ -2891,22 +2873,18 @@ common/CMakeFiles/common.dir/__/server/Game.cpp.o
  ../client/SoundManager.h
  ../client/Sprite.h
  ../client/UI.h
- ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../common/Event.h
- ../common/ServerEvents/ChangeWeaponEvent.h
- ../common/ServerEvents/CreateMapEvent.h
- ../common/ServerEvents/GameOverEvent.h
- ../common/ServerEvents/HealthChangeEvent.h
- ../common/ServerEvents/KillEvent.h
- ../common/ServerEvents/PositionEvent.h
- ../common/ServerEvents/SpawnEvent.h
- ../server/Item.h
- ../server/Items/OpenableItem.h
- ../server/Items/Rocket.h
  ../server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ChangeWeaponEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/CreateMapEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/GameOverEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/HealthChangeEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/KillEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PositionEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Game.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Game.h
@@ -2938,13 +2916,9 @@ common/CMakeFiles/common.dir/__/server/Game.cpp.o
  /usr/include/SDL2/begin_code.h
  /usr/include/SDL2/close_code.h
 common/CMakeFiles/common.dir/__/server/GameLoader.cpp.o
- ../client/Vector.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../server/Item.h
- ../server/Items/OpenableItem.h
- ../server/Items/Rocket.h
- /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/include/Exception.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Exception.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
@@ -2954,6 +2928,7 @@ common/CMakeFiles/common.dir/__/server/GameLoader.cpp.o
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LockedDoor.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/OpenableItem.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
@@ -2970,34 +2945,32 @@ common/CMakeFiles/common.dir/__/server/GameStage.cpp.o
  ../client/SoundManager.h
  ../client/Sprite.h
  ../client/UI.h
- ../client/Vector.h
  ../client/Wall.h
  ../common/AbstractEvent.h
  ../common/Event.h
  ../common/ServerEvents/AmmoChangeEvent.h
  ../common/ServerEvents/ChangeWeaponEvent.h
- ../common/ServerEvents/GameOverEvent.h
- ../common/ServerEvents/HealthChangeEvent.h
- ../common/ServerEvents/KillEvent.h
- ../common/ServerEvents/PositionEvent.h
  ../common/ServerEvents/SpawnEvent.h
- ../server/GameStage.h
  ../server/Item.h
  ../server/Items/AmmoItem.h
  ../server/Items/KeyItem.h
  ../server/Items/LifeGainItem.h
- ../server/Items/OpenableItem.h
  ../server/Items/PointGainItem.h
  ../server/Items/Rocket.h
  ../server/Items/Weapon.h
  ../server/Player.h
  ../server/Vector.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/BlockingEventsQueue.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/MovementEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/OpenDoorEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ProtectedEventsQueue.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/GameOverEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/HealthChangeEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/KillEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PositionEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ShootingEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/TurnEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.h
@@ -3026,120 +2999,109 @@ common/CMakeFiles/common.dir/__/server/GameStage.cpp.o
  /usr/include/SDL2/close_code.h
 common/CMakeFiles/common.dir/__/server/Item.cpp.o
  ../client/Sprite.h
- ../common/AbstractEvent.h
- ../common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
 common/CMakeFiles/common.dir/__/server/Items/AmmoItem.cpp.o
- ../client/Vector.h
  ../common/AbstractEvent.h
  ../common/Constants.h
- ../server/Item.h
- ../server/Items/AmmoItem.h
- ../server/Items/KeyItem.h
- ../server/Items/LifeGainItem.h
- ../server/Items/PointGainItem.h
- ../server/Items/Rocket.h
- ../server/Items/Weapon.h
- ../server/Player.h
- ../server/Vector.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
 common/CMakeFiles/common.dir/__/server/Items/KeyItem.cpp.o
- ../client/Vector.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../server/Item.h
- ../server/Items/AmmoItem.h
- ../server/Items/KeyItem.h
- ../server/Items/LifeGainItem.h
- ../server/Items/PointGainItem.h
- ../server/Items/Rocket.h
- ../server/Items/Weapon.h
- ../server/Player.h
- ../server/Vector.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
 common/CMakeFiles/common.dir/__/server/Items/LifeGainItem.cpp.o
- ../client/Vector.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../server/Item.h
- ../server/Items/AmmoItem.h
- ../server/Items/KeyItem.h
- ../server/Items/LifeGainItem.h
- ../server/Items/PointGainItem.h
- ../server/Items/Rocket.h
- ../server/Items/Weapon.h
- ../server/Player.h
- ../server/Vector.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
 common/CMakeFiles/common.dir/__/server/Items/LockedDoor.cpp.o
- ../client/Vector.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../server/Item.h
- ../server/Items/AmmoItem.h
- ../server/Items/KeyItem.h
- ../server/Items/LifeGainItem.h
- ../server/Items/PointGainItem.h
- ../server/Items/Rocket.h
- ../server/Items/Weapon.h
- ../server/Player.h
- ../server/Vector.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LockedDoor.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LockedDoor.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/OpenableItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
 common/CMakeFiles/common.dir/__/server/Items/OpenableItem.cpp.o
- ../client/Vector.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../server/Item.h
- ../server/Items/AmmoItem.h
- ../server/Items/KeyItem.h
- ../server/Items/LifeGainItem.h
- ../server/Items/PointGainItem.h
- ../server/Items/Rocket.h
- ../server/Items/Weapon.h
- ../server/Player.h
- ../server/Vector.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/OpenableItem.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/OpenableItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
 common/CMakeFiles/common.dir/__/server/Items/PointGainItem.cpp.o
- ../client/Vector.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../server/Item.h
- ../server/Items/AmmoItem.h
- ../server/Items/KeyItem.h
- ../server/Items/LifeGainItem.h
- ../server/Items/PointGainItem.h
- ../server/Items/Rocket.h
- ../server/Items/Weapon.h
- ../server/Player.h
- ../server/Vector.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
 common/CMakeFiles/common.dir/__/server/Items/Rocket.cpp.o
- ../client/Vector.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
 common/CMakeFiles/common.dir/__/server/Items/Weapon.cpp.o
- ../client/Vector.h
- ../common/AbstractEvent.h
  ../common/Constants.h
- ../server/Item.h
- ../server/Items/AmmoItem.h
- ../server/Items/KeyItem.h
- ../server/Items/LifeGainItem.h
- ../server/Items/PointGainItem.h
- ../server/Items/Rocket.h
- ../server/Items/Weapon.h
- ../server/Player.h
- ../server/Vector.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
 common/CMakeFiles/common.dir/__/server/Map.cpp.o
  ../client/AnimatedSprite.h
  ../client/BagOfSprites.h
@@ -3153,18 +3115,14 @@ common/CMakeFiles/common.dir/__/server/Map.cpp.o
  ../client/SoundManager.h
  ../client/Sprite.h
  ../client/UI.h
- ../client/Vector.h
  ../client/Wall.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../common/Event.h
- ../common/ServerEvents/CreateMapEvent.h
- ../common/ServerEvents/DoorOpenedEvent.h
- ../common/ServerEvents/SpawnEvent.h
- ../common/ServerEvents/SpawnNotMovableEvent.h
- ../server/Item.h
- ../server/Items/OpenableItem.h
- ../server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/CreateMapEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DoorOpenedEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/SpawnNotMovableEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
@@ -3194,14 +3152,10 @@ common/CMakeFiles/common.dir/__/server/Map.cpp.o
  /usr/include/SDL2/begin_code.h
  /usr/include/SDL2/close_code.h
 common/CMakeFiles/common.dir/__/server/Player.cpp.o
- ../client/Vector.h
- ../common/AbstractEvent.h
- ../common/Event.h
- ../server/Item.h
- ../server/Items/OpenableItem.h
- ../server/Items/Rocket.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Event.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Exception.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/AmmoChangeEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ChangeWeaponEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/DoorOpenedEvent.h
@@ -3209,24 +3163,21 @@ common/CMakeFiles/common.dir/__/server/Player.cpp.o
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PickUpKeyEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/PickUpWeaponEvent.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/ServerEvents/ScoreChangeEvent.h
- /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/include/Exception.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/AmmoItem.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/KeyItem.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/LifeGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/OpenableItem.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/PointGainItem.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Rocket.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Items/Weapon.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Player.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Vector.h
 common/CMakeFiles/common.dir/__/server/WallRay.cpp.o
- ../client/Vector.h
- ../common/AbstractEvent.h
- ../common/Constants.h
- ../server/Item.h
- ../server/Items/OpenableItem.h
- ../server/Items/Rocket.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/AbstractEvent.h
+ /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/common/Constants.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/CellMap.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/GameLoader.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/Item.h
@@ -3280,6 +3231,7 @@ common/CMakeFiles/common.dir/__/server/ai/AI.cpp.o
  ../server/Map.h
  ../server/Player.h
  ../server/PlayerInfo.h
+ ../server/Vector.h
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/ai/AI.cpp
  /home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/server/ai/AI.h
  /usr/include/SDL2/SDL_atomic.h

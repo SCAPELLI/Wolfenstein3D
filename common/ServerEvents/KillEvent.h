@@ -2,7 +2,7 @@
 #define KILLEVENT_H
 
 #include "../AbstractEvent.h"
-#include "Event.h"
+#include "../Event.h"
 
 class CGame;
 

@@ -1,0 +1,10 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/juankristal/Desktop/taller/TP_FINAL/Wolfenstein3D/cmake-build-debug/Editor/Editor_autogen/mocs_compilation.cpp
+

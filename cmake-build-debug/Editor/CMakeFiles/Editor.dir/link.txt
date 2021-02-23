@@ -1,0 +1,1 @@
+/usr/bin/c++  -pthread -g   CMakeFiles/Editor.dir/Editor_autogen/mocs_compilation.cpp.o  -o Editor 

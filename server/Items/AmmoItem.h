@@ -2,8 +2,8 @@
 
 #ifndef AMMOITEM_H
 #define AMMOITEM_H
-#include "Item.h"
-#include "AbstractEvent.h"
+#include "../Item.h"
+#include "../common/AbstractEvent.h"
 #include <vector>
 class AmmoItem : public Item{
 private:

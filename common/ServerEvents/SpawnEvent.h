@@ -4,7 +4,7 @@
 #define SPAWNEVENT_H
 #include "../AbstractEvent.h"
 #include "client/CGame.h"
-#include "Event.h"
+#include "../Event.h"
 
 class SpawnEvent : public AbstractEvent {
     updateEventType eventType;

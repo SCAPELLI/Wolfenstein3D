@@ -1,7 +1,7 @@
 
 
 #include "SpawnEvent.h"
-#include "GameStage.h"
+#include "../server/GameStage.h"
 
 void SpawnEvent::runHandler(CGame& game) {
     game.processEvent (*this);

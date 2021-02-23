@@ -3,8 +3,8 @@
 #define WEAPON_H
 
 
-#include "Item.h"
-#include "Items/Rocket.h"
+#include "../Item.h"
+#include "../Items/Rocket.h"
 class Weapon : public Item{
 public:
     int id;

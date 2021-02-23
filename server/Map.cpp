@@ -5,12 +5,12 @@
 #include <vector>
 #include <iostream>
 #include "CellMap.h"
-#include "Constants.h"
+#include "../common/Constants.h"
 #include "GameLoader.h"
 #include "../common/ServerEvents/SpawnEvent.h"
 #include "../common/ServerEvents/CreateMapEvent.h"
 #include "../common/ServerEvents/SpawnNotMovableEvent.h"
-#include "ServerEvents/DoorOpenedEvent.h"
+#include "../common/ServerEvents/DoorOpenedEvent.h"
 
 Map::Map(){}
 
