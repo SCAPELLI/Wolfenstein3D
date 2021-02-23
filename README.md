@@ -52,3 +52,8 @@ Es una aplicación independiente del juego que permite diseñar mapas nuevos o c
 - Tile: representa un cuadrado en el mapa. Contiene la información de su ubicación y de su sprite.
 
 - TilemapScene: clase que representa la parte gráfica del mapa. Le permite al usuario visualizar las dimensiones del mapa y poder efectuar cambios sobre él.
+
+- Diagrama Editor:
+![Alt text](./editorDiagrama1.jpeg)
+
+
