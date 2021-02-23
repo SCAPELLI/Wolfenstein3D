@@ -5,9 +5,9 @@
 #include "../EventSerializer.h"
 
 
-GameOverEvent::GameOverEvent (GameOverEvent& gameOverEvent){}
-
-GameOverEvent::GameOverEvent (updateEventType eventType, int idPlayer) : idPlayer(idPlayer), eventType(eventType){}
+GameOverEvent::GameOverEvent (updateEventType eventType, int idPlayer,
+                              std::map<std::string, std::vector<int>>& names)
+              : idPlayer(idPlayer), eventType(eventType), highscores(names){}
 
 void GameOverEvent::runHandler(CGame& game){
     return game.processEvent(*this);

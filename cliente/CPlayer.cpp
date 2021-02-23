@@ -16,6 +16,22 @@ int CPlayer::getActiveWeapon() {
     return activeWeapon;
 }
 
+int CPlayer::getAmmo(){
+    return ammo;
+}
+
+int CPlayer::getHp(){
+    return hp;
+}
+
+int CPlayer::getLives(){
+    return lives;
+}
+
+int CPlayer::getScore(){
+    return score;
+}
+
 void CPlayer::increaseScore(int deltaScore) {
     score += deltaScore;
 }
@@ -57,6 +73,10 @@ void CPlayer::respawn(){
 
 void CPlayer::setHealth(int newHp){
 	this->hp = newHp;
+}
+
+Vector CPlayer::getPosition() {
+    return this->camera.getPosition();
 }
 
 CPlayer::~CPlayer(){

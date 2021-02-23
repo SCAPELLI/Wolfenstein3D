@@ -47,7 +47,7 @@ void Player::initializePlayer(bool dead){
             std::string weaponType = it->first.as<std::string>();
             if(weaponType == "knife" || weaponType == "pistol"){
                 YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
-                auto equip = Weapon(cont, weaponType, 0, data["damage"].as<int>(), // usar constructor
+                auto equip = Weapon(cont, weaponType, 0, data["damage"].as<int>(),
                                     data["minBullets"].as<int>(),
                                     data["cooldownTimer"].as<int>());
                 bag.insert(std::make_pair(cont, equip));
@@ -84,7 +84,7 @@ double Player::getAngle() const {
 
 double Player::angleWithOther(Player& otherPlayer){
     double angleWithOrigin = otherPlayer.getPosition().angle();
-    return angle - angleWithOrigin;
+    return position.angle() - angleWithOrigin;
 //    int deltaX = otherPlayer.getPosition().x - position.x; //adyacente
 //    int distanceWith = position.distance(otherPlayer.position);
 //    double angleWithOtherPlayer = acos(deltaX / distanceWith);
@@ -110,6 +110,12 @@ int Player::distanceWith(Player& otherPlayer) {
 //        return distance;
 //    }
 //    return std::numeric_limits<int>::max();
+}
+void Player::eraseCurrentWeapon(){
+    bag.erase(idWeapon);
+    prevIdWeapon = 1;
+    idWeapon = 1;
+    return;
 }
 
 bool Player::shoot(){
@@ -309,5 +315,17 @@ int Player::getLifes() const {
 }
 Vector Player::getInitialPosition(){
     return initialPosition;
+}
+int Player::getEnemiesKilled(){
+    return playersKilled;
+}
+int Player::getBulletsShoot(){
+    return bulletsShot;
+}
+int Player::getScore(){
+    return score;
+}
+std::string Player::getName(){
+    return name;
 }
 Player::~Player() {}

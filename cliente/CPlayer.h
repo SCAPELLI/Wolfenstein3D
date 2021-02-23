@@ -23,6 +23,11 @@ class CPlayer{
 		void drawWeapon(SDL_Renderer* renderer);
 		int getActiveWeapon();
 		bool shoot();
+		int getScore();
+		int getLives();
+		int getAmmo();
+		int getHp();
+		Vector getPosition();
 		void respawn();
 		void changeWeapon(int weaponID);
 		void increaseScore(int deltaScore);

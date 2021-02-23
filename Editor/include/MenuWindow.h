@@ -1,7 +1,6 @@
 #ifndef EDITOR_MENUWINDOW_H
 #define EDITOR_MENUWINDOW_H
 
-#include "NewMapWindow.h"
 #include "ScreenManager.h"
 #include <QMainWindow>
 #include <QWidget>

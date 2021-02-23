@@ -47,7 +47,7 @@ void CGame::processEvent(SpawnEvent& event) {
     if (event.type == 161) {
         map[event.posY][event.posX] = event.type;
     }
-    renderables[event.id] =  Renderable(event.posX, event.posY, &sprites.items[event.type]);
+    renderables[event.id] =  Renderable(event.posY, event.posX, &sprites.items[event.type]);
 }
 void CGame::processEvent(HealthChangeEvent& event) {
     if (event.idPlayer != activePlayer.id) return;
@@ -64,9 +64,10 @@ void CGame::processEvent(DespawnEvent &event) {
 void CGame::processEvent(ShootingEvent& event){
     int playerID = event.idPlayer;
     if (activePlayer.id == playerID) {
-        if (activePlayer.shoot()) soundQueue.push(activePlayer.getActiveWeapon(), MIX_MAX_VOLUME);
+        if (activePlayer.shoot()) soundQueue.push(activePlayer.getActiveWeapon(), MIX_MAX_VOLUME/10);
     } else {
-        soundQueue.push(players[event.idPlayer]->getActiveWeapon(), MIX_MAX_VOLUME/4 );
+        int distance = activePlayer.getPosition().distance(players[event.idPlayer]->position);
+        soundQueue.push(players[event.idPlayer]->getActiveWeapon(), MIX_MAX_VOLUME/10 - distance/20);
     }
 }
 
@@ -108,7 +109,7 @@ void CGame::processEvent(DoorOpenedEvent& event){
 void CGame::processEvent(CreateMapEvent& event){}
 
 void CGame::processEvent(AmmoChangeEvent& event){
-    //if (event.idPlayer != activePlayer.id) return;
+    if (event.idPlayer != activePlayer.id) return;
     activePlayer.changeAmmo(event.ammo);
 }
 

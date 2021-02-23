@@ -7,12 +7,15 @@
 #include <yaml-cpp/node/node.h>
 #include <yaml-cpp/yaml.h>
 #include <QtWidgets/QMessageBox>
+#include <SpriteFileManager.h>
 #include "../include/EditorScreen.h"
 #include "../include/TilemapScene.h"
 #include "ui_EditorScreen.h"
 #include "../../common/Style.h"
 
 #define FONT_SIZE 15
+#define BUTTON_HEIGHT 20
+#define BUTTON_WIDTH 150
 
 EditorScreen::EditorScreen(QWidget *parent, ScreenManager *screenManager)
     : QMainWindow(parent), ui(new Ui::EditorScreen), currentTexture(Texture("../sprites/sprite100.png", 100)) {
@@ -98,6 +101,10 @@ void EditorScreen::openMap() {
         std::string aux = filePath.toUtf8().toStdString();
         YAML::Node map = YAML::LoadFile(aux);
         std::vector<std::vector<int>> matrix = map["map"].as<std::vector<std::vector<int>>>();
+        SpriteFileManager spriteFileManager;
+        if (!spriteFileManager.mapHasValidIds(matrix)) {
+            throw "InvalidIds";
+        }
         this->setNewTilemapScene(matrix.size(), matrix[0].size(), aux);
         this->tilemapScene->setMapMatrix(matrix);
 
@@ -177,9 +184,9 @@ void EditorScreen::setNewTilemapScene(size_t rows, size_t columns, const std::st
 
 void EditorScreen::setStyle() {
     Style style;
-    style.setButtonStyle(this->ui->saveButton, FONT_SIZE);
-    style.setButtonStyle(this->ui->openButton, FONT_SIZE);
-    style.setButtonStyle(this->ui->newButton, FONT_SIZE);
-    style.setButtonStyle(this->ui->drawButton, FONT_SIZE);
-    style.setButtonStyle(this->ui->eraseButton, FONT_SIZE);
+    style.setButtonStyle(this->ui->saveButton, FONT_SIZE, BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->openButton, FONT_SIZE, BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->newButton, FONT_SIZE, BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->drawButton, FONT_SIZE, BUTTON_HEIGHT, BUTTON_WIDTH);
+    style.setButtonStyle(this->ui->eraseButton, FONT_SIZE, BUTTON_HEIGHT, BUTTON_WIDTH);
 }

@@ -27,6 +27,7 @@ public:
     int shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     //void decrementLife(int idPlyr);
     bool openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents);
+    void getHighscores(std::map<std::string, std::vector<int>>& names);
     void increaseCooldown();
     bool canShoot(int idPlayer, int otherPlayer);
     void respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents);

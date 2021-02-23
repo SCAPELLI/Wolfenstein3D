@@ -24,8 +24,11 @@ bool distanceSort(std::pair<int, double> a, std::pair<int, double> b){
 void GameScreen::draw(std::vector<std::vector<int>>& map,
             std::map<int, Renderable>& renderables,
             std::map<int, EnemyPlayer*>& players){
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(renderer, 90, 90, 90, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer, 101, 67, 64, SDL_ALPHA_OPAQUE);
+    SDL_Rect fillRect = {0, 240, 640, 240};
+    SDL_RenderFillRect(renderer, &fillRect);
     std::vector<double> wallDistances;
     activePlayer->getCamera()->draw(renderer, map, &wallTextures, wallDistances);
 
@@ -41,14 +44,13 @@ void GameScreen::draw(std::vector<std::vector<int>>& map,
     std::map<int, EnemyPlayer*>::iterator itPlayers;
     for (itPlayers = players.begin(); itPlayers != players.end(); ++itPlayers){
         double distance = itPlayers->second->position.distance(activePlayer->getCamera()->getPosition());
-        //if (distance < 150) {
             toDraw.push_back(std::make_pair(itPlayers->first *-1, distance));
-        //}
+
     }
 
     std::sort(toDraw.begin(), toDraw.end(), distanceSort);
     for (int i = 0; i < toDraw.size(); i++) {
-        if (players.find(toDraw[i].first) == players.end()) {
+        if (renderables.find(toDraw[i].first) != renderables.end()) {
             renderables[toDraw[i].first].drawFrom(activePlayer->getCamera(), map, renderer, wallDistances);
         } else {
             (*players[toDraw[i].first * -1]).drawFrom(activePlayer->getCamera(), map, renderer, wallDistances);

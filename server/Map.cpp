@@ -44,10 +44,18 @@ void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
         players[numOfPlayer].setPosition(Vector(pos2 * TILE, pos1 * TILE));
         tileMap.addPlayer(players.at(numOfPlayer));
         numOfPlayer++;
-    } if (elem > 1 && elem < 100){
+    } if (elem > 1 && elem < 50){
         Item* item = factory.itemLoader(elem);
         auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
-                                item->getId(), pos2 * TILE, pos1 * TILE);
+                                item->getId(), pos1 * TILE, pos2 * TILE);
+        newEvents.push_back(event);
+        tileMap.addItem(item);
+        return;
+    }
+    else if (elem >= 50 && elem < 100){
+        Item* item = factory.weaponLoader(elem);
+        auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
+                                    item->getId() + 49, pos1 * TILE, pos2 * TILE);
         newEvents.push_back(event);
         tileMap.addItem(item);
         return;

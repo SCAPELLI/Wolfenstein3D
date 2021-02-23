@@ -1,5 +1,5 @@
 #include "EraseMode.h"
-#include "Tilemap.h"
+#include "TilemapScene.h"
 
 EraseMode::EraseMode(TilemapScene *tilemapScene) : Mode(tilemapScene) {}
 
