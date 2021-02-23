@@ -44,14 +44,13 @@ void GameScreen::draw(std::vector<std::vector<int>>& map,
     std::map<int, EnemyPlayer*>::iterator itPlayers;
     for (itPlayers = players.begin(); itPlayers != players.end(); ++itPlayers){
         double distance = itPlayers->second->position.distance(activePlayer->getCamera()->getPosition());
-        //if (distance < 150) {
             toDraw.push_back(std::make_pair(itPlayers->first *-1, distance));
-        //}
+
     }
 
     std::sort(toDraw.begin(), toDraw.end(), distanceSort);
     for (int i = 0; i < toDraw.size(); i++) {
-        if (players.find(toDraw[i].first) == players.end()) {
+        if (renderables.find(toDraw[i].first) != renderables.end()) {
             renderables[toDraw[i].first].drawFrom(activePlayer->getCamera(), map, renderer, wallDistances);
         } else {
             (*players[toDraw[i].first * -1]).drawFrom(activePlayer->getCamera(), map, renderer, wallDistances);
