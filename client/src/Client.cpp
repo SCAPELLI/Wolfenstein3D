@@ -106,9 +106,7 @@ void Client::playMatch() {
     ProtectedEventsQueue receiverQueue;
 
     ReceiverThread r(&userSocket, receiverQueue);
-    SenderThread s(&userSocket, &senderQueue);
     r.start();
-    s.start();
 
     bool hasStarted = false;
     while (!hasStarted){
@@ -137,6 +135,8 @@ void Client::playMatch() {
                                           start->startingLocations[it->first].second));
     }
 
+    SenderThread s(&userSocket, &senderQueue);
+    s.start();
     bool quit = false;
     while (!quit) {
         senderQueue.insertEvents(eventsCatcher);

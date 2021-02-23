@@ -67,27 +67,28 @@ void Match::run() {
     matchStarted = true;
 
     ProtectedEventsQueue userEvents;
-    std::vector<BlockingEventsQueue*> updateEvents; // equivalente a updateEvents x N
+    std::vector<BlockingEventsQueue> updateEvents; // equivalente a updateEvents x N
     for (int i = 0; i < users.size(); i++) {
-        updateEvents.emplace_back(new BlockingEventsQueue());
+        updateEvents.emplace_back();
     }
 
     std::map<int, std::string> players;
     for (auto it = users.begin(); it != users.end(); ++it)
         players[it->second] = it->first;
 
-    GameStage gameStage(updateEvents, players, levelId); // agregar levelId a GameStage
 
     std::vector<ReceiverThread*> receivers; // punteros?
     std::vector<SenderThread*> senders;
     int i = 0;
     for (auto it = usersSockets.begin(); it != usersSockets.end(); ++it){
         receivers.push_back(new ReceiverThread(it->second, userEvents)); // emplace_back o new?
-        senders.push_back(new SenderThread(it->second, updateEvents[i]));
+        senders.push_back(new SenderThread(it->second, &updateEvents[i]));
         receivers[i]->start();
         senders[i]->start();
         i++;
     }
+
+    GameStage gameStage(updateEvents, players, levelId); // agregar levelId a GameStage
     std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
     // agregar joins
 //    AI ai(levelId);

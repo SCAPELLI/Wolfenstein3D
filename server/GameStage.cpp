@@ -20,7 +20,7 @@
 #define PI 3.141592
 
 
-GameStage::GameStage(std::vector<BlockingEventsQueue*>& queues,
+GameStage::GameStage(std::vector<BlockingEventsQueue>& queues,
                      std::map<int, std::string>& playersNames, int levelId)
     : queues(queues), newEvents() {
     game = Game(newEvents, playersNames, levelId);
@@ -38,7 +38,7 @@ void GameStage::processEvent(TurnEvent& event) {
 }
 void GameStage::insertInAllQueuesEvent(Event& event){
     for(int i = 0; i < queues.size(); i++){
-        queues[i]->push(event);
+        queues[i].push(event);
     }
 }
 
