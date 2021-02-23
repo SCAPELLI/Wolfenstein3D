@@ -372,6 +372,24 @@ Event EventSerializer::deserialize(std::string eventString) {
             return createCreateMapEvent(eventString);
         case SPAWN_EVENT:
             return createSpawnEvent(eventString);
+        case AMMO_CHANGE_EVENT:
+            return  createAmmoChangeEvent(eventString);
+        case CHANGE_WEAPON_EVENT:
+            return createChangeWeaponEvent(eventString);
+        case DESPAWN_EVENT:
+            return createDespawnEvent(eventString);
+        case DOOR_OPENED_EVENT:
+            return createDoorOpenedEvent(eventString);
+        case HEALTH_CHANGE_EVENT:
+            return createHealthChangeEvent(eventString);
+        case KILL_EVENT:
+            return createKillEvent(eventString);
+        case PICK_UP_KEY_EVENT:
+            return createPickUpKeyEvent(eventString);
+        case PICK_UP_WEAPON_EVENT:
+            return createPickUpWeaponEvent(eventString);
+        case SCORE_CHANGE_EVENT:
+            return createScoreChangeEvent(eventString);
         default:
             return event;
             break;
