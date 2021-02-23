@@ -5,7 +5,7 @@
 #define ANIMATED_FRAMES 5
 #define ANIMATED_TIME 15
 #include "CWeapon.h"
-#define ROUTE "../cliente/sprites/weapons/"
+#define ROUTE "../client/sprites/weapons/"
 
 
 CWeapon::CWeapon(int weaponID, std::map<std::pair<int, int>, Sprite>& sprites):

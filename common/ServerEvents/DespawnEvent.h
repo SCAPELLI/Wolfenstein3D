@@ -3,7 +3,7 @@
 #ifndef ESPAWNEVENT_H
 #define DESPAWNEVENT_H
 #include "GameStage.h"
-#include "cliente/CGame.h"
+#include "client/CGame.h"
 #include "../AbstractEvent.h"
 #include "Event.h"
 

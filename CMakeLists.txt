@@ -35,21 +35,21 @@ set(SERVER_SOURCE_FILES
         server/Map.cpp
         server/GameLoader.cpp
         server/Game.cpp
-        cliente/CGame.cpp
-        cliente/CPlayer.cpp
-        cliente/Camera.cpp
-        cliente/GameScreen.cpp
-        cliente/Ray.cpp
-        cliente/Renderable.cpp
-        cliente/Vector.cpp
-        cliente/Sprite.cpp
+        client/CGame.cpp
+        client/CPlayer.cpp
+        client/Camera.cpp
+        client/GameScreen.cpp
+        client/Ray.cpp
+        client/Renderable.cpp
+        client/Vector.cpp
+        client/Sprite.cpp
 
         common/OpenDoorEvent.cpp
-        server/Item.cpp server/Item.h server/CellMap.cpp server/CellMap.h cliente/Wall.h cliente/Wall.cpp server/Items/LifeGainItem.cpp server/Items/LifeGainItem.h server/Items/PointGainItem.cpp server/Items/PointGainItem.h server/Items/KeyItem.cpp server/Items/KeyItem.h server/Items/OpenableItem.cpp server/Items/OpenableItem.h server/Items/LockedDoor.cpp server/Items/LockedDoor.h server/Items/AmmoItem.cpp server/Items/AmmoItem.h common/ServerEvents/SpawnEvent.cpp common/ServerEvents/SpawnEvent.h common/ServerEvents/DespawnEvent.cpp common/ServerEvents/DespawnEvent.h common/ServerEvents/ChangeWeaponEvent.cpp common/ServerEvents/ChangeWeaponEvent.h common/ServerEvents/HealthChangeEvent.cpp common/ServerEvents/HealthChangeEvent.h common/ServerEvents/AmmoChangeEvent.cpp common/ServerEvents/AmmoChangeEvent.h common/ServerEvents/ScoreChangeEvent.cpp common/ServerEvents/ScoreChangeEvent.h common/ServerEvents/PickUpKeyEvent.cpp common/ServerEvents/PickUpKeyEvent.h common/ServerEvents/PickUpWeaponEvent.cpp common/ServerEvents/PickUpWeaponEvent.h common/ServerEvents/DoorOpenedEvent.cpp common/ServerEvents/DoorOpenedEvent.h common/Constants.h
-        cliente/UI.cpp cliente/UI.h cliente/AnimatedSprite.cpp cliente/AnimatedSprite.h
-        server/Items/AmmoItem.h cliente/CWeapon.cpp cliente/CWeapon.h
-        server/WallRay.cpp server/WallRay.h cliente/EnemyPlayer.cpp cliente/EnemyPlayer.h cliente/BagOfSprites.cpp cliente/BagOfSprites.h
-        common/EventSerializer.cpp common/EventSerializer.h common/ServerEvents/CreateMapEvent.cpp common/ServerEvents/CreateMapEvent.h common/ServerEvents/SpawnNotMovableEvent.cpp common/ServerEvents/SpawnNotMovableEvent.h cliente/SoundManager.cpp cliente/SoundManager.h server/Items/Rocket.cpp server/Items/Rocket.h
+        server/Item.cpp server/Item.h server/CellMap.cpp server/CellMap.h client/Wall.h client/Wall.cpp server/Items/LifeGainItem.cpp server/Items/LifeGainItem.h server/Items/PointGainItem.cpp server/Items/PointGainItem.h server/Items/KeyItem.cpp server/Items/KeyItem.h server/Items/OpenableItem.cpp server/Items/OpenableItem.h server/Items/LockedDoor.cpp server/Items/LockedDoor.h server/Items/AmmoItem.cpp server/Items/AmmoItem.h common/ServerEvents/SpawnEvent.cpp common/ServerEvents/SpawnEvent.h common/ServerEvents/DespawnEvent.cpp common/ServerEvents/DespawnEvent.h common/ServerEvents/ChangeWeaponEvent.cpp common/ServerEvents/ChangeWeaponEvent.h common/ServerEvents/HealthChangeEvent.cpp common/ServerEvents/HealthChangeEvent.h common/ServerEvents/AmmoChangeEvent.cpp common/ServerEvents/AmmoChangeEvent.h common/ServerEvents/ScoreChangeEvent.cpp common/ServerEvents/ScoreChangeEvent.h common/ServerEvents/PickUpKeyEvent.cpp common/ServerEvents/PickUpKeyEvent.h common/ServerEvents/PickUpWeaponEvent.cpp common/ServerEvents/PickUpWeaponEvent.h common/ServerEvents/DoorOpenedEvent.cpp common/ServerEvents/DoorOpenedEvent.h common/Constants.h
+        client/UI.cpp client/UI.h client/AnimatedSprite.cpp client/AnimatedSprite.h
+        server/Items/AmmoItem.h client/CWeapon.cpp client/CWeapon.h
+        server/WallRay.cpp server/WallRay.h client/EnemyPlayer.cpp client/EnemyPlayer.h client/BagOfSprites.cpp client/BagOfSprites.h
+        common/EventSerializer.cpp common/EventSerializer.h common/ServerEvents/CreateMapEvent.cpp common/ServerEvents/CreateMapEvent.h common/ServerEvents/SpawnNotMovableEvent.cpp common/ServerEvents/SpawnNotMovableEvent.h client/SoundManager.cpp client/SoundManager.h server/Items/Rocket.cpp server/Items/Rocket.h
         ai/AI.cpp ai/AI.h
         server/PlayerInfo.h
         common/BlockingEventsQueue.h common/BlockingEventsQueue.cpp)

@@ -8,7 +8,7 @@
 #include "GameLoader.h"
 #include <thread>
 #include <ServerEvents/CreateMapEvent.h>
-#include "../cliente/CGame.h"
+#include "client/CGame.h"
 #include "Map.h"
 
 #define FOV 0.66

@@ -3,9 +3,6 @@
 //
 
 #include "EnemyPlayer.h"
-#define WALK_PATH "../cliente/sprites/enemy_sprites/walking/1-"
-#define SHOOT_PATH "../cliente/sprites/enemy_sprites/shooting/1-"
-#define DYING_PATH "../cliente/sprites/enemy_sprites/dying/1-"
 #define TIME_PER_IMAGE 5
 #define ANIMATED_FRAMES 5
 #define WALKING_TYPE 0

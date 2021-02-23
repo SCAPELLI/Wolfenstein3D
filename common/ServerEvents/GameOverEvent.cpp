@@ -1,6 +1,6 @@
 
 #include "GameOverEvent.h"
-#include "cliente/CGame.h"
+#include "client/CGame.h"
 #include "Event.h"
 #include "../EventSerializer.h"
 

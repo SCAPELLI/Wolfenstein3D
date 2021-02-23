@@ -3,7 +3,7 @@
 
 #include "AbstractEvent.h"
 #include "../server/GameStage.h"
-#include "../cliente/CGame.h"
+#include "client/CGame.h"
 
 enum TurningSense {ANTICLOCKWISE, CLOCKWISE};
 

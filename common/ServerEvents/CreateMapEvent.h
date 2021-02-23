@@ -3,7 +3,7 @@
 #ifndef CREATEMAPEVENT_H
 #define CREATEMAPEVENT_H
 
-#include "../cliente/CGame.h"
+#include "client/CGame.h"
 #include "Constants.h"
 #include "AbstractEvent.h"
 #include "Vector.h"

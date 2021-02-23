@@ -2,7 +2,7 @@
 
 #include "SpawnNotMovableEvent.h"
 #include "GameStage.h"
-#include "../cliente/CGame.h"
+#include "client/CGame.h"
 
 void SpawnNotMovableEvent::runHandler(CGame& game) {
     game.processEvent (*this);

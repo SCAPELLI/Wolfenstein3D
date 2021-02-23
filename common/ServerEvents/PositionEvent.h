@@ -2,7 +2,7 @@
 #define GAME_H_POSITIONEVENT_H
 
 #include "../AbstractEvent.h"
-#include "cliente/CGame.h"
+#include "client/CGame.h"
 #include "Player.h"
 #include "Event.h"
 

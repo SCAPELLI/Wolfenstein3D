@@ -5,8 +5,8 @@
 #include "BagOfSprites.h"
 #include <string>
 #define ITEMS_ROUTE "../Editor/sprites/sprite"
-#define ENEMY_SPRITES_ROUTE "../cliente/sprites/enemy_sprites/"
-#define WEAPON_SPRITES_ROUTE "../cliente/sprites/weapons/"
+#define ENEMY_SPRITES_ROUTE "../client/sprites/enemy_sprites/"
+#define WEAPON_SPRITES_ROUTE "../client/sprites/weapons/"
 #define ITEM_EXTENTION ".png"
 #define ANIMATION_EXTENTION ".bmp"
 #define ITEMS_SIZE 222

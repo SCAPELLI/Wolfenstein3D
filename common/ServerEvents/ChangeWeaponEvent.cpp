@@ -2,7 +2,7 @@
 
 #include "ChangeWeaponEvent.h"
 #include "Event.h"
-#include "cliente/CGame.h"
+#include "client/CGame.h"
 #include "server/GameStage.h"
 
 
