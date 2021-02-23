@@ -1,5 +1,5 @@
-dofile("../../ai/IdealStepsCalculator.lua")
-dofile("../../ai/TurnOrMoveAnalysis.lua")
+dofile("../../server/ai/IdealStepsCalculator.lua")
+dofile("../../server/ai/TurnOrMoveAnalysis.lua")
 
 TILE = 32
 ATTACK_DISTANCE = 32

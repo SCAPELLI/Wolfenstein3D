@@ -40,7 +40,7 @@ Map::Map(std::vector<Player>& players,
 void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
                             CellMap& tileMap, std::vector<Player>& players,
                             int elem, std::vector<AbstractEvent*>& newEvents){
-    if (elem == PLAYER_ID) {
+    if (elem == PLAYER_ID and (numOfPlayer+1)<=players.size()) {
         players[numOfPlayer].setPosition(Vector(pos2 * TILE, pos1 * TILE));
         tileMap.addPlayer(players.at(numOfPlayer));
         numOfPlayer++;

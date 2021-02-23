@@ -61,7 +61,7 @@ void AI::execute(int error) {
 }
 
 void AI::initializeGameContext(std::vector<std::vector<int>>& map) {
-    std::string moduleScript = "../../ai/AI.lua";
+    std::string moduleScript = "../../server/ai/AI.lua";
     execute(luaL_dofile(L, moduleScript.c_str()));
 
     lua_getglobal(L, "initializeGameContext");

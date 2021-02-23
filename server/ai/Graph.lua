@@ -1,4 +1,4 @@
-dofile("../ai/Node.lua")
+dofile("../../server/ai/Node.lua")
 
 Graph = {}
 

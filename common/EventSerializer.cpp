@@ -356,22 +356,16 @@ Event EventSerializer::deserialize(std::string eventString) {
     switch (eventId) {
         case MOVEMENT_EVENT:
             return createMovementEvent(eventString);
-            break;
         case TURN_EVENT:
             return createTurnEvent(eventString);
-            break;
         case SHOOTING_EVENT:
             return createShootingEvent(eventString);
-            break;
         case OPEN_DOOR_EVENT:
             return createOpenDoorEvent(eventString);
-            break;
         case GAME_OVER_EVENT:
             return createGameOverEvent(eventString);
-            break;
         case POSITION_EVENT:
             return createPositionEvent(eventString);
-            break;
         case SPAWN_NOT_MOVABLE_EVENT:
             return createSpawnNotMovableEvent(eventString);
         case CREATE_MAP_EVENT:
@@ -398,7 +392,6 @@ Event EventSerializer::deserialize(std::string eventString) {
             return createScoreChangeEvent(eventString);
         default:
             return event;
-            break;
     }
 }
 void EventSerializer::addZerosToLeft(std::string& string, int finalSize) {

@@ -96,7 +96,7 @@ void Match::run() {
             Event event = std::move(userEvents.pop());
             event.runHandler(gameStage);
         } // agregar reap?
-        //ai.generateEvent(userEvents, gameStage.getPlayersInfo());
+       // ai.generateEvent(userEvents, gameStage.getPlayersInfo());
         gameStage.incrementCooldown();
         usleep(20000);
     }
