@@ -2,7 +2,7 @@
 #define WOLF_CWEAPON_H
 
 #include "AnimatedSprite.h"
-
+/*Arma del cliente*/
 class CWeapon {
     AnimatedSprite animatedSprite;
     public:

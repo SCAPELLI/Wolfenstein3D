@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "../common/AbstractEvent.h"
-
+/* Lógica donde se ejecuta el juego*/
 class Game {
     public:
     int levelId;

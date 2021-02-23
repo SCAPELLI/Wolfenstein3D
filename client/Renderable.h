@@ -6,7 +6,7 @@
 #include "SDL2/SDL.h"
 #include "Sprite.h"
 #include "Camera.h"
-
+/*Clase que renderiza*/
 class Renderable{
 	public:
         Vector position;

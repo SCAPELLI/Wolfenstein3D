@@ -23,7 +23,7 @@ class ChangeWeaponEvent;
 class BlockingEventsQueue;
 class Event;
 #include "PlayerInfo.h"
-
+/* Clase que interactúa entre el lobby y el game*/
 class GameStage {
     std::vector<std::pair<int, std::string>> highScores;
     int levelId;

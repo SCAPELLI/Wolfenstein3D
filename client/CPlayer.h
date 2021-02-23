@@ -6,7 +6,7 @@
 #include "Renderable.h"
 #include "CWeapon.h"
 #include "BagOfSprites.h"
-
+/* Clase que contiene jugador cliente*/
 class CPlayer{
 	Camera camera;
 	Vector spawnPoint;

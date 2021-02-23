@@ -9,7 +9,7 @@
 #include "SoundManager.h"
 #include "EnemyPlayer.h"
 #include "BagOfSprites.h"
-
+/* Juego de cliente*/
 class PositionEvent;
 class GameOverEvent;
 class KillEvent;

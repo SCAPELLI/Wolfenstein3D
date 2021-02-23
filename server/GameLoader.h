@@ -7,7 +7,7 @@
 #include "Item.h"
 
 
-
+/*Clase que se encarga de cargar los datos del juego, incluyendo objetos*/
 class GameLoader{
     int uniqueId;
     YAML::Node sprites;

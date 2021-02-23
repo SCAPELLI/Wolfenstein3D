@@ -2,7 +2,7 @@
 #define WOLF_WALL_H
 
 #include "SDL2/SDL.h"
-
+/*Clase que representa una pared del mapa*/
 class Wall{
     SDL_Texture* texture;
     public:

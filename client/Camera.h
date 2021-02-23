@@ -5,7 +5,7 @@
 #include <map>
 #include "Wall.h"
 #include "SDL2/SDL.h"
-
+/* Camara de vision*/
 class Camera{
 	Vector cameraPosition;
 	Vector planePosition;

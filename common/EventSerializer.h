@@ -2,7 +2,7 @@
 #define EVENTSERIALIZER_H
 
 #include <string>
-
+/* Serializador de eventos*/
 const int AMMO_CHANGE_EVENT = 0;
 const std::string AMMO_CHANGE_EVENT_STRING = "000";
 

@@ -4,7 +4,7 @@
 #include "AbstractEvent.h"
 
 class CGame;
-
+/* Evento de disparo*/
 class ShootingEvent: public AbstractEvent {
 public:
     int idPlayer;

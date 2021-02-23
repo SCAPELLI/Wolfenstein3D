@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include "Wall.h"
 #include "SDL2/SDL.h"
+/* Clase que representa un rayo del raycasting*/
 
 class Ray{
 	int xPixel;

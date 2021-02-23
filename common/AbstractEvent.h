@@ -3,7 +3,7 @@
 #include "Constants.h"
 
 #include <string>
-
+/* Clase de evento abstracta*/
 class GameStage;
 class CGame;
 class ProtectedEventsQueue;

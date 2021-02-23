@@ -7,7 +7,7 @@
 
 #include "Event.h"
 class EventsCatcher;
-
+/* Cola de eventos usada para encolar eventos a los usuarios*/
 class BlockingEventsQueue {
     std::queue<Event> events{};
     std::mutex mutex{};

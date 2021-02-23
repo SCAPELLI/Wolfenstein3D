@@ -4,7 +4,7 @@
 #include <map>
 #include "../../common/include/Thread.h"
 #include "../../common/include/MatchInfo.h"
-
+/* Thread donde se desarrolla el juego y se intercambia información*/
 typedef std::string str;
 
 class Socket;

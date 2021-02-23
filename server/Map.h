@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "CellMap.h"
 
-
+/* matriz que representa el mapa y en cada posicion contiene una CellMap*/
 class Map{
     std::vector<std::vector<CellMap>> matrix;
     std::vector<OpenableItem*> doors;

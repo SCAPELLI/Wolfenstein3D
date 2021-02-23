@@ -2,7 +2,7 @@
 #define EXCEPCION_H
 
 #include <string>
-
+/* Clase de excepcion*/
 class Exception: public std::exception {
     std::string errorMessage;
 

@@ -3,7 +3,6 @@
 #include <cmath>
 #include <iostream>
 #include "SDL2/SDL.h"
-
 Ray::Ray(Camera* camera, double cameraX, int x):
 	xPixel(x),
 	startPoint(camera->getPosition()),
