@@ -66,7 +66,8 @@ void CGame::processEvent(ShootingEvent& event){
     if (activePlayer.id == playerID) {
         if (activePlayer.shoot()) soundQueue.push(activePlayer.getActiveWeapon(), MIX_MAX_VOLUME/10);
     } else {
-        soundQueue.push(players[event.idPlayer]->getActiveWeapon(), MIX_MAX_VOLUME/10 );
+        int distance = activePlayer.getPosition().distance(players[event.idPlayer]->position);
+        soundQueue.push(players[event.idPlayer]->getActiveWeapon(), MIX_MAX_VOLUME/10 - distance/20);
     }
 }
 

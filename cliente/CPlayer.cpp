@@ -75,6 +75,10 @@ void CPlayer::setHealth(int newHp){
 	this->hp = newHp;
 }
 
+Vector CPlayer::getPosition() {
+    return this->camera.getPosition();
+}
+
 CPlayer::~CPlayer(){
     for (int i = 0; i < weapons.size(); i++) delete weapons[i];
 }

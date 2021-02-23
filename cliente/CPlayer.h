@@ -27,6 +27,7 @@ class CPlayer{
 		int getLives();
 		int getAmmo();
 		int getHp();
+		Vector getPosition();
 		void respawn();
 		void changeWeapon(int weaponID);
 		void increaseScore(int deltaScore);
