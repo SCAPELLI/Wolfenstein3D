@@ -5,19 +5,20 @@
 #include <vector>
 #include <iostream>
 #include "CellMap.h"
-#include "Constants.h"
+#include "../common/Constants.h"
 #include "GameLoader.h"
 #include "../common/ServerEvents/SpawnEvent.h"
 #include "../common/ServerEvents/CreateMapEvent.h"
 #include "../common/ServerEvents/SpawnNotMovableEvent.h"
-#include "ServerEvents/DoorOpenedEvent.h"
+#include "../common/ServerEvents/DoorOpenedEvent.h"
 
 Map::Map(){}
 
 Map::Map(std::vector<Player>& players,
-         std::vector<AbstractEvent*>& newEvents): factory(){
+         std::vector<AbstractEvent*>& newEvents, int levelId): factory(){
     std::vector<std::vector<CellMap>> map;
-    YAML::Node config = YAML::LoadFile("../server/maps/1.yaml");
+    std::string pathLevel = "../server/maps/" + std::to_string(levelId)+ ".yaml";
+    YAML::Node config = YAML::LoadFile(pathLevel);
     YAML::Node matrixConfig = config["map"];
     int numOfPlayer = 0;
     height = matrixConfig.size() - 1;
@@ -43,10 +44,18 @@ void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
         players[numOfPlayer].setPosition(Vector(pos2 * TILE, pos1 * TILE));
         tileMap.addPlayer(players.at(numOfPlayer));
         numOfPlayer++;
-    } if (elem > 1 && elem < 100){
+    } if (elem > 1 && elem < 50){
         Item* item = factory.itemLoader(elem);
         auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
-                                item->getId(), pos2 * TILE, pos1 * TILE);
+                                item->getId(), pos1 * TILE, pos2 * TILE);
+        newEvents.push_back(event);
+        tileMap.addItem(item);
+        return;
+    }
+    else if (elem >= 50 && elem < 100){
+        Item* item = factory.weaponLoader(elem);
+        auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
+                                    item->getId() + 49, pos1 * TILE, pos2 * TILE);
         newEvents.push_back(event);
         tileMap.addItem(item);
         return;

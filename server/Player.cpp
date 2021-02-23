@@ -11,7 +11,7 @@
 #include "../common/ServerEvents/PickUpKeyEvent.h"
 #include "../common/ServerEvents/PickUpWeaponEvent.h"
 #include "../common/ServerEvents/ScoreChangeEvent.h"
-#include "Exception.h"
+#include "../common/Exception.h"
 #include <iostream>
 #include <limits>
 
@@ -47,7 +47,7 @@ void Player::initializePlayer(bool dead){
             std::string weaponType = it->first.as<std::string>();
             if(weaponType == "knife" || weaponType == "pistol"){
                 YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
-                auto equip = Weapon(cont, weaponType, 0, data["damage"].as<int>(), // usar constructor
+                auto equip = Weapon(cont, weaponType, 0, data["damage"].as<int>(),
                                     data["minBullets"].as<int>(),
                                     data["cooldownTimer"].as<int>());
                 bag.insert(std::make_pair(cont, equip));
@@ -111,6 +111,12 @@ int Player::distanceWith(Player& otherPlayer) {
 //    }
 //    return std::numeric_limits<int>::max();
 }
+void Player::eraseCurrentWeapon(){
+    bag.erase(idWeapon);
+    prevIdWeapon = 1;
+    idWeapon = 1;
+    return;
+}
 
 bool Player::shoot(){
     bullets -= bag[idWeapon].minBullets;
@@ -148,7 +154,7 @@ bool Player::pickupWeapon(Weapon weapon,
             return false;
     }
     bag.insert(std::make_pair(weapon.id, weapon));
-    newEvents.push_back(new PickUpWeaponEvent(PickUpWeaponType,
+    newEvents.push_back(new PickUpWeaponEvent(PickUpWeaponType, id,
                                                 weapon.getUniqueId()));
     return true;
 }
@@ -251,14 +257,14 @@ bool Player::getItem(LifeGainItem* item,
         int extra = health % MAXHEALTH;
         health -= extra;
     }
-    newEvents.push_back(new HealthChangeEvent(HealthChangeType, health));
+    newEvents.push_back(new HealthChangeEvent(HealthChangeType, id, health));
     return true;
 }
 
 bool Player::getItem(PointGainItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
     score += item->getEffect();
-    newEvents.push_back(new ScoreChangeEvent(ScoreChangeType, item->getEffect()));
+    newEvents.push_back(new ScoreChangeEvent(ScoreChangeType, id, item->getEffect()));
     return true;
 }
 
@@ -270,7 +276,7 @@ bool Player::getItem(Weapon* item,
 bool Player::getItem(KeyItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
     keys += item->getEffect();
-    newEvents.push_back(new PickUpKeyEvent(PickUpKeyType));
+    newEvents.push_back(new PickUpKeyEvent(PickUpKeyType, id));
     return true;
 }
 
@@ -282,7 +288,7 @@ bool Player::getItem(AmmoItem* item,
         int extra = bullets % maxBullets;
         bullets -= extra;
     }
-    newEvents.push_back(new AmmoChangeEvent(AmmoChangeType, bullets));
+    newEvents.push_back(new AmmoChangeEvent(AmmoChangeType, id, bullets));
     return true;
 }
 
@@ -309,5 +315,17 @@ int Player::getLifes() const {
 }
 Vector Player::getInitialPosition(){
     return initialPosition;
+}
+int Player::getEnemiesKilled(){
+    return playersKilled;
+}
+int Player::getBulletsShoot(){
+    return bulletsShot;
+}
+int Player::getScore(){
+    return score;
+}
+std::string Player::getName(){
+    return name;
 }
 Player::~Player() {}

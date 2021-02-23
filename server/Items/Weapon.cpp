@@ -1,10 +1,10 @@
 #include "Weapon.h"
 #include <bits/stdc++.h>
-#include "Constants.h"
-#include "Items/Rocket.h"
-#include "Player.h"
+#include "../common/Constants.h"
+#include "../Items/Rocket.h"
+#include "../Player.h"
 #include <cmath>
-Weapon::Weapon(int id, std::string name, int uniqueId, int damage,
+Weapon::Weapon(int id, std::string& name, int uniqueId, int damage,
                int minBullets, int cooldownTimer)
     : id(id), uniqueId(uniqueId), precision(damage),name(name),
     minBullets(minBullets), cooldown(0), cooldownTimer(cooldownTimer),

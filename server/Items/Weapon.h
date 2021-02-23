@@ -3,8 +3,8 @@
 #define WEAPON_H
 
 
-#include "Item.h"
-#include "Items/Rocket.h"
+#include "../Item.h"
+#include "../Items/Rocket.h"
 class Weapon : public Item{
 public:
     int id;
@@ -18,7 +18,7 @@ public:
 
 public:
     int getDamage()const;
-    Weapon(int id, std::string name, int uniqueId, int damage, int minBullets, int cooldownTimer);
+    Weapon(int id, std::string& name, int uniqueId, int damage, int minBullets, int cooldownTimer);
     Weapon();
     int attack( int distance, double angle);
     int generateRandom();

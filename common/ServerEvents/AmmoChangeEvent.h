@@ -3,15 +3,16 @@
 #ifndef CAMERA_CPP_AMMOCHANGEEVENT_H
 #define CAMERA_CPP_AMMOCHANGEEVENT_H
 #include "../AbstractEvent.h"
-#include "Event.h"
+#include "../Event.h"
 
 class CGame;
 
 class AmmoChangeEvent  : public AbstractEvent{
     updateEventType eventType;
 public:
+    int idPlayer;
     int ammo;
-    AmmoChangeEvent (updateEventType eventType, int Ammo);
+    AmmoChangeEvent (updateEventType eventType,int idPlayer, int Ammo);
     void runHandler(CGame& game);
     updateEventType getEventType();
 };

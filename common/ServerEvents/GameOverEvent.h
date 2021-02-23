@@ -1,14 +1,18 @@
 #ifndef GAMEOVEREVENT_H
 #define GAMEOVEREVENT_H
 #include "../AbstractEvent.h"
-#include "Event.h"
+#include "../Event.h"
+#include <vector>
+#include <map>
 
 
 class GameOverEvent :  public AbstractEvent {
 public:
-    int idPlayer;
     updateEventType eventType;
-    GameOverEvent (updateEventType eventType, int idPlayer);
+    int idPlayer;
+    std::map<std::string, std::vector<int>> highscores;
+    GameOverEvent (updateEventType eventType, int idPlayer,
+                            std::map<std::string, std::vector<int>>& names);
     void runHandler(CGame& game) override;
     updateEventType getEventType();
     std::string getSerialization() override;

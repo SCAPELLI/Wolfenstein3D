@@ -1,6 +1,6 @@
 #include "KeyItem.h"
 
-#include "Player.h"
+#include "../Player.h"
 
 KeyItem::KeyItem(int id,std::string name, int effect, int uniqueId)
         :  id(id), name(name), effect(effect), uniqueId(uniqueId),

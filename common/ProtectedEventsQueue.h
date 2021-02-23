@@ -4,13 +4,14 @@
 #include <queue>
 #include <mutex>
 
-class Event;
+#include "Event.h"
 class EventsCatcher;
 
 class ProtectedEventsQueue {
-    std::queue<Event> events{};
-    std::mutex mutex{};
+    std::queue<Event> events;
+    std::mutex mutex;
 public:
+//    ProtectedEventsQueue();
     void insertEvents(EventsCatcher& eventsCatcher);
     Event pop();
     bool empty();

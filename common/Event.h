@@ -4,7 +4,6 @@
 #include <SDL2/SDL_events.h>
 #include "AbstractEvent.h"
 #include "Constants.h"
-class ProtectedEventsQueue;
 
 
 class Event {

@@ -2,7 +2,7 @@
 #define GAMELOADER_H
 
 #include <yaml-cpp/yaml.h>
-#include <Items/OpenableItem.h>
+#include "Items/OpenableItem.h"
 //#include "Game.h"
 #include "Item.h"
 
@@ -18,7 +18,8 @@ public:
     void readData(int& speed);
     Item* itemLoader(int& idItem);
     int assignUniqueId();
-    //void configWeapon(std::string& name, int& effect, int& minBullets, double& speed);
+    Item* weaponLoader(int& idItem);
+    Item* weaponLoader(std::string& itemName);
     OpenableItem* setTexture(int& idItem);
     Item* itemLoader(std::string& idItem);
     ~GameLoader();

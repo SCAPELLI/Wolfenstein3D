@@ -4,14 +4,13 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include <ServerEvents/HealthChangeEvent.h>
-#include <ServerEvents/KillEvent.h>
-#include <ServerEvents/GameOverEvent.h>
+#include <../common/ServerEvents/HealthChangeEvent.h>
+#include <../common/ServerEvents/KillEvent.h>
+#include <../common/ServerEvents/GameOverEvent.h>
 #include "Items/LockedDoor.h"
 #include "GameLoader.h"
-#include "Items/AmmoItem.h"
-#include "ServerEvents/DespawnEvent.h"
-#include "ServerEvents/SpawnEvent.h"
+#include "../common/ServerEvents/DespawnEvent.h"
+#include "../common/ServerEvents/SpawnEvent.h"
 
 
 
@@ -19,8 +18,7 @@ CellMap::CellMap()
 : occupied(false), items(), playerList(), door(nullptr){}
 
 
-void CellMap::removePlayer(Player& player) { //deberia recibir el player
-    //dropItems(player);
+void CellMap::removePlayer(Player& player) {
     auto index = std::find(playerList.begin(), playerList.end(), player);
     if (index == playerList.end()) return;
     playerList.erase(index);
@@ -32,12 +30,6 @@ void CellMap::addPlayer(Player& setPlayer) {
      playerList.emplace_back(setPlayer);
 }
 
-bool CellMap::hasPlayer() {
-    return playerList.size();
-}
-Item* CellMap::removeItem() {
-    return items.back();
-}
 
 bool CellMap::isSolid(){
     return occupied;
@@ -57,34 +49,30 @@ bool CellMap::impacts(Rocket* rocket, std::vector<AbstractEvent*>& newEvents){
 void CellMap::explode(Rocket* rocket, std::vector<AbstractEvent *> &newEvents) {
     if(occupied) return;
     for (int i = 0; i < playerList.size(); i++){
-        double distanceWithRocket = rocket->impactPoint.distance(playerList[i].getPosition());
-        playerList[i].getDamage(rocket->damage * 1/distanceWithRocket);
-        if (playerList[i].isGameOver()) {
-            rocket->sender->updateKills();
-            AbstractEvent *event = new GameOverEvent(GameOverEventType, i);
-            newEvents.push_back(event);
-        }
-        else if (playerList[i].isDead()){
-            rocket->sender->updateKills();
-            AbstractEvent* event = new KillEvent(KillEventType, i);
-            newEvents.push_back(event);
-            playerList[i].respawn();
-        }
-        else{
-            AbstractEvent* event = new
-                    HealthChangeEvent(HealthChangeType,
-                                      rocket->damage * 1/distanceWithRocket);
-            newEvents.push_back(event);
-        }
+        return;
+//        double distanceWithRocket = rocket->impactPoint.distance(playerList[i].getPosition());
+//        playerList[i].getDamage(rocket->damage * 1/distanceWithRocket);
+//        if (playerList[i].isGameOver()) {
+//            rocket->sender->updateKills();
+//            AbstractEvent *event = new GameOverEvent(GameOverEventType, i );
+//            newEvents.push_back(event);
+//        }
+//        else if (playerList[i].isDead()){
+//            rocket->sender->updateKills();
+//            AbstractEvent* event = new KillEvent(KillEventType, i);
+//            newEvents.push_back(event);
+//            playerList[i].respawn();
+//        }
+//        else{
+//            AbstractEvent* event = new
+//                    HealthChangeEvent(HealthChangeType,
+//                                      rocket->damage * 1/distanceWithRocket);
+//            newEvents.push_back(event);
+//        }
     }
 }
 
 
-bool CellMap::hasItems() {
-    if (items.size() == 0)
-        return false;
-    return true;
-}
 void CellMap::addItem(OpenableItem* item) {
     door = item;
 }
@@ -129,10 +117,11 @@ void CellMap::dropItems(Player& player,GameLoader& factory,
     newEvents.push_back(event1);
     Weapon currentWeapon = player.getWeapon();
     if (currentWeapon.name != "pistol" && currentWeapon.name != "knife") {
-        currentWeapon.uniqueId = factory.assignUniqueId();
-        items.push_back(&currentWeapon);
-        auto *event2 = new SpawnEvent(SpawnEventType, currentWeapon.getUniqueId(),
-                                      currentWeapon.getId(), pos.y , pos.x );
+        Item* weaponTodrop = factory.weaponLoader(currentWeapon.name);
+        items.push_back(weaponTodrop);
+        player.eraseCurrentWeapon();
+        auto *event2 = new SpawnEvent(SpawnEventType, weaponTodrop->getUniqueId(),
+                                      weaponTodrop->getId() + 49, pos.y , pos.x );
         newEvents.push_back(event2);
     }
     if (player.hasKey()) {

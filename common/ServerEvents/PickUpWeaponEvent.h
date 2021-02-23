@@ -3,13 +3,14 @@
 #ifndef CAMERA_CPP_PICKUPWEAPONEVENT_H
 #define CAMERA_CPP_PICKUPWEAPONEVENT_H
 #include "../AbstractEvent.h"
-#include "Event.h"
+#include "../Event.h"
 
 class PickUpWeaponEvent  : public AbstractEvent{
-    int uniqueId;
     updateEventType eventType;
 public:
-    PickUpWeaponEvent (updateEventType eventType, int uniqueId);
+    int idPlayer;
+    int uniqueId;
+    PickUpWeaponEvent (updateEventType eventType, int idPlayer, int uniqueId);
     updateEventType getEventType();
 };
 

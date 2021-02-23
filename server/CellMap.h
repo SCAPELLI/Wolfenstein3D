@@ -5,7 +5,7 @@
 #include "Items/OpenableItem.h"
 #include "Items/Rocket.h"
 
-
+/* Clase que representa una posición en el mapa y contiene los elementos en esa posición*/
 class Item;
 class Player;
 class GameLoader;
@@ -17,15 +17,12 @@ class CellMap{
     std::vector<Player> playerList;
 public:
     CellMap();
-    //void transferPlayer(CellMap& otherCell);
     void removePlayer(Player& player);
     void addPlayer(Player& entity);
     bool hasPlayer();
     bool isSolid();
     void getItemsTile(Player& player,
                       std::vector<AbstractEvent*>& newEvents);
-    bool hasItems();
-    Item* removeItem();
     void addItem(Item* item);
     virtual void addItem(OpenableItem* item);
     void setSolid();

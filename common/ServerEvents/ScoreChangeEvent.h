@@ -3,15 +3,16 @@
 #ifndef CAMERA_CPP_SCORECHANGEEVENT_H
 #define CAMERA_CPP_SCORECHANGEEVENT_H
 #include "../AbstractEvent.h"
-#include "Event.h"
+#include "../Event.h"
 
 class CGame;
 
 class ScoreChangeEvent  : public AbstractEvent{
 public:
-    int score;
     updateEventType eventType;
-    ScoreChangeEvent (updateEventType eventType, int score);
+    int idPlayer;
+    int score;
+    ScoreChangeEvent (updateEventType eventType, int idPlayer, int score);
     updateEventType getEventType();
     void runHandler(CGame& game);
 };

@@ -3,11 +3,12 @@
 #include "../common/EventsCatcher.h"
 #include "GameStage.h"
 #include "../common/ProtectedEventsQueue.h"
+#include "../common/BlockingEventsQueue.h"
 #include "Server.h"
 #include "GameLoader.h"
 #include <thread>
 #include <ServerEvents/CreateMapEvent.h>
-#include "../cliente/CGame.h"
+#include "client/CGame.h"
 #include "Map.h"
 
 #define FOV 0.66
@@ -17,17 +18,20 @@ int main() {
         EventsCatcher eventsCatcher(1); // esta en client
         //-----------------
         ProtectedEventsQueue userEvents;
-        ProtectedEventsQueue updateEvents;
+
+        std::vector<BlockingEventsQueue*> updateEvents;
+        BlockingEventsQueue ke;
+        updateEvents.push_back(&ke);
         std::atomic<bool> quit(false);
-        std::thread t (Server(userEvents, updateEvents, quit));
+        std::thread t (Server(&userEvents, updateEvents, quit));
 
         bool hasStarted = false;
         while (!hasStarted){
-            if (!updateEvents.empty()){
+            if (!updateEvents[0]->empty()){
                 hasStarted = true;
             }
         }
-        Event event = std::move(updateEvents.pop());
+        Event event = std::move(updateEvents[0]->pop());
         CreateMapEvent* start = (CreateMapEvent*) event.event;
         double spawnPointX = start->startingLocations[1].first;
         double spawnPointY = start->startingLocations[1].second;
@@ -47,8 +51,8 @@ int main() {
         while (!quit) {
             userEvents.insertEvents(eventsCatcher);
 
-            while (!updateEvents.empty()) {
-                Event event = std::move(updateEvents.pop());
+            while (!updateEvents[0]->empty()) {
+                Event event = std::move(updateEvents[0]->pop());
                 event.runHandler(game);
             }
             game.draw();

@@ -1,27 +1,29 @@
 #include <iostream>
-#include <ServerEvents/SpawnEvent.h>
-#include <ServerEvents/ChangeWeaponEvent.h>
-#include <ServerEvents/AmmoChangeEvent.h>
+#include <../common/ServerEvents/SpawnEvent.h>
+#include <../common/ServerEvents/ChangeWeaponEvent.h>
+#include <../common/ServerEvents/AmmoChangeEvent.h>
 #include "GameStage.h"
 #include "../common/TurnEvent.h"
 #include "../common/MovementEvent.h"
 #include "../common/ProtectedEventsQueue.h"
 #include "../common/Event.h"
 #include "../common/ShootingEvent.h"
-#include "ServerEvents/KillEvent.h"
-#include "ServerEvents/PositionEvent.h"
-#include "ServerEvents/GameOverEvent.h"
-#include "ServerEvents/HealthChangeEvent.h"
+#include "../common/ServerEvents/KillEvent.h"
+#include "../common/ServerEvents/PositionEvent.h"
+#include "../common/ServerEvents/GameOverEvent.h"
+#include "../common/ServerEvents/HealthChangeEvent.h"
 #include "../common/OpenDoorEvent.h"
-#include "ServerEvents/SpawnEvent.h"
+#include "../common/ServerEvents/SpawnEvent.h"
 #include "PlayerInfo.h"
-
+#include "../common/BlockingEventsQueue.h"
+#include <algorithm>
 #define PI 3.141592
-#define MAX_PLAYERS 2
 
-GameStage::GameStage(ProtectedEventsQueue& updateEvents, std::map<int, std::string>& playersNames)
-    : updateEvents(updateEvents), newEvents() {
-    game = Game(newEvents, playersNames);
+
+GameStage::GameStage(std::vector<BlockingEventsQueue*>& queues,
+                     std::map<int, std::string>& playersNames, int levelId)
+    : queues(queues), newEvents() {
+    game = Game(newEvents, playersNames, levelId);
     pushNewEvents();
 }
 
@@ -32,9 +34,13 @@ void GameStage::processEvent(TurnEvent& event) {
     game.moveAngle(event.getDegrees(), event.idPlayer);
     TurnEvent toSend(event.idPlayer, event.getDegrees());
     Event anotherEvent(&toSend, TurnEventType);
-    updateEvents.push(anotherEvent);
+    insertInAllQueuesEvent(anotherEvent);
 }
-
+void GameStage::insertInAllQueuesEvent(Event& event){
+    for(int i = 0; i < queues.size(); i++){
+        queues[i]->push(event);
+    }
+}
 
 void GameStage::processEvent(ShootingEvent& event) {
     int idHit = game.shoot(event.idPlayer, newEvents);
@@ -42,16 +48,17 @@ void GameStage::processEvent(ShootingEvent& event) {
     if (idHit == -3){
         ChangeWeaponEvent newEvent(event.idPlayer, 0);
         Event anotherEvent(&newEvent, ChangeWeaponType);
-        updateEvents.push(anotherEvent);
+        insertInAllQueuesEvent(anotherEvent);
         return;
     }
 
-    AmmoChangeEvent ammo(AmmoChangeType, -1 * game.players[game.ids[event.idPlayer]].getWeapon().minBullets);
+    AmmoChangeEvent ammo(AmmoChangeType, event.idPlayer,
+                         -1 * game.players[game.ids[event.idPlayer]].getWeapon().minBullets);
     ShootingEvent shoot(event.idPlayer);
     Event anotherEvent(&shoot, ShootingEventType);
-    updateEvents.push(anotherEvent);
+    insertInAllQueuesEvent(anotherEvent);
     Event ammoEvent(&ammo, AmmoChangeType);
-    updateEvents.push(ammoEvent);
+    insertInAllQueuesEvent(ammoEvent);
     pushNewEvents();
 }
 
@@ -77,7 +84,7 @@ void GameStage::processEvent(MovementEvent& event) {
 void GameStage::pushNewEvents(){
     for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
         Event anotherEvent(newEvents[i], newEvents[i]->getEventType());
-        updateEvents.push(anotherEvent);
+        insertInAllQueuesEvent(anotherEvent);
     }
     newEvents.clear();
 }
@@ -92,7 +99,8 @@ void GameStage::processEvent(OpenDoorEvent& event){
 void GameStage::processEvent(ChangeWeaponEvent& event){
     if (game.changeWeapon(event.idPlayer, event.type)){
         Event anotherEvent(&event, ChangeWeaponType);
-        updateEvents.push(anotherEvent);
+        insertInAllQueuesEvent(anotherEvent);
+
     }
 }
 
@@ -100,7 +108,7 @@ void GameStage::processEvent(ChangeWeaponEvent& event){
 void GameStage::processEvent(int objId, int type, int posX, int posY) {
     SpawnEvent toSend(SpawnEventType, objId, type, posX, posY);
     Event anotherEvent(&toSend, SpawnEventType);
-    updateEvents.push(anotherEvent);
+    insertInAllQueuesEvent(anotherEvent);
 }
 
 void GameStage::incrementCooldown(){
