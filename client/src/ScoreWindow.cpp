@@ -2,10 +2,10 @@
 #include <QtWidgets/QTableWidget>
 #include <QHeaderView>
 #include <QtWidgets/QListWidget>
-#include "ScoreWindow.h"
+#include "../include/ScoreWindow.h"
 
-#include "ui_ScoreWindow.h"
 #include "../../common/Style.h"
+#include "../ui/ui_ScoreWindow.h"
 
 #define FONT 25
 #define HEADER_FONT 30
