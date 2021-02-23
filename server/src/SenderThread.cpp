@@ -12,6 +12,9 @@ void SenderThread::run(){
             if (event.thisIsTheQuitEvent()) isDone = true;
 
             std::string serialization = EventSerializer::serialize(event);
+            if (serialization == ""){
+                continue;
+            }
             skt->sendAll(serialization);
       }
     } catch (std::exception e){}

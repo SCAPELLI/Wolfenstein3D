@@ -7,6 +7,8 @@
 #include "../../common/BlockingEventsQueue.h"
 #include "../include/ReceiverThread.h"
 #include "../include/SenderThread.h"
+#include "../ai/AI.h"
+#include <unistd.h>
 
 
 
@@ -88,16 +90,16 @@ void Match::run() {
     GameStage gameStage(updateEvents, players, levelId); // agregar levelId a GameStage
     std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
     // agregar joins
-//    AI ai(levelId);
-//    while (!matchFinished){
-//        while(!usersEventQueue.empty() && !matchFinished){ //procesar eventos
-//            Event event = std::move(userEvents.pop());
-//            event.runHandler(gameStage);
-//        } // agregar reap?
-//        ai.generateEvent(usersEventQueue, gameStage.getPlayersInfo());
-//        gameStage.incrementCooldown();
-//        usleep(20000);
-//    }
+    //AI ai(levelId);
+    while (!matchFinished){
+        while(!userEvents.empty() && !matchFinished){ //procesar eventos
+            Event event = std::move(userEvents.pop());
+            event.runHandler(gameStage);
+        } // agregar reap?
+        //ai.generateEvent(userEvents, gameStage.getPlayersInfo());
+        gameStage.incrementCooldown();
+        usleep(20000);
+    }
     matchFinished = true;
 }
 

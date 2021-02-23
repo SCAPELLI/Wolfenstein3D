@@ -139,7 +139,6 @@ void Client::playMatch() {
     s.start();
     bool quit = false;
     while (!quit) {
-        senderQueue.insertEvents(eventsCatcher);
 
         while (!receiverQueue.empty()) {
             Event event = std::move(receiverQueue.pop());
@@ -149,6 +148,7 @@ void Client::playMatch() {
         game.playSounds();
         game.advanceTime();
         quit = game.isOver;
+        senderQueue.insertEvents(eventsCatcher);
         SDL_Delay(33);
     }
 }

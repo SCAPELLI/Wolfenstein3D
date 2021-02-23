@@ -32,7 +32,7 @@ AI::AI(int levelId) {
 //    cooldown(0);
     std::vector<std::vector<int>> map;
     std::string levelPath = std::to_string(levelId) + ".yaml";
-    YAML::Node file = YAML::LoadFile("../server/maps/" + levelPath);
+    YAML::Node file = YAML::LoadFile("../../server/maps/" + levelPath);
     YAML::Node matrixConfig = file["map"];
     for (std::size_t i = 0; i < matrixConfig[0].size(); i++) {
         std::vector<int> fila;
@@ -61,7 +61,7 @@ void AI::execute(int error) {
 }
 
 void AI::initializeGameContext(std::vector<std::vector<int>>& map) {
-    std::string moduleScript = "../ai/AI.lua";
+    std::string moduleScript = "../../ai/AI.lua";
     execute(luaL_dofile(L, moduleScript.c_str()));
 
     lua_getglobal(L, "initializeGameContext");
