@@ -1,6 +1,7 @@
 #include <mutex>
 #include "BlockingEventsQueue.h"
 #include "EventsCatcher.h"
+BlockingEventsQueue::BlockingEventsQueue() : events(), mutex(), cv(){}
 
 void BlockingEventsQueue::insertEvents(EventsCatcher& eventsCatcher) {
     std::unique_lock<std::mutex> lock(mutex);

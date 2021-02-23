@@ -3,13 +3,13 @@
 #include "../common/EventsCatcher.h"
 #include "GameStage.h"
 #include "../common/ProtectedEventsQueue.h"
+#include "../common/BlockingEventsQueue.h"
 #include "Server.h"
 #include "GameLoader.h"
 #include <thread>
 #include <ServerEvents/CreateMapEvent.h>
 #include "../cliente/CGame.h"
 #include "Map.h"
-#include "common/BlockingEventsQueue.h"
 
 #define FOV 0.66
 
@@ -20,7 +20,7 @@ int main() {
         ProtectedEventsQueue userEvents;
         std::vector<BlockingEventsQueue> updateEvents;
         std::atomic<bool> quit(false);
-        std::thread t (Server(userEvents, updateEvents, quit));
+        std::thread t (Server(&userEvents, updateEvents, quit));
 
         bool hasStarted = false;
         while (!hasStarted){

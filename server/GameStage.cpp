@@ -37,8 +37,8 @@ void GameStage::processEvent(TurnEvent& event) {
     insertInAllQueuesEvent(anotherEvent);
 }
 void GameStage::insertInAllQueuesEvent(Event& event){
-    for(auto & queue : queues){
-        queue.push(event);
+    for(int i = 0; i < queues.size(); i++){
+        queues[i].push(event);
     }
 }
 

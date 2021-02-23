@@ -5,7 +5,7 @@
 #include <mutex>
 #include <condition_variable>
 
-class Event;
+#include "Event.h"
 class EventsCatcher;
 
 class BlockingEventsQueue {
@@ -13,6 +13,7 @@ class BlockingEventsQueue {
     std::mutex mutex{};
     std::condition_variable cv;
 public:
+    BlockingEventsQueue();
     void insertEvents(EventsCatcher& eventsCatcher);
     Event pop();
     bool empty();

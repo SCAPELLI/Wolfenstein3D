@@ -11,6 +11,7 @@ class ProtectedEventsQueue {
     std::queue<Event> events;
     std::mutex mutex;
 public:
+//    ProtectedEventsQueue();
     void insertEvents(EventsCatcher& eventsCatcher);
     Event pop();
     bool empty();

@@ -8,11 +8,11 @@ class ProtectedEventsQueue;
 class BlockingEventsQueue;
 
 class Server {
-   ProtectedEventsQueue& userEvents;
+   ProtectedEventsQueue* userEvents;
     std::vector<BlockingEventsQueue>& updateEvents;
     std::atomic<bool>& quit;
 public:
-    Server(    ProtectedEventsQueue& userEvents,
+    Server(    ProtectedEventsQueue* userEvents,
                std::vector<BlockingEventsQueue>& updateEvents,
                std::atomic<bool>& quit);
 
