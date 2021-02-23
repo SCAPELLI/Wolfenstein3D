@@ -27,6 +27,13 @@ Trabajo práctico final - El juego
 
 ## Servidor:
 
+## Lógica:
+
+- La lógica del juego se desarrolló en la clase Game interactuando con el mapa del juego y los jugadores, desarrollando las acciones que fueron recibidas del GameStage. El GameStage se encarga de recibir los eventos del Match y  a su vez de encolar a las colas de usuarios los eventos generados a lo largo de la lógíca del juego.  
+- Para representar el mapa se utilizó un vector de vectores conteniendo CellMaps. Estos CellMaps son una clase que funciona como contenedora de los ítems, puertas y jugadores que pueden encontrarse en esa posición, ya que al existir el RayCasting los valores matriciales son escalados a una matriz más grande donde cada cuadrado se escala por 32, pudiendo posicionarse varios elementos en una misma posición escalada. 
+- Para la consumisión de ítems se utilizó una clase madre Items y cada objeto consumible por el jugador es hija de ésta. Este diseño facilitó el uso de polimorfismo para que cada vez que el jugador se moviese a una nueva posición el jugador pudiera polimórficamente encargarse de decidir si le era posible o no agarrarlo, y en cuyo caso aplicar el cambio necesario e informar al cliente a través de un evento. 
+- Para el caso de las armas y los disparos, se verificaba primero si se podía realizar el disparo o no. Para esto primero se verificaba el arma que se estaba utilizando y si ésta contenía las balas necesarias para realizar el disparo, kuego se lanzaba un rayo de implementación parecida al cliente para poder verificar la distancia a la pared a donde está mirando el jugador y verificando a su vez la distancia con los otros jugadores para saber si le puede impactar o no.
+
 ## Comunicaciones:
 
 ## Ai
