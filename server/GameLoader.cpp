@@ -100,19 +100,20 @@ Item* GameLoader::itemLoader(std::string& itemName) {
     throw Exception("No se encontró ese ID en el archivo yaml");
 }
 
-//Item* GameLoader::weaponLoader(std::string &itemName) {
-//    for (YAML::const_iterator it = sprites["weapons"].begin();
-//                                it != sprites["weapons"].end(); ++it) {
-//    if (itemName == "machine gun" || itemName == "chain gun" ||
-//        itemName == "rocket launcher" || itemName == "pistol") {
-//        YAML::Node data = idConfig["Weapons"][itemName];
-//        Item* item = new Weapon(  it->first.as<int>()
-//                                  - 50, itemName, uniqueId, data["damage"].as<int>(),
-//                                  data["minBullets"].as<int>(), data["cooldownTimer"].as<int>());
-//        uniqueId++;
-//        return item;
-//    }
-//}
+Item* GameLoader::weaponLoader(std::string &itemName) {
+    for (YAML::const_iterator it = sprites["weapons"].begin();
+         it != sprites["weapons"].end(); ++it) {
+        if (itemName == "machine gun" || itemName == "chain gun" ||
+            itemName == "rocket launcher" || itemName == "pistol") {
+            YAML::Node data = idConfig["Weapons"][itemName];
+            Item *item = new Weapon(it->first.as<int>()
+                                    - 49, itemName, uniqueId, data["damage"].as<int>(),
+                                    data["minBullets"].as<int>(), data["cooldownTimer"].as<int>());
+            uniqueId++;
+            return item;
+        }
+    }
+}
 OpenableItem* GameLoader::setTexture(int& idItem) {
     for (YAML::const_iterator it = sprites["textures"].begin();
                          it != sprites["textures"].end(); ++it) {

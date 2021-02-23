@@ -111,6 +111,12 @@ int Player::distanceWith(Player& otherPlayer) {
 //    }
 //    return std::numeric_limits<int>::max();
 }
+void Player::eraseCurrentWeapon(){
+    bag.erase(idWeapon);
+    prevIdWeapon = 1;
+    idWeapon = 1;
+    return;
+}
 
 bool Player::shoot(){
     bullets -= bag[idWeapon].minBullets;
