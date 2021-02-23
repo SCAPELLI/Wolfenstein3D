@@ -64,9 +64,9 @@ void CGame::processEvent(DespawnEvent &event) {
 void CGame::processEvent(ShootingEvent& event){
     int playerID = event.idPlayer;
     if (activePlayer.id == playerID) {
-        if (activePlayer.shoot()) soundQueue.push(activePlayer.getActiveWeapon(), MIX_MAX_VOLUME);
+        if (activePlayer.shoot()) soundQueue.push(activePlayer.getActiveWeapon(), MIX_MAX_VOLUME/10);
     } else {
-        soundQueue.push(players[event.idPlayer]->getActiveWeapon(), MIX_MAX_VOLUME/4 );
+        soundQueue.push(players[event.idPlayer]->getActiveWeapon(), MIX_MAX_VOLUME/10 );
     }
 }
 

@@ -130,10 +130,11 @@ void CellMap::dropItems(Player& player,GameLoader& factory,
     newEvents.push_back(event1);
     Weapon currentWeapon = player.getWeapon();
     if (currentWeapon.name != "pistol" && currentWeapon.name != "knife") {
-        currentWeapon.uniqueId = factory.assignUniqueId();
-        items.push_back(&currentWeapon);
-        auto *event2 = new SpawnEvent(SpawnEventType, currentWeapon.getUniqueId(),
-                                      currentWeapon.getId() + 49, pos.y , pos.x );
+        Item* weaponTodrop = factory.weaponLoader(currentWeapon.name);
+        items.push_back(weaponTodrop);
+        player.eraseCurrentWeapon();
+        auto *event2 = new SpawnEvent(SpawnEventType, weaponTodrop->getUniqueId(),
+                                      weaponTodrop->getId() + 49, pos.y , pos.x );
         newEvents.push_back(event2);
     }
     if (player.hasKey()) {
