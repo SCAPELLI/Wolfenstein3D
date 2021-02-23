@@ -18,17 +18,20 @@ int main() {
         EventsCatcher eventsCatcher(1); // esta en client
         //-----------------
         ProtectedEventsQueue userEvents;
-        std::vector<BlockingEventsQueue> updateEvents;
+
+        std::vector<BlockingEventsQueue*> updateEvents;
+        BlockingEventsQueue ke;
+        updateEvents.push_back(&ke);
         std::atomic<bool> quit(false);
         std::thread t (Server(&userEvents, updateEvents, quit));
 
         bool hasStarted = false;
         while (!hasStarted){
-            if (!updateEvents.empty()){
+            if (!updateEvents[0]->empty()){
                 hasStarted = true;
             }
         }
-        Event event = std::move(updateEvents[0].pop());
+        Event event = std::move(updateEvents[0]->pop());
         CreateMapEvent* start = (CreateMapEvent*) event.event;
         double spawnPointX = start->startingLocations[1].first;
         double spawnPointY = start->startingLocations[1].second;
@@ -48,8 +51,8 @@ int main() {
         while (!quit) {
             userEvents.insertEvents(eventsCatcher);
 
-            while (!userEvents.empty()) {
-                Event event = std::move(userEvents.pop());
+            while (!updateEvents[0]->empty()) {
+                Event event = std::move(updateEvents[0]->pop());
                 event.runHandler(game);
             }
             game.draw();

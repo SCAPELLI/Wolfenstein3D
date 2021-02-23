@@ -9,11 +9,11 @@ class BlockingEventsQueue;
 
 class Server {
    ProtectedEventsQueue* userEvents;
-    std::vector<BlockingEventsQueue>& updateEvents;
+    std::vector<BlockingEventsQueue*>& updateEvents;
     std::atomic<bool>& quit;
 public:
     Server(    ProtectedEventsQueue* userEvents,
-               std::vector<BlockingEventsQueue>& updateEvents,
+               std::vector<BlockingEventsQueue*>& updateEvents,
                std::atomic<bool>& quit);
 
     void operator()();

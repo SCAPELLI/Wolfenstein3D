@@ -10,7 +10,7 @@
 #include "../ai/AI.h"
 
 Server::Server(ProtectedEventsQueue* usersEvent,
-                                std::vector<BlockingEventsQueue>& updateEvents,
+                                std::vector<BlockingEventsQueue*>& updateEvents,
                                 std::atomic<bool>& quit):
         userEvents(usersEvent), updateEvents(updateEvents), quit(quit) {}
 
