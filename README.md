@@ -54,6 +54,6 @@ Es una aplicación independiente del juego que permite diseñar mapas nuevos o c
 - TilemapScene: clase que representa la parte gráfica del mapa. Le permite al usuario visualizar las dimensiones del mapa y poder efectuar cambios sobre él.
 
 - Diagrama Editor:
-![Alt text](./editorDiagrama1.jpeg)
+![Diagrama - Editor 1](https://github.com/SCAPELLI/Wolfenstein3D/blob/readmeEdit/report/editorDiagrama1.jpeg?raw=true)
 
-
+![Diagrama - Editor 2](https://github.com/SCAPELLI/Wolfenstein3D/blob/readmeEdit/report/editorDiagrama2.jpeg?raw=true)
