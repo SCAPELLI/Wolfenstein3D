@@ -67,10 +67,7 @@ void Match::run() {
     matchStarted = true;
 
     ProtectedEventsQueue userEvents;
-    std::vector<BlockingEventsQueue> updateEvents; // equivalente a updateEvents x N
-    for (int i = 0; i < users.size(); i++) {
-        updateEvents.emplace_back();
-    }
+    std::vector<BlockingEventsQueue> updateEvents(users.size()); // equivalente a updateEvents x N
 
     std::map<int, std::string> players;
     for (auto it = users.begin(); it != users.end(); ++it)

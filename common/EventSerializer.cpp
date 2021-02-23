@@ -118,6 +118,7 @@ std::string EventSerializer::serialize(ChangeWeaponEvent& event) {
     return AMMO_CHANGE_EVENT_STRING + playerId + type;
 }
 
+
 Event EventSerializer::createCreateMapEvent(std::string eventString) {
     //EEEHHHHHHWWWWWWSSS[PPPXXXXXXYYYYYY]
     //H: height (6 bytes)
@@ -188,6 +189,29 @@ std::string EventSerializer::serialize(DespawnEvent& event) {
     addZerosToLeft(type, 3);
 
     return DESPAWN_EVENT_STRING + id + type;
+}
+
+std::string EventSerializer::serialize(SpawnNotMovableEvent& event) {
+    // EEETTTXXXYYY
+    // type 3 bytes
+    // x,y pos 3 bytes
+    std::string type = std::to_string(event.type);
+    addZerosToLeft(type, 3);
+    std::string posX = std::to_string(event.posX);
+    addZerosToLeft(posX, 3);
+    std::string posY = std::to_string(event.posY);
+    addZerosToLeft(posY, 3);
+
+    return SPAWN_NOT_MOVABLE_EVENT_STRING + type + posX + posY;
+}
+
+Event EventSerializer::createSpawnNotMovableEvent(std::string eventString) {
+    int t = std::stoi(eventString.substr (3, 3));
+    int x = std::stoi(eventString.substr (6, 3));
+    int y = std::stoi(eventString.substr (9, 3));
+
+    SpawnNotMovableEvent event(SpawnNotMovableType, t, x, y);
+    return Event(&event, SpawnNotMovableType);
 }
 
 Event EventSerializer::createDoorOpenedEvent(std::string eventString) {
@@ -298,6 +322,10 @@ Event EventSerializer::deserialize(std::string eventString) {
         case POSITION_EVENT:
             return createPositionEvent(eventString);
             break;
+        case SPAWN_NOT_MOVABLE_EVENT:
+            return createSpawnNotMovableEvent(eventString);
+        case CREATE_MAP_EVENT:
+            return createCreateMapEvent(eventString);
         default:
             return event;
             break;

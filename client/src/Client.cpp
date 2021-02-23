@@ -115,7 +115,7 @@ void Client::playMatch() {
         }
     }
     Event event = std::move(receiverQueue.pop());
-    CreateMapEvent* start = (CreateMapEvent*) event.event;
+    CreateMapEvent* start = (CreateMapEvent*) (event).event;
     double spawnPointX = start->startingLocations[userId].first;
     double spawnPointY = start->startingLocations[userId].second;
 

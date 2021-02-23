@@ -95,7 +95,7 @@ public:
     static Event createPickUpWeaponEvent(std::string eventString);
     static Event createPositionEvent(std::string eventString);
     static Event createScoreChangeEvent(std::string eventString);
-    static Event createSpawnNotMovaableEvent(std::string eventString);
+    static Event createSpawnNotMovableEvent(std::string eventString);
     static Event createMovementEvent(std::string eventString);
     static Event createOpenDoorEvent(std::string eventString);
     static Event createQuitEvent(std::string eventString);
