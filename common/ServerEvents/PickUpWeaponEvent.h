@@ -12,6 +12,7 @@ public:
     int uniqueId;
     PickUpWeaponEvent (updateEventType eventType, int idPlayer, int uniqueId);
     updateEventType getEventType();
+    std::string getSerialization() override;
 };
 
 

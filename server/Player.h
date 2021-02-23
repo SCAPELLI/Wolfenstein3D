@@ -11,6 +11,7 @@
 #include "Items/KeyItem.h"
 //#include "Items/Rocket.h"
 
+/* Representa un jugador con su lógica*/
 class Player {
     std::string name;
     int id, relativeId;

@@ -4,6 +4,7 @@
 #include "../Event.h"
 #include "client/CGame.h"
 #include "server/GameStage.h"
+#include "../EventSerializer.h"
 
 
 ChangeWeaponEvent::ChangeWeaponEvent (int idPlayer, int type)
@@ -15,4 +16,8 @@ void ChangeWeaponEvent::runHandler(CGame &renderer) {
 
 void ChangeWeaponEvent::runHandler(GameStage &game) {
     game.processEvent(*this);
+}
+
+std::string ChangeWeaponEvent::getSerialization() {
+    return EventSerializer::serialize(*this);
 }

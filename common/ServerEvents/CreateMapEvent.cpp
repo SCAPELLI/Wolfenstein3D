@@ -1,5 +1,5 @@
 
-
+#include "../EventSerializer.h"
 #include "CreateMapEvent.h"
 
 CreateMapEvent::CreateMapEvent(updateEventType eventType, int width, int height)
@@ -15,4 +15,9 @@ void CreateMapEvent::runHandler(CGame &renderer) {
 
 updateEventType CreateMapEvent::getEventType() {
     return eventType;
+}
+
+std::string CreateMapEvent::getSerialization() {
+    return EventSerializer::serialize(*this);
+
 }

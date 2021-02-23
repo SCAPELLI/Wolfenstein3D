@@ -15,6 +15,7 @@ public:
     ScoreChangeEvent (updateEventType eventType, int idPlayer, int score);
     updateEventType getEventType();
     void runHandler(CGame& game);
+    std::string getSerialization() override;
 };
 
 

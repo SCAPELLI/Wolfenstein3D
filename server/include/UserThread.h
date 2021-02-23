@@ -3,7 +3,7 @@
 
 #include <atomic>
 #include "../../common/include/Thread.h"
-
+/* Thread utilizado por el usuario*/
 class Socket;
 class ProtectedLobby;
 

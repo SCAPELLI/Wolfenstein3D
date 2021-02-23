@@ -4,7 +4,7 @@
 #include <map>
 #include "Sprite.h"
 #include <vector>
-
+/* Bolsa donde se guardan los sprites que son utilizados*/
 class BagOfSprites {
     public:
         std::map<int, Sprite> items;

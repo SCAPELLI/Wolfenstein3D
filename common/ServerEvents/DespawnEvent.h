@@ -16,6 +16,7 @@ public:
     void runHandler(GameStage& gameStage);
     void runHandler(CGame& renderer);
     updateEventType getEventType();
+    std::string getSerialization();
 };
 
 #endif //CAMERA_CPP_DESPAWNEVENT_H

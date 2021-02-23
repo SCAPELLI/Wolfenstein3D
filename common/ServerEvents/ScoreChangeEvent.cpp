@@ -1,5 +1,6 @@
 #include "client/CGame.h"
 #include "ScoreChangeEvent.h"
+#include "../EventSerializer.h"
 
 ScoreChangeEvent::ScoreChangeEvent (updateEventType eventType, int idPlayer, int score)
 :  eventType(eventType),idPlayer(idPlayer),score(score) {}
@@ -10,4 +11,8 @@ updateEventType ScoreChangeEvent::getEventType() {
 
 void ScoreChangeEvent::runHandler(CGame &game) {
     game.processEvent(*this);
+}
+
+std::string ScoreChangeEvent::getSerialization() {
+    return EventSerializer::serialize(*this);
 }

@@ -12,6 +12,7 @@ public:
     int health;
     HealthChangeEvent (updateEventType eventType, int idPlayer, int health);
     updateEventType getEventType();
+    std::string getSerialization() override;
     void runHandler(CGame &game);
 };
 

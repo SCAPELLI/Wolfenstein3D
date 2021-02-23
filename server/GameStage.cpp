@@ -20,7 +20,7 @@
 #define PI 3.141592
 
 
-GameStage::GameStage(std::vector<BlockingEventsQueue*>& queues,
+GameStage::GameStage(std::vector<BlockingEventsQueue>& queues,
                      std::map<int, std::string>& playersNames, int levelId)
     : queues(queues), newEvents() {
     game = Game(newEvents, playersNames, levelId);
@@ -33,12 +33,9 @@ GameStage::GameStage(std::vector<BlockingEventsQueue*>& queues,
 void GameStage::processEvent(TurnEvent& event) {
     game.moveAngle(event.getDegrees(), event.idPlayer);
     TurnEvent toSend(event.idPlayer, event.getDegrees());
-    Event anotherEvent(&toSend, TurnEventType);
-    insertInAllQueuesEvent(anotherEvent);
-}
-void GameStage::insertInAllQueuesEvent(Event& event){
     for(int i = 0; i < queues.size(); i++){
-        queues[i]->push(event);
+        Event anotherEvent(&toSend, TurnEventType);
+        queues[i].push(anotherEvent);
     }
 }
 
@@ -47,18 +44,22 @@ void GameStage::processEvent(ShootingEvent& event) {
     if (idHit == -2) return;
     if (idHit == -3){
         ChangeWeaponEvent newEvent(event.idPlayer, 0);
-        Event anotherEvent(&newEvent, ChangeWeaponType);
-        insertInAllQueuesEvent(anotherEvent);
+        for (int i = 0; i < queues.size(); i++){
+            Event anotherEvent(&newEvent, ChangeWeaponType);
+            queues[i].push(anotherEvent);
+        }
         return;
     }
 
     AmmoChangeEvent ammo(AmmoChangeType, event.idPlayer,
                          -1 * game.players[game.ids[event.idPlayer]].getWeapon().minBullets);
     ShootingEvent shoot(event.idPlayer);
-    Event anotherEvent(&shoot, ShootingEventType);
-    insertInAllQueuesEvent(anotherEvent);
-    Event ammoEvent(&ammo, AmmoChangeType);
-    insertInAllQueuesEvent(ammoEvent);
+    for (int i = 0; i < queues.size(); i++){
+        Event anotherEvent(&shoot, ShootingEventType);
+        queues[i].push(anotherEvent);
+        Event ammoEvent(&ammo, AmmoChangeType);
+        queues[i].push(anotherEvent);
+    }
     pushNewEvents();
 }
 
@@ -83,8 +84,10 @@ void GameStage::processEvent(MovementEvent& event) {
 
 void GameStage::pushNewEvents(){
     for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
-        Event anotherEvent(newEvents[i], newEvents[i]->getEventType());
-        insertInAllQueuesEvent(anotherEvent);
+        for (int j = 0; j < queues.size(); j++) {
+            Event anotherEvent(newEvents[i], newEvents[i]->getEventType());
+            queues[j].push(anotherEvent);
+        }
     }
     newEvents.clear();
 }
@@ -98,17 +101,20 @@ void GameStage::processEvent(OpenDoorEvent& event){
 
 void GameStage::processEvent(ChangeWeaponEvent& event){
     if (game.changeWeapon(event.idPlayer, event.type)){
-        Event anotherEvent(&event, ChangeWeaponType);
-        insertInAllQueuesEvent(anotherEvent);
-
+        for (int i = 0; i < queues.size(); i++){
+            Event anotherEvent(&event, ChangeWeaponType);
+            queues[i].push(anotherEvent);
+        }
     }
 }
 
 
 void GameStage::processEvent(int objId, int type, int posX, int posY) {
     SpawnEvent toSend(SpawnEventType, objId, type, posX, posY);
-    Event anotherEvent(&toSend, SpawnEventType);
-    insertInAllQueuesEvent(anotherEvent);
+    for (int i = 0; i < queues.size(); i++){
+        Event anotherEvent(&toSend, SpawnEventType);
+        queues[i].push(anotherEvent);
+    }
 }
 
 void GameStage::incrementCooldown(){

@@ -23,16 +23,16 @@ class ChangeWeaponEvent;
 class BlockingEventsQueue;
 class Event;
 #include "PlayerInfo.h"
-
+/* Clase que interactúa entre el lobby y el game*/
 class GameStage {
     std::vector<std::pair<int, std::string>> highScores;
     int levelId;
-    std::vector<BlockingEventsQueue*>& queues;
+    std::vector<BlockingEventsQueue>& queues;
 //    std::vector< std::string> playersNames; // temporalmente una lista despues en realidad viene de startGame
     Game game;
     std::vector<AbstractEvent*> newEvents;
 public:
-    explicit GameStage(std::vector<BlockingEventsQueue*>& queues,
+    explicit GameStage(std::vector<BlockingEventsQueue>& queues,
                        std::map<int, std::string>& playersNames, int levelId);
     void processEvent(TurnEvent& event);
     void processEvent(MovementEvent& event);

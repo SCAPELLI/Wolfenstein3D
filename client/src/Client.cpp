@@ -2,6 +2,14 @@
 #include "client/include/Client.h"
 #include "client/include/TCPClient.h"
 #include "client/include/CommunicationChannelClient.h"
+#include "../../common/BlockingEventsQueue.h"
+#include "../../common/ProtectedEventsQueue.h"
+#include "../../common/ServerEvents/CreateMapEvent.h"
+#include "../../server/include/ReceiverThread.h"
+#include "../../server/include/SenderThread.h"
+#include "../../common/EventsCatcher.h"
+
+#define FOV 0.66
 
 Client::Client() {
     channel = new CommunicationChannelClient(userSocket);
@@ -93,5 +101,54 @@ bool Client::tryToStartMatch() {
     }
 }
 void Client::playMatch() {
-    //codigo de separacion de threads etc.
+    EventsCatcher eventsCatcher(userId);
+    BlockingEventsQueue senderQueue;
+    ProtectedEventsQueue receiverQueue;
+
+    ReceiverThread r(&userSocket, receiverQueue);
+    r.start();
+
+    bool hasStarted = false;
+    while (!hasStarted){
+        if (!receiverQueue.empty()){
+            hasStarted = true;
+        }
+    }
+    Event event = std::move(receiverQueue.pop());
+    CreateMapEvent* start = (CreateMapEvent*) (event).event;
+    double spawnPointX = start->startingLocations[userId].first;
+    double spawnPointY = start->startingLocations[userId].second;
+
+    std::vector<std::vector<int>> map;
+    for (int i = 0; i <= start->height; i++){
+        std::vector<int> row;
+        for (int j = 0; j <= start->width; j++){
+            row.push_back(0);
+        }
+        map.push_back(row);
+    }
+
+    CGame game(spawnPointX, spawnPointY, FOV, map, userId);
+    for (auto it = start->startingLocations.begin(); it != start->startingLocations.end(); ++it){
+        if (it->first == userId) continue;
+        game.spawnEnemy(it->first, Vector(start->startingLocations[it->first].first,
+                                          start->startingLocations[it->first].second));
+    }
+
+    SenderThread s(&userSocket, &senderQueue);
+    s.start();
+    bool quit = false;
+    while (!quit) {
+
+        while (!receiverQueue.empty()) {
+            Event event = std::move(receiverQueue.pop());
+            event.runHandler(game);
+        }
+        game.draw();
+        game.playSounds();
+        game.advanceTime();
+        quit = game.isOver;
+        senderQueue.insertEvents(eventsCatcher);
+        SDL_Delay(33);
+    }
 }

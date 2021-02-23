@@ -34,7 +34,7 @@ Player::Player(int parsed_id, int relativeId, std::string name, Vector position)
 }
 
 void Player::initializePlayer(bool dead){
-    YAML::Node fileNode = YAML::LoadFile("config.yaml");
+    YAML::Node fileNode = YAML::LoadFile("../../server/config/config.yaml");
     GameLoader yamlItems;
     if (!dead){
         lifes = fileNode["Player"]["lifes"].as<int>();

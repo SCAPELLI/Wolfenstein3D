@@ -1,6 +1,6 @@
 #ifndef WOLFENSTEIN3D_VECTOR_H
 #define WOLFENSTEIN3D_VECTOR_H
-
+/* Vector con métodos para manejar ángulos y distancias*/
 class Vector{
 
 	public:

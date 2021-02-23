@@ -27,8 +27,9 @@ target_link_libraries(client common)
 target_link_libraries(client Qt5::Widgets)
 
 target_link_libraries(client 
-	yaml-cpp 
-	${SDL2_LIBRARY} 
+	yaml-cpp SDL2
+	SDL2_mixer	SDL2_image
+	${SDL2_LIBRARY} ${SDL2} ${SDL2_MIXER}
 	${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}
 	${SDL2_TTF_LIBRARIES} -lSDL2_ttf pthread)
 

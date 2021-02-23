@@ -6,7 +6,7 @@
 
 #include "Event.h"
 class EventsCatcher;
-
+/* Cola protegida para encolar los eventos*/
 class ProtectedEventsQueue {
     std::queue<Event> events;
     std::mutex mutex;

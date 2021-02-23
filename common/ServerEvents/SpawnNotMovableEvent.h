@@ -12,6 +12,7 @@ public:
     int posY;
     SpawnNotMovableEvent (updateEventType eventType, int type, int posX, int posY);
     void runHandler(CGame& gameStage);
+    std::string getSerialization() override;
     updateEventType getEventType();
 };
 

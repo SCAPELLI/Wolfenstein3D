@@ -11,6 +11,7 @@ public:
     int idPlayer;
     PickUpKeyEvent (updateEventType eventType, int idPlayer);
     updateEventType getEventType();
+    std::string getSerialization() override;
 };
 
 

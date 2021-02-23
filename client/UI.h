@@ -4,7 +4,7 @@
 #include "CPlayer.h"
 #include <vector>
 #include "SDL2/SDL.h"
-
+/* User interface con los datos del jugador*/
 class UI {
     CPlayer* activePlayer;
     SDL_Texture* HUD;

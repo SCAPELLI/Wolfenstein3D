@@ -5,14 +5,14 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include "../common/Exception.h"
+#include "../common/include/Exception.h"
 #include "Items/LockedDoor.h"
 
 
 GameLoader::GameLoader() : uniqueId(1){
-    sprites = YAML::LoadFile("../Editor/sprites/sprites.yaml");
-    idConfig = YAML::LoadFile("config.yaml");
-    map = YAML::LoadFile("../server/maps/1.yaml");
+    sprites = YAML::LoadFile("../../Editor/sprites/sprites.yaml");
+    idConfig = YAML::LoadFile("../../server/config/config.yaml");
+    map = YAML::LoadFile("../../server/maps/1.yaml");
 }
 
 

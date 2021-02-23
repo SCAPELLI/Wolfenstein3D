@@ -18,6 +18,7 @@ public:
     CreateMapEvent (updateEventType eventType, int width, int height);
     void addPlayer(int idPlayer, Vector& startingLocation);
     void runHandler(CGame& renderer) override;
+    std::string getSerialization() override;
     updateEventType getEventType() override;
 };
 
