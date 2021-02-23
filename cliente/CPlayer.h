@@ -24,6 +24,9 @@ class CPlayer{
 		int getActiveWeapon();
 		bool shoot();
 		int getScore();
+		int getLives();
+		int getAmmo();
+		int getHp();
 		void respawn();
 		void changeWeapon(int weaponID);
 		void increaseScore(int deltaScore);

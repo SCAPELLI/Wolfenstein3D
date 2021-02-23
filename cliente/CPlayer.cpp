@@ -16,6 +16,18 @@ int CPlayer::getActiveWeapon() {
     return activeWeapon;
 }
 
+int CPlayer::getAmmo(){
+    return ammo;
+}
+
+int CPlayer::getHp(){
+    return hp;
+}
+
+int CPlayer::getLives(){
+    return lives;
+}
+
 int CPlayer::getScore(){
     return score;
 }
