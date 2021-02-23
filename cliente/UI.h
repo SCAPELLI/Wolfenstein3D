@@ -12,6 +12,7 @@ class UI {
     public:
         UI(SDL_Renderer* renderer, CPlayer* activePlayer);
         void draw(SDL_Renderer* renderer);
+        void drawScore(SDL_Renderer* renderer, int w, int h);
         ~UI();
 };
 

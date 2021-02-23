@@ -16,6 +16,10 @@ int CPlayer::getActiveWeapon() {
     return activeWeapon;
 }
 
+int CPlayer::getScore(){
+    return score;
+}
+
 void CPlayer::increaseScore(int deltaScore) {
     score += deltaScore;
 }
