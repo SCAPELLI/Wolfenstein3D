@@ -1,4 +1,4 @@
-dofile("../../ai/Graph.lua")
+dofile("../../server/ai/Graph.lua")
 
 GROUND = 0
 WALL = 1
