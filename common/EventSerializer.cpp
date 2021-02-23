@@ -73,8 +73,8 @@ Event EventSerializer::createOpenDoorEvent(std::string eventString) {
 Event EventSerializer::createGameOverEvent(std::string eventString) {
     //EEEPPP
     int playerId = std::stoi(eventString.substr (3, 3));
-
-    GameOverEvent event(GameOverEventType, playerId);
+    std::map<std::string, std::vector<int>> highscores;
+    GameOverEvent event(GameOverEventType, playerId, highscores); //hardcode
     return Event(&event, GameOverEventType);
 }
 
@@ -94,7 +94,7 @@ Event EventSerializer::createAmmoChangeEvent(std::string eventString) {
     //ammo (9 bytes)
     int ammo = std::stoi(eventString.substr (3, 9));
 
-    AmmoChangeEvent event(AmmoChangeType, ammo);
+    AmmoChangeEvent event(AmmoChangeType, 1, ammo);
     return Event(&event, AmmoChangeType);
 }
 
@@ -218,7 +218,7 @@ Event EventSerializer::createHealthChangeEvent(std::string eventString) {
     int health = std::stoi(eventString.substr (3, 9));
     int playerId = std::stoi(eventString.substr (9, 12));
 
-    HealthChangeEvent event(HealthChangeType, health);
+    HealthChangeEvent event(HealthChangeType, 1, health); //hardcode
     event.idPlayer = playerId;
     return Event(&event, HealthChangeType);
 }
@@ -251,7 +251,7 @@ std::string EventSerializer::serialize(KillEvent& event) {
 
 Event EventSerializer::createPickUpKeyEvent(std::string eventString) {
     //EEE
-    PickUpKeyEvent event(PickUpKeyType);
+    PickUpKeyEvent event(PickUpKeyType, 1);
     return Event(&event, PickUpKeyType);
 }
 
@@ -263,7 +263,7 @@ Event EventSerializer::createPickUpWeaponEvent(std::string eventString) {
     //EEEPPP
     int playerId = std::stoi(eventString.substr (3, 6));
 
-    PickUpKeyEvent event(PickUpWeaponType);
+    PickUpKeyEvent event(PickUpWeaponType, 1);
     return Event(&event, PickUpWeaponType);
 }
 
@@ -373,9 +373,6 @@ std::string EventSerializer::serialize(OpenDoorEvent& event) {
     return OPEN_DOOR_EVENT_STRING + playerId + opened;
 }
 
-std::string EventSerializer::serialize(KillEvent& event) {
-    return "";
-}
 
 std::string EventSerializer::serialize(GameOverEvent& event) {
     std::string playerId = std::to_string(event.idPlayer);

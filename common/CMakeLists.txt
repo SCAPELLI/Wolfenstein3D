@@ -115,7 +115,8 @@ include_directories(${PROJECT_BINARY_DIR})
 target_link_libraries(common Qt5::Widgets)
 
 target_link_libraries(common
-        yaml-cpp
+        yaml-cpp SDL2
+		SDL2_mixer	SDL2_image
         ${SDL2_LIBRARY}
         ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}
         ${SDL2_TTF_LIBRARIES} -lSDL2_ttf pthread)
