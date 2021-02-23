@@ -22,7 +22,8 @@ qt5_wrap_ui(UIS_HEADERS
         ui/GamesScreen.ui
         ui/NewMatchScreen.ui
         ui/InfoScreen.ui
-        ui/WaitingRoomScreen.ui)
+        ui/WaitingRoomScreen.ui
+        ui/ScoreWindow.ui)
 
 message("Headers generados: ${UIS_HEADERS}")
 
@@ -33,6 +34,6 @@ add_executable(menu ${UIS_HEADERS} src/main.cpp src/MenuScreen.cpp include/MenuS
         ../communications/common/src/Exception.cpp
         ../communications/common/src/Thread.cpp
         ../communications/client/src/TCPClient.cpp
-        ../communications/client/src/CommunicationChannelClient.cpp)
+        ../communications/client/src/CommunicationChannelClient.cpp src/ScoreWindow.cpp include/ScoreWindow.h)
 
 target_link_libraries(menu Qt5::Widgets)
