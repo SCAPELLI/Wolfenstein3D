@@ -15,6 +15,7 @@ public:
     int posY;
     SpawnEvent (updateEventType eventType, int id, int type, int posX, int posY);
     void runHandler(CGame& gameStage);
+    std::string getSerialization() override;
     updateEventType getEventType();
 };
 

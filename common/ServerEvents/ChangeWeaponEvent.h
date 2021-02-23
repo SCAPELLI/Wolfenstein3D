@@ -13,6 +13,7 @@ public:
     ChangeWeaponEvent (int idPlayer, int type);
     void runHandler(GameStage& game) override;
     void runHandler(CGame& renderer) override;
+    std::string getSerialization() override;
 };
 
 

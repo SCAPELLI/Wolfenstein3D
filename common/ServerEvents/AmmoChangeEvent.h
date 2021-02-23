@@ -15,6 +15,7 @@ public:
     AmmoChangeEvent (updateEventType eventType,int idPlayer, int Ammo);
     void runHandler(CGame& game);
     updateEventType getEventType();
+    std::string getSerialization() override;
 };
 
 

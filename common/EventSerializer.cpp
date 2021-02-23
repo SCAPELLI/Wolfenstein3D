@@ -16,6 +16,7 @@
 #include "../common/ServerEvents/ScoreChangeEvent.h"
 #include "../common/ServerEvents/SpawnEvent.h"
 #include "../common/ServerEvents/SpawnNotMovableEvent.h"
+#include "../common/ServerEvents/ScoreChangeEvent.h"
 #include "../common/MovementEvent.h"
 #include "../common/OpenDoorEvent.h"
 #include "../common/QuitEvent.h"
@@ -205,6 +206,49 @@ std::string EventSerializer::serialize(SpawnNotMovableEvent& event) {
     return SPAWN_NOT_MOVABLE_EVENT_STRING + type + posX + posY;
 }
 
+std::string EventSerializer::serialize(SpawnEvent& event) {
+    // EEEIIITTTXXXYYY
+    //id 3 bytes
+    // type 3 bytes
+    // x,y pos 3 bytes
+    std::string id = std::to_string(event.id);
+    addZerosToLeft(id, 3);
+    std::string type = std::to_string(event.type);
+    addZerosToLeft(type, 3);
+    std::string posX = std::to_string(event.posX);
+    addZerosToLeft(posX, 3);
+    std::string posY = std::to_string(event.posY);
+    addZerosToLeft(posY, 3);
+
+    return SPAWN_EVENT_STRING + id + type + posX + posY;
+}
+
+Event EventSerializer::createSpawnEvent(std::string eventString) {
+    int id = std::stoi(eventString.substr (3, 3));
+    int t = std::stoi(eventString.substr (6, 3));
+    int x = std::stoi(eventString.substr (9, 3));
+    int y = std::stoi(eventString.substr (12, 3));
+
+    SpawnEvent event(SpawnEventType, id, t, x, y);
+    return Event(&event, SpawnEventType);
+}
+
+Event EventSerializer::createScoreChangeEvent(std::string eventString) {
+    int id = std::stoi(eventString.substr (3, 3));
+    int score = std::stoi(eventString.substr (6, 4));
+    ScoreChangeEvent event(ScoreChangeType, id, score);
+    return Event(&event, ScoreChangeType);
+}
+std::string EventSerializer::serialize(ScoreChangeEvent& event) {
+    //      EEEIIISSSS
+    //    int idPlayer 3 bytes
+    //    int score;    4 bytes;
+    std::string id = std::to_string(event.idPlayer);
+    addZerosToLeft(id, 3);
+    std::string score = std::to_string(event.score);
+    addZerosToLeft(score, 4);
+    return SCORE_CHANGE_EVENT_STRING + id + score;
+}
 Event EventSerializer::createSpawnNotMovableEvent(std::string eventString) {
     int t = std::stoi(eventString.substr (3, 3));
     int x = std::stoi(eventString.substr (6, 3));
@@ -326,6 +370,8 @@ Event EventSerializer::deserialize(std::string eventString) {
             return createSpawnNotMovableEvent(eventString);
         case CREATE_MAP_EVENT:
             return createCreateMapEvent(eventString);
+        case SPAWN_EVENT:
+            return createSpawnEvent(eventString);
         default:
             return event;
             break;

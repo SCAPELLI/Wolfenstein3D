@@ -101,6 +101,7 @@ public:
     static Event createQuitEvent(std::string eventString);
     static Event createShootingEvent(std::string eventString);
     static Event createTurnEvent(std::string eventString);
+    static Event createSpawnEvent(std::string eventString);
 
     static Event deserialize(std::string eventString);
 
@@ -127,6 +128,7 @@ public:
     static std::string serialize(ShootingEvent& event);
     static std::string serialize(TurnEvent& event);
     static std::string serialize(Event& event);
+    static std::string serialize(SpawnEvent& event);
 };
 
 #endif
