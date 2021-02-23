@@ -1,7 +1,7 @@
 #include <editor/include/MenuWindow.h>
 #include <iostream>
 #include <editor/include/EditorScreen.h>
-#include "/include/ScreenManager.h"
+#include "client/include/ScreenManager.h"
 #include "client/ui/ui_ScreenManager.h"
 
 ScreenManager::ScreenManager(QWidget *parent)
