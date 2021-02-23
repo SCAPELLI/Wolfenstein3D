@@ -4,7 +4,7 @@
 #include <queue>
 #include <mutex>
 
-class Event;
+#include "Event.h"
 class EventsCatcher;
 
 class ProtectedEventsQueue {

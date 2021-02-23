@@ -2,6 +2,7 @@
 #include "ProtectedEventsQueue.h"
 #include "EventsCatcher.h"
 
+
 void ProtectedEventsQueue::insertEvents(EventsCatcher& eventsCatcher) {
     std::lock_guard<std::mutex> lock(mutex);
     events = std::move(eventsCatcher.getEvents());
