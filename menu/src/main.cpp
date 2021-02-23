@@ -1,9 +1,9 @@
+
 #include <iostream>
 #include <QtWidgets/QApplication>
 #include <MenuScreen.h>
 #include <ScreenManager.h>
 #include <StartScreen.h>
-#include <ScoreWindow.h>
 
 int initQt(int argc, char *argv[], Client *client) {
     QApplication app(argc, argv);
@@ -14,6 +14,21 @@ int initQt(int argc, char *argv[], Client *client) {
 }
 
 int main(int argc, char *argv[]) {
+
+    /**
+    QApplication app(argc, argv);
+     **/
+    /**
+    MenuScreen menuScreen;
+    menuScreen.show();
+     **/
+/**
+     ScreenManager screenManager;
+     screenManager.show();
+    return app.exec()''
+**/
+
+/////////////////
     try {
         Client client;
         initQt(argc, argv, &client);
