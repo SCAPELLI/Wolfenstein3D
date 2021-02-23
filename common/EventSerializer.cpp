@@ -91,16 +91,18 @@ Event EventSerializer::createPositionEvent(std::string eventString) {
 }
 
 Event EventSerializer::createAmmoChangeEvent(std::string eventString) {
-    //EEEBBBBBBBBB
+    //EEEIIIBBBBBBBBB
+    //id (3 bytes)
     //ammo (9 bytes)
-    int ammo = std::stoi(eventString.substr (3, 9));
+    int id = std::stoi(eventString.substr (3, 3));
+    int ammo = std::stoi(eventString.substr (6, 9));
 
-    AmmoChangeEvent event(AmmoChangeType, 1, ammo);
+    AmmoChangeEvent event(AmmoChangeType, id, ammo);
     return Event(&event, AmmoChangeType);
 }
 
 Event EventSerializer::createChangeWeaponEvent(std::string eventString) {
-    //EEEPPPTTT
+    //PPPTTT
     //type (3 bytes)
     int playerId = std::stoi(eventString.substr (3, 3));
     int type = std::stoi(eventString.substr (6, 3));
@@ -280,25 +282,25 @@ std::string EventSerializer::serialize(DoorOpenedEvent& event) {
 }
 
 Event EventSerializer::createHealthChangeEvent(std::string eventString) {
-    //EEEXXXXXXYYYYYY
+    //EEEIIIHHHHHH
     //health (6 bytes)
     //playerId (3 bytes)
-    int health = std::stoi(eventString.substr (3, 9));
-    int playerId = std::stoi(eventString.substr (9, 12));
+    int playerId = std::stoi(eventString.substr (3, 3));
+    int health = std::stoi(eventString.substr (6, 6));
 
-    HealthChangeEvent event(HealthChangeType, 1, health); //hardcode
+    HealthChangeEvent event(HealthChangeType, playerId, health);
     event.idPlayer = playerId;
     return Event(&event, HealthChangeType);
 }
 
 std::string EventSerializer::serialize(HealthChangeEvent& event) {
+    std::string idPLayer = std::to_string(event.idPlayer);
+    addZerosToLeft(idPLayer, 3);
+
     std::string health = std::to_string(event.health);
     addZerosToLeft(health, 6);
 
-    std::string playerId = std::to_string(event.idPlayer);
-    addZerosToLeft(playerId, 3);
-
-    return HEALTH_CHANGE_EVENT_STRING + health + playerId;
+    return HEALTH_CHANGE_EVENT_STRING + idPLayer + health;
 }
 
 Event EventSerializer::createKillEvent(std::string eventString) {
@@ -318,28 +320,32 @@ std::string EventSerializer::serialize(KillEvent& event) {
 }
 
 Event EventSerializer::createPickUpKeyEvent(std::string eventString) {
-    //EEE
-    PickUpKeyEvent event(PickUpKeyType, 1);
+    //EEEIII
+    int playerId = std::stoi(eventString.substr (3, 6));
+    PickUpKeyEvent event(PickUpKeyType, playerId);
     return Event(&event, PickUpKeyType);
 }
 
 std::string EventSerializer::serialize(PickUpKeyEvent& event) {
-    return PICK_UP_KEY_EVENT_STRING;
+    std::string playerId = std::to_string(event.idPlayer);
+    addZerosToLeft(playerId, 3);
+    return PICK_UP_KEY_EVENT_STRING + playerId;
 }
 
 Event EventSerializer::createPickUpWeaponEvent(std::string eventString) {
     //EEEPPP
     int playerId = std::stoi(eventString.substr (3, 6));
 
-    PickUpKeyEvent event(PickUpWeaponType, 1);
+    PickUpKeyEvent event(PickUpWeaponType, playerId);
     return Event(&event, PickUpWeaponType);
 }
 
 std::string EventSerializer::serialize(PickUpWeaponEvent& event) {
+    std::string idPlayer = std::to_string(event.idPlayer);
     std::string response = std::to_string(event.uniqueId);
     addZerosToLeft(response, 3);
 
-    return PICK_UP_WEAPON_EVENT_STRING + response;
+    return PICK_UP_WEAPON_EVENT_STRING + idPlayer + response;
 }
 
 Event EventSerializer::deserialize(std::string eventString) {
@@ -407,10 +413,12 @@ void EventSerializer::addZerosToRight(std::string& string, int finalSize) {
 }
 
 std::string EventSerializer::serialize(AmmoChangeEvent& event) {
+    std::string id = std::to_string(event.idPlayer);
+    addZerosToLeft(id, 3);
     std::string ammo = std::to_string(event.ammo);
     addZerosToLeft(ammo, 9);
 
-    return AMMO_CHANGE_EVENT_STRING + ammo;
+    return AMMO_CHANGE_EVENT_STRING + id + ammo;
 }
 
 std::string EventSerializer::serialize(MovementEvent& event) {
