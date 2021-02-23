@@ -6,7 +6,6 @@ Trabajo práctico final - El juego
 ## Librerías:
 
 ### YAML:
-- apt install libyaml-cpp-dev
 
 ### SDL:
 - apt-cache search libsdl2
@@ -43,14 +42,24 @@ la cual quedará marcado y será perseguido hasta ser eliminado.
 - Estrategia: La ai persigue al jugador una vez que se encuentra a una distancia suficientemente cercana. 
 La estrategia implementada consiste en modelar todas las posiciones transitables del mapa como nodos de un grafo, 
 en donde los nodos son adyacentes si se trata de dos posiciones consecutivas del mapa.
-A partir de este grafo, se definio una nueva estructura con informacion de los pasos ideales que se deben dar si el jugador marcado se encuentra en x posicion 
-para llegar a y posicion. La manera de recolectar esta informacion se baso en el Algoritmo de Dijkstra para la obtencion de caminos minimos de grafos ponderados, donde se consideró 
+A partir de este grafo, se definio una estructura con informacion de los pasos ideales que se deben dar si el jugador marcado se encuentra en A posicion 
+para y el bot enemigo se encuentra en la posicion B.
+
+  Ejemplo de mapa con jugador y bot:
+
+  ![ai_0](https://github.com/SCAPELLI/Wolfenstein3D/blob/main/images/ai_0.png?raw=true)
+
+  Interpretacion del mapa como grafo:
+  
+  ![ai_1](https://github.com/SCAPELLI/Wolfenstein3D/blob/main/images/ai_1.png?raw=true)
+
+
+ La manera de recolectar esta informacion se baso en el Algoritmo de Dijkstra para la obtencion de caminos minimos de grafos ponderados, donde se consideró 
 que el peso de cada arista era 1.
 Esta informacion se recolecta en la etapa previa al comienzo de una partida. de forma tal que durante el desarrollo del juego, se modelò una interfaz entre c++ 
 y lua la cual consistia en que desde el programa en c++ se le envia a lua las posiciones de los jugadores y la maquina virtual de lua decide e informa la accion 
 pertinente a tomar
 
-![ai_0](https://github.com/SCAPELLI/Wolfenstein3D/blob/main/images/ai_0.png?raw=true)
 
 ## Editor:
 
