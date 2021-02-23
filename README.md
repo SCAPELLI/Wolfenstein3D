@@ -1,7 +1,34 @@
 # Wolfenstein3D
 Trabajo práctico final - El juego
 
-## Introducción
+## Instrucciones de compilacion del realese "monohilo_funcional" desde raiz /Wolfenstein3D-monohilo_funcional/
+### Para compilar y ejecutar el programa ServiCliente
+    cd cmake-build-debug
+    cmake ..
+    make
+    ./Wolf
+### Para compilar y ejecutar el programa Servidor
+    cd communications
+    cd server
+    mkdir build
+    cd build
+    cmake ..
+    make
+    ./Server
+### Para compilar y ejecutar el programa Cliente
+    cd menu
+    mkdir build
+    cd build
+    cmake ..
+    make
+    ./menu
+### Para compilar y ejecutar el programa Editor
+    cd Editor
+    mkdir build
+    cd build
+    cmake ..
+    make
+    ./Editor
 
 ## Librerías:
 
