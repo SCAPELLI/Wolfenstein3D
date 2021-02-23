@@ -20,6 +20,7 @@ Esta informacion se recolecta en la etapa previa al comienzo de una partida. de 
 y lua la cual consistia en que desde el programa en c++ se le envia a lua las posiciones de los jugadores y la maquina virtual de lua decide e informa la accion 
 pertinente a tomar  
 
+![ai_0](https://github.com/SCAPELLI/Wolfenstein3D/blob/main/images/ai_0.png?raw=true)
 -
 
 
