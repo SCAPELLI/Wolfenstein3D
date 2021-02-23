@@ -30,10 +30,6 @@ Trabajo práctico final - El juego
     make
     ./Editor
 
-## Librerías:
-
-### YAML:
-
 ### SDL:
 - apt-cache search libsdl2
 - apt-get install libsdl2-dev
@@ -47,12 +43,6 @@ Trabajo práctico final - El juego
 - sudo apt-get install qtcreator
 - sudo apt-get install qt5-default
 
-### LUA:
-
-## Cliente:
-
-## Servidor:
-
 ## Lógica:
 
 - La lógica del juego se desarrolló en la clase Game interactuando con el mapa del juego y los jugadores, desarrollando las acciones que fueron recibidas del GameStage. El GameStage se encarga de recibir los eventos del Match y  a su vez de encolar a las colas de usuarios los eventos generados a lo largo de la lógíca del juego.  
@@ -61,6 +51,7 @@ Trabajo práctico final - El juego
 - Para el caso de las armas y los disparos, se verificaba primero si se podía realizar el disparo o no. Para esto primero se verificaba el arma que se estaba utilizando y si ésta contenía las balas necesarias para realizar el disparo, kuego se lanzaba un rayo de implementación parecida al cliente para poder verificar la distancia a la pared a donde está mirando el jugador y verificando a su vez la distancia con los otros jugadores para saber si le puede impactar o no.
 
 ## Comunicaciones:
+   ![communication_diagram](https://github.com/SCAPELLI/Wolfenstein3D/blob/main/images/communicationsThreads.png?raw=true)
 
 ## Ai
 - Objetivo: Implementar un enemigo controlado por el juego, su funcion serà perseguir y atacar al primer jugador que se acerque a una distancia minima a partir de 
