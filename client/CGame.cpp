@@ -2,19 +2,19 @@
 #include <string>
 #include <utility>
 #include "common/TurnEvent.h"
-#include "ServerEvents/PositionEvent.h"
-#include "ServerEvents/DoorOpenedEvent.h"
-#include "ServerEvents/SpawnEvent.h"
+#include "../common/ServerEvents/PositionEvent.h"
+#include "../common/ServerEvents/DoorOpenedEvent.h"
+#include "../common/ServerEvents/SpawnEvent.h"
 #include "common/ShootingEvent.h"
-#include "ServerEvents/ChangeWeaponEvent.h"
-#include "ServerEvents/DespawnEvent.h"
-#include "ServerEvents/CreateMapEvent.h"
-#include "ServerEvents/SpawnNotMovableEvent.h"
-#include "ServerEvents/ScoreChangeEvent.h"
-#include "ServerEvents/AmmoChangeEvent.h"
-#include "ServerEvents/HealthChangeEvent.h"
-#include "ServerEvents/GameOverEvent.h"
-#include "ServerEvents/KillEvent.h"
+#include "../common/ServerEvents/ChangeWeaponEvent.h"
+#include "../common/ServerEvents/DespawnEvent.h"
+#include "../common/ServerEvents/CreateMapEvent.h"
+#include "../common/ServerEvents/SpawnNotMovableEvent.h"
+#include "../common/ServerEvents/ScoreChangeEvent.h"
+#include "../common/ServerEvents/AmmoChangeEvent.h"
+#include "../common/ServerEvents/HealthChangeEvent.h"
+#include "../common/ServerEvents/GameOverEvent.h"
+#include "../common/ServerEvents/KillEvent.h"
 
 #define PICKUP_SOUND 7
 

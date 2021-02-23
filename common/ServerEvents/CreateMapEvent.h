@@ -4,9 +4,9 @@
 #define CREATEMAPEVENT_H
 
 #include "client/CGame.h"
-#include "Constants.h"
-#include "AbstractEvent.h"
-#include "Vector.h"
+#include "../Constants.h"
+#include "../AbstractEvent.h"
+#include "../../server/Vector.h"
 #include <vector>
 class CreateMapEvent   : public AbstractEvent{
 

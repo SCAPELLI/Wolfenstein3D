@@ -3,8 +3,8 @@
 
 #include "../AbstractEvent.h"
 #include "client/CGame.h"
-#include "Player.h"
-#include "Event.h"
+#include "../server/Player.h"
+#include "../Event.h"
 
 class PositionEvent : public AbstractEvent {
 public:

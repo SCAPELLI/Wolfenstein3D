@@ -3,7 +3,7 @@
 #ifndef LIFEGAINITEM_H
 #define LIFEGAINITEM_H
 
-#include "Item.h"
+#include "../Item.h"
 class LifeGainItem : public Item {
 private:
     int id;
