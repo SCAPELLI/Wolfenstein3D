@@ -1,7 +1,7 @@
 #include <QtWidgets/QStyleOption>
-#include "StartScreen.h"
+#include "client/include/StartScreen.h"
 #include "qpainter.h"
-#include "ui_StartScreen.h"
+#include "client/ui/ui_StartScreen.h"
 #include "../../common/Style.h"
 
 

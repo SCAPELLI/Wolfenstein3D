@@ -1,7 +1,7 @@
 
 
 #include "HealthChangeEvent.h"
-#include "../cliente/CGame.h"
+#include "client/CGame.h"
 HealthChangeEvent::HealthChangeEvent (updateEventType eventType, int health)
 : health(health), eventType(eventType){}
 

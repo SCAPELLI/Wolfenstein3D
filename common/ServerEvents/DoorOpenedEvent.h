@@ -3,7 +3,7 @@
 #ifndef DOOROPENEDEVENT_H
 #define DOOROPENEDEVENT_H
 #include "../AbstractEvent.h"
-#include "Event.h"
+#include "common/Event.h"
 
 
 class DoorOpenedEvent  : public AbstractEvent{

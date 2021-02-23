@@ -1,8 +1,8 @@
-#include <MenuWindow.h>
+#include <editor/include/MenuWindow.h>
 #include <iostream>
-#include <EditorScreen.h>
-#include "../include/ScreenManager.h"
-#include "ui_ScreenManager.h"
+#include <editor/include/EditorScreen.h>
+#include "/include/ScreenManager.h"
+#include "client/ui/ui_ScreenManager.h"
 
 ScreenManager::ScreenManager(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::ScreenManager) {

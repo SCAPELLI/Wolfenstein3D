@@ -1,8 +1,8 @@
 #include <iostream>
 #include <QtWidgets/QApplication>
-#include <MenuScreen.h>
-#include <ScreenManager.h>
-#include <StartScreen.h>
+#include <client/include/MenuScreen.h>
+#include <client/include/ScreenManager.h>
+#include <client/include/StartScreen.h>
 
 int initQt(int argc, char *argv[], Client *client) {
     QApplication app(argc, argv);

@@ -1,8 +1,8 @@
 #include <vector>
-#include "../include/CommunicationChannelClient.h"
-#include "../../communications/common/include/Exception.h"
-#include "../../communications/common/include/Socket.h"
-#include "../../communications/common/include/MatchInfo.h"
+#include "client/include/CommunicationChannelClient.h"
+#include "common/include/Exception.h"
+#include "common/include/Socket.h"
+#include "common/include/MatchInfo.h"
 
 const int USER_NAME_SUBMIT = 0;
 const str USER_NAME_SUBMIT_STRING = "000";

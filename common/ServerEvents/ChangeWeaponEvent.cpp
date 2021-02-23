@@ -1,5 +1,3 @@
-
-
 #include "ChangeWeaponEvent.h"
 #include "common/Event.h"
 #include "client/CGame.h"

@@ -1,6 +1,6 @@
-#include "NicknameScreen.h"
+#include "client/include/NicknameScreen.h"
 
-#include "ui_NicknameScreen.h"
+#include "client/ui/ui_NicknameScreen.h"
 #include "../../common/Style.h"
 #include "qpainter.h"
 #include <QPaintEvent>

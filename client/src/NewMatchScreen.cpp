@@ -1,7 +1,7 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QComboBox>
-#include "NewMatchScreen.h"
-#include "ui_NewMatchScreen.h"
+#include "client/include/NewMatchScreen.h"
+#include "client/ui/ui_NewMatchScreen.h"
 #include "../../common/Style.h"
 
 #define BUTTON_FONT 20

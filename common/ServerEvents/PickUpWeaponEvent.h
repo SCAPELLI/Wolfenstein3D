@@ -3,7 +3,7 @@
 #ifndef CAMERA_CPP_PICKUPWEAPONEVENT_H
 #define CAMERA_CPP_PICKUPWEAPONEVENT_H
 #include "../AbstractEvent.h"
-#include "Event.h"
+#include "common/Event.h"
 
 class PickUpWeaponEvent  : public AbstractEvent{
     int uniqueId;

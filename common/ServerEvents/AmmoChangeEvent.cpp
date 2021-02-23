@@ -1,5 +1,5 @@
 #include "AmmoChangeEvent.h"
-#include "cliente/CGame.h"
+#include "client/CGame.h"
 
 AmmoChangeEvent::AmmoChangeEvent (updateEventType eventType, int ammo)
 : eventType(eventType), ammo(ammo){}

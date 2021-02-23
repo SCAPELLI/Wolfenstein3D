@@ -3,10 +3,10 @@
 #ifndef CREATEMAPEVENT_H
 #define CREATEMAPEVENT_H
 
-#include "../cliente/CGame.h"
-#include "Constants.h"
-#include "AbstractEvent.h"
-#include "Vector.h"
+#include "client/CGame.h"
+#include "common/Constants.h"
+#include "common/AbstractEvent.h"
+#include "client/Vector.h"
 #include <vector>
 class CreateMapEvent   : public AbstractEvent{
 

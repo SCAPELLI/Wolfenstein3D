@@ -2,9 +2,9 @@
 #include <QtWidgets/QLineEdit>
 #include <iostream>
 #include <QtGui/QPainter>
-#include "InfoScreen.h"
-#include "ui_InfoScreen.h"
-#include "../../common/Style.h"
+#include "client/include/InfoScreen.h"
+#include "client/ui/ui_InfoScreen.h"
+#include "common/Style.h"
 
 #define BUTTON_FONT 20
 #define BUTTON_HEIGHT 50

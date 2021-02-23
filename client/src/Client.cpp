@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Client.h"
-#include "../../communications/client/include/TCPClient.h"
-#include "../../communications/client/include/CommunicationChannelClient.h"
+#include "client/include/Client.h"
+#include "client/include/TCPClient.h"
+#include "client/include/CommunicationChannelClient.h"
 
 Client::Client() {
     channel = new CommunicationChannelClient(userSocket);

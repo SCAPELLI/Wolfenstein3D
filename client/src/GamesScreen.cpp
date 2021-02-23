@@ -8,8 +8,8 @@
 #include <QtGui/QPainter>
 #include <QtWidgets/QMessageBox>
 #include <unistd.h>
-#include "GamesScreen.h"
-#include "ui_GamesScreen.h"
+#include "client/include/GamesScreen.h"
+#include "client/ui/ui_GamesScreen.h"
 #include "../../common/Style.h"
 
 #define MAPA 0

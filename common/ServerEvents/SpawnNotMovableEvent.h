@@ -2,7 +2,7 @@
 
 #ifndef CAMERA_CPP_SPAWNNOTMOVABLEEVENT_H
 #define CAMERA_CPP_SPAWNNOTMOVABLEEVENT_H
-#include "AbstractEvent.h"
+#include "common/AbstractEvent.h"
 
 class SpawnNotMovableEvent : public AbstractEvent {
     updateEventType eventType;

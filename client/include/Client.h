@@ -4,8 +4,8 @@
 
 #include <string>
 #include <vector>
-#include "../../communications/common/include/MatchInfo.h"
-#include "../../communications/common/include/Socket.h"
+#include "common/include/MatchInfo.h"
+#include "common/include/Socket.h"
 
 class CommunicationChannelClient;
 

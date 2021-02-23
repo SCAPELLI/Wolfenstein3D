@@ -2,7 +2,7 @@
 #include <QtGui/QFontDatabase>
 #include <QtWidgets/QLineEdit>
 #include "../include/MenuScreen.h"
-#include "ui_MenuScreen.h"
+#include "client/ui/ui_MenuScreen.h"
 
 #define MENU_SCREEN 0
 #define NICKNAME_SCREEN 1

@@ -1,12 +1,12 @@
-#include <StartScreen.h>
-#include <NicknameScreen.h>
-#include <GamesScreen.h>
-#include <NewMatchScreen.h>
-#include <InfoScreen.h>
-#include <WaitingRoomScreen.h>
+#include <client/include/StartScreen.h>
+#include <client/include/NicknameScreen.h>
+#include <client/include/GamesScreen.h>
+#include <client/include/NewMatchScreen.h>
+#include <client/include/InfoScreen.h>
+#include <client/include/WaitingRoomScreen.h>
 #include <QtGui/QPainter>
-#include "ScreenManager.h"
-#include "ui_ScreenManager.h"
+#include "client/include/ScreenManager.h"
+#include "client/ui/ui_ScreenManager.h"
 
 
 ScreenManager::ScreenManager(QWidget *parent, Client *client)

@@ -26,7 +26,6 @@ add_library(common
         ServerEvents/SpawnNotMovableEvent.cpp
         
         src/IPAddresses.cpp
-        src/Exception.cpp
         src/Socket.cpp
         src/MatchInfo.cpp
         src/Thread.cpp)
