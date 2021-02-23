@@ -3,7 +3,7 @@
 #define OPENDOOREVENT_H
 #include "AbstractEvent.h"
 class GameStage;
-
+/* Evento enviado por el usuario para indicar que quiere abrir una puerta*/
 class OpenDoorEvent : public AbstractEvent {
 public:
     int idPlayer;

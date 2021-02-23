@@ -7,7 +7,7 @@
 #include "Renderable.h"
 #include "SDL2/SDL.h"
 
-
+/*Clase que anima los sprites*/
 class AnimatedSprite {
     int animatedTime, currentTime;
     std::vector<Renderable> sprites;

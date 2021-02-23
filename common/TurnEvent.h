@@ -4,7 +4,7 @@
 #include "AbstractEvent.h"
 #include "../server/GameStage.h"
 #include "client/CGame.h"
-
+/*Evento de giro*/
 enum TurningSense {ANTICLOCKWISE, CLOCKWISE};
 
 class TurnEvent: public AbstractEvent {

@@ -6,7 +6,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QListWidget>
-
+/* Clase para decorar menu, editor y pantalla de inicio */
 class Style {
     public:
         void setRetroFont(QWidget *widget, size_t fontSize);

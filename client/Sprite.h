@@ -4,7 +4,7 @@
 #include <string>
 #include "SDL2/SDL.h"
 #include <vector>
-
+/* Clase con todos los datos del sprite y que realiza operaciones del mismo*/
 class Sprite{
 	int h, w;
 	SDL_Texture* texture;

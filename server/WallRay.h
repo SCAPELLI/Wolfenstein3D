@@ -5,7 +5,7 @@
 #include "Vector.h"
 #include <vector>
 #include "Map.h"
-
+/* Lanza rayos para calcular la distancia del jugador a la pared a donde está mirando */
 class WallRay {
     Vector startPoint;
     Vector direction;

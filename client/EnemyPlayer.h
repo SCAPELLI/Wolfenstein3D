@@ -4,7 +4,7 @@
 #include "AnimatedSprite.h"
 #include "Vector.h"
 #include "BagOfSprites.h"
-
+/* Jugadores que no son cliente y se visualizan como enemigos*/
 class EnemyPlayer {
 
     SDL_Renderer* renderer;

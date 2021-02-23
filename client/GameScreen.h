@@ -8,7 +8,7 @@
 #include "CPlayer.h"
 #include "UI.h"
 #include <map>
-
+/* Pantalla del juego*/
 class GameScreen{
 	CPlayer* activePlayer;
 	UI* ui;

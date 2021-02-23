@@ -3,7 +3,7 @@
 
 #include <SDL_mixer.h>
 #include <vector>
-
+/* Manejador de los sonidos del cliente*/
 class SoundManager {
     Mix_Music* music;
     bool musicIsPlaying;

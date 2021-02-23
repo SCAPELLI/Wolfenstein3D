@@ -4,7 +4,7 @@
 #include "../../common/include/Thread.h"
 #include "../../common/include/Socket.h"
 #include "../../common/BlockingEventsQueue.h"
-
+/*Thread que se encarga de mandar información*/
 class SenderThread: public Thread{
     bool isDone;
     Socket* skt;

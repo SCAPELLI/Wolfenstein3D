@@ -6,7 +6,7 @@
 #include <vector>
 class Sprite;
 class Player;
-
+/* Clase madre que representa un item*/
 class Item {
     int id;
     std::string name;

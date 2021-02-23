@@ -5,7 +5,7 @@
 #include "AbstractEvent.h"
 #include "Constants.h"
 
-
+/*Eventos del juego*/
 class Event {
 public:
     AbstractEvent* event;
