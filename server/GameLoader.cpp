@@ -15,18 +15,6 @@ GameLoader::GameLoader() : uniqueId(1){
     map = YAML::LoadFile("../../server/maps/1.yaml");
 }
 
-
-void GameLoader::readData(int& speed){
-    YAML::Node matrix = map["map"];
-    speed = map["speed"].as<int>();
-}
-
-int GameLoader::assignUniqueId(){
-    int idToAssign = uniqueId;
-    uniqueId++;
-    return idToAssign;
-}
-
 Item* GameLoader::itemLoader(int& idItem) {
     std::string elem = sprites["items"][idItem]["type"].as<std::string>();
     int value = sprites["items"][idItem]["value"].as<int>();
@@ -108,7 +96,7 @@ Item* GameLoader::weaponLoader(std::string &itemName) {
             YAML::Node data = idConfig["Weapons"][itemName];
             Item *item = new Weapon(it->first.as<int>()
                                     - 49, itemName, uniqueId, data["damage"].as<int>(),
-                                    data["minBullets"].as<int>(), data["cooldownTimer"].as<int>());
+                        data["minBullets"].as<int>(), data["cooldownTimer"].as<int>());
             uniqueId++;
             return item;
         }

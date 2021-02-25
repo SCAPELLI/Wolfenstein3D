@@ -18,7 +18,7 @@ Game::Game( std::vector<AbstractEvent*>& newEvents,
             std::map<int, std::string>& playersNames, int levelId)
             :     levelId(levelId){
     GameLoader yaml;
-    yaml.readData(speed);
+    //yaml.readData(speed);
     int cont = 0;
     for (auto it=playersNames.begin(); it!=playersNames.end(); ++it){
         ids[it->first] = cont;
@@ -38,7 +38,8 @@ Game::Game() {}
 
 Vector Game::calculateDirection(int idPlayer){
     return Vector(-sin(players[ids[idPlayer]].getAngle()),
-                  cos(players[ids[idPlayer]].getAngle())) * speed;
+                  cos(players[ids[idPlayer]].getAngle()))
+                  * players[ids[idPlayer]].getSpeed();
 }
 
 void Game::moveAngle(double angle, int idPlayer){
@@ -59,7 +60,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     int distanceToWall = ray.distanceToWall(map);
     if (players[ids[idPlayer]].hasRocketLauncher()){
         Rocket* rocket = players[ids[idPlayer]].setRocket();
-        Vector shotDirection = calculateDirection(idPlayer) / speed;
+        Vector shotDirection = calculateDirection(idPlayer) / players[ids[idPlayer]].getSpeed();
         map.launchRocket(rocket, shotDirection, newEvents);
         return -1;
     }
@@ -72,55 +73,37 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
                 continue;
             int damage = players[ids[idPlayer]].hits(players[i]) + 70;
             int newHp = players[i].getDamage(damage);
-            if (players[i].isGameOver()) {
-                players[ids[idPlayer]].updateKills();
-                map.dropAllItems(players[i], newEvents);
-                std::map<std::string, std::vector<int>> highscores;
-                getHighscores(highscores);
-                AbstractEvent *event = new GameOverEvent(GameOverEventType,
-                                                         ids[i], highscores);
-                newEvents.push_back(event);
-            }
-            else if (players[i].isDead()){
-                players[ids[idPlayer]].updateKills();
-                AbstractEvent* event = new KillEvent(KillEventType, players[i].getId());
-                newEvents.push_back(event);
-                map.dropAllItems(players[i], newEvents);
-                respawnPlayer(players[i].getId(), newEvents);
-            }
-            else{
-                AbstractEvent* event = new HealthChangeEvent(HealthChangeType,
-                                                             players[i].getId(), newHp);
-                newEvents.push_back(event);
-            }
+            reactToDamage(i, idPlayer, newEvents);
             return i;// devolves a quien le pegaste
         }
     }
     return -1;
 }
-//
-//bool Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents ){
-//    if (players[damaged].isGameOver()) {
-//        players[ids[sender]].updateKills();
-//        map.dropAllItems(players[damaged], newEvents);
-//        std::map<std::string, std::vector<int>> highscores;
-//        getHighscores(highscores);
-//        AbstractEvent *event = new GameOverEvent(GameOverEventType,
-//                                                 ids[damaged], highscores);
-//        newEvents.push_back(event);
-//    }
-//    else if (players[damaged].isDead()){
-//        players[ids[sender]].updateKills();
-//        AbstractEvent* event = new KillEvent(KillEventType, ids[damaged]);
-//        newEvents.push_back(event);
-//        map.dropAllItems(players[damaged], newEvents);// borrar directamente player aca?
-//        respawnPlayer(ids[damaged], newEvents);
-//    }
-//    else{
-//        AbstractEvent* event = new HealthChangeEvent(HealthChangeType, players[damaged].getHealth());
-//        newEvents.push_back(event);
-//    }
-//}
+
+bool Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents ){
+    if (players[damaged].isGameOver()) {
+        players[ids[sender]].updateKills();
+        map.dropAllItems(players[damaged], newEvents);
+        std::map<std::string, std::vector<int>> highscores;
+        getHighscores(highscores);
+        AbstractEvent *event = new GameOverEvent(GameOverEventType,
+                                                 ids[damaged], highscores);
+        newEvents.push_back(event);
+    }
+    else if (players[damaged].isDead()){
+        players[ids[sender]].updateKills();
+        AbstractEvent* event = new KillEvent(KillEventType, ids[damaged]);
+        newEvents.push_back(event);
+        map.dropAllItems(players[damaged], newEvents);// borrar directamente player aca?
+        respawnPlayer(ids[damaged], newEvents);
+    }
+    else{
+        AbstractEvent* event = new HealthChangeEvent(HealthChangeType,
+                                                     players[damaged].getId(),
+                                                     players[damaged].getHealth());
+        newEvents.push_back(event);
+    }
+}
 
 void Game::getHighscores(std::map<std::string, std::vector<int>>& names){
     std::vector<int> highscores;

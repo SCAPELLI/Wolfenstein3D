@@ -15,9 +15,7 @@ class GameLoader{
     YAML::Node map;
 public:
     GameLoader();
-    void readData(int& speed);
     Item* itemLoader(int& idItem);
-    int assignUniqueId();
     Item* weaponLoader(int& idItem);
     Item* weaponLoader(std::string& itemName);
     OpenableItem* setTexture(int& idItem);

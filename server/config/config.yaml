@@ -4,6 +4,7 @@ Player:
   radius: 2
   angle: 0
   bullets: 8
+  speed: 5
   key: 0
   maxBullets: 50
   bulletsShot: 0

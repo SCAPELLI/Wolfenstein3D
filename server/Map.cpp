@@ -1,12 +1,8 @@
 #include "Map.h"
 #include <yaml-cpp/yaml.h>
 #include "Player.h"
-#include <random>
 #include <vector>
-#include <iostream>
 #include "CellMap.h"
-#include "../common/Constants.h"
-#include "GameLoader.h"
 #include "../common/ServerEvents/SpawnEvent.h"
 #include "../common/ServerEvents/CreateMapEvent.h"
 #include "../common/ServerEvents/SpawnNotMovableEvent.h"

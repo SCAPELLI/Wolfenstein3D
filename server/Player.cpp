@@ -36,25 +36,21 @@ Player::Player(int parsed_id, int relativeId, std::string name, Vector position)
 void Player::initializePlayer(bool dead){
     YAML::Node fileNode = YAML::LoadFile("../../server/config/config.yaml");
     GameLoader yamlItems;
-    if (!dead){
+    if (!dead) {
         lifes = fileNode["Player"]["lifes"].as<int>();
         bulletsShot = fileNode["Player"]["bulletsShot"].as<int>();
         playersKilled = fileNode["Player"]["playersKilled"].as<int>();
         score = fileNode["Player"]["score"].as<int>();
-        int cont = 0;
-        for (YAML::const_iterator it=fileNode["Weapons"].begin();
-             it != fileNode["Weapons"].end(); ++it){
-            std::string weaponType = it->first.as<std::string>();
-            if(weaponType == "knife" || weaponType == "pistol"){
-                YAML::Node data = fileNode["Weapons"][it->first.as<std::string>()];
-                auto equip = Weapon(cont, weaponType, 0, data["damage"].as<int>(),
-                                    data["minBullets"].as<int>(),
-                                    data["cooldownTimer"].as<int>());
-                bag.insert(std::make_pair(cont, equip));
-                idWeapon = cont;
-            }
-            cont++;
-        }
+        YAML::Node knifeNode = fileNode["Weapons"]["knife"];
+        std::string nameWeapon = "knife";
+        auto knife = Weapon(0, nameWeapon, 0, knifeNode["damage"].as<int>(),
+          knifeNode["minBullets"].as<int>(), knifeNode["cooldownTimer"].as<int>());
+        YAML::Node pistolNode = fileNode["Weapons"]["pistol"];
+        std::string nameWeapon2 = "pistol";
+        auto pistol = Weapon(1, nameWeapon2, 0, pistolNode["damage"].as<int>(),
+          pistolNode["minBullets"].as<int>(), pistolNode["cooldownTimer"].as<int>());
+        bag[0] =  knife;
+        bag[1] =  pistol;
     }
     maxBullets = fileNode["Player"]["maxBullets"].as<int>();
     health = fileNode["Player"]["health"].as<int>();
@@ -62,6 +58,7 @@ void Player::initializePlayer(bool dead){
     bullets = fileNode["Player"]["bullets"].as<int>();
     keys = fileNode["Player"]["key"].as<int>();
     angle = fileNode["Player"]["angle"].as<double>();
+    speed = fileNode["Player"]["speed"].as<int>();
 }
 void Player::setPosition(Vector initial){
     initialPosition = initial;
@@ -85,15 +82,9 @@ double Player::getAngle() const {
 double Player::angleWithOther(Player& otherPlayer){
     double angleWithOrigin = otherPlayer.getPosition().angle();
     return position.angle() - angleWithOrigin;
-//    int deltaX = otherPlayer.getPosition().x - position.x; //adyacente
-//    int distanceWith = position.distance(otherPlayer.position);
-//    double angleWithOtherPlayer = acos(deltaX / distanceWith);
-//    double deltaAngle = angleWithOtherPlayer - angle;
-//    if ((deltaAngle)== 0) deltaAngle += 0.01;
-//    return deltaAngle;
 }
 
-int Player::damageCurrentWeapon() { //borrar?
+int Player::damageCurrentWeapon() {
     return bag[idWeapon].getDamage();
 }
 
@@ -104,12 +95,6 @@ void Player::move(Vector& newPos){
 
 int Player::distanceWith(Player& otherPlayer) {
     return position.distance(otherPlayer.getPosition());
-//    int distance = position.distance(otherPlayer.position); //distancia otro jugador
-//    int d = cos(angle) * distance; // opuesto
-//    if (abs(distance - d) < radius + otherPlayer.radius){
-//        return distance;
-//    }
-//    return std::numeric_limits<int>::max();
 }
 void Player::eraseCurrentWeapon(){
     bag.erase(idWeapon);
@@ -173,14 +158,6 @@ bool Player::changeWeaponTo(int idTochange){
 bool Player::hasKey(){
     return keys > 0;
 }
-void Player::resetBagWeapons(){
-    for (auto const& arm : bag) {
-        if (arm.first != 0 && arm.first != 1) //pierde las armas al final???
-            bag.erase(arm.first);
-    }
-    idWeapon = 1;
-    prevIdWeapon = 1;
-}
 
 Weapon Player::getWeapon(){
     return bag[idWeapon];
@@ -195,10 +172,6 @@ void Player::respawn(){
     scaledPosition = initialPosition.scale();
     initializePlayer(dead);
     dead = false;
-}
-
-int Player::getBullets(){
-    return bullets;
 }
 
 int Player::getDamage(int damage) {
@@ -327,5 +300,11 @@ int Player::getScore(){
 }
 std::string Player::getName(){
     return name;
+}
+int Player::getHealth(){
+    return health;
+}
+int Player::getSpeed(){
+    return speed;
 }
 Player::~Player() {}

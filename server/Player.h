@@ -15,21 +15,13 @@
 class Player {
     std::string name;
     int id, relativeId;
-    Vector position;
-    Vector initialPosition;
-    Vector scaledPosition;
+    Vector position , initialPosition, scaledPosition;
     bool dead;
-    int maxBullets, lifes;
-    int health;
-    int radius;
+    int maxBullets, lifes, health, radius, speed;
     double angle;
     std::map<int, Weapon> bag;
-    int idWeapon;
-    int bullets;
-    int score;
-    int keys;
-    int bulletsShot;
-    int playersKilled;
+    int idWeapon, bullets, score, keys;
+    int bulletsShot, playersKilled;
     int prevIdWeapon;
 public:
     /*setea constructor del jugador*/
@@ -71,8 +63,6 @@ public:
     /*Devuelve si el jugador colisionó con otro jugador */
     bool collideWith(int distance, int radius);
     bool pickupWeapon(Weapon weapon, std::vector<AbstractEvent*>& newEvents);
-    void resetBagWeapons();
-    int getBullets();
     void respawn();
     bool isDead();
     bool isGameOver();
@@ -101,6 +91,8 @@ public:
     int getEnemiesKilled();
     int getBulletsShoot();
     int getScore();
+    int getHealth();
+    int getSpeed();
     std::string getName();
     ~Player();
 

@@ -8,7 +8,6 @@
 class Game {
     public:
     int levelId;
-    int speed;
     Map map;
     std::map<int, int> ids;
     std::vector<Player> players;
@@ -24,14 +23,15 @@ public:
     bool changeWeapon(int idPlayer, int idWeapon);
     int getDamage(int idPlyr);
     int shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents);
-    //void decrementLife(int idPlyr);
     bool openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     void getHighscores(std::map<std::string, std::vector<int>>& names);
     void increaseCooldown();
     bool canShoot(int idPlayer, int otherPlayer);
     void respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents);
+    bool reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents);
 
-};
+
+    };
 
 
 #endif //WOLFENSTEIN3D_GAME_H
