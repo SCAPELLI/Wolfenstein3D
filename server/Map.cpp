@@ -124,17 +124,6 @@ bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
     return false;
 }
 
-std::vector<std::vector<CellMap>>& Map::getMatrix() {
-    return matrix;
-}
-void Map::removePlayer(Player& player){
-    Vector positionPlayer = player.getScaledPosition();
-    matrix[positionPlayer.y][positionPlayer.x].removePlayer(player);
-}
-void Map::addPlayer(Player& player){
-    Vector posScaled = Vector((player.getScaledPosition()));
-    matrix[posScaled.y][posScaled.x].addPlayer(player);
-}
 bool Map::isOkToMove(Vector& futurePos){
     return !matrix[futurePos.y][futurePos.x].isSolid() &&
             futurePos.x < width && futurePos.y < height &&
@@ -142,14 +131,9 @@ bool Map::isOkToMove(Vector& futurePos){
             matrix[futurePos.y][futurePos.x].isOpen();
 }
 
-void Map::dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents){ //deberia llamar a newEvents
+void Map::dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents){
     Vector positionPlayer = player.getScaledPosition();
     matrix[positionPlayer.y][positionPlayer.x].dropItems(player, factory, newEvents);
-}
-
-void Map::dropItemPlayer(Player& player, Item itemPlayer){
-    Vector positionPlayer = player.getScaledPosition();
-    matrix[positionPlayer.y][positionPlayer.x].dropItemPlayer(&itemPlayer);
 }
 
  void Map::changePosition(Vector& newPos, Player& player,
