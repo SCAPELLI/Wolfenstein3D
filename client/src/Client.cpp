@@ -9,6 +9,7 @@
 #include "../../server/include/ReceiverThread.h"
 #include "../../server/include/SenderThread.h"
 #include "../../common/include/Message.h"
+#include "../../common/EventSerializer.h"
 
 #define FOV 0.66
 
@@ -101,13 +102,26 @@ bool Client::tryToStartMatch() {
         return false;
     }
 }
+
+void Client::catchEvents(BlockingEventsQueue& senderQueue){
+    SDL_Event sdlEvent;
+    while (SDL_PollEvent(&sdlEvent)){
+        Event event(sdlEvent, userId);
+        Message msg(EventSerializer::serialize(event));
+        if(msg.getMessage() != "") {
+            senderQueue.push(msg);
+        }
+    }
+}
+
 void Client::playMatch() {
     //EventsCatcher eventsCatcher(userId);
     BlockingEventsQueue senderQueue;
     ProtectedEventsQueue receiverQueue;
 
-    ReceiverThread r(&userSocket, receiverQueue);
+    ReceiverThread r(&userSocket, &receiverQueue);
     r.start();
+    SDL_Delay(2000);
 
     bool hasStarted = false;
     while (!hasStarted){
@@ -120,7 +134,7 @@ void Client::playMatch() {
     std::list<Message> messageEvents = receiverQueue.popAll();
     Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
     messageEvents.pop_front(); //ojo si sacas muchos elementos con el popAll acá, hay que procesarlos en algun lado
-    //solo agrego las tres lineas de arriba como ejemplo de como quedo para desencolar.
+                                //solo agrego las tres lineas de arriba como ejemplo de como quedo para desencolar.
 
 
     CreateMapEvent* start = (CreateMapEvent*) (event).event;
@@ -148,15 +162,17 @@ void Client::playMatch() {
     bool quit = false;
     while (!quit) {
 
-        while (!receiverQueue.empty()) {
-            Event event = std::move(receiverQueue.pop());
+        catchEvents(senderQueue);
+        while (!messageEvents.empty()) {
+            Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
+            messageEvents.pop_front();
             event.runHandler(game);
         }
+        messageEvents = receiverQueue.popAll();
         game.draw();
         game.playSounds();
         game.advanceTime();
         quit = game.isOver;
-        senderQueue.insertEvents(eventsCatcher);
         SDL_Delay(33);
     }
 }

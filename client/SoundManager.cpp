@@ -1,7 +1,7 @@
 #include "SoundManager.h"
 #include <string>
 
-#define ROUTE "../client/sounds/"
+#define ROUTE "../../client/sounds/"
 #define EFFECT_EXTENTION ".wav"
 #define MAX_EFFECTS 8
 

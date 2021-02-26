@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <common/BlockingEventsQueue.h>
 #include "common/include/MatchInfo.h"
 #include "common/include/Socket.h"
 
@@ -31,6 +32,8 @@ public:
         bool tryToCancelMatch();
         bool tryToStartMatch();
         void playMatch();
+
+        void catchEvents(BlockingEventsQueue &senderQueue);
 };
 
 

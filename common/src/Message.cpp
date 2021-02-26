@@ -10,7 +10,7 @@ Message& Message::operator=(const Message& aMessage) {
     message = aMessage.message;
     return *this;
 }
-Message::getMessage() {
+std::string Message::getMessage() {
     return message;
 }
 

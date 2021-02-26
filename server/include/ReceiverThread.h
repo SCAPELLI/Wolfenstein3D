@@ -8,10 +8,10 @@
 class ReceiverThread: public Thread{
     bool isDone;
     Socket* skt;
-    ProtectedEventsQueue& receivedBuffer;
+    ProtectedEventsQueue* receivedBuffer;
 
 public:
-    ReceiverThread(Socket* skt, ProtectedEventsQueue& receivedBuffer);
+    ReceiverThread(Socket* skt, ProtectedEventsQueue* receivedBuffer);
     void run() override;
     bool isDead();
     ~ReceiverThread();

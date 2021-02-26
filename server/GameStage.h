@@ -27,7 +27,7 @@ class Event;
 class GameStage {
     std::vector<std::pair<int, std::string>> highScores;
     int levelId;
-    std::vector<BlockingEventsQueue>& queues;
+    std::vector<BlockingEventsQueue>& queues; // ojo que las colas no son referencias pero el vector si, quizas
 //    std::vector< std::string> playersNames; // temporalmente una lista despues en realidad viene de startGame
     Game game;
     std::vector<AbstractEvent*> newEvents;

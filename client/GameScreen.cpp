@@ -36,9 +36,7 @@ void GameScreen::draw(std::vector<std::vector<int>>& map,
     std::vector<std::pair<int, double>> toDraw;
     for (it = renderables.begin(); it != renderables.end(); ++it){
         double distance = it->second.position.distance(activePlayer->getCamera()->getPosition());
-//        if (distance < 150) {
             toDraw.push_back(std::make_pair(it->first, distance));
-//        }
     }
 
     std::map<int, EnemyPlayer*>::iterator itPlayers;
