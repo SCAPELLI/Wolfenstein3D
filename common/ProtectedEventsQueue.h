@@ -1,21 +1,20 @@
 #ifndef PROTECTEDEVENTQUEUE_H
 #define PROTECTEDEVENTQUEUE_H
 
-#include <queue>
 #include <mutex>
-
+#include <list>
 #include "Event.h"
-class EventsCatcher;
+
+class Message;
+
 /* Cola protegida para encolar los eventos*/
 class ProtectedEventsQueue {
-    std::queue<Event> events;
+    std::list<Message> events;
     std::mutex mutex;
 public:
-//    ProtectedEventsQueue();
-    void insertEvents(EventsCatcher& eventsCatcher);
-    Event pop();
+    std::list<Message> popAll();
     bool empty();
-    void push(Event& event);
+    void push(Message& message);
 };
 
 #endif
