@@ -12,25 +12,23 @@ Map::Map(){}
 
 Map::Map(std::vector<Player>& players,
          std::vector<AbstractEvent*>& newEvents, int levelId): factory(){
-    std::vector<std::vector<CellMap>> map;
     std::string pathLevel = "../../server/maps/" + std::to_string(levelId)+ ".yaml";
     YAML::Node config = YAML::LoadFile(pathLevel);
-    YAML::Node matrixConfig = config["map"];
+    std::vector<std::vector<int>> map = config["map"].as<std::vector<std::vector<int>>>();
     int numOfPlayer = 0;
-    height = matrixConfig.size() - 1;
-    width = matrixConfig[0].size() - 1;
-    for (std::size_t i = 0; i < matrixConfig.size(); i++) {
+    height = map.size() - 1;
+    width = map[0].size() - 1;
+    for (std::size_t i = 0; i < map.size(); i++) {
         std::vector<CellMap> row;
-        for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {
-            int elem = matrixConfig[i][j].as<int>();
+        for (std::size_t j = 0; j < map[i].size(); j++) {
+            int elem = map[i][j];
             CellMap position = CellMap();
             setElemInPosition(numOfPlayer, i , j, position, players, elem,
                               newEvents);
             row.push_back(position);
         }
-        map.push_back(row);
+        matrix.push_back(row);
     }
-    matrix = map;
 }
 
 void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
@@ -75,7 +73,7 @@ void Map::insertWeapon(int& elem, int& pos1, int& pos2,
                      CellMap& tile, std::vector<AbstractEvent*>& newEvents){
     Item* item = factory.weaponLoader(elem);
     auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
-                                item->getId() + 49, pos1 * TILE, pos2 * TILE);
+                                item->getId() + WEAPONSGAP, pos1 * TILE, pos2 * TILE);
     newEvents.push_back(event);
     tile.addItem(item);
 }

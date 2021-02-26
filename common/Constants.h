@@ -14,7 +14,7 @@ enum updateEventType {KillEventType, ShootingEventType,
 enum weaponName {Knife, Pistol, MachineGun, ChainGun, RocketLauncher};
 #define PLAYER_ID 1
 //#define PI 3.141592
-
+#define WEAPONSGAP 49
 #define TILE 32
 
 #endif //CAMERA_CPP_CONSTANTS_H
