@@ -149,7 +149,7 @@ void Client::playMatch() {
     while (!quit) {
 
         while (!receiverQueue.empty()) {
-            Event event = std::move(receiverQueue.pop());
+            std::list<Message> messages = receiverQueue.popAll();
             event.runHandler(game);
         }
         game.draw();

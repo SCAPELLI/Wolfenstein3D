@@ -20,8 +20,8 @@ int main() {
         ProtectedEventsQueue userEvents;
 
         std::vector<BlockingEventsQueue*> updateEvents;
-        BlockingEventsQueue ke;
-        updateEvents.push_back(&ke);
+        BlockingEventsQueue blockingQueue;
+        updateEvents.push_back(&blockingQueue);
         std::atomic<bool> quit(false);
         std::thread t (Server(&userEvents, updateEvents, quit));
 
