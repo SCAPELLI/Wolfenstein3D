@@ -2,9 +2,8 @@ add_library(common
         ProtectedEventsQueue.cpp
         ServerEvents/PositionEvent.cpp
         AbstractEvent.cpp
-        EventsCatcher.cpp
         ServerEvents/KillEvent.cpp
-        QuitEvent.cpp
+		QuitEvent.cpp
         ShootingEvent.cpp
         TurnEvent.cpp
         MovementEvent.cpp
@@ -103,7 +102,7 @@ add_library(common
         ../client/EnemyPlayer.cpp
         ../client/BagOfSprites.cpp
         ../client/SoundManager.cpp
-        )
+        src/Message.cpp include/Message.h)
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)

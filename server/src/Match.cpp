@@ -9,7 +9,8 @@
 #include "../include/SenderThread.h"
 #include "../ai/AI.h"
 #include <unistd.h>
-
+#include <common/EventSerializer.h>
+#include "../../common/include/Message.h"
 
 
 Match::Match(int matchId, int levelId, int maximumNumberOfPlayers,
@@ -80,7 +81,7 @@ void Match::run() {
     std::vector<SenderThread*> senders;
     int i = 0;
     for (auto it = usersSockets.begin(); it != usersSockets.end(); ++it){
-        receivers.push_back(new ReceiverThread(it->second, userEvents)); // emplace_back o new?
+        receivers.push_back(new ReceiverThread(it->second, userEvents)); //OJO CON ESTOS NEW, NO TIENEN DELETE
         senders.push_back(new SenderThread(it->second, &updateEvents[i]));
         receivers[i]->start();
         senders[i]->start();
@@ -93,8 +94,12 @@ void Match::run() {
     //AI ai(levelId);
     while (!matchFinished){
         while(!userEvents.empty() && !matchFinished){ //procesar eventos
-            Event event = std::move(userEvents.pop());
-            event.runHandler(gameStage);
+            std::list<Message> messageEvents = userEvents.popAll();
+            while (!messageEvents.empty()) {
+                Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
+                messageEvents.pop_front();
+                event.runHandler(gameStage); //agrege un while mas para procesar la lista de eventos
+            }
         } // agregar reap?
        // ai.generateEvent(userEvents, gameStage.getPlayersInfo());
         gameStage.incrementCooldown();

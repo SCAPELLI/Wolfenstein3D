@@ -1,4 +1,5 @@
 #include <iostream>
+#include <common/EventSerializer.h>
 #include "client/include/Client.h"
 #include "client/include/TCPClient.h"
 #include "client/include/CommunicationChannelClient.h"
@@ -7,7 +8,7 @@
 #include "../../common/ServerEvents/CreateMapEvent.h"
 #include "../../server/include/ReceiverThread.h"
 #include "../../server/include/SenderThread.h"
-#include "../../common/EventsCatcher.h"
+#include "../../common/include/Message.h"
 
 #define FOV 0.66
 
@@ -101,7 +102,7 @@ bool Client::tryToStartMatch() {
     }
 }
 void Client::playMatch() {
-    EventsCatcher eventsCatcher(userId);
+    //EventsCatcher eventsCatcher(userId);
     BlockingEventsQueue senderQueue;
     ProtectedEventsQueue receiverQueue;
 
@@ -114,7 +115,14 @@ void Client::playMatch() {
             hasStarted = true;
         }
     }
-    Event event = std::move(receiverQueue.pop());
+    //Event event = std::move(receiverQueue.pop());
+
+    std::list<Message> messageEvents = receiverQueue.popAll();
+    Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
+    messageEvents.pop_front(); //ojo si sacas muchos elementos con el popAll acá, hay que procesarlos en algun lado
+    //solo agrego las tres lineas de arriba como ejemplo de como quedo para desencolar.
+
+
     CreateMapEvent* start = (CreateMapEvent*) (event).event;
     double spawnPointX = start->startingLocations[userId].first;
     double spawnPointY = start->startingLocations[userId].second;

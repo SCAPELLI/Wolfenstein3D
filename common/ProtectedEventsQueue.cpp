@@ -1,24 +1,22 @@
 #include <mutex>
 #include "ProtectedEventsQueue.h"
-#include "EventsCatcher.h"
+#include "include/Message.h"
 
-//ProtectedEventsQueue::ProtectedEventsQueue() : events(), mutex() {}
+std::list<Message> ProtectedEventsQueue::popAll() {
+    std::unique_lock<std::mutex> lock(mutex);
 
-void ProtectedEventsQueue::insertEvents(EventsCatcher& eventsCatcher) {
-    std::unique_lock<std::mutex> lock(mutex);
-    events = std::move(eventsCatcher.getEvents());
-}
-Event ProtectedEventsQueue::pop() {
-    std::unique_lock<std::mutex> lock(mutex);
-    Event event = std::move(events.front());
-    events.pop();
-    return event;
+    std::list<Message> eventsToPop;
+    while (!events.empty()) {
+        eventsToPop.push_back(events.front());
+        events.pop_front();
+    }
+    return eventsToPop;
 }
 bool ProtectedEventsQueue::empty() {
     std::unique_lock<std::mutex> lock(mutex);
     return events.empty();
 }
-void ProtectedEventsQueue::push(Event& event) {
+void ProtectedEventsQueue::push(Message& eventToPush) {
     std::unique_lock<std::mutex> lock(mutex);
-    events.push(std::move(event));
+    events.push_back(eventToPush);
 }
