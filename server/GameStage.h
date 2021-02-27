@@ -39,8 +39,6 @@ public:
     void processEvent(ChangeWeaponEvent& event);
     void processEvent(ShootingEvent& event);
     void processEvent(OpenDoorEvent& event);
-    void processEvent(int objId,int type, int posX, int posY);
-    void insertInAllQueuesEvent(Event& event);
     void pushNewEvents();
     std::vector<PlayerInfo> getPlayersInfo();
     void incrementCooldown();

@@ -70,7 +70,7 @@ Event EventSerializer::createOpenDoorEvent(std::string eventString) {
     bool isOpen = (eventString[6] == 'T');
 
     OpenDoorEvent event(playerId, isOpen);
-    return Event(&event, DoorOpenedEventType);
+    return Event(&event, OpenDoorEventType);
 }
 
 Event EventSerializer::createGameOverEvent(std::string eventString) {
@@ -270,7 +270,7 @@ Event EventSerializer::createDoorOpenedEvent(std::string eventString) {
     int y = std::stoi(eventString.substr (9, 15));
 
     DoorOpenedEvent event(DoorOpenedEventType, x, y);
-    return Event(&event, DespawnEventType);
+    return Event(&event, DoorOpenedEventType);
 }
 
 std::string EventSerializer::serialize(DoorOpenedEvent& event) {
@@ -280,7 +280,7 @@ std::string EventSerializer::serialize(DoorOpenedEvent& event) {
     std::string y = std::to_string(event.y);
     addZerosToLeft(y, 6);
 
-    return DESPAWN_EVENT_STRING + x + y;
+    return DOOR_OPENED_EVENT_STRING + x + y;
 }
 
 Event EventSerializer::createHealthChangeEvent(std::string eventString) {

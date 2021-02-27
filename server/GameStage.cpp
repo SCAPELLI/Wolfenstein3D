@@ -18,6 +18,8 @@
 #include "PlayerInfo.h"
 #include "../common/BlockingEventsQueue.h"
 #include <algorithm>
+#include <common/ServerEvents/DoorOpenedEvent.h>
+
 #define PI 3.141592
 
 
@@ -113,15 +115,6 @@ void GameStage::processEvent(ChangeWeaponEvent& event){
 
 }
 
-
-void GameStage::processEvent(int objId, int type, int posX, int posY) {
-    SpawnEvent toSend(SpawnEventType, objId, type, posX, posY);
-    Event anotherEvent(&toSend, SpawnEventType);
-    Message msg(EventSerializer::serialize(anotherEvent));
-    for (int i = 0; i < queues->size(); i++){
-        queues->at(i).push(msg);
-    }
-}
 
 void GameStage::incrementCooldown(){
     game.increaseCooldown();

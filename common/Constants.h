@@ -9,7 +9,8 @@ enum updateEventType {KillEventType, ShootingEventType,
     TurnEventType, DoorOpenedEventType, SpawnEventType,
     AmmoChangeType, ChangeWeaponType, DespawnEventType,
     HealthChangeType, PickUpKeyType, PickUpWeaponType,
-    ScoreChangeType, SpawnNotMovableType, MovementEventType, CreateMapType, QuitEventType};
+    ScoreChangeType, SpawnNotMovableType, MovementEventType,
+    CreateMapType, QuitEventType, OpenDoorEventType};
 
 enum weaponName {Knife, Pistol, MachineGun, ChainGun, RocketLauncher};
 #define PLAYER_ID 1
