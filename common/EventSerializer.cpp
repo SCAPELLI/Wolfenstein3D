@@ -335,16 +335,18 @@ std::string EventSerializer::serialize(PickUpKeyEvent& event) {
 }
 
 Event EventSerializer::createPickUpWeaponEvent(std::string eventString) {
-    //EEEPPP
-    int playerId = std::stoi(eventString.substr (3, 6));
+    //EEEPPPUUU
+    int playerId = std::stoi(eventString.substr (3, 3));
+    int uniqueId = std::stoi(eventString.substr (6, 3));
 
-    PickUpKeyEvent event(PickUpWeaponType, playerId);
+    PickUpWeaponEvent event(PickUpWeaponType, playerId, uniqueId);
     return Event(&event, PickUpWeaponType);
 }
 
 std::string EventSerializer::serialize(PickUpWeaponEvent& event) {
     std::string idPlayer = std::to_string(event.idPlayer);
     std::string response = std::to_string(event.uniqueId);
+    addZerosToLeft(idPlayer, 3);
     addZerosToLeft(response, 3);
 
     return PICK_UP_WEAPON_EVENT_STRING + idPlayer + response;
