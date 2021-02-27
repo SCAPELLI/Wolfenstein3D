@@ -48,6 +48,7 @@ Event EventSerializer::createTurnEvent(std::string eventString) {
     //EEEPPPA..A
     //angleVariation (20 bytes)
     int playerId = std::stoi(eventString.substr (3, 3));
+    std::setlocale(LC_ALL, "en_US.UTF-8");
     double angleVariation = std::stod(eventString.substr(6, 20));
 
     TurnEvent event(playerId, angleVariation);
