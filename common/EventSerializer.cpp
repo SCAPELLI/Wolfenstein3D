@@ -152,8 +152,8 @@ Event EventSerializer::createCreateMapEvent(std::string eventString) {
 }
 
 std::string EventSerializer::serialize(CreateMapEvent& event) {
-    std::string witdh = std::to_string(event.width);
-    addZerosToLeft(witdh, 6);
+    std::string width = std::to_string(event.width);
+    addZerosToLeft(width, 6);
 
     std::string height = std::to_string(event.height);
     addZerosToLeft(height, 6);
@@ -161,7 +161,7 @@ std::string EventSerializer::serialize(CreateMapEvent& event) {
     std::string numberOfPlayers = std::to_string(event.startingLocations.size());
     addZerosToLeft(numberOfPlayers, 3);
 
-    std::string response = CREATE_MAP_EVENT_STRING + witdh + height + numberOfPlayers;
+    std::string response = CREATE_MAP_EVENT_STRING + height + width + numberOfPlayers;
 
     for (auto& player: event.startingLocations) {
         std::string playerId = std::to_string(player.first);

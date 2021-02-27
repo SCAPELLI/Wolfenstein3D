@@ -36,7 +36,7 @@ void CGame::rotate(double degrees){
 }
 
 void CGame::processEvent(SpawnNotMovableEvent& event) {
-    map[event.posY][event.posX] = event.type;
+    map[event.posX][event.posY] = event.type;
 }
 
 void CGame::spawnEnemy(int playerId, Vector spawnPoint){
