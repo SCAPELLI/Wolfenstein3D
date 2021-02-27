@@ -22,8 +22,7 @@
 CGame::CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId):
 	activePlayer(x, y, fov, playerId),
 	screen(&activePlayer, 480, 640),
-	map(std::move(map)), renderables(), players(), soundQueue(), sprites(screen.getRenderer()),
-	isOver(false){
+	map(std::move(map)), renderables(), players(), soundQueue(), sprites(screen.getRenderer()) {
         activePlayer.loadWeapons(screen.getRenderer(), sprites);
 }
 
@@ -73,7 +72,6 @@ void CGame::processEvent(ShootingEvent& event){
 
 void CGame::processEvent(GameOverEvent& event){
     if (event.idPlayer != activePlayer.id) return; //players[event.idPlayer].despawn();
-    isOver = true;
     // mostrar top
 }
 

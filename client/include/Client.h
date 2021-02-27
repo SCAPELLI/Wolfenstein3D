@@ -17,6 +17,7 @@ class Client {
     int matchId;
     int levelId;
     int maximumNumberOfPlayers;
+    bool gameIsPlaying;
 
 public:
         Client();

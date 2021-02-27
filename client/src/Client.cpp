@@ -13,12 +13,8 @@
 
 #define FOV 0.66
 
-Client::Client() {
-    channel = new CommunicationChannelClient(userSocket);
-    userId = -1;
-    matchId = -1;
-    maximumNumberOfPlayers = -1;
-    levelId = -1;
+Client::Client(): userId(-1), matchId(-1), maximumNumberOfPlayers(-1), levelId(-1), gameIsPlaying(false) {
+        channel = new CommunicationChannelClient(userSocket);
 }
 Client::~Client() {
     delete channel;
@@ -111,6 +107,7 @@ void Client::catchEvents(BlockingEventsQueue& senderQueue){
         if(msg.getMessage() != "") {
             senderQueue.push(msg);
         }
+        if(event.thisIsTheQuitEvent()) gameIsPlaying = false;
     }
 }
 
@@ -159,8 +156,8 @@ void Client::playMatch() {
 
     SenderThread s(&userSocket, &senderQueue);
     s.start();
-    bool quit = false;
-    while (!quit) {
+    gameIsPlaying = true;
+    while (gameIsPlaying) {
 
         catchEvents(senderQueue);
         while (!messageEvents.empty()) {
@@ -172,7 +169,8 @@ void Client::playMatch() {
         game.draw();
         game.playSounds();
         game.advanceTime();
-        quit = game.isOver;
         SDL_Delay(33);
     }
+    s.join();
+    r.join();
 }

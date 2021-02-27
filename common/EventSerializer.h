@@ -98,7 +98,7 @@ public:
     static Event createSpawnNotMovableEvent(std::string eventString);
     static Event createMovementEvent(std::string eventString);
     static Event createOpenDoorEvent(std::string eventString);
-    static Event createQuitEvent(std::string eventString);
+    static Event createQuitEvent();
     static Event createShootingEvent(std::string eventString);
     static Event createTurnEvent(std::string eventString);
     static Event createSpawnEvent(std::string eventString);

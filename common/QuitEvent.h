@@ -5,6 +5,7 @@
 /*Evento que indica salir de la aplicación*/
 class QuitEvent: public AbstractEvent {
 public:
+    QuitEvent();
     void runHandler(GameStage& gameStage) override;
     bool thisIsTheQuitEvent() override;
 };

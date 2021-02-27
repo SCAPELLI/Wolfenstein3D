@@ -70,6 +70,9 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
         case MovementEventType:
             event = new MovementEvent(*(MovementEvent*)updateEvent);
             break;
+        case QuitEventType:
+            event = new QuitEvent();
+            break;
         default:
             this->event = nullptr;
     }
