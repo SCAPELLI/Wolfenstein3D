@@ -16,18 +16,18 @@ void Protocol::send(const std::string& message) {
     memcpy(&buffer[0], &lenght, sizeof(uint32_t));
     memcpy(&buffer[sizeof(uint32_t)], &message[0], message.length());
 
-    socket->sendAll((char*)&buffer[0], (int)buffer_lenght);
+    socket->sendAll(&buffer[0], buffer_lenght);
 }
 
 void Protocol::receive(std::string& message) {
     std::vector<uint8_t> buffer_size(sizeof(uint32_t));
-    socket->reciveAll((char*)&buffer_size[0], (int)sizeof(uint32_t));
+    socket->reciveAll(&buffer_size[0], sizeof(uint32_t));
 
     uint32_t size = *((uint32_t*)(&buffer_size[0]));
     size = ntohs(size);
 
     std::vector<uint8_t> buffer(size);
-    socket->reciveAll((char*)&buffer[0], (int)size);
+    socket->reciveAll(&buffer[0], size);
 
     message = std::string (buffer.begin(), buffer.end());
 }
