@@ -49,8 +49,8 @@ void Player::initializePlayer(bool dead){
         std::string nameWeapon2 = "pistol";
         auto pistol = Weapon(1, nameWeapon2, 0, pistolNode["damage"].as<int>(),
           pistolNode["minBullets"].as<int>(), pistolNode["cooldownTimer"].as<int>());
-        bag[0] =  knife;
-        bag[1] =  pistol;
+        bag[0] = std::move(knife);
+        bag[1] = std::move(pistol);
     }
     maxBullets = fileNode["Player"]["maxBullets"].as<int>();
     health = fileNode["Player"]["health"].as<int>();
@@ -59,6 +59,7 @@ void Player::initializePlayer(bool dead){
     keys = fileNode["Player"]["key"].as<int>();
     angle = fileNode["Player"]["angle"].as<double>();
     speed = fileNode["Player"]["speed"].as<int>();
+    idWeapon = 1;
 }
 void Player::setPosition(Vector initial){
     initialPosition = initial;

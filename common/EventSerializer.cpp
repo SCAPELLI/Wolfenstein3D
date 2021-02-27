@@ -120,7 +120,7 @@ std::string EventSerializer::serialize(ChangeWeaponEvent& event) {
     std::string type = std::to_string(event.type);
     addZerosToLeft(type, 3);
 
-    return AMMO_CHANGE_EVENT_STRING + playerId + type;
+    return CHANGE_WEAPON_EVENT_STRING + playerId + type;
 }
 
 
@@ -412,8 +412,8 @@ void EventSerializer::addZerosToRight(std::string& string, int finalSize) {
 std::string EventSerializer::serialize(AmmoChangeEvent& event) {
     std::string id = std::to_string(event.idPlayer);
     addZerosToLeft(id, 3);
-    std::string ammo = std::to_string(event.ammo);
-    addZerosToLeft(ammo, 9);
+    std::string ammo = std::to_string(event.ammo) + ",";
+    addZerosToRight(ammo, 9);
 
     return AMMO_CHANGE_EVENT_STRING + id + ammo;
 }
