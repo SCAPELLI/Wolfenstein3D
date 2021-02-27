@@ -164,9 +164,9 @@ void Client::playMatch() {
 
         catchEvents(senderQueue);
         while (!messageEvents.empty()) {
-            Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
+            Event event1 = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
             messageEvents.pop_front();
-            event.runHandler(game);
+            event1.runHandler(game);
         }
         messageEvents = receiverQueue.popAll();
         game.draw();
