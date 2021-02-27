@@ -8,6 +8,7 @@ public:
     QuitEvent();
     void runHandler(GameStage& gameStage) override;
     bool thisIsTheQuitEvent() override;
+    std::string getSerialization() override;
 };
 
 #endif
