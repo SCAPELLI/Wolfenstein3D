@@ -47,7 +47,7 @@ Event EventSerializer::createTurnEvent(std::string eventString) {
     //EEEPPPAAAAAAAAAA
     //angleVariation (10 bytes)
     int playerId = std::stoi(eventString.substr (3, 3));
-    float angleVariation = std::stof(eventString.substr(6, 10));
+    double angleVariation = std::stof(eventString.substr(3, 20));
 
     TurnEvent event(playerId, angleVariation);
     return Event(&event, TurnEventType);
