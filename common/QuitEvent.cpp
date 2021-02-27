@@ -4,7 +4,9 @@
 
 QuitEvent::QuitEvent() {}
 
-void QuitEvent::runHandler(GameStage& gameStage) {}
+void QuitEvent::runHandler(GameStage& gameStage) {
+    gameStage.processEvent(*this);
+}
 
 bool QuitEvent::thisIsTheQuitEvent() {
     return true;
