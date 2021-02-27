@@ -21,7 +21,7 @@
 #define PI 3.141592
 
 
-GameStage::GameStage(std::vector<BlockingEventsQueue>& queues,
+GameStage::GameStage(std::vector<BlockingEventsQueue>* queues,
                      std::map<int, std::string>& playersNames, int levelId)
     : queues(queues), newEvents() {
     game = Game(newEvents, playersNames, levelId);
@@ -33,8 +33,8 @@ void GameStage::processEvent(TurnEvent& event) {
     TurnEvent toSend(event.idPlayer, event.getDegrees());
     Event anotherEvent(&toSend, TurnEventType);
     Message msg(EventSerializer::serialize(anotherEvent));
-    for(int i = 0; i < queues.size(); i++){
-        queues[i].push(msg);
+    for(int i = 0; i < queues->size(); i++){
+        queues->at(i).push(msg);
     }
 }
 
@@ -45,8 +45,8 @@ void GameStage::processEvent(ShootingEvent& event) {
         ChangeWeaponEvent newEvent(event.idPlayer, 0);
         Event anotherEvent(&newEvent, ChangeWeaponType);
         Message msg(EventSerializer::serialize(anotherEvent));
-        for (int i = 0; i < queues.size(); i++){
-            queues[i].push(msg);
+        for (int i = 0; i < queues->size(); i++){
+            queues->at(i).push(msg);
         }
         return;
     }
@@ -58,9 +58,9 @@ void GameStage::processEvent(ShootingEvent& event) {
     Event ammoEvent(&ammo, AmmoChangeType);
     Message msgShoot(EventSerializer::serialize(anotherEvent));
     Message msgAmmo(EventSerializer::serialize(ammoEvent));
-    for (int i = 0; i < queues.size(); i++){
-        queues[i].push(msgShoot);
-        queues[i].push(msgAmmo);
+    for (int i = 0; i < queues->size(); i++){
+        queues->at(i).push(msgShoot);
+        queues->at(i).push(msgAmmo);
     }
     pushNewEvents();
 }
@@ -88,8 +88,8 @@ void GameStage::pushNewEvents(){
     for (int (i) = 0; (i) < newEvents.size(); ++(i)) {
         Event anotherEvent(newEvents[i], newEvents[i]->getEventType());
         Message msg(EventSerializer::serialize(anotherEvent));
-        for (int j = 0; j < queues.size(); j++) {
-            queues[j].push(msg);
+        for (int j = 0; j < queues->size(); j++) {
+            queues->at(j).push(msg);
         }
     }
     newEvents.clear();
@@ -107,8 +107,8 @@ void GameStage::processEvent(ChangeWeaponEvent& event){
 
     Event anotherEvent(&event, ChangeWeaponType);
     Message msg(EventSerializer::serialize(anotherEvent));
-    for (int i = 0; i < queues.size(); i++){
-        queues[i].push(msg);
+    for (int i = 0; i < queues->size(); i++){
+        queues->at(i).push(msg);
     }
 
 }
@@ -118,8 +118,8 @@ void GameStage::processEvent(int objId, int type, int posX, int posY) {
     SpawnEvent toSend(SpawnEventType, objId, type, posX, posY);
     Event anotherEvent(&toSend, SpawnEventType);
     Message msg(EventSerializer::serialize(anotherEvent));
-    for (int i = 0; i < queues.size(); i++){
-        queues[i].push(msg);
+    for (int i = 0; i < queues->size(); i++){
+        queues->at(i).push(msg);
     }
 }
 

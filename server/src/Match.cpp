@@ -88,7 +88,7 @@ void Match::run() {
         i++;
     }
 
-    GameStage gameStage(updateEvents, players, levelId); // agregar levelId a GameStage
+    GameStage gameStage(&updateEvents, players, levelId); // agregar levelId a GameStage
     std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
     // agregar joins
     //AI ai(levelId);

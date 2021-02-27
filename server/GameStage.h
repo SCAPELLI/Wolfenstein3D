@@ -27,12 +27,12 @@ class Event;
 class GameStage {
     std::vector<std::pair<int, std::string>> highScores;
     int levelId;
-    std::vector<BlockingEventsQueue>& queues; // ojo que las colas no son referencias pero el vector si, quizas
+    std::vector<BlockingEventsQueue>* queues; // ojo que las colas no son referencias pero el vector si, quizas
 //    std::vector< std::string> playersNames; // temporalmente una lista despues en realidad viene de startGame
     Game game;
     std::vector<AbstractEvent*> newEvents;
 public:
-    explicit GameStage(std::vector<BlockingEventsQueue>& queues,
+    GameStage(std::vector<BlockingEventsQueue>* queues,
                        std::map<int, std::string>& playersNames, int levelId);
     void processEvent(TurnEvent& event);
     void processEvent(MovementEvent& event);
