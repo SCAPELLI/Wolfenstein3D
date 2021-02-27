@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "EventSerializer.h"
 
 #include "../common/Event.h"
@@ -44,10 +45,10 @@ Event EventSerializer::createMovementEvent(std::string eventString) {
 }
 
 Event EventSerializer::createTurnEvent(std::string eventString) {
-    //EEEPPPAAAAAAAAAA
-    //angleVariation (10 bytes)
+    //EEEPPPA..A
+    //angleVariation (20 bytes)
     int playerId = std::stoi(eventString.substr (3, 3));
-    double angleVariation = std::stof(eventString.substr(3, 20));
+    double angleVariation = std::stod(eventString.substr(6, 20));
 
     TurnEvent event(playerId, angleVariation);
     return Event(&event, TurnEventType);
@@ -430,6 +431,7 @@ std::string EventSerializer::serialize(TurnEvent& event) {
     addZerosToLeft(playerId, 3);
 
     std::string angleVariation = std::to_string(event.degrees);
+    std::replace(angleVariation.begin(),angleVariation.end(), ',', '.');
     addZerosToRight(angleVariation, 20);
 
     return TURN_EVENT_STRING + playerId + angleVariation;
