@@ -35,7 +35,7 @@ class CGame{
 	std::map<int, EnemyPlayer*> players;
     SoundManager soundQueue;
     BagOfSprites sprites;
-    bool isPlaying;
+    bool& isPlaying;
 
 	public:
 	    CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId, bool& isPlaying);

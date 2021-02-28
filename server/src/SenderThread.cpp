@@ -9,7 +9,8 @@ void SenderThread::run(){
     try{
         while (!isDone){
             Message msg = std::move(eventsToSend->pop());
-            isDone = msg.getMessage().substr(0, 3) == std::string("016");
+            isDone = msg.getMessage().substr(0, 3) == std::string("016") ||
+                    msg.getMessage().substr(0, 3) == std::string("005");
             skt->sendAll(msg.getMessage());
       }
     } catch (std::exception e){}
