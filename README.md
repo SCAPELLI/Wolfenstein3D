@@ -6,11 +6,13 @@
     cmake ..
     make
 
-### Para ejecutar el programa cliente
+### Para ejecutar el programa cliente (desde raiz)
+    cd build
     cd client
     ./client
     
-### Para ejecutar el programa servidor
+### Para ejecutar el programa servidor (desde raiz)
+    cd build
     cd server
     ./server
 
