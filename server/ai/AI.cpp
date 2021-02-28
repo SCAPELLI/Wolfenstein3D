@@ -121,7 +121,7 @@ void addMovementEventToQueue(ProtectedEventsQueue& events) {
     events.push(msg);
 }
 void addTurnEventToQueue(ProtectedEventsQueue& events, float sentido) {
-    TurnEvent turnEvent(0, PI/180 * sentido);
+    TurnEvent turnEvent(0, PI/250 * sentido);
     Event event(&turnEvent, TurnEventType);
     Message msg(EventSerializer::serialize(event));
     events.push(msg);
