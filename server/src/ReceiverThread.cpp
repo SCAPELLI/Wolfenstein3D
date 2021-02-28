@@ -5,17 +5,16 @@
 
 
 
-ReceiverThread::ReceiverThread(Socket* skt, ProtectedEventsQueue* receivedBuffer):
-        isDone(false), skt(skt), receivedBuffer(receivedBuffer){}
+ReceiverThread::ReceiverThread(Socket* skt, ProtectedEventsQueue* receivedBuffer, int playerId):
+        isDone(false), skt(skt), receivedBuffer(receivedBuffer), playerId(playerId){}
 
 void ReceiverThread::run() {
     while(!isDone){
         std::string response;
         skt->reciveAll(response);
         Message msg(response);
-        //Event event = std::move(EventSerializer::deserialize(response));
-        isDone = msg.getMessage().substr(0, 3) == std::string("016") ||
-                 msg.getMessage().substr(0, 3) == std::string("005");
+        isDone = msg.getMessage().substr(0, 3) == std::string("016") &&
+                 std::stoi(msg.getMessage().substr(3, 3)) == playerId;
 
         receivedBuffer->push(msg);
     }

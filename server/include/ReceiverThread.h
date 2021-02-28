@@ -9,9 +9,10 @@ class ReceiverThread: public Thread{
     bool isDone;
     Socket* skt;
     ProtectedEventsQueue* receivedBuffer;
+    int playerId;
 
 public:
-    ReceiverThread(Socket* skt, ProtectedEventsQueue* receivedBuffer);
+    ReceiverThread(Socket* skt, ProtectedEventsQueue* receivedBuffer, int playerId);
     void run() override;
     bool isDead();
     ~ReceiverThread();

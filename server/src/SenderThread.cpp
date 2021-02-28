@@ -2,15 +2,16 @@
 #include "../../common/EventSerializer.h"
 
 
-SenderThread::SenderThread(Socket* skt, BlockingEventsQueue* eventsToSend):
-        isDone(false), skt(skt), eventsToSend(eventsToSend){}
+SenderThread::SenderThread(Socket* skt, BlockingEventsQueue* eventsToSend, int playerId):
+        isDone(false), skt(skt), eventsToSend(eventsToSend), playerId(playerId){}
 
 void SenderThread::run(){
     try{
         while (!isDone){
             Message msg = std::move(eventsToSend->pop());
-            isDone = msg.getMessage().substr(0, 3) == std::string("016") ||
-                    msg.getMessage().substr(0, 3) == std::string("005");
+            isDone = msg.getMessage().substr(0, 3) == std::string("016") &&
+                    std::stoi(msg.getMessage().substr(3, 3)) == playerId;
+                    //msg.getMessage().substr(0, 3) == std::string("005")) &&;
             skt->sendAll(msg.getMessage());
       }
     } catch (std::exception e){}

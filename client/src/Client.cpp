@@ -23,7 +23,7 @@ Client::~Client() {
 
 bool Client::tryToConnect(std::string port, std::string domain) {
     try {
-        userSocket = std::move(TCPClient::getClientSocket("localhost", "7777"));
+        userSocket = std::move(TCPClient::getClientSocket(domain.c_str(), port.c_str()));
         return true;
     } catch (const std::exception& error) {
         return false;
@@ -119,7 +119,7 @@ void Client::playMatch() {
     BlockingEventsQueue senderQueue;
     ProtectedEventsQueue receiverQueue;
 
-    ReceiverThread r(&userSocket, &receiverQueue);
+    ReceiverThread r(&userSocket, &receiverQueue, userId);
     r.start();
 
     bool hasStarted = false;
@@ -156,7 +156,7 @@ void Client::playMatch() {
                                           start->startingLocations[it->first].second));
     }
 
-    SenderThread s(&userSocket, &senderQueue);
+    SenderThread s(&userSocket, &senderQueue, userId);
     s.start();
     gameIsPlaying = true;
     while (gameIsPlaying) {

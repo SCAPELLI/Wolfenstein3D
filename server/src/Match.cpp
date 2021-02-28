@@ -101,8 +101,8 @@ void Match::run() {
     std::vector<SenderThread*> senders;
     int i = 0;
     for (auto it = usersSockets.begin(); it != usersSockets.end(); ++it){
-        receivers.push_back(new ReceiverThread(it->second, &userEvents)); //OJO CON ESTOS NEW, NO TIENEN DELETE
-        senders.push_back(new SenderThread(it->second, &updateEvents[i]));
+        receivers.push_back(new ReceiverThread(it->second, &userEvents, it->first)); //OJO CON ESTOS NEW, NO TIENEN DELETE
+        senders.push_back(new SenderThread(it->second, &updateEvents[i], it->first));
         receivers[i]->start();
         senders[i]->start();
         i++;
