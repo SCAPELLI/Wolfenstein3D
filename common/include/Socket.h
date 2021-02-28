@@ -23,13 +23,12 @@ public:
 
     void disableSend() const;
 
-    void sendAll(std::string message) const;
-    void sendAll(const char *message, int numberOfBytesBuffer) const;
-
-    void reciveAll(std::string& mensaje);
-    int reciveAll(char *message,
-                  int numberOfBytesBuffer);
-
+    //void sendAll(std::string message) const;
+    //void sendAll(const char *message, int numberOfBytesBuffer) const;
+    void sendAll(const uint8_t* message, size_t numberOfBytesBuffer) const;
+    //void reciveAll(std::string& mensaje);
+    //int reciveAll(char *message, int numberOfBytesBuffer);
+    int reciveAll(uint8_t* message, size_t numberOfBytesBuffer);
     void doBind(const IPAddresses &addresses);
     void doListen(int maximumNumberOfWaitingConnections) const;
     void doConnect(const IPAddresses& addresses);

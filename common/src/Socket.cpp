@@ -51,7 +51,7 @@ void Socket::doConnect(const IPAddresses& addresses) {
     }
 }
 
-void Socket::sendAll(const char *message, int numberOfBytesBuffer) const {
+void Socket::sendAll(const uint8_t *message, size_t numberOfBytesBuffer) const {
     int numberOfBytesSent = 0;
     bool sendFinished = false;
 
@@ -78,8 +78,7 @@ void Socket::sendAll(const char *message, int numberOfBytesBuffer) const {
     }
 }
 
-int Socket::reciveAll(char *message,
-                      int numberOfBytesBuffer) {
+int Socket::reciveAll(uint8_t *message, size_t numberOfBytesBuffer) {
     int numberOfBytesReceived = 0;
     bool receiveFinished = (numberOfBytesBuffer <= numberOfBytesReceived);
 
@@ -150,28 +149,28 @@ bool Socket::isAvailable() const {
     return fd != -1;
 }
 
-void Socket::sendAll(std::string message) const {
-
-    std::string messageSizeString = std::to_string(message.size());
-    while (messageSizeString.length() != 3) {
-        messageSizeString.insert(messageSizeString.begin(),'0');
-    }
-    sendAll(messageSizeString.c_str(), 3);
-    sendAll(message.c_str(), message.size());
-}
-
-void Socket::reciveAll(std::string& mensaje) {
-    char messageLenghtString[3] = "";
-    char messageReceived[100] = "";
-    int messageLenghtStringSize = reciveAll(&messageLenghtString[0], 3); //Tres es la cantidad de digitos para el largo del mensaje
-    if (!isAvailable()) return;
-
-    if (messageLenghtStringSize != 3) throw Exception(
-            "Fatal error, the leght of a message is at least" + std::to_string(3) + " bytes");
-    int messageSize = std::stoi(std::string(messageLenghtString, messageLenghtStringSize));
-    int messageSizeReceived = reciveAll(&messageReceived[0], messageSize);
-    if (messageSizeReceived != messageSize) throw Exception(
-            "Fatal error, the size of the message received is incorrect\n "
-            "size expected: " + std::to_string(messageSize) + " size received: " + std::to_string(messageSize));
-    mensaje = std::string(messageReceived, messageSize);
-}
+//void Socket::sendAll(std::string message) const {
+//
+//    std::string messageSizeString = std::to_string(message.size());
+//    while (messageSizeString.length() != 3) {
+//        messageSizeString.insert(messageSizeString.begin(),'0');
+//    }
+//    sendAll(messageSizeString.c_str(), 3);
+//    sendAll(message.c_str(), message.size());
+//}
+//
+//void Socket::reciveAll(std::string& mensaje) {
+//    char messageLenghtString[3] = "";
+//    char messageReceived[100] = "";
+//    int messageLenghtStringSize = reciveAll(&messageLenghtString[0], 3); //Tres es la cantidad de digitos para el largo del mensaje
+//    if (!isAvailable()) return;
+//
+//    if (messageLenghtStringSize != 3) throw Exception(
+//            "Fatal error, the leght of a message is at least" + std::to_string(3) + " bytes");
+//    int messageSize = std::stoi(std::string(messageLenghtString, messageLenghtStringSize));
+//    int messageSizeReceived = reciveAll(&messageReceived[0], messageSize);
+//    if (messageSizeReceived != messageSize) throw Exception(
+//            "Fatal error, the size of the message received is incorrect\n "
+//            "size expected: " + std::to_string(messageSize) + " size received: " + std::to_string(messageSize));
+//    mensaje = std::string(messageReceived, messageSize);
+//}

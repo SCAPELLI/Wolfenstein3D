@@ -1,8 +1,8 @@
 #include <netdb.h>
 #include <vector>
 #include <cstring>
-#include "Protocol.h"
-#include "Socket.h"
+#include "../include/Protocol.h"
+#include "../include/Socket.h"
 
 Protocol::Protocol(Socket* socket): socket(socket) {}
 
