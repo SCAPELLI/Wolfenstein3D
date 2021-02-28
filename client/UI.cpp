@@ -1,6 +1,6 @@
 #include "UI.h"
 #include <SDL_image.h>
-#define ROUTE "../client/sprites/hud_elements/"
+#define ROUTE "../../client/sprites/hud_elements/"
 #define FILE_EXTENSION ".png"
 #include <string>
 #define NUMBER_SIZE 16

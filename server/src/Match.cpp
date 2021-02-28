@@ -10,17 +10,20 @@
 #include "../ai/AI.h"
 #include <unistd.h>
 #include <common/EventSerializer.h>
+#include <algorithm>
 #include "../../common/include/Message.h"
+#include "../../server/include/ProtectedLobby.h"
 
 
 Match::Match(int matchId, int levelId, int maximumNumberOfPlayers,
-             int adminUserId, str adminUserName, Socket* adminUserSocket):
+             int adminUserId, str adminUserName, Socket* adminUserSocket, ProtectedLobby* lobby):
              matchId(matchId),levelId(levelId),
              maximumNumberOfPlayers(maximumNumberOfPlayers),
              adminUserId(adminUserId),
              matchStarted(false),
              matchFinished(false),
-             matchCancelled(false) {
+             matchCancelled(false),
+             lobby(lobby) {
     addUser(adminUserName, adminUserId, adminUserSocket);
     }
 void Match::addUser(str userName, int userId, Socket* userSocket) {
@@ -63,6 +66,21 @@ MatchInfo Match::getMatchInfo() const {
     return {matchId, levelId, maximumNumberOfPlayers, (int)users.size()};
 }
 
+void Match::removeUser(Event* event) {
+    int playerId = ((QuitEvent*)event->event)->playerId;
+
+    auto it = std::find_if(users.begin(),users.end(),
+                           [&](const std::pair<str, int>& user) {return user.second == playerId; });
+    if (it != users.end())
+        users.erase(it);
+}
+
+bool Match::userIsPartOfTheMatch(int userId) {
+    auto it = std::find_if(users.begin(),users.end(),
+                           [&](const std::pair<str, int>& user) {return user.second == userId; });
+    return it != users.end();
+}
+
 void Match::run() {
 
     for (auto& user: users)
@@ -81,31 +99,36 @@ void Match::run() {
     std::vector<SenderThread*> senders;
     int i = 0;
     for (auto it = usersSockets.begin(); it != usersSockets.end(); ++it){
-        receivers.push_back(new ReceiverThread(it->second, userEvents)); //OJO CON ESTOS NEW, NO TIENEN DELETE
+        receivers.push_back(new ReceiverThread(it->second, &userEvents)); //OJO CON ESTOS NEW, NO TIENEN DELETE
         senders.push_back(new SenderThread(it->second, &updateEvents[i]));
         receivers[i]->start();
         senders[i]->start();
         i++;
     }
 
-    GameStage gameStage(updateEvents, players, levelId); // agregar levelId a GameStage
+    GameStage gameStage(&updateEvents, players, levelId); // agregar levelId a GameStage
     std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
     // agregar joins
     //AI ai(levelId);
+    std::list<Message> messageEvents;
     while (!matchFinished){
-        while(!userEvents.empty() && !matchFinished){ //procesar eventos
-            std::list<Message> messageEvents = userEvents.popAll();
-            while (!messageEvents.empty()) {
-                Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
-                messageEvents.pop_front();
-                event.runHandler(gameStage); //agrege un while mas para procesar la lista de eventos
+        messageEvents = std::move(userEvents.popAll());
+        while (!messageEvents.empty()) {
+            Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
+            messageEvents.pop_front();
+            event.runHandler(gameStage); //agrege un while mas para procesar la lista de eventos
+            if (event.thisIsTheQuitEvent()) {
+                removeUser(&event);
+                lobby->notifyAll();
             }
         } // agregar reap?
        // ai.generateEvent(userEvents, gameStage.getPlayersInfo());
         gameStage.incrementCooldown();
         usleep(20000);
     }
+
     matchFinished = true;
+    lobby->notifyAll();
 }
 
 bool Match::notFinished() const {

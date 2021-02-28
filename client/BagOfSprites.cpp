@@ -4,9 +4,9 @@
 
 #include "BagOfSprites.h"
 #include <string>
-#define ITEMS_ROUTE "../Editor/sprites/sprite"
-#define ENEMY_SPRITES_ROUTE "../client/sprites/enemy_sprites/"
-#define WEAPON_SPRITES_ROUTE "../client/sprites/weapons/"
+#define ITEMS_ROUTE "../../Editor/sprites/sprite"
+#define ENEMY_SPRITES_ROUTE "../../client/sprites/enemy_sprites/"
+#define WEAPON_SPRITES_ROUTE "../../client/sprites/weapons/"
 #define ITEM_EXTENTION ".png"
 #define ANIMATION_EXTENTION ".bmp"
 #define ITEMS_SIZE 222
@@ -18,7 +18,7 @@
 
 BagOfSprites::BagOfSprites(SDL_Renderer* renderer) {
     for (int i = 0; i < ITEMS_SIZE; i++){
-        items[i] = std::move(Sprite(ITEMS_ROUTE + std::to_string(i) + ITEM_EXTENTION, renderer));
+        items[i] = Sprite(ITEMS_ROUTE + std::to_string(i) + ITEM_EXTENTION, renderer);
     }
     for (int i = 0; i < ENEMY_TYPES; i++){
         for (int j = 0; j < ANIMATION_SIZE; j++){

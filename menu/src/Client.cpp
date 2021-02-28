@@ -25,7 +25,8 @@ bool Client::tryToConnect(std::string port, std::string domain) {
 
 bool Client::tryToSubmitUsername(std::string userName) {
 
-    channel->sendUserNameSubmit(userName);
+    std::string nombre = "nombreTemporal";
+    channel->sendUserNameSubmit("nombreTemporal");
     userId = channel->receiveClientIdFromServer();
     if (userId == -1) return false;
     else return true;

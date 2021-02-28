@@ -2,7 +2,7 @@
 #include "Wall.h"
 #include <string>
 #include <iostream>
-#define ROUTE "../Editor/sprites/sprite"
+#define ROUTE "../../Editor/sprites/sprite"
 #define FILE_EXTENTION ".png"
 
 Wall::Wall(int id, SDL_Renderer* renderer){

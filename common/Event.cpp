@@ -70,6 +70,12 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
         case MovementEventType:
             event = new MovementEvent(*(MovementEvent*)updateEvent);
             break;
+        case OpenDoorEventType:
+            event = new OpenDoorEvent(*(OpenDoorEvent*)updateEvent);
+            break;
+        case QuitEventType:
+            event = new QuitEvent(*(QuitEvent*)updateEvent);
+            break;
         default:
             this->event = nullptr;
     }
@@ -78,7 +84,7 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
 Event::Event(SDL_Event& sdlEvent, int playerId) {
     switch (sdlEvent.type) {
         case SDL_QUIT:
-            event = new QuitEvent;
+            event = new QuitEvent(playerId);
             break;
         case SDL_KEYDOWN:
             event = keyCodeLookUp(sdlEvent, playerId);

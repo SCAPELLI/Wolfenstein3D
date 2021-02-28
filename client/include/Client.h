@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <common/BlockingEventsQueue.h>
 #include "common/include/MatchInfo.h"
 #include "common/include/Socket.h"
 
@@ -16,6 +17,7 @@ class Client {
     int matchId;
     int levelId;
     int maximumNumberOfPlayers;
+    bool gameIsPlaying;
 
 public:
         Client();
@@ -31,6 +33,8 @@ public:
         bool tryToCancelMatch();
         bool tryToStartMatch();
         void playMatch();
+
+        void catchEvents(BlockingEventsQueue &senderQueue);
 };
 
 

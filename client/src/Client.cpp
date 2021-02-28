@@ -9,15 +9,13 @@
 #include "../../server/include/ReceiverThread.h"
 #include "../../server/include/SenderThread.h"
 #include "../../common/include/Message.h"
+#include "../../common/EventSerializer.h"
+#include "../../common/QuitEvent.h"
 
 #define FOV 0.66
 
-Client::Client() {
-    channel = new CommunicationChannelClient(userSocket);
-    userId = -1;
-    matchId = -1;
-    maximumNumberOfPlayers = -1;
-    levelId = -1;
+Client::Client(): userId(-1), matchId(-1), maximumNumberOfPlayers(-1), levelId(-1), gameIsPlaying(false) {
+        channel = new CommunicationChannelClient(userSocket);
 }
 Client::~Client() {
     delete channel;
@@ -101,13 +99,29 @@ bool Client::tryToStartMatch() {
         return false;
     }
 }
+
+void Client::catchEvents(BlockingEventsQueue& senderQueue){
+    SDL_Event sdlEvent;
+    while (SDL_PollEvent(&sdlEvent)){
+        Event event(sdlEvent, userId);
+
+        EventSerializer::serialize(event);
+        Message msg(EventSerializer::serialize(event));
+        if(event.thisIsTheQuitEvent())
+            gameIsPlaying = false;
+        if(msg.getMessage() != "")
+            senderQueue.push(msg);
+    }
+}
+
 void Client::playMatch() {
     //EventsCatcher eventsCatcher(userId);
     BlockingEventsQueue senderQueue;
     ProtectedEventsQueue receiverQueue;
 
-    ReceiverThread r(&userSocket, receiverQueue);
+    ReceiverThread r(&userSocket, &receiverQueue);
     r.start();
+    SDL_Delay(2000);
 
     bool hasStarted = false;
     while (!hasStarted){
@@ -120,7 +134,7 @@ void Client::playMatch() {
     std::list<Message> messageEvents = receiverQueue.popAll();
     Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
     messageEvents.pop_front(); //ojo si sacas muchos elementos con el popAll acá, hay que procesarlos en algun lado
-    //solo agrego las tres lineas de arriba como ejemplo de como quedo para desencolar.
+                                //solo agrego las tres lineas de arriba como ejemplo de como quedo para desencolar.
 
 
     CreateMapEvent* start = (CreateMapEvent*) (event).event;
@@ -145,18 +159,21 @@ void Client::playMatch() {
 
     SenderThread s(&userSocket, &senderQueue);
     s.start();
-    bool quit = false;
-    while (!quit) {
+    gameIsPlaying = true;
+    while (gameIsPlaying) {
 
-        while (!receiverQueue.empty()) {
-            std::list<Message> messages = receiverQueue.popAll();
-            event.runHandler(game);
+        catchEvents(senderQueue);
+        while (!messageEvents.empty()) {
+            Event event1 = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
+            messageEvents.pop_front();
+            event1.runHandler(game);
         }
+        messageEvents = receiverQueue.popAll();
         game.draw();
         game.playSounds();
         game.advanceTime();
-        quit = game.isOver;
-        senderQueue.insertEvents(eventsCatcher);
         SDL_Delay(33);
     }
+    s.join();
+    r.join();
 }

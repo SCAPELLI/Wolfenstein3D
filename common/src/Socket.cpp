@@ -6,7 +6,6 @@
 #include "../include/Socket.h"
 #include "../include/Exception.h"
 #include "../include/IPAddresses.h"
-#include "../include/Exception.h"
 
 Socket::Socket(): fd(-1) {}
 
@@ -81,10 +80,10 @@ void Socket::sendAll(const char *message, int numberOfBytesBuffer) const {
 
 int Socket::reciveAll(char *message,
                       int numberOfBytesBuffer) {
-    bool reciveFinished = false;
     int numberOfBytesReceived = 0;
+    bool receiveFinished = (numberOfBytesBuffer <= numberOfBytesReceived);
 
-    while (!reciveFinished) {
+    while (!receiveFinished) {
         int reciveCode;
         reciveCode = recv(fd, &message[numberOfBytesReceived],
                                      numberOfBytesBuffer -
@@ -93,16 +92,16 @@ int Socket::reciveAll(char *message,
         switch (reciveCode) {
             case -1:
                 throw Exception("Failed to recive: " + std::string(strerror(errno)));
-                reciveFinished = true;
+                receiveFinished = true;
                 break;
             case 0:
-                reciveFinished = true;
+                receiveFinished = true;
                 doClose();
                 break;
             default:
                 numberOfBytesReceived =
                         numberOfBytesReceived + reciveCode;
-                reciveFinished =
+                receiveFinished =
                         numberOfBytesBuffer <= numberOfBytesReceived;
                 break;
         }

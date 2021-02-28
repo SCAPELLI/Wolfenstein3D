@@ -8,14 +8,9 @@ SenderThread::SenderThread(Socket* skt, BlockingEventsQueue* eventsToSend):
 void SenderThread::run(){
     try{
         while (!isDone){
-            Event event = std::move(eventsToSend->pop());
-            if (event.thisIsTheQuitEvent()) isDone = true;
-
-            std::string serialization = EventSerializer::serialize(event);
-            if (serialization == ""){
-                continue;
-            }
-            skt->sendAll(serialization);
+            Message msg = std::move(eventsToSend->pop());
+            isDone = msg.getMessage().substr(0, 3) == std::string("016");
+            skt->sendAll(msg.getMessage());
       }
     } catch (std::exception e){}
 }

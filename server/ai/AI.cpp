@@ -9,7 +9,9 @@
 #include "common/Event.h"
 #include "common/MovementEvent.h"
 #include "common/TurnEvent.h"
+#include "../../common/EventSerializer.h"
 #include "common/ShootingEvent.h"
+#include "../../common/include/Message.h"
 
 extern "C" {
 #include <lua.h>
@@ -115,17 +117,20 @@ int AI::getBotActionId(std::vector<PlayerInfo>& players) {
 void addMovementEventToQueue(ProtectedEventsQueue& events) {
     MovementEvent movementEvent(FORWARD, 0);
     Event event(&movementEvent, MovementEventType);
-    events.push(event);
+    Message msg(EventSerializer::serialize(event));
+    events.push(msg);
 }
 void addTurnEventToQueue(ProtectedEventsQueue& events, float sentido) {
     TurnEvent turnEvent(0, PI/180 * sentido);
     Event event(&turnEvent, TurnEventType);
-    events.push(event);
+    Message msg(EventSerializer::serialize(event));
+    events.push(msg);
 }
 void addShootingEventToQueue(ProtectedEventsQueue& events) {
     ShootingEvent shootingEvent(0);
     Event event(&shootingEvent, ShootingEventType);
-    events.push(event);
+    Message msg(EventSerializer::serialize(event));
+    events.push(msg);
 }
 
 void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players) {

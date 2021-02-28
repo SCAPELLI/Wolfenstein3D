@@ -4,20 +4,19 @@
 #include <queue>
 #include <mutex>
 #include <condition_variable>
-
+#include "include/Message.h"
 #include "Event.h"
-class EventsCatcher;
+
 /* Cola de eventos usada para encolar eventos a los usuarios*/
 class BlockingEventsQueue {
-    std::queue<Event> events{};
+    std::queue<Message> events{};
     std::mutex mutex{};
     std::condition_variable cv;
 public:
     BlockingEventsQueue();
-    void insertEvents(EventsCatcher& eventsCatcher);
-    Event pop();
+    Message pop();
     bool empty();
-    void push(Event& event);
+    void push(Message event);
 };
 
 #endif

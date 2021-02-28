@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "EventSerializer.h"
 
 #include "../common/Event.h"
@@ -44,10 +45,11 @@ Event EventSerializer::createMovementEvent(std::string eventString) {
 }
 
 Event EventSerializer::createTurnEvent(std::string eventString) {
-    //EEEPPPAAAAAAAAAA
-    //angleVariation (10 bytes)
+    //EEEPPPA..A
+    //angleVariation (20 bytes)
     int playerId = std::stoi(eventString.substr (3, 3));
-    float angleVariation = std::stof(eventString.substr(6, 10));
+    std::setlocale(LC_ALL, "en_US.UTF-8");
+    double angleVariation = std::stod(eventString.substr(6, 20));
 
     TurnEvent event(playerId, angleVariation);
     return Event(&event, TurnEventType);
@@ -68,7 +70,7 @@ Event EventSerializer::createOpenDoorEvent(std::string eventString) {
     bool isOpen = (eventString[6] == 'T');
 
     OpenDoorEvent event(playerId, isOpen);
-    return Event(&event, DoorOpenedEventType);
+    return Event(&event, OpenDoorEventType);
 }
 
 Event EventSerializer::createGameOverEvent(std::string eventString) {
@@ -118,7 +120,7 @@ std::string EventSerializer::serialize(ChangeWeaponEvent& event) {
     std::string type = std::to_string(event.type);
     addZerosToLeft(type, 3);
 
-    return AMMO_CHANGE_EVENT_STRING + playerId + type;
+    return CHANGE_WEAPON_EVENT_STRING + playerId + type;
 }
 
 
@@ -150,8 +152,8 @@ Event EventSerializer::createCreateMapEvent(std::string eventString) {
 }
 
 std::string EventSerializer::serialize(CreateMapEvent& event) {
-    std::string witdh = std::to_string(event.width);
-    addZerosToLeft(witdh, 6);
+    std::string width = std::to_string(event.width);
+    addZerosToLeft(width, 6);
 
     std::string height = std::to_string(event.height);
     addZerosToLeft(height, 6);
@@ -159,7 +161,7 @@ std::string EventSerializer::serialize(CreateMapEvent& event) {
     std::string numberOfPlayers = std::to_string(event.startingLocations.size());
     addZerosToLeft(numberOfPlayers, 3);
 
-    std::string response = CREATE_MAP_EVENT_STRING + witdh + height + numberOfPlayers;
+    std::string response = CREATE_MAP_EVENT_STRING + height + width + numberOfPlayers;
 
     for (auto& player: event.startingLocations) {
         std::string playerId = std::to_string(player.first);
@@ -268,7 +270,7 @@ Event EventSerializer::createDoorOpenedEvent(std::string eventString) {
     int y = std::stoi(eventString.substr (9, 15));
 
     DoorOpenedEvent event(DoorOpenedEventType, x, y);
-    return Event(&event, DespawnEventType);
+    return Event(&event, DoorOpenedEventType);
 }
 
 std::string EventSerializer::serialize(DoorOpenedEvent& event) {
@@ -278,7 +280,7 @@ std::string EventSerializer::serialize(DoorOpenedEvent& event) {
     std::string y = std::to_string(event.y);
     addZerosToLeft(y, 6);
 
-    return DESPAWN_EVENT_STRING + x + y;
+    return DOOR_OPENED_EVENT_STRING + x + y;
 }
 
 Event EventSerializer::createHealthChangeEvent(std::string eventString) {
@@ -332,17 +334,10 @@ std::string EventSerializer::serialize(PickUpKeyEvent& event) {
     return PICK_UP_KEY_EVENT_STRING + playerId;
 }
 
-Event EventSerializer::createPickUpWeaponEvent(std::string eventString) {
-    //EEEPPP
-    int playerId = std::stoi(eventString.substr (3, 6));
-
-    PickUpKeyEvent event(PickUpWeaponType, playerId);
-    return Event(&event, PickUpWeaponType);
-}
-
 std::string EventSerializer::serialize(PickUpWeaponEvent& event) {
     std::string idPlayer = std::to_string(event.idPlayer);
     std::string response = std::to_string(event.uniqueId);
+    addZerosToLeft(idPlayer, 3);
     addZerosToLeft(response, 3);
 
     return PICK_UP_WEAPON_EVENT_STRING + idPlayer + response;
@@ -390,10 +385,13 @@ Event EventSerializer::deserialize(std::string eventString) {
             return createPickUpWeaponEvent(eventString);
         case SCORE_CHANGE_EVENT:
             return createScoreChangeEvent(eventString);
+        case QUIT_EVENT:
+            return createQuitEvent(eventString);
         default:
             return event;
     }
 }
+
 void EventSerializer::addZerosToLeft(std::string& string, int finalSize) {
     while (string.length() != finalSize) {
         string.insert(string.begin(),'0');
@@ -404,12 +402,11 @@ void EventSerializer::addZerosToRight(std::string& string, int finalSize) {
         string.insert(string.end(),'0');
     }
 }
-
 std::string EventSerializer::serialize(AmmoChangeEvent& event) {
     std::string id = std::to_string(event.idPlayer);
     addZerosToLeft(id, 3);
-    std::string ammo = std::to_string(event.ammo);
-    addZerosToLeft(ammo, 9);
+    std::string ammo = std::to_string(event.ammo) + ",";
+    addZerosToRight(ammo, 9);
 
     return AMMO_CHANGE_EVENT_STRING + id + ammo;
 }
@@ -430,6 +427,7 @@ std::string EventSerializer::serialize(TurnEvent& event) {
     addZerosToLeft(playerId, 3);
 
     std::string angleVariation = std::to_string(event.degrees);
+    std::replace(angleVariation.begin(),angleVariation.end(), ',', '.');
     addZerosToRight(angleVariation, 20);
 
     return TURN_EVENT_STRING + playerId + angleVariation;
@@ -466,7 +464,6 @@ std::string EventSerializer::serialize(OpenDoorEvent& event) {
     return OPEN_DOOR_EVENT_STRING + playerId + opened;
 }
 
-
 std::string EventSerializer::serialize(GameOverEvent& event) {
     std::string playerId = std::to_string(event.idPlayer);
     addZerosToLeft(playerId, 3);
@@ -474,6 +471,31 @@ std::string EventSerializer::serialize(GameOverEvent& event) {
     return GAME_OVER_EVENT_STRING + playerId;
 }
 
+
 std::string EventSerializer::serialize(Event& event) {
     return event.getSerialization();
+}
+
+Event EventSerializer::createPickUpWeaponEvent(std::string eventString) {
+    //EEEPPPUUU
+    int playerId = std::stoi(eventString.substr (3, 3));
+    int uniqueId = std::stoi(eventString.substr (6, 3));
+
+    PickUpWeaponEvent event(PickUpWeaponType, playerId, uniqueId);
+    return Event(&event, PickUpWeaponType);
+}
+
+Event EventSerializer::createQuitEvent(std::string eventString) {
+    //EEEPPP
+    int playerId = std::stoi(eventString.substr(3, 3));
+
+    QuitEvent event(playerId);
+    return Event(&event, QuitEventType);
+}
+
+
+std::string EventSerializer::serialize(QuitEvent& event) {
+    std::string playerId = std::to_string(event.playerId);
+    addZerosToLeft(playerId, 3);
+    return QUIT_EVENT_STRING + playerId;
 }

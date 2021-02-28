@@ -34,7 +34,7 @@ const int PICK_UP_WEAPON_EVENT = 9;
 const std::string PICK_UP_WEAPON_EVENT_STRING = "009";
 
 const int POSITION_EVENT = 10;
-const std::string POSITION_EVENT_STRING = "10";
+const std::string POSITION_EVENT_STRING = "010";
 
 const int SCORE_CHANGE_EVENT = 11;
 const std::string SCORE_CHANGE_EVENT_STRING = "011";

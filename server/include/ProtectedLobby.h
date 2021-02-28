@@ -40,5 +40,6 @@ public:
     int numberOfUsersInMatch(int matchId);
     int cancelMatch(int matchId);
     int startMatch(int matchId);
+    void notifyAll();
 };
 #endif

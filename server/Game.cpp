@@ -65,7 +65,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
         return -1;
     }
     for (int i = 0; i < players.size(); i++){
-        if ( i == idPlayer)
+        if ( i == ids[idPlayer])
             continue;
         int distancePlayer = players[ids[idPlayer]].distanceWith(players[i]);
         if (distancePlayer < distanceToWall) {
@@ -92,10 +92,10 @@ bool Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& ne
     }
     else if (players[damaged].isDead()){
         players[ids[sender]].updateKills();
-        AbstractEvent* event = new KillEvent(KillEventType, ids[damaged]);
+        AbstractEvent* event = new KillEvent(KillEventType, players[damaged].getId());
         newEvents.push_back(event);
         map.dropAllItems(players[damaged], newEvents);// borrar directamente player aca?
-        respawnPlayer(ids[damaged], newEvents);
+        respawnPlayer(players[damaged].getId(), newEvents);
     }
     else{
         AbstractEvent* event = new HealthChangeEvent(HealthChangeType,
