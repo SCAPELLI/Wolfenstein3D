@@ -139,3 +139,8 @@ void ProtectedLobby::notifyAll() {
     std::unique_lock<std::mutex> lock(m);
     cv.notify_all();
 }
+
+void ProtectedLobby::JoinMatches() {
+    for(auto& match: matches)
+        match.join();
+}

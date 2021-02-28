@@ -41,5 +41,6 @@ public:
     int cancelMatch(int matchId);
     int startMatch(int matchId);
     void notifyAll();
+    void JoinMatches();
 };
 #endif
