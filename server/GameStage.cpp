@@ -136,3 +136,10 @@ std::vector<PlayerInfo> GameStage::getPlayersInfo(){
     }
     return playersInfo;
 }
+
+void GameStage::processEvent(QuitEvent& event) {
+    std::string msg = EventSerializer::serialize(event);
+    for (int j = 0; j < queues->size(); j++) {
+        queues->at(j).push(msg);
+    }
+}

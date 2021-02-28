@@ -103,11 +103,13 @@ void Client::catchEvents(BlockingEventsQueue& senderQueue){
     SDL_Event sdlEvent;
     while (SDL_PollEvent(&sdlEvent)){
         Event event(sdlEvent, userId);
+
+        EventSerializer::serialize(event);
         Message msg(EventSerializer::serialize(event));
-        if(msg.getMessage() != "") {
+        if(event.thisIsTheQuitEvent())
+            gameIsPlaying = false;
+        if(msg.getMessage() != "")
             senderQueue.push(msg);
-        }
-        if(event.thisIsTheQuitEvent()) gameIsPlaying = false;
     }
 }
 
