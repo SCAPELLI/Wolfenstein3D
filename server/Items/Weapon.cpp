@@ -41,7 +41,11 @@ bool Weapon::doesHit(int distance, double angle){ // doesHit
 }
 
 bool Weapon::canShoot(int bullets){
-    return bullets >= minBullets && !isShooting;
+     if (bullets >= minBullets && !isShooting) {
+        if (name != "knife") isShooting = true;
+        return true;
+    }
+    return false;
 }
 
 Weapon::Weapon() {
@@ -63,12 +67,12 @@ bool Weapon::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) 
     return player.getItem(this, newEvents);
 }
 
-void Weapon::incrementCooldown(){ //decrease
+void Weapon::incrementCooldown(){
     if (isShooting) {
         cooldown += 1;
-        cooldown %= cooldownTimer;
     }
-    if (cooldown == cooldownTimer){
+    if (cooldown >= cooldownTimer && cooldownTimer != 0){
         isShooting = false;
+        cooldown %= cooldownTimer;
     }
 }

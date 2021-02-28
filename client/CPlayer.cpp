@@ -83,6 +83,6 @@ CPlayer::~CPlayer(){
     for (int i = 0; i < weapons.size(); i++) delete weapons[i];
 }
 
-void CPlayer::changeAmmo(int deltaAmmo) {
-    ammo += deltaAmmo;
+void CPlayer::changeAmmo(int newAmmo) {
+    ammo = newAmmo;
 }

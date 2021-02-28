@@ -21,7 +21,6 @@ public:
                                  std::vector<AbstractEvent*>& newEvents);
     Vector calculateDirection(int idPlyr);
     bool changeWeapon(int idPlayer, int idWeapon);
-    int getDamage(int idPlyr);
     int shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     bool openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     void getHighscores(std::map<std::string, std::vector<int>>& names);
@@ -29,7 +28,7 @@ public:
     bool canShoot(int idPlayer, int otherPlayer);
     void respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     bool reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents);
-
+    int getBullets(int idPlayer);
 
     };
 

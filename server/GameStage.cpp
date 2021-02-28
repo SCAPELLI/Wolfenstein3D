@@ -43,6 +43,16 @@ void GameStage::processEvent(TurnEvent& event) {
 void GameStage::processEvent(ShootingEvent& event) {
     int idHit = game.shoot(event.idPlayer, newEvents);
     if (idHit == -2) return;
+    AmmoChangeEvent ammo(AmmoChangeType, event.idPlayer, game.getBullets(event.idPlayer));
+    Event ammoEvent(&ammo, AmmoChangeType);
+    Message msgAmmo(EventSerializer::serialize(ammoEvent));
+    ShootingEvent shoot(event.idPlayer);
+    Event anotherEvent(&shoot, ShootingEventType);
+    Message msgShoot(EventSerializer::serialize(anotherEvent));
+    for (int i = 0; i < queues->size(); i++) {
+        queues->at(i).push(msgShoot);
+        queues->at(i).push(msgAmmo);
+    }
     if (idHit == -3) {
         ChangeWeaponEvent newEvent(event.idPlayer, 0);
         Event anotherEvent(&newEvent, ChangeWeaponType);
@@ -51,18 +61,6 @@ void GameStage::processEvent(ShootingEvent& event) {
             queues->at(i).push(msg);
         }
         return;
-    }
-
-    AmmoChangeEvent ammo(AmmoChangeType, event.idPlayer,
-                         -1 * game.players[game.ids[event.idPlayer]].getWeapon().minBullets); //hacer getBulletsUsed
-    ShootingEvent shoot(event.idPlayer);
-    Event anotherEvent(&shoot, ShootingEventType);
-    Event ammoEvent(&ammo, AmmoChangeType);
-    Message msgShoot(EventSerializer::serialize(anotherEvent));
-    Message msgAmmo(EventSerializer::serialize(ammoEvent));
-    for (int i = 0; i < queues->size(); i++){
-        queues->at(i).push(msgShoot);
-        queues->at(i).push(msgAmmo);
     }
     pushNewEvents();
 }
@@ -90,8 +88,8 @@ void GameStage::pushNewEvents(){
         Message msg(EventSerializer::serialize(anotherEvent));
         for (int j = 0; j < queues->size(); j++) {
             queues->at(j).push(msg);
-            //delete newEvents[i];
         }
+        delete(newEvents[i]);
     }
     newEvents.clear();
 }

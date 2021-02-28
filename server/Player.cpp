@@ -104,9 +104,11 @@ void Player::eraseCurrentWeapon(){
     return;
 }
 
-bool Player::hasBullets(){
+void Player::updateBullets() {
     bullets -= bag[idWeapon].minBullets;
     bulletsShot += bag[idWeapon].minBullets;
+}
+bool Player::hasToChangeWeapon(){
     if (bullets < bag[idWeapon].minBullets && idWeapon != 0){
         prevIdWeapon = idWeapon;
         idWeapon = 0;
@@ -274,6 +276,10 @@ void Player::incrementCooldown() {
 
 bool Player::operator==(const Player& player) const{
     return player.id == this->id;
+}
+
+int Player::getBullets() {
+    return bullets;
 }
 
 int Player::getId() const {

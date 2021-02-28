@@ -12,22 +12,22 @@ Player:
   score: 0
 Weapons:
   knife:
-    damage: 1
+    damage: 10
     minBullets: 0
     cooldownTimer: 0
   pistol:
-    damage: 1
+    damage: 20
     minBullets: 1
-    cooldownTimer: 0
+    cooldownTimer: 200
   machine gun:
-    damage: 5
+    damage: 30
     minBullets: 5
-    cooldownTimer: 9
+    cooldownTimer: 400
   chain gun:
-    damage: 6
+    damage: 40
     minBullets: 1
-    cooldownTimer: 3
+    cooldownTimer: 300
   rocket launcher:
-    damage: 1
+    damage: 50
     minBullets: 5
     cooldownTimer: 0
