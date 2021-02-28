@@ -19,6 +19,7 @@
 #include "ServerEvents/AmmoChangeEvent.h"
 #include "common/OpenDoorEvent.h"
 #include "ServerEvents/CreateMapEvent.h"
+#include "ServerEvents/PickUpKeyEvent.h"
 #define PI 3.141592
 /*----------*/
 
@@ -75,6 +76,9 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
             break;
         case QuitEventType:
             event = new QuitEvent(*(QuitEvent*)updateEvent);
+            break;
+        case PickUpKeyType:
+            event = new PickUpKeyEvent(*(PickUpKeyEvent*)updateEvent);
             break;
         default:
             this->event = nullptr;
