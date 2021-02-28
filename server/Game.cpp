@@ -70,7 +70,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
         if (distancePlayer < distanceToWall) {
             if (!canShoot(idPlayer, i))
                 continue;
-            int damage = players[ids[idPlayer]].hits(players[i]) + 70;
+            int damage = players[ids[idPlayer]].hits(players[i]);
             int newHp = players[i].getDamage(damage);
             reactToDamage(i, idPlayer, newEvents);
             return i;// devolves a quien le pegaste
