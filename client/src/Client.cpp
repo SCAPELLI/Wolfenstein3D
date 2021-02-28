@@ -23,7 +23,7 @@ Client::~Client() {
 
 bool Client::tryToConnect(std::string port, std::string domain) {
     try {
-        userSocket = std::move(TCPClient::getClientSocket(domain.c_str(), port.c_str()));
+        userSocket = std::move(TCPClient::getClientSocket("localhost", "7777"));//domain.c_str(), port.c_str()));
         return true;
     } catch (const std::exception& error) {
         return false;

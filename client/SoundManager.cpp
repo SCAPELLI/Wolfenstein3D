@@ -30,4 +30,10 @@ void SoundManager::playSounds() {
     toPlay.clear();
 }
 
-SoundManager::~SoundManager(){}
+SoundManager::~SoundManager(){
+    for (int i = 0; i < MAX_EFFECTS; i++) {
+        Mix_FreeChunk(soundEffects[i]);
+    }
+    Mix_FreeMusic(music);
+    Mix_Quit();
+}
