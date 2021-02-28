@@ -386,7 +386,7 @@ Event EventSerializer::deserialize(std::string eventString) {
         case SCORE_CHANGE_EVENT:
             return createScoreChangeEvent(eventString);
         case QUIT_EVENT:
-            return createQuitEvent();
+            return createQuitEvent(eventString);
         default:
             return event;
     }
@@ -476,16 +476,6 @@ std::string EventSerializer::serialize(Event& event) {
     return event.getSerialization();
 }
 
-Event EventSerializer::createQuitEvent() {
-    QuitEvent event;
-    return Event(&event, QuitEventType);
-}
-
-std::string EventSerializer::serialize(QuitEvent& event) {
-    return QUIT_EVENT_STRING;
-}
-
-
 Event EventSerializer::createPickUpWeaponEvent(std::string eventString) {
     //EEEPPPUUU
     int playerId = std::stoi(eventString.substr (3, 3));
@@ -493,4 +483,19 @@ Event EventSerializer::createPickUpWeaponEvent(std::string eventString) {
 
     PickUpWeaponEvent event(PickUpWeaponType, playerId, uniqueId);
     return Event(&event, PickUpWeaponType);
+}
+
+Event EventSerializer::createQuitEvent(std::string eventString) {
+    //EEEPPP
+    int playerId = std::stoi(eventString.substr(3, 3));
+
+    QuitEvent event(playerId);
+    return Event(&event, QuitEventType);
+}
+
+
+std::string EventSerializer::serialize(QuitEvent& event) {
+    std::string playerId = std::to_string(event.playerId);
+    addZerosToLeft(playerId, 3);
+    return QUIT_EVENT_STRING + playerId;
 }

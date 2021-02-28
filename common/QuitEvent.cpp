@@ -2,7 +2,7 @@
 #include "../server/GameStage.h"
 #include "../common/EventSerializer.h"
 
-QuitEvent::QuitEvent() {}
+QuitEvent::QuitEvent(int playerId): playerId(playerId) {}
 
 void QuitEvent::runHandler(GameStage& gameStage) {
     gameStage.processEvent(*this);
