@@ -104,6 +104,8 @@ int AI::getBotActionId(std::vector<PlayerInfo>& players) {
         if (angle<0) angle=angle+2*PI;
         lua_pushnumber(L, angle);
         lua_setfield(L, -2, "angle");
+        lua_pushnumber(L, players[i].life);
+        lua_setfield(L, -2, "life");
         lua_setfield(L, -2, std::to_string(players[i].idPlayer).c_str());
     }
 

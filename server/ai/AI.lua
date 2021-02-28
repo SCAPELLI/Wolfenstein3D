@@ -3,7 +3,7 @@ dofile("../../server/ai/TurnOrMoveAnalysis.lua")
 
 TILE = 32
 ATTACK_DISTANCE = 64
-SIGHTING_DISTANCE = 64
+SIGHTING_DISTANCE = 96
 NONE_PLAYER = "none player has been spotted"
 
 MOVE_FOWARD = 1
@@ -15,6 +15,7 @@ DO_NOTHING = 5
 function initializeGameContext(map, id)
 	botId = id
 	markedPlayerId = NONE_PLAYER
+	markedPlayerIdLife = -1
 	idealStepsForAllTiles = getIdealStepsForAllTiles(map)
 end
 
@@ -35,12 +36,17 @@ function detectPlayersInASightingDistance(players, markedPlayerId)
 			if playerId ~= botId then
 				if distace(players[botId].position, playerInfo.position) < SIGHTING_DISTANCE then
 					markedPlayerId = playerId
+					markedPlayerIdLife = playerInfo.life
 					break
 				end
 			end
 		end
+	else
+		if markedPlayerIdLife ~= players[markedPlayerId].life then
+			markedPlayerId = NONE_PLAYER
+		end
 	end
-	return markedPlayerId
+return markedPlayerId
 end
 
 function getBotActionId(players)
