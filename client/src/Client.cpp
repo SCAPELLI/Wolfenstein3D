@@ -173,6 +173,10 @@ void Client::playMatch() {
         game.advanceTime();
         SDL_Delay(33);
     }
+    QuitEvent quit(userId);
+    Event finalEvent(&quit, QuitEventType);
+    Message msg(EventSerializer::serialize(finalEvent));
+    senderQueue.push(msg);
     s.join();
     r.join();
 }

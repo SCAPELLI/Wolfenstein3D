@@ -14,7 +14,8 @@ void ReceiverThread::run() {
         skt->reciveAll(response);
         Message msg(response);
         //Event event = std::move(EventSerializer::deserialize(response));
-        isDone = msg.getMessage().substr(0, 3) == std::string("016");
+        isDone = msg.getMessage().substr(0, 3) == std::string("016") ||
+                 msg.getMessage().substr(0, 3) == std::string("005");
 
         receivedBuffer->push(msg);
     }
