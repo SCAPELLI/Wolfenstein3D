@@ -9,6 +9,7 @@
 #include "../include/SenderThread.h"
 #include "../ai/AI.h"
 #include <unistd.h>
+#include <cctype>
 #include <common/EventSerializer.h>
 #include <algorithm>
 #include "../../common/include/Message.h"
@@ -81,6 +82,20 @@ bool Match::userIsPartOfTheMatch(int userId) {
     return it != users.end();
 }
 
+bool senderThreadIsDead(SenderThread* t){
+    if (t->isDead()){
+        t->join();
+    }
+    return t->isDead();
+}
+
+bool receiverThreadIsDead(ReceiverThread* t){
+    if (t->isDead()){
+        t->join();
+    }
+    return t->isDead();
+}
+
 void Match::run() {
 
     for (auto& user: users)
@@ -122,7 +137,10 @@ void Match::run() {
                 removeUser(&event);
                 lobby->notifyAll();
             }
-        } // agregar reap?
+        }
+        senders.erase(std::remove_if(senders.begin(), senders.end(), senderThreadIsDead), senders.end());
+        receivers.erase(std::remove_if(receivers.begin(), receivers.end(), receiverThreadIsDead), receivers.end());
+        // agregar reap?
        // ai.generateEvent(userEvents, gameStage.getPlayersInfo());
         gameStage.incrementCooldown();
         usleep(20000);
