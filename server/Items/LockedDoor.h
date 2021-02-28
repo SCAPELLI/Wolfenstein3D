@@ -15,7 +15,8 @@ private:
 public:
     LockedDoor(int id,std::string name, int effect, int uniqueId);
     bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
-    void incrementCooldown();
+    void incrementCooldown() override;
+    int getEffect();
 };
 
 #endif //LOCKEDDOOR_H
