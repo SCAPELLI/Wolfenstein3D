@@ -25,6 +25,7 @@ class SpawnNotMovableEvent;
 class ScoreChangeEvent;
 class AmmoChangeEvent;
 class HealthChangeEvent;
+class PickUpKeyEvent;
 
 class CGame{
 	CPlayer activePlayer;
@@ -34,15 +35,17 @@ class CGame{
 	std::map<int, EnemyPlayer*> players;
     SoundManager soundQueue;
     BagOfSprites sprites;
+    bool isPlaying;
 
 	public:
-	CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId);
+	    CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId, bool& isPlaying);
 		void draw();
 		void rotate(double degrees);
 		void advanceTime();
 		void playSounds();
 		void processEvent(ShootingEvent& event);
         void processEvent(TurnEvent& event);
+        void processEvent(PickUpKeyEvent& event);
         void processEvent(GameOverEvent& event);
 		void processEvent(KillEvent& event);
 		void processEvent(PositionEvent& event);

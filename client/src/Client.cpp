@@ -129,7 +129,7 @@ void Client::playMatch() {
         }
     }
     //Event event = std::move(receiverQueue.pop());
-
+    SDL_Delay(2000);
     std::list<Message> messageEvents = receiverQueue.popAll();
     Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
     messageEvents.pop_front(); //ojo si sacas muchos elementos con el popAll acá, hay que procesarlos en algun lado
@@ -149,7 +149,7 @@ void Client::playMatch() {
         map.push_back(row);
     }
 
-    CGame game(spawnPointX, spawnPointY, FOV, map, userId);
+    CGame game(spawnPointX, spawnPointY, FOV, map, userId, gameIsPlaying);
     for (auto it = start->startingLocations.begin(); it != start->startingLocations.end(); ++it){
         if (it->first == userId) continue;
         game.spawnEnemy(it->first, Vector(start->startingLocations[it->first].first,

@@ -15,14 +15,16 @@
 #include "../common/ServerEvents/HealthChangeEvent.h"
 #include "../common/ServerEvents/GameOverEvent.h"
 #include "../common/ServerEvents/KillEvent.h"
+#include "../common/ServerEvents/PickUpKeyEvent.h"
 
 #define PICKUP_SOUND 7
 
 
-CGame::CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId):
+CGame::CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId, bool& isPlaying):
 	activePlayer(x, y, fov, playerId),
 	screen(&activePlayer, 480, 640),
-	map(std::move(map)), renderables(), players(), soundQueue(), sprites(screen.getRenderer()) {
+	map(std::move(map)), renderables(), players(), soundQueue(), sprites(screen.getRenderer()),
+	isPlaying(isPlaying){
         activePlayer.loadWeapons(screen.getRenderer(), sprites);
 }
 
@@ -43,7 +45,7 @@ void CGame::spawnEnemy(int playerId, Vector spawnPoint){
 }
 
 void CGame::processEvent(SpawnEvent& event) {
-    if (event.type == 161) {
+    if (event.type == 161 || event.type == 160) {
         map[event.posY][event.posX] = event.type;
     }
     renderables[event.id] =  Renderable(event.posY, event.posX, &sprites.items[event.type]);
@@ -53,6 +55,10 @@ void CGame::processEvent(HealthChangeEvent& event) {
     activePlayer.setHealth(event.health);
 }
 
+void CGame::processEvent(PickUpKeyEvent& event) {
+    if (event.idPlayer != activePlayer.id) return;
+    activePlayer.hasKey = true;
+}
 
 void CGame::processEvent(DespawnEvent &event) {
     renderables.erase(event.id);
@@ -72,7 +78,7 @@ void CGame::processEvent(ShootingEvent& event){
 
 void CGame::processEvent(GameOverEvent& event){
     if (event.idPlayer != activePlayer.id) return; //players[event.idPlayer].despawn();
-    // mostrar top
+    isPlaying = false;
 }
 
 void CGame::processEvent(ChangeWeaponEvent& event){

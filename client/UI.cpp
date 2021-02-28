@@ -38,6 +38,7 @@ void UI::draw(SDL_Renderer* renderer){
     drawNumbers(renderer, w, h, std::to_string(activePlayer->getLives()), LIFE_LAYOUT);
     drawNumbers(renderer, w, h, std::to_string(activePlayer->getHp()), HEALTH_LAYOUT);
     drawNumbers(renderer, w, h, std::to_string(activePlayer->getAmmo()), AMMO_LAYOUT);
+    //drawKey
     drawWeapon(renderer, w, h);
 }
 

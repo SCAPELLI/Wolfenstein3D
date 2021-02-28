@@ -15,6 +15,7 @@ class CPlayer{
 
 	public:
         int id;
+        bool hasKey;
 		CPlayer(double x, double y, double fov, int id);
 		void loadWeapons(SDL_Renderer* renderer, BagOfSprites& sprites);
 		Camera* getCamera();
