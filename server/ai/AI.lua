@@ -69,8 +69,6 @@ function getBotActionId(players)
 			idealY = yTile * TILE - TILE/2
 
 			local resultId = turnOrMoveAnalyzer(players[botId], idealX, idealY)
-			--print("bot do the action: ", resultId)
-			--print("bot next tile: ", xTile, yTile)
 			return resultId
 		else
 			
@@ -79,15 +77,12 @@ function getBotActionId(players)
 				players[markedPlayerId].position.x, 
 				players[markedPlayerId].position.y)
 			if action == MOVE_FOWARD then
-	      		--print ("bot attacks")
 	      		return ATTACK
 	    	else
-	    		--print ("bot turns to attack")
 	      		return action
 	    	end
 		end
 	else
-		print ("bot dont move")
 		return DO_NOTHING
 	end
 end

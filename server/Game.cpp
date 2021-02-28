@@ -13,7 +13,6 @@
 #include <cmath>
 
 
-
 Game::Game( std::vector<AbstractEvent*>& newEvents,
             std::map<int, std::string>& playersNames, int levelId)
             :     levelId(levelId){
@@ -157,5 +156,5 @@ bool Game::GameFinished() {
     int playersAlive = 0;
     for(auto& player: players)
         if (player.isGameOver()) ++playersAlive;
-    return playersAlive > 1;
+    return playersAlive <= 1;
 }
