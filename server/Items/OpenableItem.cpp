@@ -6,7 +6,7 @@
 
 OpenableItem::OpenableItem(int id,std::string name, int effect,int uniqueId)
 :  id(id), name(name), effect(effect), uniqueId(uniqueId),
-    cooldown(0), openTimeLimit(3000), Item(id, name, effect, uniqueId){}
+    cooldown(0), openTimeLimit(2000), Item(id, name, effect, uniqueId){}
 
 
 bool OpenableItem::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) {
