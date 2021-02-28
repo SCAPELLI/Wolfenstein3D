@@ -69,8 +69,6 @@ void GameStage::processEvent(ShootingEvent& event) {
 
 void GameStage::processEvent(MovementEvent& event) {
     Vector movement = game.calculateDirection(event.idPlyr);
-    std::cout << "SERVER\n";
-    std::cout << movement.x << "," << movement.y << "\n";
     switch (event.getDirection()) {
         case BACKWARD: {
             game.changePosition(movement * -1, event.idPlyr, newEvents);
@@ -92,7 +90,7 @@ void GameStage::pushNewEvents(){
         Message msg(EventSerializer::serialize(anotherEvent));
         for (int j = 0; j < queues->size(); j++) {
             queues->at(j).push(msg);
-            delete newEvents[i];
+            //delete newEvents[i];
         }
     }
     newEvents.clear();
