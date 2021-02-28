@@ -10,6 +10,7 @@
 #include "../../server/include/SenderThread.h"
 #include "../../common/include/Message.h"
 #include "../../common/EventSerializer.h"
+#include "../../common/QuitEvent.h"
 
 #define FOV 0.66
 

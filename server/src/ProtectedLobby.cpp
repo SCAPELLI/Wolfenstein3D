@@ -46,7 +46,7 @@ int ProtectedLobby::createANewMatch(int levelId, int maximumNumberOfPlayers, int
     else {
         ++reference;
         str adminUserName = getUserName(adminId);
-        matches.emplace_back(reference, levelId, maximumNumberOfPlayers, adminId, adminUserName, adminSocket);
+        matches.emplace_back(reference, levelId, maximumNumberOfPlayers, adminId, adminUserName, adminSocket, this);
         return reference;
     }
 }
@@ -62,7 +62,7 @@ int ProtectedLobby::addUserToMatch(int matchId, int userId, Socket* userSocket) 
 
     //while (std::find_if(matches.begin(), matches.end(),
     //                    [&] (const Match& match) { return match.sameIdAs(matchId);}) != matches.end())
-    while (it->notFinished() and it->notCancelled())
+    while (it->notFinished() and it->notCancelled() and it->userIsPartOfTheMatch(userId))
         cv.wait(lock);
     if (it->notCancelled()) return 0;
     else return -1;
@@ -124,10 +124,18 @@ int ProtectedLobby::startMatch(int matchId) {
             [&] (const Match& match) { return match.sameIdAs(matchId);});
     if (it == matches.end()) return -1;
     it->start();
-    lock.unlock();
-    it->join();
-    lock.lock();
+    //lock.unlock();
+
+    while (it->notFinished() and it->userIsPartOfTheMatch(it->adminUserId))
+        cv.wait(lock);
+    //it->join();
+    //lock.lock();
     //matches.erase(it);
     cv.notify_all();
     return 0;
+}
+
+void ProtectedLobby::notifyAll() {
+    std::unique_lock<std::mutex> lock(m);
+    cv.notify_all();
 }
