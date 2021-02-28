@@ -19,22 +19,21 @@ public:
     CellMap();
     void removePlayer(Player& player);
     void addPlayer(Player& entity);
-    bool hasPlayer();
     bool isSolid();
     void getItemsTile(Player& player,
                       std::vector<AbstractEvent*>& newEvents);
+    OpenableItem* getDoor();
     void addItem(Item* item);
     virtual void addItem(OpenableItem* item);
     void setSolid();
     void dropItems(Player& player,GameLoader& factory,
                             std::vector<AbstractEvent*>& newEvents);
-    void dropItemPlayer(Item* item);
     bool isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents);
     bool isOpen();
     virtual void incrementCooldown();
     bool impacts(Rocket* rocket, std::vector<AbstractEvent*>& newEvents);
     void explode(Rocket* rocket, std::vector<AbstractEvent *> &newEvents);
-
+    bool isLockedDoor();
 
 };
 

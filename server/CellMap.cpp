@@ -133,9 +133,13 @@ void CellMap::dropItems(Player& player,GameLoader& factory,
         newEvents.push_back(event3);
     }
 }
-void CellMap::dropItemPlayer(Item* item){
-    items.push_back(item);
+OpenableItem* CellMap::getDoor() {
+    return door;
 }
+bool CellMap::isLockedDoor(){
+    return door != nullptr && door->getItemName() == "locked door";
+}
+
 void CellMap::getItemsTile(Player& player,
                             std::vector<AbstractEvent*>& newEvents) {
     //ignorar en caso de ser bot

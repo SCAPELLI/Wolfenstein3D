@@ -48,6 +48,8 @@ public:
 
     void insertDoor(int &elem, OpenableItem *door, int &pos1, int &pos2,
                     CellMap &tile, std::vector<AbstractEvent *> &newEvents);
+
+    bool changeBecauseLockedDoor(Vector& doorPos, std::vector<AbstractEvent*>& newEvents);
 };
 
 

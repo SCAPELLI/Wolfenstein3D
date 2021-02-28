@@ -6,7 +6,10 @@
 #include "../common/ServerEvents/SpawnEvent.h"
 #include "../common/ServerEvents/CreateMapEvent.h"
 #include "../common/ServerEvents/SpawnNotMovableEvent.h"
+#include "../common/ServerEvents/DespawnEvent.h"
 #include "../common/ServerEvents/DoorOpenedEvent.h"
+#include <bits/stdc++.h>
+#define DOORTOCHANGE 161
 
 Map::Map(){}
 
@@ -55,7 +58,7 @@ void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
         insertDoor(elem,door, pos1, pos2,tileMap, newEvents);
     }
 //    else if (elem >= 300 ){ // los que van a ser caminables
-//        auto event = new SpawnNotMovableEvent(SpawnNotMovableType, elem, pos1, pos2);
+//        auto event = new SpawnEvent(SpawnNotMovableType, elem, pos1, pos2);
 //        newEvents.push_back(event);
 //    }
 }
@@ -127,12 +130,32 @@ bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
 
     if (doorPos.x != -1){
         newEvents.push_back(new DoorOpenedEvent(DoorOpenedEventType, doorPos.y, doorPos.x));
+        if (changeBecauseLockedDoor(doorPos, newEvents))
+            matrix[doorPos.x][doorPos.y].isOpenable(player, newEvents);
         return true;
     }
 
     return false;
 }
-
+bool Map::changeBecauseLockedDoor(Vector& doorPos, std::vector<AbstractEvent*>& newEvents){
+    if (!matrix[doorPos.x][doorPos.y].isLockedDoor()) return false;
+    int idDoor = DOORTOCHANGE;
+    OpenableItem* newDoor = factory.setTexture(idDoor);
+    OpenableItem* currentDoor = matrix[doorPos.x][doorPos.y].getDoor();
+    newEvents.push_back(new DespawnEvent(DespawnEventType,
+                                         currentDoor->getUniqueId(),
+                                         currentDoor->getId()));
+    matrix[doorPos.x][doorPos.y].addItem(newDoor);
+    auto it = std::find(doors.begin(), doors.end(), currentDoor);
+    if (it != doors.end()){
+        (*it) = newDoor;
+    }
+    delete(currentDoor); // asi no borra el puntero nomas?
+    newEvents.push_back(new SpawnEvent(SpawnEventType,
+                                       newDoor->getUniqueId(), newDoor->getId(),
+                                       doorPos.x, doorPos.y));
+    return true;
+}
 bool Map::isOkToMove(Vector& futurePos){
     return !matrix[futurePos.y][futurePos.x].isSolid() &&
             futurePos.x < width && futurePos.y < height &&
