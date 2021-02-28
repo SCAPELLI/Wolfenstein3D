@@ -6,35 +6,49 @@
 #include "CellMap.h"
 
 /* matriz que representa el mapa y en cada posicion contiene una CellMap*/
-class Map{
+class Map {
     std::vector<std::vector<CellMap>> matrix;
-    std::vector<OpenableItem*> doors;
+    std::vector<OpenableItem *> doors;
     double width;
     double height;
     GameLoader factory;
 public:
-    Map(std::vector<Player>& players,
-            std::vector<AbstractEvent*>& newEvents, int levelId);
-        Map();
-        //Map(std::vector<int> matrix);
-        std::vector<std::vector<CellMap>>& getMatrix();
-        void changePosition(Vector& newPos, Player& player,
-                            std::vector<AbstractEvent*>& newEvents);
-        void dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents);
-        bool isOkToMove(Vector& futurePos);
-        double getWidth();
-        double getHeight();
-        void removePlayer(Player& player);
-        void addPlayer(Player& player);
-        void dropItemPlayer(Player& player, Item itemPlayer);
-        void setElemInPosition(int& numOfPlayer, int pos1, int pos2,
-                    CellMap& tileMap, std::vector<Player>& players, int elem,
-                               std::vector<AbstractEvent*>& newEvents);
-        bool isADoor(Player& player, std::vector<AbstractEvent*>& newEvents);
-        void increaseCooldown();
-    void launchRocket(Rocket* rocket, Vector& direction,
-                           std::vector<AbstractEvent*>& newEvents);
+    Map(std::vector<Player> &players,
+        std::vector<AbstractEvent *> &newEvents, int levelId);
 
+    Map();
+
+    void changePosition(Vector &newPos, Player &player,
+                        std::vector<AbstractEvent *> &newEvents);
+
+    void dropAllItems(Player &player, std::vector<AbstractEvent *> &newEvents);
+
+    bool isOkToMove(Vector &futurePos);
+
+    double getWidth();
+
+    double getHeight();
+
+    void setElemInPosition(int &numOfPlayer, int pos1, int pos2,
+                           CellMap &tileMap, std::vector<Player> &players, int elem,
+                           std::vector<AbstractEvent *> &newEvents);
+
+    bool isADoor(Player &player, std::vector<AbstractEvent *> &newEvents);
+
+    void increaseCooldown();
+
+    void launchRocket(Rocket *rocket, Vector &direction,
+                      std::vector<AbstractEvent *> &newEvents);
+
+    void insertItem(int &elem, int &pos1, int &pos2,
+                    CellMap &tile, std::vector<AbstractEvent *> &newEvents);
+
+    void insertWeapon(int &elem, int &pos1, int &pos2,
+                      CellMap &tile, std::vector<AbstractEvent *> &newEvents);
+
+    void insertDoor(int &elem, OpenableItem *door, int &pos1, int &pos2,
+                    CellMap &tile, std::vector<AbstractEvent *> &newEvents);
 };
+
 
 #endif

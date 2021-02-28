@@ -1,3 +1,4 @@
+#include <common/include/Message.h>
 #include "../include/ReceiverThread.h"
 #include "../../common/EventSerializer.h"
 #include "../../common/include/Message.h"

@@ -12,25 +12,23 @@ Map::Map(){}
 
 Map::Map(std::vector<Player>& players,
          std::vector<AbstractEvent*>& newEvents, int levelId): factory(){
-    std::vector<std::vector<CellMap>> map;
     std::string pathLevel = "../../server/maps/" + std::to_string(levelId)+ ".yaml";
     YAML::Node config = YAML::LoadFile(pathLevel);
-    YAML::Node matrixConfig = config["map"];
+    std::vector<std::vector<int>> map = config["map"].as<std::vector<std::vector<int>>>();
     int numOfPlayer = 0;
-    height = matrixConfig.size() - 1;
-    width = matrixConfig[0].size() - 1;
-    for (std::size_t i = 0; i < matrixConfig.size(); i++) {
+    height = map.size() - 1;
+    width = map[0].size() - 1;
+    for (std::size_t i = 0; i < map.size(); i++) {
         std::vector<CellMap> row;
-        for (std::size_t j = 0; j < matrixConfig[i].size(); j++) {
-            int elem = matrixConfig[i][j].as<int>();
+        for (std::size_t j = 0; j < map[i].size(); j++) {
+            int elem = map[i][j];
             CellMap position = CellMap();
             setElemInPosition(numOfPlayer, i , j, position, players, elem,
                               newEvents);
             row.push_back(position);
         }
-        map.push_back(row);
+        matrix.push_back(row);
     }
-    matrix = map;
 }
 
 void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
@@ -41,20 +39,10 @@ void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
         tileMap.addPlayer(players.at(numOfPlayer));
         numOfPlayer++;
     } if (elem > 1 && elem < 50){
-        Item* item = factory.itemLoader(elem);
-        auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
-                                item->getId(), pos1 * TILE, pos2 * TILE);
-        newEvents.push_back(event);
-        tileMap.addItem(item);
-        return;
+        insertItem(elem, pos1, pos2, tileMap, newEvents);
     }
     else if (elem >= 50 && elem < 100){
-        Item* item = factory.weaponLoader(elem);
-        auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
-                                    item->getId() + 49, pos1 * TILE, pos2 * TILE);
-        newEvents.push_back(event);
-        tileMap.addItem(item);
-        return;
+        insertWeapon(elem, pos1, pos2, tileMap, newEvents);
     }
     else if (elem >= 100 && elem < 300) {
         OpenableItem* door = factory.setTexture(elem);
@@ -62,18 +50,39 @@ void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
             tileMap.setSolid();
             auto event = new SpawnNotMovableEvent(SpawnNotMovableType, elem, pos1, pos2);
             newEvents.push_back(event);
+            return;
         }
-        else{
-            auto event = new SpawnEvent(SpawnEventType, door->getUniqueId(), door->getId(), pos2, pos1);
-            newEvents.push_back(event);
-            tileMap.addItem(door);
-            doors.push_back(door);
-        }
+        insertDoor(elem,door, pos1, pos2,tileMap, newEvents);
     }
 //    else if (elem >= 300 ){ // los que van a ser caminables
 //        auto event = new SpawnNotMovableEvent(SpawnNotMovableType, elem, pos1, pos2);
 //        newEvents.push_back(event);
 //    }
+}
+
+void Map::insertItem(int& elem, int& pos1, int& pos2,
+                     CellMap& tile, std::vector<AbstractEvent*>& newEvents){
+    Item* item = factory.itemLoader(elem);
+    auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
+                                item->getId(), pos1 * TILE, pos2 * TILE);
+    newEvents.push_back(event);
+    tile.addItem(item);
+}
+
+void Map::insertWeapon(int& elem, int& pos1, int& pos2,
+                     CellMap& tile, std::vector<AbstractEvent*>& newEvents){
+    Item* item = factory.weaponLoader(elem);
+    auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
+                                item->getId() + WEAPONSGAP, pos1 * TILE, pos2 * TILE);
+    newEvents.push_back(event);
+    tile.addItem(item);
+}
+void Map::insertDoor(int& elem, OpenableItem* door, int& pos1, int& pos2,
+                     CellMap& tile, std::vector<AbstractEvent*>& newEvents){
+    auto event = new SpawnEvent(SpawnEventType, door->getUniqueId(), door->getId(), pos2, pos1);
+    newEvents.push_back(event);
+    tile.addItem(door);
+    doors.push_back(door);
 }
 
 void Map::launchRocket(Rocket* rocket, Vector& direction,
@@ -124,17 +133,6 @@ bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
     return false;
 }
 
-std::vector<std::vector<CellMap>>& Map::getMatrix() {
-    return matrix;
-}
-void Map::removePlayer(Player& player){
-    Vector positionPlayer = player.getScaledPosition();
-    matrix[positionPlayer.y][positionPlayer.x].removePlayer(player);
-}
-void Map::addPlayer(Player& player){
-    Vector posScaled = Vector((player.getScaledPosition()));
-    matrix[posScaled.y][posScaled.x].addPlayer(player);
-}
 bool Map::isOkToMove(Vector& futurePos){
     return !matrix[futurePos.y][futurePos.x].isSolid() &&
             futurePos.x < width && futurePos.y < height &&
@@ -142,14 +140,9 @@ bool Map::isOkToMove(Vector& futurePos){
             matrix[futurePos.y][futurePos.x].isOpen();
 }
 
-void Map::dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents){ //deberia llamar a newEvents
+void Map::dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents){
     Vector positionPlayer = player.getScaledPosition();
     matrix[positionPlayer.y][positionPlayer.x].dropItems(player, factory, newEvents);
-}
-
-void Map::dropItemPlayer(Player& player, Item itemPlayer){
-    Vector positionPlayer = player.getScaledPosition();
-    matrix[positionPlayer.y][positionPlayer.x].dropItemPlayer(&itemPlayer);
 }
 
  void Map::changePosition(Vector& newPos, Player& player,

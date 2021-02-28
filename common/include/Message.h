@@ -1,5 +1,6 @@
 #ifndef WOLFENSTEIN_MESSAGE_H
 #define WOLFENSTEIN_MESSAGE_H
+#include <string>
 
 class Message {
     std::string message;

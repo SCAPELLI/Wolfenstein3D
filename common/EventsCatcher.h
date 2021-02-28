@@ -3,12 +3,13 @@
 
 #include <queue>
 #include "Event.h"
+#include "include/Message.h"
 
 class EventsCatcher {
     int playerId;
 public:
     EventsCatcher(int playerId);
-    std::queue<Event> getEvents();
+    std::queue<Message> getEvents();
     ~EventsCatcher() = default;
 };
 

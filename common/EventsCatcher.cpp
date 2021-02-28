@@ -1,14 +1,15 @@
 #include <SDL2/SDL_events.h>
 #include "EventsCatcher.h"
-
+#include "EventSerializer.h"
 EventsCatcher::EventsCatcher(int playerId): playerId(playerId){}
 
-std::queue<Event> EventsCatcher::getEvents() {
-    std::queue<Event> eventQueue;
+std::queue<Message> EventsCatcher::getEvents() {
+    std::queue<Message> messageQueue;
     SDL_Event sdlEvent;
     while( SDL_PollEvent( &sdlEvent ) != 0 ) {
             Event event(sdlEvent, playerId);
-            if (event.thisIsAValidEvent()) eventQueue.push(std::move(event));
+            if (event.thisIsAValidEvent())
+                messageQueue.push(EventSerializer::serialize(event));
     }
-    return eventQueue;
+    return messageQueue;
 }
