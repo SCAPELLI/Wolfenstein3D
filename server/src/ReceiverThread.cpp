@@ -15,12 +15,14 @@ void ReceiverThread::run() {
         std::string response;
         //skt->reciveAll(response);
         protocol.receive(response);
+        if (!skt->isAvailable()) break;
         Message msg(response);
         isDone = msg.getMessage().substr(0, 3) == std::string("016") &&
                  std::stoi(msg.getMessage().substr(3, 3)) == playerId;
 
         receivedBuffer->push(msg);
     }
+    isDone = true;
 }
 
 bool ReceiverThread::isDead(){

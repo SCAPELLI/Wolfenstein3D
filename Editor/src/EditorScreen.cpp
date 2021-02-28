@@ -109,7 +109,7 @@ void EditorScreen::openMap() {
         this->tilemapScene->setMapMatrix(matrix);
 
     } catch (const YAML::BadFile e) {
-        std::cout << "no se pudo abrir\n";
+        //std::cout << "no se pudo abrir\n";
         QMessageBox badInputMessage;
         badInputMessage.setText("No se pudo abrir el archivo");
         badInputMessage.exec();
@@ -117,12 +117,12 @@ void EditorScreen::openMap() {
         QMessageBox badInputMessage;
         badInputMessage.setText("El archivo no es valido");
         badInputMessage.exec();
-        std::cout << "el contenido del archivo no tiene el formato de un mapa";
+        //std::cout << "el contenido del archivo no tiene el formato de un mapa";
     } catch (...) {
         QMessageBox badInputMessage;
         badInputMessage.setText("Ha habido un problema con el archivo");
         badInputMessage.exec();
-        std::cout << "Ha habido un problema con el archivo";
+        //std::cout << "Ha habido un problema con el archivo";
     }
 }
 

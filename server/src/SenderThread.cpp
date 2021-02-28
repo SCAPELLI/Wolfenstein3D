@@ -10,7 +10,7 @@ void SenderThread::run(){
     try{
         Protocol protocol(skt);
         while (!isDone){
-            Message msg = std::move(eventsToSend->pop());
+            Message msg = eventsToSend->pop();
             isDone = msg.getMessage().substr(0, 3) == std::string("016") &&
                     std::stoi(msg.getMessage().substr(3, 3)) == playerId;
                     //msg.getMessage().substr(0, 3) == std::string("005")) &&;

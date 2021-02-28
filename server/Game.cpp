@@ -152,7 +152,10 @@ void Game::respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     Vector iniPos = players[ids[ idPlayer]].getInitialPosition().scale();
     map.changePosition(iniPos, players[ids[idPlayer]], newEvents);
     players[ids[idPlayer]].respawn();
-
-
 }
-
+bool Game::GameFinished() {
+    int playersAlive = 0;
+    for(auto& player: players)
+        if (player.isGameOver()) ++playersAlive;
+    return playersAlive > 1;
+}
