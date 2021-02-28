@@ -128,7 +128,7 @@ void Match::run() {
     // agregar joins
     AI ai(levelId);
     std::list<Message> messageEvents;
-    while (!gameStage.GameFinished()){
+    while (!matchFinished){
         messageEvents = std::move(userEvents.popAll());
         while (!messageEvents.empty()) {
             Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
@@ -137,6 +137,7 @@ void Match::run() {
             if (event.thisIsTheQuitEvent()) {
                 removeUser(&event);
                 lobby->notifyAll();
+                if (users.size() <= 1) matchFinished = true;
             }
         }
         senders.erase(std::remove_if(senders.begin(), senders.end(), senderThreadIsDead), senders.end());
@@ -145,6 +146,7 @@ void Match::run() {
         ai.generateEvent(userEvents, gameStage.getPlayersInfo());
         gameStage.incrementCooldown();
         usleep(20000);
+        gameStage.ifSomeoneWinNotifyHim();
     }
 
     matchFinished = true;

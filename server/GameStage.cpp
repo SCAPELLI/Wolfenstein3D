@@ -140,6 +140,18 @@ void GameStage::processEvent(QuitEvent& event) {
         queues->at(j).push(msg);
     }
 }
-bool GameStage::GameFinished() {
-    return game.GameFinished();
+void GameStage::ifSomeoneWinNotifyHim() {
+    bool gameFinished = game.GameFinished();
+
+    if (!gameFinished) return;
+
+    int winnerId = game.getWinnerId();
+    std::map<std::string, std::vector<int>> names;
+    game.getHighscores(names);
+
+    GameOverEvent gameOverEvent(GameOverEventType, winnerId, names);
+    Message msg1(EventSerializer::serialize(gameOverEvent));
+
+    for (auto &queue: *queues)
+        queue.push(msg1);
 }

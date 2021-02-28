@@ -30,6 +30,7 @@ public:
     bool reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents);
     int getBullets(int idPlayer);
     bool GameFinished();
+    int getWinnerId();
     };
 
 

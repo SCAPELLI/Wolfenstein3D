@@ -11,6 +11,7 @@
 #include <vector>
 #include "WallRay.h"
 #include <cmath>
+#include <iostream>
 
 
 Game::Game( std::vector<AbstractEvent*>& newEvents,
@@ -154,7 +155,18 @@ void Game::respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents){
 }
 bool Game::GameFinished() {
     int playersAlive = 0;
-    for(auto& player: players)
-        if (player.isGameOver()) ++playersAlive;
+    for(auto& player: players) {
+        if (player.getLifes()>0)
+            ++playersAlive;
+    }
     return playersAlive <= 1;
+}
+
+int Game::getWinnerId() {
+    int playerId = 0;
+    for(auto& player: players) {
+        if (player.getLifes()>0)
+            playerId = player.getId();
+    }
+    return playerId;
 }
