@@ -106,6 +106,7 @@ void Match::run() {
     std::vector<BlockingEventsQueue> updateEvents(users.size()); // equivalente a updateEvents x N
 
     std::map<int, std::string> players;
+    players[0] = "ai";
     for (auto it = users.begin(); it != users.end(); ++it) {
         players[it->second] = it->first;
     }
@@ -125,7 +126,7 @@ void Match::run() {
 
     std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
     // agregar joins
-    //AI ai(levelId);
+    AI ai(levelId);
     std::list<Message> messageEvents;
     while (!matchFinished){
         messageEvents = std::move(userEvents.popAll());
@@ -141,7 +142,7 @@ void Match::run() {
         senders.erase(std::remove_if(senders.begin(), senders.end(), senderThreadIsDead), senders.end());
         receivers.erase(std::remove_if(receivers.begin(), receivers.end(), receiverThreadIsDead), receivers.end());
         // agregar reap?
-       // ai.generateEvent(userEvents, gameStage.getPlayersInfo());
+        ai.generateEvent(userEvents, gameStage.getPlayersInfo());
         gameStage.incrementCooldown();
         usleep(20000);
     }

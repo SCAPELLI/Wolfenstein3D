@@ -40,6 +40,7 @@ public:
     void initializeGameContext(std::vector<std::vector<int>>& map);
     int getBotActionId(std::vector<PlayerInfo>& players);
     void generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players);
+    bool botIsDead(std::vector<PlayerInfo>* players);
 };
 
 #endif

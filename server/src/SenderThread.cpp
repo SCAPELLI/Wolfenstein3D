@@ -1,3 +1,4 @@
+#include <common/include/Protocol.h>
 #include "../include/SenderThread.h"
 #include "../../common/EventSerializer.h"
 
@@ -7,12 +8,13 @@ SenderThread::SenderThread(Socket* skt, BlockingEventsQueue* eventsToSend, int p
 
 void SenderThread::run(){
     try{
+        Protocol protocol(skt);
         while (!isDone){
             Message msg = std::move(eventsToSend->pop());
             isDone = msg.getMessage().substr(0, 3) == std::string("016") &&
                     std::stoi(msg.getMessage().substr(3, 3)) == playerId;
                     //msg.getMessage().substr(0, 3) == std::string("005")) &&;
-            skt->sendAll(msg.getMessage());
+            protocol.send(msg.getMessage());
       }
     } catch (std::exception e){}
 }

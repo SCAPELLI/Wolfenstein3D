@@ -1,5 +1,20 @@
-# Wolfenstein3D
-Trabajo práctico final - El juego
+# Wolfenstein3D - Trabajo práctico final
+## Instrucciones de compilación y ejecución del realese v0.2 desde raiz.
+### Para compilar los programas servidor y cliente
+    mkdir build
+    cd build 
+    cmake ..
+    make
+
+### Para ejecutar el programa cliente (desde raiz)
+    cd build
+    cd client
+    ./client
+    
+### Para ejecutar el programa servidor (desde raiz)
+    cd build
+    cd server
+    ./server
 
 ## Instrucciones de compilacion del realese "monohilo_funcional" desde raiz /Wolfenstein3D-monohilo_funcional/
 ### Para compilar y ejecutar el programa ServiCliente

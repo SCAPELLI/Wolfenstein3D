@@ -1,3 +1,4 @@
+#include <common/include/Protocol.h>
 #include "../include/CommunicationChannelServer.h"
 #include "../../common/include/Exception.h"
 #include "../include/Match.h"
@@ -56,11 +57,12 @@ CommunicationChannelServer::CommunicationChannelServer(Socket& socket, Protected
 
 int CommunicationChannelServer::sendResponseToUserNameSubmit(str &messageReceived) {
     str userName = messageReceived.substr(3);
+    Protocol protocol(&socket);
     int userId = lobby.addUser(userName);
     if (userId != -1)
-        socket.sendAll(USER_NAME_SUCCESSFULLY_SUBMITTED_STRING + std::to_string(userId));
+        protocol.send(USER_NAME_SUCCESSFULLY_SUBMITTED_STRING + std::to_string(userId));
     else
-        socket.sendAll(INVALID_USER_NAME_STRING);
+        protocol.send(INVALID_USER_NAME_STRING);
     return userId;
 }
 
@@ -90,7 +92,8 @@ void CommunicationChannelServer::sendResponseToRequestOfMatches() {
         addZerosToLeft(actualNumberOfPlayers, 3);
         response.append(matchId.append(levelId).append(maximumNumberOfPlayers).append(actualNumberOfPlayers));
     }
-    socket.sendAll(response);
+    Protocol protocol(&socket);
+    protocol.send(response);
 }
 
 void CommunicationChannelServer::sendResponseToRequestOfMatchCreation(str &messageReceived) {
@@ -98,64 +101,69 @@ void CommunicationChannelServer::sendResponseToRequestOfMatchCreation(str &messa
     int userId = std::stoi(messageReceived.substr(6,3));
     int maximumNumberOfPlayers = std::stoi(messageReceived.substr(9));
 
+    Protocol protocol(&socket);
     if (maximumNumberOfPlayers > 999) {
-        socket.sendAll(MATCH_NOT_CREATED_STRING);
+        protocol.send(MATCH_NOT_CREATED_STRING);
         return;
     }
     int matchId = lobby.createANewMatch(levelId, maximumNumberOfPlayers, userId, &socket);
     if (matchId == -1) {
-        socket.sendAll(MATCH_NOT_CREATED_STRING);
+        protocol.send(MATCH_NOT_CREATED_STRING);
     } else {
         str matchIdString = std::to_string(matchId);
         addZerosToLeft(matchIdString, 3);
-        socket.sendAll(MATCH_CREATED_SUCCESSFULLY_STRING + matchIdString);
+        protocol.send(MATCH_CREATED_SUCCESSFULLY_STRING + matchIdString);
     }
 }
 
 void CommunicationChannelServer::sendResponseToRequestOfMatchCancellation(str &messageReceived) {
     int matchId = std::stoi(messageReceived.substr(3));
     int response = lobby.cancelMatch(matchId);
-
+    Protocol protocol(&socket);
     if (response == -1)
-        socket.sendAll(MATCH_NOT_CANCELLED_STRING);
+        protocol.send(MATCH_NOT_CANCELLED_STRING);
     else
-        socket.sendAll(MATCH_CANCELLED_SUCCESSFULLY_STRING);
+        protocol.send(MATCH_CANCELLED_SUCCESSFULLY_STRING);
 }
 
 void CommunicationChannelServer::sendResponseToRequestOfJoiningAMatch(str &messageReceived) {
     int matchId = std::stoi(messageReceived.substr(3, 3));
     int userId = std::stoi(messageReceived.substr(6, 3));
 
+    Protocol protocol(&socket);
     int response = lobby.addUserToMatch(matchId, userId, &socket);
     if (response == -1)
-        socket.sendAll(FAILED_TO_JOIN_TO_MATCH_STRING);
+        protocol.send(FAILED_TO_JOIN_TO_MATCH_STRING);
 }
 
 void CommunicationChannelServer::sendResponseToRequestOfNumberOfUsersInMatch(str& messageReceived) {
     int matchId = std::stoi(messageReceived.substr(3));
     int response = lobby.numberOfUsersInMatch(matchId);
+    Protocol protocol(&socket);
     if (response == -1)
-        socket.sendAll(FAILED_TO_GET_THE_NUMBER_OF_USERS_IN_MATCH_STRING);
+        protocol.send(FAILED_TO_GET_THE_NUMBER_OF_USERS_IN_MATCH_STRING);
     else
-        socket.sendAll(SUCCESSFULLY_GOT_THE_NUMBER_OF_USERS_IN_MATCH_STRING + std::to_string(response));
+        protocol.send(SUCCESSFULLY_GOT_THE_NUMBER_OF_USERS_IN_MATCH_STRING + std::to_string(response));
 }
 
 void CommunicationChannelServer::sendResponseToRequestOfStartMatch(str& messageReceived) {
     int matchId = std::stoi(messageReceived.substr(3));
 
     int response = lobby.startMatch(matchId);
-
+    Protocol protocol(&socket);
     if (response == -1)
-        socket.sendAll(MATCH_NOT_STARTED_STRING);
+        protocol.send(MATCH_NOT_STARTED_STRING);
 }
 
 void CommunicationChannelServer::sendMatchStartedSignal(Socket* socket) {
-    socket->sendAll(MATCH_STARTED_SIGNAL_STRING);
+    Protocol protocol(socket);
+    protocol.send(MATCH_STARTED_SIGNAL_STRING);
 }
 
 int CommunicationChannelServer::respondUserNameSubmitFromClient() {
     str messageReceived;
-    socket.reciveAll(messageReceived);
+    Protocol protocol(&socket);
+    protocol.receive(messageReceived);
     if (!socket.isAvailable()) return -1;
 
     int messageCode = std::stoi(messageReceived.substr(0, 3));
@@ -167,7 +175,8 @@ int CommunicationChannelServer::respondUserNameSubmitFromClient() {
 
 void CommunicationChannelServer::respondMessageFromClient(int userId) {
     str messageReceived;
-    socket.reciveAll(messageReceived);
+    Protocol protocol(&socket);
+    protocol.receive(messageReceived);
     if (!socket.isAvailable() or messageReceived.empty()) {
         lobby.removeUser(userId);
         return;

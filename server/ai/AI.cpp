@@ -6,6 +6,7 @@
 #include "../common/include/Exception.h"
 #include "server/PlayerInfo.h"
 #include <yaml-cpp/yaml.h>
+#include <algorithm>
 #include "common/Event.h"
 #include "common/MovementEvent.h"
 #include "common/TurnEvent.h"
@@ -41,7 +42,7 @@ AI::AI(int levelId) {
         map.push_back(fila);
         for (std::size_t j = 0; j < matrixConfig.size(); j++) {
             int elem = matrixConfig[j][i].as<int>();
-            if (elem < 100 || elem > 300)
+            if (elem < 100 || elem >= 300 || elem == 116 || elem == 117 || elem == 109 || elem == 108 || elem == 125 || elem == 124 || elem == 161 || elem == 158 )
                 map.back().push_back(0);
             else
                 map.back().push_back(1);
@@ -104,6 +105,8 @@ int AI::getBotActionId(std::vector<PlayerInfo>& players) {
         if (angle<0) angle=angle+2*PI;
         lua_pushnumber(L, angle);
         lua_setfield(L, -2, "angle");
+        lua_pushnumber(L, players[i].life);
+        lua_setfield(L, -2, "life");
         lua_setfield(L, -2, std::to_string(players[i].idPlayer).c_str());
     }
 
@@ -121,7 +124,7 @@ void addMovementEventToQueue(ProtectedEventsQueue& events) {
     events.push(msg);
 }
 void addTurnEventToQueue(ProtectedEventsQueue& events, float sentido) {
-    TurnEvent turnEvent(0, PI/180 * sentido);
+    TurnEvent turnEvent(0, PI/250 * sentido);
     Event event(&turnEvent, TurnEventType);
     Message msg(EventSerializer::serialize(event));
     events.push(msg);
@@ -133,7 +136,15 @@ void addShootingEventToQueue(ProtectedEventsQueue& events) {
     events.push(msg);
 }
 
+bool AI::botIsDead(std::vector<PlayerInfo>* players) {
+    auto it = std::find_if(
+            players->begin(), players->end(),
+            [&] (const PlayerInfo& player) { return player.idPlayer == botId;});
+    return (it->life<=0);
+}
+
 void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players) {
+    if (botIsDead(&players)) return;
     switch (getBotActionId(players)) {
         case MOVE_FOWARD:
             addMovementEventToQueue(events);
