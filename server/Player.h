@@ -81,7 +81,8 @@ public:
     int getLifes()const;
     bool doesHit(Player& otherPlayer);
     bool canShoot();
-    bool hasBullets();
+    void updateBullets();
+    bool hasToChangeWeapon();
     double angleWithOther(Player& otherPlayer);
     void updateKills();
     bool hasRocketLauncher();
@@ -94,6 +95,7 @@ public:
     int getHealth();
     int getSpeed();
     std::string getName();
+    int getBullets();
     ~Player();
 
 };

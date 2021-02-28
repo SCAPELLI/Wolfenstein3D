@@ -43,15 +43,16 @@ Vector Game::calculateDirection(int idPlayer){
 void Game::moveAngle(double angle, int idPlayer){
     players[ids[idPlayer]].rotate(angle);
 }
-int Game::getDamage(int idPlayer){
-    return players[ids[idPlayer]].damageCurrentWeapon();
+int Game::getBullets(int idPlayer){
+    return players[ids[idPlayer]].getBullets();
 }
 
 int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     if (!players[ids[idPlayer]].canShoot()){
         return -2;
     }
-    if (!players[ids[idPlayer]].hasBullets()) {
+    players[ids[idPlayer]].updateBullets();
+    if (!players[ids[idPlayer]].hasToChangeWeapon()) {
         return -3;
     }
     WallRay ray = WallRay(players[ids[idPlayer]].getPosition(), players[ids[idPlayer]].getAngle());

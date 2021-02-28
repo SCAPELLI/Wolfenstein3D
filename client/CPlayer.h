@@ -32,7 +32,7 @@ class CPlayer{
 		void respawn();
 		void changeWeapon(int weaponID);
 		void increaseScore(int deltaScore);
-		void changeAmmo(int deltaAmmo);
+		void changeAmmo(int newAmmo);
 		void setHealth(int newHp);
 		~CPlayer();
 };
