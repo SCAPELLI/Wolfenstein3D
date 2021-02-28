@@ -17,8 +17,6 @@
 Game::Game( std::vector<AbstractEvent*>& newEvents,
             std::map<int, std::string>& playersNames, int levelId)
             :     levelId(levelId){
-    GameLoader yaml;
-    //yaml.readData(speed);
     int cont = 0;
     for (auto it=playersNames.begin(); it!=playersNames.end(); ++it){
         ids[it->first] = cont;
@@ -53,7 +51,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     if (!players[ids[idPlayer]].canShoot()){
         return -2;
     }
-    if (!players[ids[idPlayer]].shoot()) {
+    if (!players[ids[idPlayer]].hasBullets()) {
         return -3;
     }
     WallRay ray = WallRay(players[ids[idPlayer]].getPosition(), players[ids[idPlayer]].getAngle());

@@ -81,7 +81,7 @@ public:
     int getLifes()const;
     bool doesHit(Player& otherPlayer);
     bool canShoot();
-    bool shoot();
+    bool hasBullets();
     double angleWithOther(Player& otherPlayer);
     void updateKills();
     bool hasRocketLauncher();

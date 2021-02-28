@@ -104,7 +104,7 @@ void Player::eraseCurrentWeapon(){
     return;
 }
 
-bool Player::shoot(){
+bool Player::hasBullets(){
     bullets -= bag[idWeapon].minBullets;
     bulletsShot += bag[idWeapon].minBullets;
     if (bullets < bag[idWeapon].minBullets && idWeapon != 0){

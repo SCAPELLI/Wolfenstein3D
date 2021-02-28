@@ -54,7 +54,7 @@ void GameStage::processEvent(ShootingEvent& event) {
     }
 
     AmmoChangeEvent ammo(AmmoChangeType, event.idPlayer,
-                         -1 * game.players[game.ids[event.idPlayer]].getWeapon().minBullets);
+                         -1 * game.players[game.ids[event.idPlayer]].getWeapon().minBullets); //hacer getBulletsUsed
     ShootingEvent shoot(event.idPlayer);
     Event anotherEvent(&shoot, ShootingEventType);
     Event ammoEvent(&ammo, AmmoChangeType);
@@ -92,6 +92,7 @@ void GameStage::pushNewEvents(){
         Message msg(EventSerializer::serialize(anotherEvent));
         for (int j = 0; j < queues->size(); j++) {
             queues->at(j).push(msg);
+            delete newEvents[i];
         }
     }
     newEvents.clear();

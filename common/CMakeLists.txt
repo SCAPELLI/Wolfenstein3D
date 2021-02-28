@@ -102,7 +102,7 @@ add_library(common
         ../client/EnemyPlayer.cpp
         ../client/BagOfSprites.cpp
         ../client/SoundManager.cpp
-        src/Message.cpp include/Message.h)
+        src/Message.cpp include/Message.h ServerEvents/StartEvent.cpp ServerEvents/StartEvent.h)
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
