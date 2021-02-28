@@ -142,9 +142,9 @@ Event EventSerializer::createCreateMapEvent(std::string eventString) {
 
     int p = 18;
     for (int i = 0; i < numberOfPlayers; ++i) {
-        int playerId = std::stoi(eventString.substr (p + (i*3), 3));
-        int x = std::stoi(eventString.substr (p + (i*3) + 3, 6));
-        int y = std::stoi(eventString.substr (p + (i*3) + 9, 6));
+        int playerId = std::stoi(eventString.substr (p + (i*15), 3));
+        int x = std::stoi(eventString.substr (p + (i*15) + 3, 6));
+        int y = std::stoi(eventString.substr (p + (i*15) + 9, 6));
         event.startingLocations[playerId].first=x;
         event.startingLocations[playerId].second=y;
     }
@@ -152,6 +152,7 @@ Event EventSerializer::createCreateMapEvent(std::string eventString) {
 }
 
 std::string EventSerializer::serialize(CreateMapEvent& event) {
+    // 002000003000002002
     std::string width = std::to_string(event.width);
     addZerosToLeft(width, 6);
 

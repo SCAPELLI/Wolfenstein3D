@@ -121,7 +121,6 @@ void Client::playMatch() {
 
     ReceiverThread r(&userSocket, &receiverQueue);
     r.start();
-    SDL_Delay(2000);
 
     bool hasStarted = false;
     while (!hasStarted){

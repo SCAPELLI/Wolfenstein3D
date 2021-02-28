@@ -91,8 +91,10 @@ void Match::run() {
     std::vector<BlockingEventsQueue> updateEvents(users.size()); // equivalente a updateEvents x N
 
     std::map<int, std::string> players;
-    for (auto it = users.begin(); it != users.end(); ++it)
+    for (auto it = users.begin(); it != users.end(); ++it) {
         players[it->second] = it->first;
+    }
+    GameStage gameStage(&updateEvents, players, levelId); // agregar levelId a GameStage
 
 
     std::vector<ReceiverThread*> receivers; // punteros?
@@ -106,7 +108,6 @@ void Match::run() {
         i++;
     }
 
-    GameStage gameStage(&updateEvents, players, levelId); // agregar levelId a GameStage
     std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
     // agregar joins
     //AI ai(levelId);
