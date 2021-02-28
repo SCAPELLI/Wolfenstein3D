@@ -140,3 +140,6 @@ void GameStage::processEvent(QuitEvent& event) {
         queues->at(j).push(msg);
     }
 }
+bool GameStage::GameFinished() {
+    return game.GameFinished();
+}

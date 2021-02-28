@@ -10,8 +10,8 @@ Camera::Camera(double x, double y, double fov):
 
 void Camera::moveTo(double x, double y){
 	this->cameraPosition = Vector(x,y);
-	std::cout << "CLIENT\n";
-	std::cout << this->cameraPosition.x << "," << this->cameraPosition.y << "\n";
+	//std::cout << "CLIENT\n";
+	//std::cout << this->cameraPosition.x << "," << this->cameraPosition.y << "\n";
 }
 
 void Camera::rotate(double degrees){

@@ -49,6 +49,7 @@ public:
     std::vector<PlayerInfo> getPlayersInfo();
     void incrementCooldown();
 
+    bool GameFinished();
     };
 
 #endif

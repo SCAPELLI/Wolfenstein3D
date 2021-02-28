@@ -29,7 +29,7 @@ public:
     void respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     bool reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents);
     int getBullets(int idPlayer);
-
+    bool GameFinished();
     };
 
 

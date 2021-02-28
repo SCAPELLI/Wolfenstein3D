@@ -128,7 +128,7 @@ void Match::run() {
     // agregar joins
     AI ai(levelId);
     std::list<Message> messageEvents;
-    while (!matchFinished){
+    while (!gameStage.GameFinished()){
         messageEvents = std::move(userEvents.popAll());
         while (!messageEvents.empty()) {
             Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));

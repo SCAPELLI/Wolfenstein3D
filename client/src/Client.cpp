@@ -40,6 +40,7 @@ bool Client::tryToSubmitUsername(std::string userName) {
 
 bool Client::tryToJoin(int matchId) {
     channel->sendRequestOfJoiningAMatch(matchId, userId);
+    this->matchId = matchId;
     int response = channel->receiveResponseOfJoiningAMatch();
     if (response == -1) {
         return false;

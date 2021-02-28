@@ -159,10 +159,8 @@ void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> pla
             addShootingEventToQueue(events);
             break;
         case DO_NOTHING:
-            std::cout<<"[c++] Do nothing"<<std::endl;
             break;
         default:
-            std::cout<<"[c++] Should raise exception"<<std::endl;
             break;
     }
 }
