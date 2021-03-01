@@ -73,13 +73,13 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
             int damage = players[ids[idPlayer]].hits(players[i]);
             int newHp = players[i].getDamage(damage);
             reactToDamage(i, idPlayer, newEvents);
-            return i;// devolves a quien le pegaste
+            return players[i].getId();// devolves a quien le pegaste
         }
     }
     return -1;
 }
 
-bool Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents ){
+void Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents ){
     if (players[damaged].isGameOver()) {
         players[ids[sender]].updateKills();
         map.dropAllItems(players[damaged], newEvents);

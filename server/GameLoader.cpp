@@ -101,6 +101,7 @@ Item* GameLoader::weaponLoader(std::string &itemName) {
             return item;
         }
     }
+    return nullptr;
 }
 OpenableItem* GameLoader::setTexture(int& idItem) {
     for (YAML::const_iterator it = sprites["textures"].begin();
