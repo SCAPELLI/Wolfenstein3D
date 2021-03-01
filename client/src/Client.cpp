@@ -166,7 +166,10 @@ void Client::playMatch() {
         while (!messageEvents.empty()) {
             Event event1 = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
             messageEvents.pop_front();
-            event1.runHandler(game);
+            if (event1.thisIsTheQuitEvent())
+                gameIsPlaying = ((QuitEvent*)(event1.event))->playerId != userId;
+            else
+                event1.runHandler(game);
         }
         messageEvents = receiverQueue.popAll();
         game.draw();

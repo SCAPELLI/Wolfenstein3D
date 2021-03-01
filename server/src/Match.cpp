@@ -137,18 +137,18 @@ void Match::run() {
             if (event.thisIsTheQuitEvent()) {
                 removeUser(&event);
                 lobby->notifyAll();
-                if (users.size() <= 1) matchFinished = true;
+                if (gameStage.gameFinished() or users.empty())
+                    matchFinished = true;
             }
         }
         senders.erase(std::remove_if(senders.begin(), senders.end(), senderThreadIsDead), senders.end());
         receivers.erase(std::remove_if(receivers.begin(), receivers.end(), receiverThreadIsDead), receivers.end());
-        // agregar reap?
+
         ai.generateEvent(userEvents, gameStage.getPlayersInfo());
         gameStage.incrementCooldown();
         usleep(20000);
         gameStage.ifSomeoneWinNotifyHim();
     }
-
     matchFinished = true;
     lobby->notifyAll();
 }
