@@ -197,10 +197,10 @@ bool Player::doesHit(Player& otherPlayer){
     int distance = position.distance(otherPlayer.getPosition());
     //std::cout << (bag[idWeapon].name == "knife") << "\n" << collideWith(distance, radius) << "paso el collide \n";
     if (bag[idWeapon].name == "knife" && collideWith(distance, radius)
-        && deltaAngle <= PI/3) {
+        && abs(deltaAngle) <= PI/6) {
         return true;
     }
-    return bag[idWeapon].doesHit(distance, deltaAngle) && deltaAngle <= PI/3;
+    return  bag[idWeapon].doesHit(distance, deltaAngle) && deltaAngle <= PI/6;
 }
 
 Vector& Player::getPosition(){

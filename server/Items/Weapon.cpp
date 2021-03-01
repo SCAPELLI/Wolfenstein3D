@@ -4,6 +4,7 @@
 #include "../Items/Rocket.h"
 #include "../Player.h"
 #include <cmath>
+#define PRECISION 2
 Weapon::Weapon(int id, std::string& name, int uniqueId, int damage,
                int minBullets, int cooldownTimer)
     : id(id), uniqueId(uniqueId), precision(damage),name(name),
@@ -36,8 +37,7 @@ Rocket* Weapon::launchRocket(){
 }
 
 bool Weapon::doesHit(int distance, double angle){ // doesHit
-   return true;
-//   (generateRandom() * 100/(double)distance * (1/angle) >= precision);
+   return  distance/TILE  <= PRECISION;
 }
 
 bool Weapon::canShoot(int bullets){

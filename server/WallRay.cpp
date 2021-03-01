@@ -33,7 +33,7 @@ void WallRay::initialize(Vector& position){
     }
 }
 
-double WallRay::distanceToWall(Map& map){ //recibe pos wache
+double WallRay::distanceToWall(Map& map){
     int mapX = startPoint.scale().y;
     int mapY = startPoint.scale().x;
     double posX = startPoint.y / 32;
