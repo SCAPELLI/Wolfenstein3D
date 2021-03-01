@@ -10,9 +10,9 @@
 #define FIELD_FONT 20
 #define LABEL_FONT 30
 
-#define LEVELS_MAX_LEVEL 1
+#define LEVELS_MAX_LEVEL 8
 #define PLAYERS_MIN_ALLOWED 2
-#define PLAYERS_MAX_ALLOWED 15
+#define PLAYERS_MAX_ALLOWED 6
 
 const QStringList createQStringListOfNumbers(int min, int max);
 

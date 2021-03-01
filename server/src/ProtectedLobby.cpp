@@ -37,11 +37,9 @@ std::vector<MatchInfo> ProtectedLobby::getMatchesInfo() {
     return matchesInfo;
 }
 int ProtectedLobby::createANewMatch(int levelId, int maximumNumberOfPlayers, int adminId, Socket* adminSocket) {
-    // queda pendiente la logica de validacion de nivel existente
-    // en esta primer version solo es valido el nivel 1
     std::unique_lock<std::mutex> lock(m);
 
-    if ((maximumNumberOfPlayers < 1) or (levelId != 1))
+    if (maximumNumberOfPlayers < 1)
         return -1;
     else {
         ++reference;
