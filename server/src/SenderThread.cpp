@@ -11,10 +11,9 @@ void SenderThread::run(){
         Protocol protocol(skt);
         while (!isDone){
             Message msg = eventsToSend->pop();
+            protocol.send(msg.getMessage());
             isDone = msg.getMessage().substr(0, 3) == std::string("016") &&
                     std::stoi(msg.getMessage().substr(3, 3)) == playerId;
-                    //msg.getMessage().substr(0, 3) == std::string("005")) &&;
-            protocol.send(msg.getMessage());
       }
     } catch (std::exception e){}
 }

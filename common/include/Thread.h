@@ -15,6 +15,7 @@ public:
     virtual void run() = 0;
     void start();
     void join();
+    bool joinable();
     Thread(Thread&& other) noexcept;
     Thread& operator=(Thread&& other) noexcept;
 };

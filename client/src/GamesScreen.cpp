@@ -57,16 +57,12 @@ void GamesScreen::onJoinButtonClick() {
     waitingMessage.exec();*/
     if (dataTable->currentRow() >= 0) {
         if (!(this->screenManager->tryToJoin(this->idMatches.at(dataTable->currentRow())))) {
-            //waitingMessage.close();
             QMessageBox waitingMessage;
             waitingMessage.setText("An error has occurred");
             waitingMessage.exec();
-        } else {
-            //waitingMessage.close();
+            refresh();
         }
-        refresh();
     }
-     //this->screenManager->close();
 }
 
 void GamesScreen::onRefreshButtonClick() {

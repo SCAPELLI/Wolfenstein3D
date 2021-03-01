@@ -50,6 +50,7 @@ public:
     void incrementCooldown();
 
     void ifSomeoneWinNotifyHim();
+    bool gameFinished();
     };
 
 #endif

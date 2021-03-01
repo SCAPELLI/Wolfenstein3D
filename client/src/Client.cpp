@@ -11,6 +11,7 @@
 #include "../../common/include/Message.h"
 #include "../../common/EventSerializer.h"
 #include "../../common/QuitEvent.h"
+#include "client/include/ScreenManager.h"
 
 #define FOV 0.66
 
@@ -45,6 +46,7 @@ bool Client::tryToJoin(int matchId) {
     if (response == -1) {
         return false;
     } else {
+        this->screenManager->close();
         playMatch();
         return true;
     }
@@ -94,6 +96,7 @@ bool Client::tryToCancelMatch() {
 bool Client::tryToStartMatch() {
     channel->sendRequestOfStartMatch(matchId);
     if (channel->receiveResponseToRequestOfStartMatch() != -1) {
+        this->screenManager->close();
         playMatch();
         return true;
     } else {
@@ -166,7 +169,10 @@ void Client::playMatch() {
         while (!messageEvents.empty()) {
             Event event1 = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
             messageEvents.pop_front();
-            event1.runHandler(game);
+            if (event1.thisIsTheQuitEvent())
+                gameIsPlaying = ((QuitEvent*)(event1.event))->playerId != userId;
+            else
+                event1.runHandler(game);
         }
         messageEvents = receiverQueue.popAll();
         game.draw();
@@ -180,4 +186,8 @@ void Client::playMatch() {
     senderQueue.push(msg);
     s.join();
     r.join();
+}
+
+void Client::setScreenManager(ScreenManager *screenManager) {
+    this->screenManager = screenManager;
 }

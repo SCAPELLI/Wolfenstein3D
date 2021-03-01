@@ -69,6 +69,8 @@ add_library(common
         ../client/include/NicknameScreen.h
         ../client/src/GamesScreen.cpp
         ../client/include/GamesScreen.h
+		../client/src/ScoreWindow.cpp
+		../client/include/ScoreWindow.h
         
         ../client/src/DataTable.cpp
         ../client/include/DataTable.h 
