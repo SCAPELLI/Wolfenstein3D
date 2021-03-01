@@ -8,6 +8,7 @@
 int initQt(int argc, char *argv[], Client *client) {
     QApplication app(argc, argv);
     ScreenManager screenManager(0, client);
+    client->setScreenManager(&screenManager);
     screenManager.show();
     int qtExitCode = app.exec();
     return 0;

@@ -9,6 +9,7 @@
 #include "common/include/Socket.h"
 
 class CommunicationChannelClient;
+class ScreenManager;
 
 class Client {
     Socket userSocket;
@@ -18,6 +19,8 @@ class Client {
     int levelId;
     int maximumNumberOfPlayers;
     bool gameIsPlaying;
+
+    ScreenManager *screenManager;
 
 public:
         Client();
@@ -35,6 +38,7 @@ public:
         void playMatch();
 
         void catchEvents(BlockingEventsQueue &senderQueue);
+        void setScreenManager(ScreenManager *screenManager);
 };
 
 
