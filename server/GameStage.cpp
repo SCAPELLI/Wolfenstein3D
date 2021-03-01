@@ -89,7 +89,7 @@ void GameStage::pushNewEvents(){
         for (int j = 0; j < queues->size(); j++) {
             queues->at(j).push(msg);
         }
-        delete(newEvents[i]);
+        delete newEvents[i];
     }
     newEvents.clear();
 }

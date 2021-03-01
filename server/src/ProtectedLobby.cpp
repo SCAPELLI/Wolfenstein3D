@@ -62,6 +62,7 @@ int ProtectedLobby::addUserToMatch(int matchId, int userId, Socket* userSocket) 
     //                    [&] (const Match& match) { return match.sameIdAs(matchId);}) != matches.end())
     while (it->notFinished() and it->notCancelled() and it->userIsPartOfTheMatch(userId))
         cv.wait(lock);
+    joinMatchesFinished();
     if (it->notCancelled()) return 0;
     else return -1;
 }
@@ -98,6 +99,7 @@ int ProtectedLobby::numberOfUsersInMatch(int matchId) {
 
     return it->getActualNumberOfUsers();
 }
+
 //Solo se puede cancelar un match que aun no comenzo
 int ProtectedLobby::cancelMatch(int matchId) {
     std::unique_lock<std::mutex> lock(m);
@@ -130,15 +132,24 @@ int ProtectedLobby::startMatch(int matchId) {
     //lock.lock();
     //matches.erase(it);
     cv.notify_all();
+    joinMatchesFinished();
     return 0;
 }
 
 void ProtectedLobby::notifyAll() {
-    std::unique_lock<std::mutex> lock(m);
+    //std::unique_lock<std::mutex> lock(m);
     cv.notify_all();
 }
 
-void ProtectedLobby::JoinMatches() {
+void ProtectedLobby::joinMatchesFinished() {
     for(auto& match: matches)
-        match.join();
+        if (match.joinable() and !(match.notFinished()))
+            match.join();
+}
+
+void ProtectedLobby::JoinMatches() {
+    std::unique_lock<std::mutex> lock(m);
+    for(auto& match: matches)
+        if (match.joinable())
+            match.join();
 }

@@ -83,16 +83,22 @@ bool Match::userIsPartOfTheMatch(int userId) {
 }
 
 bool senderThreadIsDead(SenderThread* t){
-    if (t->isDead()){
+    //if (t->isDead()){
         t->join();
-    }
-    return t->isDead();
+        delete t;
+        std::cout<<"uni el hilo enviador"<<std::endl;
+        return true;
+    //}
+    //return t->isDead();
 }
 
 bool receiverThreadIsDead(ReceiverThread* t){
-    if (t->isDead()){
+    //if (t->isDead()){
         t->join();
-    }
+        delete t;
+        std::cout<<"uni el hilo recibidor"<<std::endl;
+        return true;
+    //}
     return t->isDead();
 }
 
@@ -136,22 +142,22 @@ void Match::run() {
             event.runHandler(gameStage); //agrege un while mas para procesar la lista de eventos
             if (event.thisIsTheQuitEvent()) {
                 removeUser(&event);
-                lobby->notifyAll();
                 if (gameStage.gameFinished() or users.empty())
                     matchFinished = true;
+                lobby->notifyAll();
             }
         }
-        senders.erase(std::remove_if(senders.begin(), senders.end(), senderThreadIsDead), senders.end());
-        receivers.erase(std::remove_if(receivers.begin(), receivers.end(), receiverThreadIsDead), receivers.end());
 
         ai.generateEvent(userEvents, gameStage.getPlayersInfo());
         gameStage.incrementCooldown();
         usleep(20000);
         gameStage.ifSomeoneWinNotifyHim();
     }
+    senders.erase(std::remove_if(senders.begin(), senders.end(), senderThreadIsDead), senders.end());
+    receivers.erase(std::remove_if(receivers.begin(), receivers.end(), receiverThreadIsDead), receivers.end());
 
-    usleep(4000000);
     matchFinished = true;
+    std::cout<<"llego a salir de la partida"<<std::endl;
     lobby->notifyAll();
 }
 
