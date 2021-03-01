@@ -55,5 +55,7 @@ Vector Vector::scale(){ // Only scale positions
 Vector Vector::operator/(double z){
     return Vector(this->x / z, this->y / z);
 }
-
+double Vector::operator*(Vector const &v) {
+	return this->x * v.x + this->y * v.y;
+}
 Vector::~Vector(){}

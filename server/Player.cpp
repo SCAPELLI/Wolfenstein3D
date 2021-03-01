@@ -80,9 +80,16 @@ double Player::getAngle() const {
     return angle;
 }
 
-double Player::angleWithOther(Player& otherPlayer){
-    double angleWithOrigin = otherPlayer.getPosition().angle();
-    return position.angle() - angleWithOrigin;
+double Player::angleWithOther(Player& otherPlayer) {
+    Vector relativePosition = position - otherPlayer.position; //B
+    Vector direction = Vector(-sin(angle), cos(angle)); //A
+    double numerator = relativePosition * direction;
+    double numeratosAbs = std::abs(numerator);
+    double denominator = direction.size();
+    double mult = denominator * relativePosition.size();
+    double angleFinal = acos(numeratosAbs/mult);
+    if (numerator > 0 ) return angleFinal + PI;
+    return angleFinal;
 }
 
 int Player::damageCurrentWeapon() {
@@ -195,7 +202,6 @@ bool Player::canShoot() {
 bool Player::doesHit(Player& otherPlayer){
     double deltaAngle = angleWithOther(otherPlayer);
     int distance = position.distance(otherPlayer.getPosition());
-    //std::cout << (bag[idWeapon].name == "knife") << "\n" << collideWith(distance, radius) << "paso el collide \n";
     if (bag[idWeapon].name == "knife" && collideWith(distance, radius)
         && abs(deltaAngle) <= PI/6) {
         return true;

@@ -18,6 +18,7 @@ class Vector{
 		Vector operator*(double z);
 		Vector scale();
         Vector operator/(double z);
+        double operator*(Vector const &v);
 		~Vector();
 };
 

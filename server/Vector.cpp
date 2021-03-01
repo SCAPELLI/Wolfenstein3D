@@ -17,7 +17,9 @@ Vector Vector::operator/(double z){
 Vector Vector::operator-(const Vector& v){
 	return Vector(this->x - v.x, this->y - v.y);
 }
-
+double Vector::operator*(Vector const &v) {
+    return this.x * v.x + this.y * v.y;
+}
 void Vector::operator+=(const Vector& v){
 	this->x += v.x;
 	this->y += v.y;

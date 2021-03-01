@@ -26,7 +26,7 @@ int Weapon::attack( int distance, double angle){
         return generateRandom();
     }
     int damage = generateRandom() * 1/std::abs(angle) * (30/(double)distance) * minBullets;  //acotar daÑo a un max
-    int acot = damage % (10 * minBullets);
+    int acot = damage % (20 * minBullets);
     return acot;
 
 }

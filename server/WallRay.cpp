@@ -54,4 +54,5 @@ double WallRay::distanceToWall(Map& map){
     }
 }
 
+
 WallRay::~WallRay() {}

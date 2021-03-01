@@ -66,6 +66,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     for (int i = 0; i < players.size(); i++){
         if ( i == ids[idPlayer])
             continue;
+        WallRay rayWithOtherPlayer = WallRay(players[ids[idPlayer]].getPosition(), players[ids[idPlayer]].getAngle());
         int distancePlayer = players[ids[idPlayer]].distanceWith(players[i]);
         if (distancePlayer < distanceToWall) {
             if (!canShoot(idPlayer, i))

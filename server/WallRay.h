@@ -17,6 +17,7 @@ public:
     WallRay(Vector position, double degrees);
     ~WallRay();
 
+
 };
 
 
