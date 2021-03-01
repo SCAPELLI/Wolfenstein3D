@@ -141,7 +141,7 @@ bool Map::changeBecauseLockedDoor(Vector& doorPos, std::vector<AbstractEvent*>& 
     if (!matrix[doorPos.x][doorPos.y].isLockedDoor()) return false;
     int idDoor = DOORTOCHANGE;
     OpenableItem* newDoor = factory.setTexture(idDoor);
-    OpenableItem* currentDoor = matrix[doorPos.x][doorPos.y].getDoor();
+    OpenableItem* currentDoor = matrix[doorPos.y][doorPos.x].getDoor();
     newEvents.push_back(new DespawnEvent(DespawnEventType,
                                          currentDoor->getUniqueId(),
                                          currentDoor->getId()));

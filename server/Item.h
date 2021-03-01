@@ -19,8 +19,8 @@ public:
     Item(int id, std::string name, int effect, int uniqueId);
     virtual int getEffect();
     virtual void changeValue(int toChange);
-    std::string getItemName();
-    int getId();
+    virtual std::string getItemName();
+    virtual int getId();
     virtual bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents);
     int getUniqueId();
     Item& operator-=(Item& otherItem);
