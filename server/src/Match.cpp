@@ -149,6 +149,8 @@ void Match::run() {
         usleep(20000);
         gameStage.ifSomeoneWinNotifyHim();
     }
+
+    usleep(4000000);
     matchFinished = true;
     lobby->notifyAll();
 }

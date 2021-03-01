@@ -135,9 +135,12 @@ std::vector<PlayerInfo> GameStage::getPlayersInfo(){
 }
 
 void GameStage::processEvent(QuitEvent& event) {
-    std::string msg = EventSerializer::serialize(event);
+    KillEvent killEvent(KillEventType, event.playerId);
+    Message msg1 = EventSerializer::serialize(killEvent);
+    std::string msg2 = EventSerializer::serialize(event);
     for (int j = 0; j < queues->size(); j++) {
-        queues->at(j).push(msg);
+        queues->at(j).push(msg1);
+        queues->at(j).push(msg2);
     }
 }
 
