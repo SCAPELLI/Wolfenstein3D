@@ -5,7 +5,7 @@
 #include "../include/ScoreWindow.h"
 
 #include "../../common/Style.h"
-#include "../ui/ui_ScoreWindow.h"
+#include "../cmake-build-debug/client/ui_ScoreWindow.h"
 
 #define FONT 25
 #define HEADER_FONT 30
@@ -110,6 +110,6 @@ void ScoreWindow::setStyle() {
                          "}";
     dataTable->setStyleSheet(stylesheet);
 
-    QPixmap title("../sprites/highScores.png");
+    QPixmap title("../../client/sprites/highScores.png");
     this->ui->titleLabel->setPixmap(title.scaled(TITLE_WIDTH, TITLE_HEIGHT, Qt::KeepAspectRatio));
 }
