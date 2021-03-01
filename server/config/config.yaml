@@ -14,19 +14,19 @@ Weapons:
   knife:
     damage: 10
     minBullets: 0
-    cooldownTimer: 0
+    cooldownTimer: 50
   pistol:
     damage: 20
     minBullets: 1
-    cooldownTimer: 200
+    cooldownTimer: 100
   machine gun:
     damage: 30
     minBullets: 5
-    cooldownTimer: 400
+    cooldownTimer: 100
   chain gun:
     damage: 40
     minBullets: 1
-    cooldownTimer: 300
+    cooldownTimer: 150
   rocket launcher:
     damage: 50
     minBullets: 5

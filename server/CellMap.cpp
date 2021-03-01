@@ -121,7 +121,7 @@ void CellMap::dropItems(Player& player,GameLoader& factory,
         items.push_back(weaponTodrop);
         player.eraseCurrentWeapon();
         auto *event2 = new SpawnEvent(SpawnEventType, weaponTodrop->getUniqueId(),
-                                      weaponTodrop->getId() + 49, pos.y , pos.x );
+                                      weaponTodrop->getId() + WEAPONSGAP, pos.y , pos.x );
         newEvents.push_back(event2);
     }
     if (player.hasKey()) {

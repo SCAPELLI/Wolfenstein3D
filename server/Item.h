@@ -8,6 +8,7 @@ class Sprite;
 class Player;
 /* Clase madre que representa un item*/
 class Item {
+protected:
     int id;
     std::string name;
     int effect;

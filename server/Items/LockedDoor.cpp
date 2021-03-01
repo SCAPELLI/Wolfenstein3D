@@ -3,8 +3,7 @@
 #include "LockedDoor.h"
 #include "../Player.h"
 LockedDoor::LockedDoor(int id,std::string name, int effect, int uniqueId)
-        :  id(id), name(name), effect(effect), uniqueId(uniqueId),
-        cooldown(0), openTimeLimit(2000),OpenableItem(id, name, effect, uniqueId){}
+        :  cooldown(0), openTimeLimit(2000),OpenableItem(id, name, effect, uniqueId){}
 
 bool LockedDoor::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) {
     if (player.openDoor()) {
@@ -22,8 +21,4 @@ void LockedDoor::incrementCooldown() {
     if (cooldown == 0){
         effect = 0;
     }
-}
-
-int LockedDoor::getEffect() {
-    return effect;
 }

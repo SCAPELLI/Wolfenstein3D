@@ -42,7 +42,7 @@ bool Weapon::doesHit(int distance, double angle){ // doesHit
 
 bool Weapon::canShoot(int bullets){
      if (bullets >= minBullets && !isShooting) {
-        if (name != "knife") isShooting = true;
+         isShooting = true;
         return true;
     }
     return false;

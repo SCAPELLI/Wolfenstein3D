@@ -6,17 +6,13 @@
 
 class LockedDoor: public OpenableItem {
 private:
-    int id;
-    std::string name;
-    int effect;
-    int uniqueId;
     int openTimeLimit;
     int cooldown;
 public:
     LockedDoor(int id,std::string name, int effect, int uniqueId);
     bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
     void incrementCooldown() override;
-    int getEffect();
+
 };
 
 #endif //LOCKEDDOOR_H

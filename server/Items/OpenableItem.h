@@ -6,17 +6,13 @@
 
 class OpenableItem : public Item {
 private:
-    int id;
-    std::string name;
-    int effect;
-    int uniqueId;
     int cooldown;
     int openTimeLimit;
 public:
     OpenableItem(int id,std::string name, int effect, int uniqueId);
     bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
     virtual void incrementCooldown();
-    virtual int getEffect();
+//    virtual int getEffect();
 };
 
 #endif //OPENABLEITEM_H

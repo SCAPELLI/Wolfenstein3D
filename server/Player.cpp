@@ -142,8 +142,6 @@ bool Player::pickupWeapon(Weapon weapon,
             return false;
     }
     bag.insert(std::make_pair(weapon.id, weapon));
-//    newEvents.push_back(new PickUpWeaponEvent(PickUpWeaponType, id,
-//                                                weapon.getUniqueId()));
     return true;
 }
 
