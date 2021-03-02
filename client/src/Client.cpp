@@ -132,7 +132,7 @@ void Client::playMatch() {
         }
     }
     //Event event = std::move(receiverQueue.pop());
-    SDL_Delay(2000);
+    SDL_Delay(2000); // este delay deberia ser reemplazado por un startgameevent
     std::list<Message> messageEvents = receiverQueue.popAll();
     Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
     messageEvents.pop_front(); //ojo si sacas muchos elementos con el popAll acá, hay que procesarlos en algun lado
