@@ -86,6 +86,7 @@ void Map::insertDoor(int& elem, OpenableItem* door, int& pos1, int& pos2,
 
 void Map::launchRocket(Player& player, Vector& direction,
                                     std::vector<AbstractEvent*>& newEvents) {
+    return;
     Rocket* rocket =  factory.createRocket();
     player.setRocket(direction, rocket);
     rocket->sender = player.getId();

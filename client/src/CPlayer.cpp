@@ -1,6 +1,6 @@
 #include "client/include/CPlayer.h"
 
-#define TOTAL_GUNS 4
+#define TOTAL_GUNS 5
 
 CPlayer::CPlayer(double x, double y, double fov, int id):
 	camera(x, y, fov), spawnPoint(x, y),

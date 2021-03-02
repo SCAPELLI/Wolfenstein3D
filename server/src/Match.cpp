@@ -92,7 +92,6 @@ bool senderThreadIsDead(SenderThread* t){
 bool receiverThreadIsDead(ReceiverThread* t){
     t->join();
     delete t;
-    std::cout<<"uni el hilo recibidor"<<std::endl;
     return true;
 }
 
