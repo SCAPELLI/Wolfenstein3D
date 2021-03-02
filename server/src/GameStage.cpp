@@ -24,9 +24,9 @@
 
 
 GameStage::GameStage(std::vector<BlockingEventsQueue>* queues,
-                     std::map<int, std::string>& playersNames, int levelId)
+                     std::map<int, std::string>& playersNames, int levelId, char* configPath)
     : queues(queues), newEvents() {
-    game = Game(newEvents, playersNames, levelId);
+    game = Game(newEvents, playersNames, levelId, configPath);
     pushNewEvents();
 }
 

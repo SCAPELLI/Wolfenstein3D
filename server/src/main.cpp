@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
         peer = std::move(
                 TCPServer::getAcceptorSocket(host.c_str(), port.c_str()));
 
-        AcceptNewUsersThread t(peer);
+        AcceptNewUsersThread t(peer, argv[1]);
         t.start();
 
         char entrada = ' ';

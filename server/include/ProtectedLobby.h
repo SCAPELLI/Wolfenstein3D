@@ -27,8 +27,9 @@ class ProtectedLobby {
     int reference;
     str getUserName(int userId);
     void joinMatchesFinished();
+    char* configPath;
 public:
-    ProtectedLobby();
+    ProtectedLobby(char* configPath);
 
     ProtectedLobby (const ProtectedLobby& anotherLobby) = delete;
     ProtectedLobby& operator=(const ProtectedLobby& anotherLobby) = delete;

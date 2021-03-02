@@ -20,21 +20,22 @@
 #define MAXHEALTH 100
 
 
-Player::Player(int parsed_id, int relativeId, std::string name, Vector position)
+Player::Player(int parsed_id, int relativeId, std::string name, Vector position, char* configPath)
 :   id(parsed_id),
     relativeId(relativeId),
     name(name),
     position(position),
     initialPosition(position),
     scaledPosition(position.scale()),
-    dead(false)
+    dead(false),
+    configPath(configPath)
 {
     initializePlayer(dead);
     prevIdWeapon = idWeapon;
 }
 
 void Player::initializePlayer(bool dead){
-    YAML::Node fileNode = YAML::LoadFile("../../server/config/config.yaml");
+    YAML::Node fileNode = YAML::LoadFile(configPath);
     GameLoader yamlItems;
     if (!dead) {
         lifes = fileNode["Player"]["lifes"].as<int>();

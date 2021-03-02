@@ -31,9 +31,9 @@ double Vector::distance(const Vector& v){
 	return pow(pow((this->x - v.x), 2) + pow((this->y - v.y), 2), 0.5);
 }
 
-double Vector::angle(){
+/*double Vector::angle(){
 	atan2(this->y, this->x) * 180.0 / PI;
-}
+}*/
 
 double Vector::angle(const Vector& v){ 
 	return acos((x * v.x + y * v.y) / (pow(x*x + y*y, 0.5) * pow(v.x * v.x + v.y * v.y, 0.5))) * 180.0 / PI;

@@ -35,7 +35,7 @@ class GameStage {
     std::vector<AbstractEvent*> newEvents;
 public:
     GameStage(std::vector<BlockingEventsQueue>* queues,
-                       std::map<int, std::string>& playersNames, int levelId);
+                       std::map<int, std::string>& playersNames, int levelId, char* configPath);
     void processEvent(TurnEvent& event);
     void processEvent(MovementEvent& event);
     void processEvent(ChangeWeaponEvent& event);
