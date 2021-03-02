@@ -8,12 +8,15 @@
 class UI {
     CPlayer* activePlayer;
     SDL_Texture* HUD;
-    std::vector<SDL_Texture*> numbers, weapons;
+    std::vector<SDL_Texture*> numbers, weapons, faces;
+    SDL_Texture* key;
     public:
         UI(SDL_Renderer* renderer, CPlayer* activePlayer);
         void draw(SDL_Renderer* renderer);
         void drawNumbers(SDL_Renderer* renderer, int w, int h, std::string toDraw, int padding);
         void drawWeapon(SDL_Renderer* renderer, int w, int h);
+        void drawFace(SDL_Renderer* renderer, int w, int h);
+        void drawKey(SDL_Renderer* renderer, int w, int h);
         ~UI();
 };
 
