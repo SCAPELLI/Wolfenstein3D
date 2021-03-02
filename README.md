@@ -114,6 +114,6 @@ Es una aplicación independiente del juego que permite diseñar mapas nuevos o c
 
 ![Diagrama - Editor 1](https://github.com/SCAPELLI/Wolfenstein3D/blob/main/images//editorDiagrama1.jpeg?raw=true)
 
-![Diagrama - Editor 2]((https://github.com/SCAPELLI/Wolfenstein3D/blob/main/images/editorDiagrama2.jpeg?raw=true)
+![Diagrama - Editor 2](https://github.com/SCAPELLI/Wolfenstein3D/blob/main/images/editorDiagrama2.jpeg?raw=true)
 
 
