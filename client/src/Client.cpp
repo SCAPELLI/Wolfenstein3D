@@ -111,7 +111,7 @@ void Client::catchEvents(BlockingEventsQueue& senderQueue){
 
         EventSerializer::serialize(event);
         Message msg(EventSerializer::serialize(event));
-        //if(event.thisIsTheQuitEvent()) gameIsPlaying = false;
+        if(event.thisIsTheQuitEvent()) gameIsPlaying = false;
         if(msg.getMessage() != "")
             senderQueue.push(msg);
     }
