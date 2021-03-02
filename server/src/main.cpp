@@ -8,10 +8,11 @@ int main() {
     try {
 
         const char* port = "7777";
+        const char* host = "localhost";
 
         Socket peer;
         peer = std::move(
-                TCPServer::getAcceptorSocket(port));
+                TCPServer::getAcceptorSocket(host, port));
 
         AcceptNewUsersThread t(peer);
         t.start();

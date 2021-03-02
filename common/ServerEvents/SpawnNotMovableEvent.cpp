@@ -1,9 +1,9 @@
 
 
 #include "SpawnNotMovableEvent.h"
-#include "../../server/GameStage.h"
-#include "client/CGame.h"
-#include "../EventSerializer.h"
+#include "server/include/GameStage.h"
+#include "client/include/CGame.h"
+#include "common/include/EventSerializer.h"
 
 void SpawnNotMovableEvent::runHandler(CGame& game) {
     game.processEvent (*this);

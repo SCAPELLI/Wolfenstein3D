@@ -5,7 +5,7 @@
 #include "ScoreWindow.h"
 
 #include "ui_ScoreWindow.h"
-#include "../../common/Style.h"
+#include "common/include/Style.h"
 
 #define FONT 25
 #define HEADER_FONT 30

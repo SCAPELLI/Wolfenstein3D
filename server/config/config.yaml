@@ -1,9 +1,10 @@
 Player:
   lifes: 3
   health: 100
-  radius: 2
+  radius: 1
   angle: 0
   bullets: 8
+  speed: 5
   key: 0
   maxBullets: 50
   bulletsShot: 0
@@ -11,22 +12,22 @@ Player:
   score: 0
 Weapons:
   knife:
-    damage: 1
+    damage: 3
     minBullets: 0
-    cooldownTimer: 0
+    cooldownTimer: 70
   pistol:
-    damage: 1
+    damage: 20
     minBullets: 1
-    cooldownTimer: 0
+    cooldownTimer: 75
   machine gun:
-    damage: 5
+    damage: 30
     minBullets: 5
-    cooldownTimer: 9
+    cooldownTimer: 100
   chain gun:
-    damage: 6
+    damage: 40
     minBullets: 1
-    cooldownTimer: 3
+    cooldownTimer: 150
   rocket launcher:
-    damage: 1
+    damage: 50
     minBullets: 5
     cooldownTimer: 0

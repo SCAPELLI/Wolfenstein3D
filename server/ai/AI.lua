@@ -1,9 +1,9 @@
-dofile("../../ai/IdealStepsCalculator.lua")
-dofile("../../ai/TurnOrMoveAnalysis.lua")
+dofile("../../server/ai/IdealStepsCalculator.lua")
+dofile("../../server/ai/TurnOrMoveAnalysis.lua")
 
 TILE = 32
-ATTACK_DISTANCE = 32
-SIGHTING_DISTANCE = 1000
+ATTACK_DISTANCE = 64
+SIGHTING_DISTANCE = 96
 NONE_PLAYER = "none player has been spotted"
 
 MOVE_FOWARD = 1
@@ -15,6 +15,7 @@ DO_NOTHING = 5
 function initializeGameContext(map, id)
 	botId = id
 	markedPlayerId = NONE_PLAYER
+	markedPlayerIdLife = -1
 	idealStepsForAllTiles = getIdealStepsForAllTiles(map)
 end
 
@@ -35,12 +36,17 @@ function detectPlayersInASightingDistance(players, markedPlayerId)
 			if playerId ~= botId then
 				if distace(players[botId].position, playerInfo.position) < SIGHTING_DISTANCE then
 					markedPlayerId = playerId
+					markedPlayerIdLife = playerInfo.life
 					break
 				end
 			end
 		end
+	else
+		if markedPlayerIdLife ~= players[markedPlayerId].life then
+			markedPlayerId = NONE_PLAYER
+		end
 	end
-	return markedPlayerId
+return markedPlayerId
 end
 
 function getBotActionId(players)
@@ -63,8 +69,6 @@ function getBotActionId(players)
 			idealY = yTile * TILE - TILE/2
 
 			local resultId = turnOrMoveAnalyzer(players[botId], idealX, idealY)
-			--print("bot do the action: ", resultId)
-			--print("bot next tile: ", xTile, yTile)
 			return resultId
 		else
 			
@@ -73,15 +77,12 @@ function getBotActionId(players)
 				players[markedPlayerId].position.x, 
 				players[markedPlayerId].position.y)
 			if action == MOVE_FOWARD then
-	      		--print ("bot attacks")
 	      		return ATTACK
 	    	else
-	    		--print ("bot turns to attack")
 	      		return action
 	    	end
 		end
 	else
-		print ("bot dont move")
 		return DO_NOTHING
 	end
 end

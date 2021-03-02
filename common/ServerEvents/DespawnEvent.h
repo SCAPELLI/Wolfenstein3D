@@ -2,10 +2,10 @@
 
 #ifndef ESPAWNEVENT_H
 #define DESPAWNEVENT_H
-#include "../server/GameStage.h"
-#include "client/CGame.h"
-#include "../AbstractEvent.h"
-#include "../Event.h"
+#include "server/include/GameStage.h"
+#include "client/include/CGame.h"
+#include "common/include/AbstractEvent.h"
+#include "common/include/Event.h"
 
 class DespawnEvent : public AbstractEvent {
 public:

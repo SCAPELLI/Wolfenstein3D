@@ -1,6 +1,6 @@
 
 #include "DespawnEvent.h"
-#include "../EventSerializer.h"
+#include "common/include/EventSerializer.h"
 DespawnEvent::DespawnEvent (updateEventType eventType, int id, int type) : id(id), type(type), eventType(eventType) {}
 
 void DespawnEvent::runHandler(GameStage &gameStage) {}

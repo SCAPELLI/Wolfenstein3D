@@ -1,8 +1,8 @@
 
 
 #include "HealthChangeEvent.h"
-#include "client/CGame.h"
-#include "../EventSerializer.h"
+#include "client/include/CGame.h"
+#include "common/include/EventSerializer.h"
 HealthChangeEvent::HealthChangeEvent (updateEventType eventType,int idPLayer, int health)
 :  eventType(eventType), idPlayer(idPLayer), health(health){}
 

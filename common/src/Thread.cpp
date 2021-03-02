@@ -5,6 +5,9 @@
 void Thread::start() {
     myThread = std::thread(&Thread::run, this);
 }
+bool Thread::joinable() {
+    return myThread.joinable();
+}
 void Thread::join() {
     myThread.join();
 }

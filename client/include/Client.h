@@ -4,10 +4,14 @@
 
 #include <string>
 #include <vector>
+#include <common/include/BlockingEventsQueue.h>
 #include "common/include/MatchInfo.h"
 #include "common/include/Socket.h"
+#include <map>
+
 
 class CommunicationChannelClient;
+class ScreenManager;
 
 class Client {
     Socket userSocket;
@@ -16,9 +20,11 @@ class Client {
     int matchId;
     int levelId;
     int maximumNumberOfPlayers;
-
+    bool gameIsPlaying;
+    ScreenManager *screenManager;
 public:
-        Client();
+    std::map<std::string, std::vector<int>> highscores;
+    Client();
         ~Client();
         bool tryToConnect(std::string port, std::string domain);
         bool tryToSubmitUsername(std::string userName);
@@ -31,6 +37,9 @@ public:
         bool tryToCancelMatch();
         bool tryToStartMatch();
         void playMatch();
+
+        void catchEvents(BlockingEventsQueue &senderQueue);
+        void setScreenManager(ScreenManager *screenManager);
 };
 
 

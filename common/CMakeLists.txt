@@ -1,16 +1,15 @@
 add_library(common
-        ProtectedEventsQueue.cpp
+		src/ProtectedEventsQueue.cpp
         ServerEvents/PositionEvent.cpp
-        AbstractEvent.cpp
-        EventsCatcher.cpp
+		src/AbstractEvent.cpp
         ServerEvents/KillEvent.cpp
-        QuitEvent.cpp
-        ShootingEvent.cpp
-        TurnEvent.cpp
-        MovementEvent.cpp
+		src/QuitEvent.cpp
+		src/ShootingEvent.cpp
+		src/TurnEvent.cpp
+		src/MovementEvent.cpp
         ServerEvents/GameOverEvent.cpp
-        Event.cpp
-        OpenDoorEvent.cpp
+		src/Event.cpp
+		src/OpenDoorEvent.cpp
         ServerEvents/SpawnEvent.cpp
         ServerEvents/DespawnEvent.cpp
         ServerEvents/ChangeWeaponEvent.cpp
@@ -20,34 +19,34 @@ add_library(common
         ServerEvents/PickUpKeyEvent.cpp
         ServerEvents/PickUpWeaponEvent.cpp
         ServerEvents/DoorOpenedEvent.cpp
-        EventSerializer.cpp
+		src/EventSerializer.cpp
         ServerEvents/CreateMapEvent.cpp
         ServerEvents/SpawnNotMovableEvent.cpp
-		BlockingEventsQueue.cpp
+		src/BlockingEventsQueue.cpp
 
-        Style.cpp
+		src/Style.cpp
         src/Exception.cpp
         src/IPAddresses.cpp
         src/Socket.cpp
         src/MatchInfo.cpp
         src/Thread.cpp
 
-        ../server/GameStage.cpp
-        ../server/Items/Weapon.cpp
-    ../server/Player.cpp
-    ../server/Map.cpp
-    ../server/GameLoader.cpp
-    ../server/Game.cpp
-    ../server/Item.cpp
-        ../server/CellMap.cpp
-        ../server/Items/LifeGainItem.cpp
-    ../server/Items/PointGainItem.cpp
-    ../server/Items/KeyItem.cpp
-    ../server/Items/OpenableItem.cpp
-    ../server/Items/LockedDoor.cpp
-    ../server/Items/AmmoItem.cpp
-        ../server/WallRay.cpp
-        ../server/Items/Rocket.cpp
+        ../server/src/GameStage.cpp
+		../server/Items/Weapon.cpp
+        ../server/src/Player.cpp
+        ../server/src/Map.cpp
+        ../server/src/GameLoader.cpp
+        ../server/src/Game.cpp
+        ../server/src/Item.cpp
+        ../server/src/CellMap.cpp
+		../server/Items/LifeGainItem.cpp
+		../server/Items/PointGainItem.cpp
+		../server/Items/KeyItem.cpp
+		../server/Items/OpenableItem.cpp
+		../server/Items/LockedDoor.cpp
+		../server/Items/AmmoItem.cpp
+        ../server/src/WallRay.cpp
+		../server/Items/Rocket.cpp
         ../server/ai/AI.cpp
 		../server/src/SenderThread.cpp
 		../server/src/ReceiverThread.cpp
@@ -70,6 +69,8 @@ add_library(common
         ../client/include/NicknameScreen.h
         ../client/src/GamesScreen.cpp
         ../client/include/GamesScreen.h
+		../client/src/ScoreWindow.cpp
+		../client/include/ScoreWindow.h
         
         ../client/src/DataTable.cpp
         ../client/include/DataTable.h 
@@ -88,22 +89,23 @@ add_library(common
 		../client/src/CommunicationChannelClient.cpp
         ../client/src/TCPClient.cpp
 
-	../client/CGame.cpp
-        ../client/CPlayer.cpp
-        ../client/Camera.cpp
-        ../client/GameScreen.cpp
-        ../client/Ray.cpp
-        ../client/Renderable.cpp
-        ../client/Vector.cpp
-        ../client/Sprite.cpp
-        ../client/Wall.cpp 
-        ../client/UI.cpp
-        ../client/AnimatedSprite.cpp
-        ../client/CWeapon.cpp
-        ../client/EnemyPlayer.cpp
-        ../client/BagOfSprites.cpp
-        ../client/SoundManager.cpp
-        )
+		../client/src/CGame.cpp
+		../client/src/CPlayer.cpp
+		../client/src/Camera.cpp
+		../client/src/GameScreen.cpp
+		../client/src/Ray.cpp
+		../client/src/Renderable.cpp
+		../client/src/Vector.cpp
+		../client/src/Sprite.cpp
+		../client/src/Wall.cpp
+		../client/src/UI.cpp
+		../client/src/AnimatedSprite.cpp
+		../client/src/CWeapon.cpp
+		../client/src/EnemyPlayer.cpp
+		../client/src/BagOfSprites.cpp
+		../client/src/SoundManager.cpp
+        src/Message.cpp include/Message.h ServerEvents/StartEvent.cpp ServerEvents/StartEvent.h
+		src/Protocol.cpp)
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)

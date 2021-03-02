@@ -2,7 +2,7 @@
 #include <QtWidgets/QComboBox>
 #include "client/include/NewMatchScreen.h"
 #include "client/ui/ui_NewMatchScreen.h"
-#include "../../common/Style.h"
+#include "common/include/Style.h"
 
 #define BUTTON_FONT 20
 #define BUTTON_HEIGHT 50
@@ -10,9 +10,9 @@
 #define FIELD_FONT 20
 #define LABEL_FONT 30
 
-#define LEVELS_MAX_LEVEL 1
+#define LEVELS_MAX_LEVEL 12
 #define PLAYERS_MIN_ALLOWED 2
-#define PLAYERS_MAX_ALLOWED 15
+#define PLAYERS_MAX_ALLOWED 6
 
 const QStringList createQStringListOfNumbers(int min, int max);
 

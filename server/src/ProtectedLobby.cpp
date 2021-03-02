@@ -37,16 +37,14 @@ std::vector<MatchInfo> ProtectedLobby::getMatchesInfo() {
     return matchesInfo;
 }
 int ProtectedLobby::createANewMatch(int levelId, int maximumNumberOfPlayers, int adminId, Socket* adminSocket) {
-    // queda pendiente la logica de validacion de nivel existente
-    // en esta primer version solo es valido el nivel 1
     std::unique_lock<std::mutex> lock(m);
 
-    if ((maximumNumberOfPlayers < 1) or (levelId != 1))
+    if (maximumNumberOfPlayers < 1)
         return -1;
     else {
         ++reference;
         str adminUserName = getUserName(adminId);
-        matches.emplace_back(reference, levelId, maximumNumberOfPlayers, adminId, adminUserName, adminSocket);
+        matches.emplace_back(reference, levelId, maximumNumberOfPlayers, adminId, adminUserName, adminSocket, this);
         return reference;
     }
 }
@@ -62,8 +60,9 @@ int ProtectedLobby::addUserToMatch(int matchId, int userId, Socket* userSocket) 
 
     //while (std::find_if(matches.begin(), matches.end(),
     //                    [&] (const Match& match) { return match.sameIdAs(matchId);}) != matches.end())
-    while (it->notFinished() and it->notCancelled())
+    while (it->notFinished() and it->notCancelled() and it->userIsPartOfTheMatch(userId))
         cv.wait(lock);
+    joinMatchesFinished();
     if (it->notCancelled()) return 0;
     else return -1;
 }
@@ -100,6 +99,7 @@ int ProtectedLobby::numberOfUsersInMatch(int matchId) {
 
     return it->getActualNumberOfUsers();
 }
+
 //Solo se puede cancelar un match que aun no comenzo
 int ProtectedLobby::cancelMatch(int matchId) {
     std::unique_lock<std::mutex> lock(m);
@@ -124,10 +124,32 @@ int ProtectedLobby::startMatch(int matchId) {
             [&] (const Match& match) { return match.sameIdAs(matchId);});
     if (it == matches.end()) return -1;
     it->start();
-    lock.unlock();
-    it->join();
-    lock.lock();
+    //lock.unlock();
+
+    while (it->notFinished() and it->userIsPartOfTheMatch(it->adminUserId))
+        cv.wait(lock);
+    //it->join();
+    //lock.lock();
     //matches.erase(it);
     cv.notify_all();
+    joinMatchesFinished();
     return 0;
+}
+
+void ProtectedLobby::notifyAll() {
+    //std::unique_lock<std::mutex> lock(m);
+    cv.notify_all();
+}
+
+void ProtectedLobby::joinMatchesFinished() {
+    for(auto& match: matches)
+        if (match.joinable() and !(match.notFinished()))
+            match.join();
+}
+
+void ProtectedLobby::JoinMatches() {
+    std::unique_lock<std::mutex> lock(m);
+    for(auto& match: matches)
+        if (match.joinable())
+            match.join();
 }

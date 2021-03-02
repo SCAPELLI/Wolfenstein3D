@@ -1,7 +1,7 @@
 
 
 #include "PickUpWeaponEvent.h"
-#include "../EventSerializer.h"
+#include "common/include/EventSerializer.h"
 
 PickUpWeaponEvent::PickUpWeaponEvent (updateEventType eventType, int idPlayer, int uniqueId)
 : eventType(eventType), idPlayer(idPlayer), uniqueId(uniqueId) {}

@@ -8,6 +8,8 @@
 typedef std::string str;
 
 class Socket;
+class Event;
+class ProtectedLobby;
 
 class Match: public Thread {
     bool matchStarted;
@@ -18,10 +20,12 @@ class Match: public Thread {
     int maximumNumberOfPlayers;
     int matchId;
     int levelId;
-    int adminUserId;
+    ProtectedLobby* lobby;
 public:
+    int adminUserId;
+
     Match(int matchId, int levelId, int maximumNumberOfPlayers,
-          int adminUserId, str adminUserName, Socket* adminUserSocket);
+          int adminUserId, str adminUserName, Socket* adminUserSocket, ProtectedLobby* lobby);
 
     Match(const Match& anotherMatch) = delete;
     Match& operator=(const Match& anotherMatch) = delete;
@@ -39,6 +43,8 @@ public:
     bool notFinished() const;
     bool notCancelled() const;
     void run() override;
+    void removeUser(Event* quitEvent);
+    bool userIsPartOfTheMatch(int userId);
 };
 
 #endif

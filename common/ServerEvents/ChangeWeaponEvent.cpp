@@ -1,10 +1,10 @@
 
 
 #include "ChangeWeaponEvent.h"
-#include "../Event.h"
-#include "client/CGame.h"
-#include "server/GameStage.h"
-#include "../EventSerializer.h"
+#include "common/include/Event.h"
+#include "client/include/CGame.h"
+#include "server/include/GameStage.h"
+#include "common/include/EventSerializer.h"
 
 
 ChangeWeaponEvent::ChangeWeaponEvent (int idPlayer, int type)

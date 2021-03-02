@@ -1,21 +1,19 @@
+#include <common/include/Protocol.h>
 #include "../include/SenderThread.h"
-#include "../../common/EventSerializer.h"
+#include "common/include/EventSerializer.h"
 
 
-SenderThread::SenderThread(Socket* skt, BlockingEventsQueue* eventsToSend):
-        isDone(false), skt(skt), eventsToSend(eventsToSend){}
+SenderThread::SenderThread(Socket* skt, BlockingEventsQueue* eventsToSend, int playerId):
+        isDone(false), skt(skt), eventsToSend(eventsToSend), playerId(playerId){}
 
 void SenderThread::run(){
     try{
+        Protocol protocol(skt);
         while (!isDone){
-            Event event = std::move(eventsToSend->pop());
-            if (event.thisIsTheQuitEvent()) isDone = true;
-
-            std::string serialization = EventSerializer::serialize(event);
-            if (serialization == ""){
-                continue;
-            }
-            skt->sendAll(serialization);
+            Message msg = eventsToSend->pop();
+            protocol.send(msg.getMessage());
+            isDone = msg.getMessage().substr(0, 3) == std::string("016") &&
+                    std::stoi(msg.getMessage().substr(3, 3)) == playerId;
       }
     } catch (std::exception e){}
 }

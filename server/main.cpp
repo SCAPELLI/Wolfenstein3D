@@ -1,15 +1,15 @@
 #include <SDL2/SDL.h>
 #include <atomic>
-#include "../common/EventsCatcher.h"
-#include "GameStage.h"
-#include "../common/ProtectedEventsQueue.h"
-#include "../common/BlockingEventsQueue.h"
-#include "Server.h"
-#include "GameLoader.h"
+#include "common/include/EventsCatcher.h"
+#include "server/include/GameStage.h"
+#include "common/include/ProtectedEventsQueue.h"
+#include "common/include/BlockingEventsQueue.h"
+#include "server/include/Server.h"
+#include "server/include/GameLoader.h"
 #include <thread>
 #include <ServerEvents/CreateMapEvent.h>
-#include "client/CGame.h"
-#include "Map.h"
+#include "client/include/CGame.h"
+#include "server/include/Map.h"
 
 #define FOV 0.66
 
@@ -20,8 +20,8 @@ int main() {
         ProtectedEventsQueue userEvents;
 
         std::vector<BlockingEventsQueue*> updateEvents;
-        BlockingEventsQueue ke;
-        updateEvents.push_back(&ke);
+        BlockingEventsQueue blockingQueue;
+        updateEvents.push_back(&blockingQueue);
         std::atomic<bool> quit(false);
         std::thread t (Server(&userEvents, updateEvents, quit));
 

@@ -26,6 +26,7 @@ class ProtectedLobby {
 
     int reference;
     str getUserName(int userId);
+    void joinMatchesFinished();
 public:
     ProtectedLobby();
 
@@ -40,5 +41,7 @@ public:
     int numberOfUsersInMatch(int matchId);
     int cancelMatch(int matchId);
     int startMatch(int matchId);
+    void notifyAll();
+    void JoinMatches();
 };
 #endif

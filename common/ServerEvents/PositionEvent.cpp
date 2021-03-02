@@ -1,5 +1,5 @@
 #include "PositionEvent.h"
-#include "../EventSerializer.h"
+#include "common/include/EventSerializer.h"
 
 void PositionEvent::runHandler(CGame& game) {
     game.processEvent (*this);

@@ -1,9 +1,10 @@
 #include "Weapon.h"
 #include <bits/stdc++.h>
-#include "../common/Constants.h"
-#include "../Items/Rocket.h"
-#include "../Player.h"
+#include "common/include/Constants.h"
+#include "Rocket.h"
+#include "server/include/Player.h"
 #include <cmath>
+#define PRECISION 2
 Weapon::Weapon(int id, std::string& name, int uniqueId, int damage,
                int minBullets, int cooldownTimer)
     : id(id), uniqueId(uniqueId), precision(damage),name(name),
@@ -25,7 +26,7 @@ int Weapon::attack( int distance, double angle){
         return generateRandom();
     }
     int damage = generateRandom() * 1/std::abs(angle) * (30/(double)distance) * minBullets;  //acotar daÑo a un max
-    int acot = damage % (10 * minBullets);
+    int acot = damage % (20 * minBullets);
     return acot;
 
 }
@@ -36,12 +37,15 @@ Rocket* Weapon::launchRocket(){
 }
 
 bool Weapon::doesHit(int distance, double angle){ // doesHit
-   return true;
-//   (generateRandom() * 100/(double)distance * (1/angle) >= precision);
+   return  distance/TILE  <= PRECISION;
 }
 
 bool Weapon::canShoot(int bullets){
-    return bullets >= minBullets && !isShooting;
+     if (bullets >= minBullets && !isShooting) {
+         isShooting = true;
+        return true;
+    }
+    return false;
 }
 
 Weapon::Weapon() {
@@ -63,12 +67,12 @@ bool Weapon::isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) 
     return player.getItem(this, newEvents);
 }
 
-void Weapon::incrementCooldown(){ //decrease
+void Weapon::incrementCooldown(){
     if (isShooting) {
         cooldown += 1;
-        cooldown %= cooldownTimer;
     }
-    if (cooldown == cooldownTimer){
+    if (cooldown >= cooldownTimer && cooldownTimer != 0){
         isShooting = false;
+        cooldown %= cooldownTimer;
     }
 }

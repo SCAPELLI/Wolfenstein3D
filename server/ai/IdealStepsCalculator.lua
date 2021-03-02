@@ -1,5 +1,5 @@
-dofile("../../ai/ExportMapToGraph.lua")
-dofile("../../ai/priority_queue.lua")
+dofile("../../server/ai/ExportMapToGraph.lua")
+dofile("../../server/ai/priority_queue.lua")
 
 INFINITE = 99999999
 NONE = "this node does not have a father"

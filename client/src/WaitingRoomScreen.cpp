@@ -1,8 +1,9 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QMessageBox>
 #include "client/include/WaitingRoomScreen.h"
 #include "client/ui/ui_WaitingRoomScreen.h"
-#include "../../common/Style.h"
+#include "common/include/Style.h"
 
 #define BUTTON_FONT 20
 #define BUTTON_HEIGHT 50
@@ -34,12 +35,10 @@ void WaitingRoomScreen::connectEvents() {
 }
 
 void WaitingRoomScreen::onStartButtonClick() {
-    if (this->screenManager->tryToStartMatch()) {
-        // que empiece el match
-        this->screenManager->goBack();
-        this->screenManager->goBack();
-    } else {
-        //mensaje de error
+    if (!this->screenManager->tryToStartMatch()) {
+        QMessageBox messageFailed;
+        messageFailed.setText("Failed to start the match");
+        messageFailed.exec();
     }
 }
 
