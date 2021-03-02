@@ -36,8 +36,9 @@ class CGame{
     SoundManager soundQueue;
     BagOfSprites sprites;
     bool& isPlaying;
+public:
 
-	public:
+    std::map<std::string, std::vector<int>> highscores;
 	    CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId, bool& isPlaying);
 		void draw();
 		void rotate(double degrees);

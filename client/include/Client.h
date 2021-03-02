@@ -7,6 +7,8 @@
 #include <common/include/BlockingEventsQueue.h>
 #include "common/include/MatchInfo.h"
 #include "common/include/Socket.h"
+#include <map>
+
 
 class CommunicationChannelClient;
 class ScreenManager;
@@ -19,11 +21,10 @@ class Client {
     int levelId;
     int maximumNumberOfPlayers;
     bool gameIsPlaying;
-
     ScreenManager *screenManager;
-
 public:
-        Client();
+    std::map<std::string, std::vector<int>> highscores;
+    Client();
         ~Client();
         bool tryToConnect(std::string port, std::string domain);
         bool tryToSubmitUsername(std::string userName);

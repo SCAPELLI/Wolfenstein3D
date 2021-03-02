@@ -487,16 +487,71 @@ Event EventSerializer::createPickUpWeaponEvent(std::string eventString) {
 }
 
 Event EventSerializer::createQuitEvent(std::string eventString) {
-    //EEEPPP
+    //EEEPPP###[000????XXXXXXYYYYYYZZZZZZ]
+    //std::map<std::string, std::vector<int>> names;
     int playerId = std::stoi(eventString.substr(3, 3));
+    int numberOfUsers = std::stoi(eventString.substr(6, 3));
+
+    QuitEvent quitEvent(playerId);
+    int p = 9;
+    for (int i = 0; i < numberOfUsers; ++i) {
+        int nameSize = std::stoi(eventString.substr(p, 3));
+        p = p + 3;
+        std::string name = eventString.substr(p, nameSize);
+        p = p + nameSize;
+        int bullets = std::stoi(eventString.substr(p, 6));
+        p = p + 6;
+        int kills = std::stoi(eventString.substr(p, 6));
+        p = p + 6;
+        int score = std::stoi(eventString.substr(p, 6));
+        p = p + 6;
+
+        quitEvent.highscore[name] = {bullets, kills, score};
+    }
 
     QuitEvent event(playerId);
     return Event(&event, QuitEventType);
+
+
+    /*
+     * int p = 18;
+    for (int i = 0; i < numberOfPlayers; ++i) {
+        int playerId = std::stoi(eventString.substr (p + (i*15), 3));
+        int x = std::stoi(eventString.substr (p + (i*15) + 3, 6));
+        int y = std::stoi(eventString.substr (p + (i*15) + 9, 6));
+        event.startingLocations[playerId].first=x;
+        event.startingLocations[playerId].second=y;
+    }*/
+
 }
 
 
 std::string EventSerializer::serialize(QuitEvent& event) {
     std::string playerId = std::to_string(event.playerId);
     addZerosToLeft(playerId, 3);
-    return QUIT_EVENT_STRING + playerId;
+
+    std::string numberOfUsers = std::to_string(event.highscore.size());
+    addZerosToLeft(numberOfUsers, 3);
+
+    std::string response = QUIT_EVENT_STRING + playerId + numberOfUsers;
+    for (auto& userHighscore: event.highscore) {
+        int sizeOfName = userHighscore.first.size();
+        std::string name = userHighscore.first;
+        int bullets = userHighscore.second.at(0);
+        int kills = userHighscore.second.at(1);
+        int score = userHighscore.second.at(2);
+
+        std::string sizeOfName_s = std::to_string(sizeOfName);
+        addZerosToLeft(numberOfUsers, 3);
+
+        //name
+
+        std::string bullets_s = std::to_string(bullets);
+        std::string kills_s = std::to_string(kills);
+        std::string score_s = std::to_string(score);
+
+        response.append(sizeOfName_s).append(name).append(bullets_s).append(kills_s).append(score_s);
+    }
+
+    return response;
 }

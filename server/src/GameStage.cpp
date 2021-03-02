@@ -134,10 +134,15 @@ std::vector<PlayerInfo> GameStage::getPlayersInfo(){
     return playersInfo;
 }
 
-void GameStage::processEvent(QuitEvent& event) {
-    KillEvent killEvent(KillEventType, event.playerId);
+void GameStage::processEvent(QuitEvent& quitEvent) {
+    std::map<std::string, std::vector<int>> names;
+    game.getHighscores(names);
+
+    quitEvent.highscore = names;
+
+    KillEvent killEvent(KillEventType, quitEvent.playerId);
     Message msg1 = EventSerializer::serialize(killEvent);
-    std::string msg2 = EventSerializer::serialize(event);
+    std::string msg2 = EventSerializer::serialize(quitEvent);
     for (int j = 0; j < queues->size(); j++) {
         queues->at(j).push(msg1);
         queues->at(j).push(msg2);
