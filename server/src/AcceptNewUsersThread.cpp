@@ -27,8 +27,6 @@ void AcceptNewUsersThread::run() {
     }
     for (auto& user: usersSockets) if (user.isAvailable()) user.doClose();
     for (auto& userThread: usersThreads) userThread.join();
-    std::cout<<"Al cerrar el server deberia imprimirse OK"<<std::endl;
     lobby.JoinMatches();
-    std::cout<<"OK"<<std::endl;
 }
 
