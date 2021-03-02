@@ -20,19 +20,11 @@ extern "C" {
 #include <lauxlib.h>
 }
 
-/*AI::AI(std::vector<std::vector<int>>& map, std::vector<Player>& players, int botId, bool& quit):
-        map(map), players(players), botId(botId), quit(quit) {
-    L = luaL_newstate();
-    luaL_openlibs(L);
-    //ruta de yaml, (id del bot siempre 0)
-}*/
-
 AI::AI(int levelId) {
     L = luaL_newstate();
     luaL_openlibs(L);
 
     botId = 0;
-//    cooldown(0);
     std::vector<std::vector<int>> map;
     std::string levelPath = std::to_string(levelId) + ".yaml";
     YAML::Node file = YAML::LoadFile("../../server/maps/" + levelPath);
@@ -140,7 +132,7 @@ bool AI::botIsDead(std::vector<PlayerInfo>* players) {
     auto it = std::find_if(
             players->begin(), players->end(),
             [&] (const PlayerInfo& player) { return player.idPlayer == botId;});
-    return (it->life<=0);
+    return (it->life<0);
 }
 
 void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players) {
