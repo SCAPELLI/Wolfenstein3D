@@ -51,7 +51,7 @@ Vector Vector::rotate(double degrees){
 }
 
 Vector Vector::scale(){ // Only scale positions
-	return Vector(int(this->x / 32), int(this->y / 32)); // 32 hardcodeado, es tamanio de sprite
+	return Vector(int(this->x / TILE), int(this->y / 32));
 }
 
 Vector::~Vector(){}

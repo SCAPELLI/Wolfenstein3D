@@ -7,7 +7,7 @@
 OpenDoorEvent::OpenDoorEvent(int idPlayer, bool isOpen)
         :idPlayer(idPlayer), opened(isOpen){}
 
-//OpenDoorEvent::OpenDoorEvent(OpenDoorEvent& openDoorEvent) {}
+
 
 void OpenDoorEvent::changeStatusDoor(bool status){
     opened = status;

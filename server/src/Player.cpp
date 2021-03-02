@@ -137,7 +137,7 @@ bool Player::hasRocketLauncher() {
 }
 
 void Player::setRocket(Vector direction, Rocket* rocket){
-    bag[idWeapon].setDamageByRocketLauncher(rocket); //setDamageByRocketLauncher
+    bag[idWeapon].setDamageByRocketLauncher(rocket);
     rocket->sender = this->id;
     rocket->direction = direction;
     rocket->currentPosition = position;

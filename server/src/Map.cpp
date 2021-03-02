@@ -57,10 +57,6 @@ void Map::setElemInPosition(int& numOfPlayer, int pos1, int pos2,
         }
         insertDoor(elem,door, pos1, pos2,tileMap, newEvents);
     }
-//    else if (elem >= 300 ){ // los que van a ser caminables
-//        auto event = new SpawnEvent(SpawnNotMovableType, elem, pos1, pos2);
-//        newEvents.push_back(event);
-//    }
 }
 
 void Map::insertItem(int& elem, int& pos1, int& pos2,
@@ -88,9 +84,8 @@ void Map::insertDoor(int& elem, OpenableItem* door, int& pos1, int& pos2,
     doors.push_back(door);
 }
 
-Rocket* Map::launchRocket(Player& player, Vector& direction,
+void Map::launchRocket(Player& player, Vector& direction,
                                     std::vector<AbstractEvent*>& newEvents) {
-    std::string rkt = "rocket";
     Rocket* rocket =  factory.createRocket();
     player.setRocket(direction, rocket);
     rocket->sender = player.getId();
@@ -105,8 +100,9 @@ bool Map::collide(Rocket* rocket, std::vector<AbstractEvent*>& newEvents) {
                                              rocket->getUniqueId(),
                                              rocket->getId()));
         explodeAdyacents(rocket);
-        return rocket;
+        return true;
     }
+    return false;
 }
 void Map::explodeAdyacents(Rocket* rocket){
     Vector impact = rocket->impactPoint;
@@ -159,7 +155,7 @@ bool Map::changeBecauseLockedDoor(Vector& doorPos, std::vector<AbstractEvent*>& 
     if (it != doors.end()){
         (*it) = newDoor;
     }
-    delete(currentDoor); // asi no borra el puntero nomas?
+    delete(currentDoor);
     newEvents.push_back(new SpawnEvent(SpawnEventType,
                                        newDoor->getUniqueId(), newDoor->getId(),
                                        doorPos.x, doorPos.y));
@@ -180,7 +176,7 @@ void Map::dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents){
  void Map::changePosition(Vector& newPos, Player& player,
                               std::vector<AbstractEvent*>& newEvents){
      Vector positionPlayer = player.getScaledPosition();
-     matrix[positionPlayer.y][positionPlayer.x].removePlayer(player); // ponerla como atributo!!
+     matrix[positionPlayer.y][positionPlayer.x].removePlayer(player);
      matrix[newPos.y][newPos.x].addPlayer(player);
      matrix[newPos.y][newPos.x].getItemsTile(player, newEvents);
 }

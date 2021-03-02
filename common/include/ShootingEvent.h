@@ -8,7 +8,6 @@ class CGame;
 class ShootingEvent: public AbstractEvent {
 public:
     int idPlayer;
-    //ShootingEvent(ShootingEvent& shootingEvent);
     ShootingEvent(int idPlayer);
     void runHandler(CGame& renderer) override;
     void runHandler(GameStage& game) override;

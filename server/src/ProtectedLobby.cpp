@@ -58,8 +58,6 @@ int ProtectedLobby::addUserToMatch(int matchId, int userId, Socket* userSocket) 
         return -1;
     it->addUser(getUserName(userId), userId, userSocket);
 
-    //while (std::find_if(matches.begin(), matches.end(),
-    //                    [&] (const Match& match) { return match.sameIdAs(matchId);}) != matches.end())
     while (it->notFinished() and it->notCancelled() and it->userIsPartOfTheMatch(userId))
         cv.wait(lock);
     joinMatchesFinished();
@@ -84,7 +82,6 @@ void ProtectedLobby::removeUser(int userId) {
     if (it->userIsAdmin(userId)) {
         it->cancelMatch();
         cv.notify_all();
-        //matches.erase(it);
     } else {
         it->removeUser(userName, userId);
     }
@@ -109,7 +106,6 @@ int ProtectedLobby::cancelMatch(int matchId) {
             [&] (const Match& match) { return match.sameIdAs(matchId);});
     if (it == matches.end()) return -1;
     if (it->notStarted()) {
-        //matches.erase(it);
         it->cancelMatch();
         cv.notify_all();
     }
@@ -124,13 +120,10 @@ int ProtectedLobby::startMatch(int matchId) {
             [&] (const Match& match) { return match.sameIdAs(matchId);});
     if (it == matches.end()) return -1;
     it->start();
-    //lock.unlock();
+
 
     while (it->notFinished() and it->userIsPartOfTheMatch(it->adminUserId))
         cv.wait(lock);
-    //it->join();
-    //lock.lock();
-    //matches.erase(it);
     cv.notify_all();
     joinMatchesFinished();
     return 0;

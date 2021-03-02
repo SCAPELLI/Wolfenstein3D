@@ -4,7 +4,7 @@
 #include "common/include/EventSerializer.h"
 
 
-//ShootingEvent::ShootingEvent(ShootingEvent& shootingEvent){}
+
 
 ShootingEvent::ShootingEvent(int idPlayer) : idPlayer(idPlayer){}
 

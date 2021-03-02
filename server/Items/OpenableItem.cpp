@@ -16,9 +16,7 @@ bool OpenableItem::isConsumed(Player& player, std::vector<AbstractEvent*>& newEv
     }
     return false;
 }
-//int OpenableItem::getEffect(){
-//    return effect;
-//}
+
 void OpenableItem::incrementCooldown() {
     if (effect) {
         cooldown -= 1;

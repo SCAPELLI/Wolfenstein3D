@@ -38,7 +38,7 @@ public:
 
     int increaseCooldown(std::vector<AbstractEvent*>& newEvents);
 
-    Rocket* launchRocket(Player& player, Vector &direction,
+    void launchRocket(Player& player, Vector &direction,
                       std::vector<AbstractEvent *> &newEvents);
 
     bool collide(Rocket* rocket, std::vector<AbstractEvent*>& newEvents);
