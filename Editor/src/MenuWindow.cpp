@@ -4,7 +4,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include "MenuWindow.h"
 #include "ui_MenuWindow.h"
-#include "common/include/Style.h"
+#include "../../common/include/Style.h"
 
 #define EDITOR_SCREEN 1
 
