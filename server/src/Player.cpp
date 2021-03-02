@@ -128,7 +128,6 @@ int Player::hits(Player& otherPlayer){
     double deltaAngle = angleWithOther(otherPlayer);
     int distance = position.distance(otherPlayer.getPosition());
     int damage = bag[idWeapon].attack(distance,deltaAngle);
-//    std::cout << "Se aplico " << damage << " de danio de " << id << " a " << otherPlayer.id << ".\n";
     return damage;
 }
 
@@ -192,11 +191,11 @@ int Player::getDamage(int damage) {
 }
 
 bool Player::collideWith(int distance, int radius) {
-    return distance / TILE < radius + radius;
+    return distance / TILE < radius ;
 }
 
 bool Player::canShoot() {
-    return bag[idWeapon].canShoot(bullets) || bag[idWeapon].name == "knife";
+    return bag[idWeapon].canShoot(bullets);
 }
 
 bool Player::doesHit(Player& otherPlayer){
@@ -231,7 +230,7 @@ bool Player::getItem(LifeGainItem* item,
                      std::vector<AbstractEvent*>& newEvents) {
     if (health == MAXHEALTH){
      return false;
-    }
+    } else if (item->getItemName() == "blood" && health >= 11) return false;
     health += item->getEffect();
     if (health > MAXHEALTH) {
         int extra = health % MAXHEALTH;
