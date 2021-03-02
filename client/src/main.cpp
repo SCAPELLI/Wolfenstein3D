@@ -26,9 +26,9 @@ int main(int argc, char *argv[]) {
     try {
         Client client;
         initQt(argc, argv, &client);
-        /**
-         * showHighscores(int argc, char *argv[], std::map<std::string, std::vector<int>> names)
-         * hay que ver como obtener el vector ese
+
+        showHighscores(argc, argv, client.highscores);
+         /** hay que ver como obtener el vector ese
          */
     } catch (const std::exception& error) {
         std::cout<<error.what()<<std::endl;

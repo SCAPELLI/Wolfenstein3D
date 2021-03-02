@@ -1,7 +1,7 @@
 #include <QtGui/QFontDatabase>
 #include <QtGui/QPainter>
 #include <sstream>
-#include "common/include/Style.h"
+#include "../include/Style.h"
 
 void Style::setRetroFont(QWidget *widget, size_t fontSize) {
     int id = QFontDatabase::addApplicationFont("../../fonts/retro.ttf");

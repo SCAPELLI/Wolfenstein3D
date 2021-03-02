@@ -5,7 +5,7 @@
 #include "../include/ScoreWindow.h"
 
 #include "common/include/Style.h"
-#include "../cmake-build-debug/client/ui_ScoreWindow.h"
+#include "../ui/ui_ScoreWindow.h"
 
 #define FONT 25
 #define HEADER_FONT 30

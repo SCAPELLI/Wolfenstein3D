@@ -13,7 +13,9 @@ class SpriteTabs: public QTabWidget {
         EditorScreen *editorScreen;
         TextureList *textureList;
         TextureList *itemsList;
+        TextureList *weaponsList;
         TextureList *decorationsList;
+        TextureList *walkablesList;
 
     public:
         SpriteTabs(QWidget *parent = 0, EditorScreen *editorScreen = NULL);

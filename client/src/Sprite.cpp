@@ -48,7 +48,8 @@ void Sprite::drawLine(SDL_Renderer* renderer, int texX, int xPixel, int drawStar
 Sprite::Sprite(){}
 
 Sprite::~Sprite(){
-	SDL_DestroyTexture(texture);
+	if (texture != nullptr)
+        SDL_DestroyTexture(texture);
 }
 
 Sprite::Sprite(Sprite &&other): h(other.h), w(other.w), texture(other.texture){

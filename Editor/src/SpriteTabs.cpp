@@ -1,7 +1,7 @@
 #include <SpriteFileManager.h>
 #include "SpriteTabs.h"
 #include "EditorScreen.h"
-#include "common/include/Style.h"
+#include "../../common/include/Style.h"
 #include <map>
 
 SpriteTabs::SpriteTabs(QWidget *parent, EditorScreen *editorScreen)
@@ -22,9 +22,9 @@ SpriteTabs::SpriteTabs(QWidget *parent, EditorScreen *editorScreen)
 
     std::map<int, std::string> weaponsMap =
             spriteFileManager.createMapFromTextureFileWithValues("weapons");
-    this->textureList = new TextureList(0, this);
-    this->textureList->setSpriteList(weaponsMap);
-    this->addTab(this->textureList, "Wapons");
+    this->weaponsList = new TextureList(0, this);
+    this->weaponsList->setSpriteList(weaponsMap);
+    this->addTab(this->weaponsList, "Wapons");
 
     std::map<int, std::string> decorationsMap =
             spriteFileManager.createMapFromTextureFileWithoutValues("decorations");
@@ -34,18 +34,18 @@ SpriteTabs::SpriteTabs(QWidget *parent, EditorScreen *editorScreen)
 
     std::map<int, std::string> walkableMap =
             spriteFileManager.createMapFromTextureFileWithoutValues("walkable");
-    this->decorationsList = new TextureList(0, this);
-    this->decorationsList->setSpriteList(walkableMap);
-    this->addTab(this->decorationsList, "Walkable");
+    this->walkablesList = new TextureList(0, this);
+    this->walkablesList->setSpriteList(walkableMap);
+    this->addTab(this->walkablesList, "Walkable");
 
     Style style;
     style.setTabWidgetStyle(this);
 }
 
 SpriteTabs::~SpriteTabs() {
-    delete this->textureList;
-    delete this->itemsList;
-    delete this->decorationsList;
+/**
+ * QTabWidget tiene el ownership de los tabs que agrego con addTab
+ */
 }
 
 void SpriteTabs::changeCurrentTexture(Texture &texture) {

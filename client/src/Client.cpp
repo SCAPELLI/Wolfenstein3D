@@ -24,7 +24,7 @@ Client::~Client() {
 
 bool Client::tryToConnect(std::string port, std::string domain) {
     try {
-        userSocket = std::move(TCPClient::getClientSocket("localhost", "7777"));//domain.c_str(), port.c_str()));
+        userSocket = std::move(TCPClient::getClientSocket(domain.c_str(), port.c_str()));
         return true;
     } catch (const std::exception& error) {
         return false;
@@ -111,8 +111,7 @@ void Client::catchEvents(BlockingEventsQueue& senderQueue){
 
         EventSerializer::serialize(event);
         Message msg(EventSerializer::serialize(event));
-        if(event.thisIsTheQuitEvent())
-            gameIsPlaying = false;
+        //if(event.thisIsTheQuitEvent()) gameIsPlaying = false;
         if(msg.getMessage() != "")
             senderQueue.push(msg);
     }
@@ -169,10 +168,12 @@ void Client::playMatch() {
         while (!messageEvents.empty()) {
             Event event1 = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
             messageEvents.pop_front();
-            if (event1.thisIsTheQuitEvent())
+            if (event1.thisIsTheQuitEvent()) {
                 gameIsPlaying = ((QuitEvent*)(event1.event))->playerId != userId;
-            else
+                this->highscores = ((QuitEvent*)(event1.event))->highscore;
+            } else {
                 event1.runHandler(game);
+            }
         }
         messageEvents = receiverQueue.popAll();
         game.draw();

@@ -111,13 +111,13 @@ void Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& ne
 }
 
 void Game::getHighscores(std::map<std::string, std::vector<int>>& names){
-    std::vector<int> highscores;
     for (int i = 0; i < players.size(); i++){
+        std::vector<int> highscores;
         highscores.push_back(players[i].getBulletsShoot());
         highscores.push_back(players[i].getEnemiesKilled());
         highscores.push_back(players[i].getScore());
         names[players[i].getName()] = highscores;
-        highscores.clear();
+        //highscores.clear();
     }
 
 }
