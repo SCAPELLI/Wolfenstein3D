@@ -3,6 +3,7 @@
 
 #include <yaml-cpp/yaml.h>
 #include "server/Items/OpenableItem.h"
+#include "server/Items/Rocket.h"
 //#include "Game.h"
 #include "Item.h"
 
@@ -20,6 +21,7 @@ public:
     Item* weaponLoader(std::string& itemName);
     OpenableItem* setTexture(int& idItem);
     Item* itemLoader(std::string& idItem);
+    Rocket* createRocket();
     ~GameLoader();
 };
 #endif

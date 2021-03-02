@@ -15,7 +15,7 @@
 #define HEALTH_LAYOUT LIFE_LAYOUT+160
 #define AMMO_LAYOUT HEALTH_LAYOUT+96
 #define WEAPON_LAYOUT AMMO_LAYOUT+48
-#define AMOUNT_OF_WEAPONS 4
+#define AMOUNT_OF_WEAPONS 5
 
 UI::UI(SDL_Renderer* renderer, CPlayer *activePlayer): activePlayer(activePlayer){
     this->HUD = IMG_LoadTexture(renderer, (std::string(ROUTE) + "HUD" + std::string(FILE_EXTENSION)).c_str());

@@ -41,6 +41,10 @@ items:
     14:
         type: ammo
         value: 5
+bullets:
+    20:
+        type: rocket
+        value: 0
 weapons:
     50:
         type: pistol
