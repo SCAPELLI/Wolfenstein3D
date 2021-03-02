@@ -23,11 +23,18 @@ int main(int argc, char* argv[]) {
         AcceptNewUsersThread t(peer, argv[1]);
         t.start();
 
+        std::cout<<"Welcome to Wolfenstein 3D Server"<<std::endl;
+        std::cout<<"New players can log in using port <"<<port<<"> and server <"<<host<<">"<<std::endl<<std::endl;;
+        std::cout<<"For further instructions please refer to https://github.com/SCAPELLI/Wolfenstein3D"<<std::endl<<std::endl;
+
+        std::cout<<"To close the server enter 'q'"<<std::endl;
+
         char entrada = ' ';
         while (entrada!='q') std::cin >> entrada;
 
         peer.doClose();
         t.join();
+        std::cout<<"Wolfenstein 3D Server closed successfully"<<std::endl;
     } catch (const std::exception& error) {
         std::cout<<error.what()<<std::endl;
     }

@@ -84,23 +84,16 @@ bool Match::userIsPartOfTheMatch(int userId) {
 }
 
 bool senderThreadIsDead(SenderThread* t){
-    //if (t->isDead()){
-        t->join();
-        delete t;
-        std::cout<<"uni el hilo enviador"<<std::endl;
-        return true;
-    //}
-    //return t->isDead();
+    t->join();
+    delete t;
+    return true;
 }
 
 bool receiverThreadIsDead(ReceiverThread* t){
-    //if (t->isDead()){
-        t->join();
-        delete t;
-        std::cout<<"uni el hilo recibidor"<<std::endl;
-        return true;
-    //}
-    return t->isDead();
+    t->join();
+    delete t;
+    std::cout<<"uni el hilo recibidor"<<std::endl;
+    return true;
 }
 
 void Match::run() {
@@ -110,29 +103,27 @@ void Match::run() {
     matchStarted = true;
 
     ProtectedEventsQueue userEvents;
-    std::vector<BlockingEventsQueue> updateEvents(users.size()); // equivalente a updateEvents x N
+    std::vector<BlockingEventsQueue> updateEvents(users.size());
 
     std::map<int, std::string> players;
     players[0] = "ai";
     for (auto it = users.begin(); it != users.end(); ++it) {
         players[it->second] = it->first;
     }
-    GameStage gameStage(&updateEvents, players, levelId, configPath); // agregar levelId a GameStage
+    GameStage gameStage(&updateEvents, players, levelId, configPath);
 
 
-    std::vector<ReceiverThread*> receivers; // punteros?
+    std::vector<ReceiverThread*> receivers;
     std::vector<SenderThread*> senders;
     int i = 0;
     for (auto it = usersSockets.begin(); it != usersSockets.end(); ++it){
-        receivers.push_back(new ReceiverThread(it->second, &userEvents, it->first)); //OJO CON ESTOS NEW, NO TIENEN DELETE
+        receivers.push_back(new ReceiverThread(it->second, &userEvents, it->first));
         senders.push_back(new SenderThread(it->second, &updateEvents[i], it->first));
         receivers[i]->start();
         senders[i]->start();
         i++;
     }
 
-    std::cout<< "se ejecutó una partida con "<<users.size()<<" jugadores"<<std::endl;
-    // agregar joins
     AI ai(levelId);
     std::list<Message> messageEvents;
     while (!matchFinished){
@@ -140,7 +131,7 @@ void Match::run() {
         while (!messageEvents.empty()) {
             Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
             messageEvents.pop_front();
-            event.runHandler(gameStage); //agrege un while mas para procesar la lista de eventos
+            event.runHandler(gameStage);
             if (event.thisIsTheQuitEvent()) {
                 removeUser(&event);
                 if (gameStage.gameFinished() or users.empty())
@@ -158,7 +149,6 @@ void Match::run() {
     receivers.erase(std::remove_if(receivers.begin(), receivers.end(), receiverThreadIsDead), receivers.end());
 
     matchFinished = true;
-    std::cout<<"llego a salir de la partida"<<std::endl;
     lobby->notifyAll();
 }
 
