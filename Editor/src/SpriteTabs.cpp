@@ -43,9 +43,9 @@ SpriteTabs::SpriteTabs(QWidget *parent, EditorScreen *editorScreen)
 }
 
 SpriteTabs::~SpriteTabs() {
-    delete this->textureList;
-    delete this->itemsList;
-    delete this->decorationsList;
+/**
+ * QTabWidget tiene el ownership de los tabs que agrego con addTab
+ */
 }
 
 void SpriteTabs::changeCurrentTexture(Texture &texture) {
