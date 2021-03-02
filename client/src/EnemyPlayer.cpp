@@ -47,7 +47,6 @@ void EnemyPlayer::shoot() {
 
 void EnemyPlayer::changeWeapon(int idWeapon) {
     activeWeapon = idWeapon;
-    // cambiar sprites
 }
 int EnemyPlayer::getActiveWeapon(){
     return activeWeapon;
