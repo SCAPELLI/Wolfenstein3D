@@ -50,6 +50,7 @@ void UI::draw(SDL_Renderer* renderer){
 
 void UI::drawFace(SDL_Renderer* renderer, int w, int h){
     int toDrawId = (activePlayer->getHp() / 10) - 1;
+    if (toDrawId < 0) toDrawId = 0;
     SDL_Rect dest = {w, h, 76, 60};
     SDL_RenderCopy(renderer, this->faces[toDrawId], NULL, &dest);
 }
