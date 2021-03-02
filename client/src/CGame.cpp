@@ -18,6 +18,7 @@
 #include "common/ServerEvents/PickUpKeyEvent.h"
 
 #define PICKUP_SOUND 7
+#define BOOM_SOUND 8
 
 
 CGame::CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId, bool& isPlaying):
@@ -45,7 +46,8 @@ void CGame::spawnEnemy(int playerId, Vector spawnPoint){
 }
 
 void CGame::processEvent(SpawnEvent& event) {
-    if (event.type == 161 || event.type == 160) {
+    if (event.type == 116 || event.type == 117 || event.type == 109 || event.type == 108 ||
+        event.type == 125 || event.type == 124 || event.type == 161 || event.type == 158) {
         map[event.posY][event.posX] = event.type;
     }
     renderables[event.id] =  Renderable(event.posY, event.posX, &sprites.items[event.type]);
@@ -62,6 +64,9 @@ void CGame::processEvent(PickUpKeyEvent& event) {
 
 void CGame::processEvent(DespawnEvent &event) {
     renderables.erase(event.id);
+    if (event.type == 20){
+        soundQueue.push(BOOM_SOUND, MIX_MAX_VOLUME/15);
+    }
     soundQueue.push(PICKUP_SOUND, MIX_MAX_VOLUME);
 }
 
@@ -72,12 +77,13 @@ void CGame::processEvent(ShootingEvent& event){
         if (activePlayer.shoot()) soundQueue.push(activePlayer.getActiveWeapon(), MIX_MAX_VOLUME/10);
     } else {
         int distance = activePlayer.getPosition().distance(players[event.idPlayer]->position);
+        players[event.idPlayer]->shoot();
         soundQueue.push(players[event.idPlayer]->getActiveWeapon(), MIX_MAX_VOLUME/10 - distance/20);
     }
 }
 
 void CGame::processEvent(GameOverEvent& event){
-    if (event.idPlayer != activePlayer.id) return; //players[event.idPlayer].despawn();
+    if (event.idPlayer != activePlayer.id) return;
     isPlaying = false;
 }
 
@@ -92,7 +98,7 @@ void CGame::processEvent(ChangeWeaponEvent& event){
 }
 
 void CGame::processEvent(ScoreChangeEvent& event){
-    //if (event.idPlayer != activePlayer.id) return;
+    if (event.idPlayer != activePlayer.id) return;
     activePlayer.increaseScore(event.score);
 }
 
