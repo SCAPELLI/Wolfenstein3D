@@ -17,14 +17,15 @@
 
 
 Match::Match(int matchId, int levelId, int maximumNumberOfPlayers,
-             int adminUserId, str adminUserName, Socket* adminUserSocket, ProtectedLobby* lobby):
+             int adminUserId, str adminUserName, Socket* adminUserSocket, ProtectedLobby* lobby, char* configPath):
              matchId(matchId),levelId(levelId),
              maximumNumberOfPlayers(maximumNumberOfPlayers),
              adminUserId(adminUserId),
              matchStarted(false),
              matchFinished(false),
              matchCancelled(false),
-             lobby(lobby) {
+             lobby(lobby), 
+             configPath(configPath) {
     addUser(adminUserName, adminUserId, adminUserSocket);
     }
 void Match::addUser(str userName, int userId, Socket* userSocket) {
@@ -116,7 +117,7 @@ void Match::run() {
     for (auto it = users.begin(); it != users.end(); ++it) {
         players[it->second] = it->first;
     }
-    GameStage gameStage(&updateEvents, players, levelId); // agregar levelId a GameStage
+    GameStage gameStage(&updateEvents, players, levelId, configPath); // agregar levelId a GameStage
 
 
     std::vector<ReceiverThread*> receivers; // punteros?

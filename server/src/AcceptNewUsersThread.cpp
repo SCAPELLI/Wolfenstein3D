@@ -12,10 +12,10 @@ bool AcceptNewUsersThread::socketIsNotAvailable(Socket& socket) {
     return !socket.isAvailable();
 }
 
-AcceptNewUsersThread::AcceptNewUsersThread(Socket& acceptor): acceptor(acceptor) {}
+AcceptNewUsersThread::AcceptNewUsersThread(Socket& acceptor, char* configPath): acceptor(acceptor), configPath(configPath) {}
 
 void AcceptNewUsersThread::run() {
-    ProtectedLobby lobby;
+    ProtectedLobby lobby(configPath);
     while (acceptor.isAvailable()) {
         usersSockets.emplace_back(std::move(acceptor.doAccept()));
         if (usersSockets.back().isAvailable()) {

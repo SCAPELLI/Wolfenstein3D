@@ -21,11 +21,12 @@ class Match: public Thread {
     int matchId;
     int levelId;
     ProtectedLobby* lobby;
+    char* configPath;
 public:
     int adminUserId;
 
     Match(int matchId, int levelId, int maximumNumberOfPlayers,
-          int adminUserId, str adminUserName, Socket* adminUserSocket, ProtectedLobby* lobby);
+          int adminUserId, str adminUserName, Socket* adminUserSocket, ProtectedLobby* lobby, char* configPath);
 
     Match(const Match& anotherMatch) = delete;
     Match& operator=(const Match& anotherMatch) = delete;

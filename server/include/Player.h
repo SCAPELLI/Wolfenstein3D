@@ -23,9 +23,10 @@ class Player {
     int idWeapon, bullets, score, keys;
     int bulletsShot, playersKilled;
     int prevIdWeapon;
+    char* configPath;
 public:
     /*setea constructor del jugador*/
-    Player(int parsed_id,int relativeId, std::string name, Vector position);
+    Player(int parsed_id,int relativeId, std::string name, Vector position, char* configPath);
 
     /*Jugador es dañado y baja su vida devolviendo si murió o no*/
     int getDamage(int damage);

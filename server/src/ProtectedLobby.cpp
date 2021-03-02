@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include "../include/ProtectedLobby.h"
 
-ProtectedLobby::ProtectedLobby(): reference(0) {};
+ProtectedLobby::ProtectedLobby(char* configPath): reference(0), configPath(configPath) {};
 
 int ProtectedLobby::addUser(str& userName) {
     std::unique_lock<std::mutex> lock(m);
@@ -44,7 +44,7 @@ int ProtectedLobby::createANewMatch(int levelId, int maximumNumberOfPlayers, int
     else {
         ++reference;
         str adminUserName = getUserName(adminId);
-        matches.emplace_back(reference, levelId, maximumNumberOfPlayers, adminId, adminUserName, adminSocket, this);
+        matches.emplace_back(reference, levelId, maximumNumberOfPlayers, adminId, adminUserName, adminSocket, this, configPath);
         return reference;
     }
 }

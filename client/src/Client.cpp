@@ -187,6 +187,8 @@ void Client::playMatch() {
     senderQueue.push(msg);
     s.join();
     r.join();
+    if (this->highscores.empty())
+        this->highscores = game.highscores;
 }
 
 void Client::setScreenManager(ScreenManager *screenManager) {

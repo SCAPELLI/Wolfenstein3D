@@ -7,15 +7,16 @@
 
 class AcceptNewUsersThread: public Thread{
     Socket& acceptor;
-    ProtectedLobby Lobby;
+    //ProtectedLobby Lobby;
     std::list<Socket> usersSockets;
     std::list<UserThread> usersThreads;
+    char* configPath;
 
     static bool deadThread(UserThread& thread);
     static bool socketIsNotAvailable(Socket& socket);
 
 public:
-    explicit AcceptNewUsersThread(Socket& acceptor);
+    AcceptNewUsersThread(Socket& acceptor, char* configPath);
     void run() override;
 };
 #endif
