@@ -81,6 +81,10 @@ Item* GameLoader::itemLoader(std::string& itemName) {
                     Item* item = new KeyItem(it->first.as<int>(), itemName, value, uniqueId);
                     uniqueId++;
                     return item;
+                 } if (itemName == "rocket") {
+                    Item* item = new Rocket(it->first.as<int>(), itemName, value, uniqueId);
+                    uniqueId++;
+                    return item;
                 }
             }
 

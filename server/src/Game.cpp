@@ -57,10 +57,9 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     }
     WallRay ray = WallRay(players[ids[idPlayer]].getPosition(), players[ids[idPlayer]].getAngle());
     int distanceToWall = ray.distanceToWall(map);
-    if (players[ids[idPlayer]].hasRocketLauncher()){
-        Rocket* rocket = players[ids[idPlayer]].setRocket();
+    if (players[ids[idPlayer]].hasRocketLauncher()){ // hasActiveRocketLauncher
         Vector shotDirection = calculateDirection(idPlayer) / players[ids[idPlayer]].getSpeed();
-        map.launchRocket(rocket, shotDirection, newEvents);
+        map.launchRocket(players[ids[idPlayer]], shotDirection, newEvents);
         return -1;
     }
     for (int i = 0; i < players.size(); i++){
@@ -78,6 +77,12 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
         }
     }
     return -1;
+}
+
+void Game::notifyAllDamageByRocket(int idPlayer, std::vector<AbstractEvent*>& newEvents){
+    for (int i = 0; i < players.size(); i++){
+        reactToDamage(i, idPlayer, newEvents);
+    }
 }
 
 void Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents ){
@@ -114,7 +119,7 @@ void Game::getHighscores(std::map<std::string, std::vector<int>>& names){
         names[players[i].getName()] = highscores;
         //highscores.clear();
     }
-    return;
+
 }
 bool Game::changeWeapon(int idPlayer, int idWeapon) {
     return players[ids[idPlayer]].changeWeaponTo(idWeapon);
@@ -138,8 +143,10 @@ bool Game::openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     return map.isADoor(players[ids[idPlayer]], newEvents);
 }
 
-void Game::increaseCooldown() {
-    map.increaseCooldown();
+void Game::increaseCooldown( std::vector<AbstractEvent*>& newEvents) {
+    int idPlayer = map.increaseCooldown(newEvents);
+    if (idPlayer != -1)
+        notifyAllDamageByRocket(idPlayer, newEvents);
     for (int i = 0; i < players.size(); i++) {
         players[i].incrementCooldown();
     }

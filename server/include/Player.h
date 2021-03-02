@@ -87,7 +87,7 @@ public:
     double angleWithOther(Player& otherPlayer);
     void updateKills();
     bool hasRocketLauncher();
-    Rocket* setRocket();
+    void setRocket(Vector direction, Rocket* rocket);
     void eraseCurrentWeapon();
     Vector getInitialPosition();
     int getEnemiesKilled();

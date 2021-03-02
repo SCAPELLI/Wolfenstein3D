@@ -22,7 +22,7 @@ public:
     Weapon();
     int attack( int distance, double angle);
     int generateRandom();
-    Rocket* launchRocket();
+    void setDamageByRocketLauncher(Rocket* rocket);
     bool isConsumed(Player& player, std::vector<AbstractEvent*>& newEvents) override;
     bool operator<(const Weapon& t) const;
     bool operator==(const Weapon& t) const;

@@ -114,7 +114,7 @@ void GameStage::processEvent(ChangeWeaponEvent& event){
 
 
 void GameStage::incrementCooldown(){
-    game.increaseCooldown();
+    game.increaseCooldown( newEvents);
 }
 
 std::vector<PlayerInfo> GameStage::getPlayersInfo(){

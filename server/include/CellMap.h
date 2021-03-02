@@ -31,8 +31,8 @@ public:
     bool isOpenable(Player& player, std::vector<AbstractEvent*>& newEvents);
     bool isOpen();
     virtual void incrementCooldown();
-    bool impacts(Rocket* rocket, std::vector<AbstractEvent*>& newEvents);
-    void explode(Rocket* rocket, std::vector<AbstractEvent *> &newEvents);
+    bool impacts(Rocket* rocket);
+    void explode(Rocket* rocket);
     bool isLockedDoor();
 
 };

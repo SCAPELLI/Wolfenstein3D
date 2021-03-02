@@ -88,28 +88,37 @@ void Map::insertDoor(int& elem, OpenableItem* door, int& pos1, int& pos2,
     doors.push_back(door);
 }
 
-void Map::launchRocket(Rocket* rocket, Vector& direction,
-                                    std::vector<AbstractEvent*>& newEvents){
-    Player* sender = rocket->sender;
-    int impactPointX = sender->getScaledPosition().x;
-    int impactPointY = sender->getScaledPosition().y;
-    while (impactPointY < width && impactPointX < height &&
-            !matrix[impactPointY][impactPointX].isSolid()) {
-        if (matrix[impactPointY][impactPointX].impacts(rocket,newEvents))
-            break;
-        impactPointX += direction.x;
-        impactPointY += direction.y;
+Rocket* Map::launchRocket(Player& player, Vector& direction,
+                                    std::vector<AbstractEvent*>& newEvents) {
+    std::string rkt = "rocket";
+    Rocket* rocket = (Rocket*) factory.itemLoader(rkt);
+    player.setRocket(direction, rocket);
+    rocket->sender = player.getId();
+    rockets.push_back(rocket);
+
+}
+bool Map::collide(Rocket* rocket, std::vector<AbstractEvent*>& newEvents) {
+    Vector currentPos = rocket->currentPosition;
+    if (matrix[currentPos.y][currentPos.x].impacts(rocket)) {
+        rocket->impactPoint = Vector(currentPos.x, currentPos.y);
+        newEvents.push_back(new DespawnEvent(DespawnEventType,
+                                             rocket->getUniqueId(),
+                                             rocket->getId()));
+        explodeAdyacents(rocket);
+        return rocket;
     }
-    rocket->impactPoint = Vector(impactPointX, impactPointY);
-    if ((impactPointY +1) < width && (impactPointY +1) > 0)
-        matrix[impactPointY + 1][impactPointX].explode(rocket, newEvents);
-    if ((impactPointY -1) < width && (impactPointY -1) > 0)
-        matrix[impactPointY - 1][impactPointX].explode(rocket, newEvents);
-    if ((impactPointX +1) < height && (impactPointX +1) > 0)
-        matrix[impactPointY][impactPointX + 1].explode(rocket, newEvents);
-    if ((impactPointX -1) < height && (impactPointY -1) > 0)
-        matrix[impactPointY][impactPointX - 1].explode(rocket, newEvents);
-    delete(rocket);
+}
+void Map::explodeAdyacents(Rocket* rocket){
+    Vector impact = rocket->impactPoint;
+    if ((impact.y + 1) < width && (impact.y + 1) > 0)
+        matrix[impact.y + 1][impact.x].explode(rocket);
+    if ((impact.y - 1) < width && (impact.y - 1) > 0)
+        matrix[impact.y - 1][impact.x].explode(rocket);
+    if ((impact.x + 1) < height && (impact.x + 1) > 0)
+        matrix[impact.y][impact.x + 1].explode(rocket);
+    if ((impact.x - 1) < height && (impact.y - 1) > 0)
+        matrix[impact.y][impact.x - 1].explode(rocket);
+
 }
 
 bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
@@ -176,11 +185,28 @@ void Map::dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents){
      matrix[newPos.y][newPos.x].getItemsTile(player, newEvents);
 }
 
-void Map::increaseCooldown() {
+int Map::increaseCooldown(std::vector<AbstractEvent*>& newEvents) {
     for (std::size_t i = 0; i < doors.size(); i++) {
         doors[i]->incrementCooldown();
     }
+    int idPlayer = -1;
+    auto it = rockets.begin();
+    while (it != rockets.end()) {
+        Vector posRocket = (*it)->currentPosition;
+        if ( posRocket.y < width && posRocket.x < height &&
+            !matrix[posRocket.y][posRocket.x].isSolid()) {
+            (*it)->incrementCooldown(newEvents);
+            if (collide((*it), newEvents)) {
+                idPlayer = (*it)->sender;
+                delete (*it);
+            }else{
+              ++it;
+            }
+        }
+    }
+    return idPlayer;
 }
+
 
 double Map::getWidth() {
     return width;
