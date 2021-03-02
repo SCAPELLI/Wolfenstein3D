@@ -1,22 +1,22 @@
 # Wolfenstein3D - Trabajo práctico final
 
 ## Instrucciones de compilación y ejecución del realese v5.0 desde raiz (en Linux).
-### Para compilar los programas servidor y cliente
+### Para compilar los programas servidor y cliente (desde raíz)
     mkdir build
     cd build 
     cmake ..
 
-### Para ejecutar el programa cliente (desde raiz)
+### Para ejecutar el programa cliente (desde raíz)
     cd build
     cd client
     ./client
     
-### Para ejecutar el programa servidor (desde raiz)
+### Para ejecutar el programa servidor (desde raíz)
     cd build
     cd server
     ./server ../../config.yaml
 
-### Para compilar y ejecutar el programa Editor (desde raiz)
+### Para compilar y ejecutar el programa Editor (desde raíz)
     cd Editor
     mkdir build
     cd build
