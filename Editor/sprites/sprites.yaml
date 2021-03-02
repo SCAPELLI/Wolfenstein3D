@@ -42,7 +42,7 @@ items:
         type: ammo
         value: 5
 bullets:
-    20:
+        id: 20
         type: rocket
         value: 0
 weapons:

@@ -92,9 +92,9 @@ Item* GameLoader::itemLoader(std::string& itemName) {
     throw Exception("No se encontró ese ID en el archivo yaml");
 }
 Rocket* GameLoader::createRocket(){
-    Rocket* rkt = new Rocket(sprites["bullets"].as<int>(),
-            sprites["items"]["type"].as<std::string>(),
-            sprites["items"]["value"].as<int>(),
+    Rocket* rkt = new Rocket(sprites["bullets"]["id"].as<int>(),
+            sprites["bullets"]["type"].as<std::string>(),
+            sprites["bullets"]["value"].as<int>(),
                   uniqueId);
     uniqueId++;
     return rkt;
