@@ -84,6 +84,7 @@ void CGame::processEvent(ShootingEvent& event){
 
 void CGame::processEvent(GameOverEvent& event){
     if (event.idPlayer != activePlayer.id) return;
+    this->highscores = event.highscores;
     isPlaying = false;
 }
 

@@ -74,11 +74,31 @@ Event EventSerializer::createOpenDoorEvent(std::string eventString) {
 }
 
 Event EventSerializer::createGameOverEvent(std::string eventString) {
-    //EEEPPP
+    //EEEPPP###[000????XXXXXXYYYYYYZZZZZZ]
     int playerId = std::stoi(eventString.substr (3, 3));
+    int numberOfUsers = std::stoi(eventString.substr(6, 3));
+
+
     std::map<std::string, std::vector<int>> highscores;
-    GameOverEvent event(GameOverEventType, playerId, highscores); //hardcode
-    return Event(&event, GameOverEventType);
+    GameOverEvent gameOverEvent(GameOverEventType, playerId,highscores);
+
+    int p = 9;
+    for (int i = 0; i < numberOfUsers; ++i) {
+        int nameSize = std::stoi(eventString.substr(p, 3));
+        p = p + 3;
+        std::string name = eventString.substr(p, nameSize);
+        p = p + nameSize;
+        int bullets = std::stoi(eventString.substr(p, 6));
+        p = p + 6;
+        int kills = std::stoi(eventString.substr(p, 6));
+        p = p + 6;
+        int score = std::stoi(eventString.substr(p, 6));
+        p = p + 6;
+
+        gameOverEvent.highscores[name] = {bullets, kills, score};
+    }
+
+    return Event(&gameOverEvent, GameOverEventType);
 }
 
 Event EventSerializer::createPositionEvent(std::string eventString) {
@@ -469,7 +489,34 @@ std::string EventSerializer::serialize(GameOverEvent& event) {
     std::string playerId = std::to_string(event.idPlayer);
     addZerosToLeft(playerId, 3);
 
-    return GAME_OVER_EVENT_STRING + playerId;
+
+    std::string numberOfUsers = std::to_string(event.highscores.size());
+    addZerosToLeft(numberOfUsers, 3);
+
+    std::string response = GAME_OVER_EVENT_STRING + playerId + numberOfUsers;
+    for (auto& userHighscore: event.highscores) {
+        int sizeOfName = userHighscore.first.size();
+        std::string name = userHighscore.first;
+        int bullets = userHighscore.second.at(0);
+        int kills = userHighscore.second.at(1);
+        int score = userHighscore.second.at(2);
+
+        std::string sizeOfName_s = std::to_string(sizeOfName);
+        addZerosToLeft(sizeOfName_s, 3);
+
+        std::string bullets_s = std::to_string(bullets);
+        addZerosToLeft(bullets_s, 6);
+
+        std::string kills_s = std::to_string(kills);
+        addZerosToLeft(kills_s, 6);
+
+        std::string score_s = std::to_string(score);
+        addZerosToLeft(score_s, 6);
+
+        response.append(sizeOfName_s).append(name).append(bullets_s).append(kills_s).append(score_s);
+    }
+
+    return response;
 }
 
 
