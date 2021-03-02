@@ -1,4 +1,5 @@
 # Wolfenstein3D - Trabajo práctico final
+![communication_diagram](https://github.com/SCAPELLI/Wolfenstein3D/blob/main/images/screen_juego.png?raw=true)
 
 ## Instrucciones de compilación y ejecución del realese v5.0 desde raíz (en Linux).
 ### Para compilar los programas servidor y cliente (desde raíz)
