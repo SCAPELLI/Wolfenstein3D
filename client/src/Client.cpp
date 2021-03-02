@@ -111,8 +111,7 @@ void Client::catchEvents(BlockingEventsQueue& senderQueue){
 
         EventSerializer::serialize(event);
         Message msg(EventSerializer::serialize(event));
-        if(event.thisIsTheQuitEvent())
-            gameIsPlaying = false;
+        //if(event.thisIsTheQuitEvent()) gameIsPlaying = false;
         if(msg.getMessage() != "")
             senderQueue.push(msg);
     }
@@ -188,7 +187,6 @@ void Client::playMatch() {
     senderQueue.push(msg);
     s.join();
     r.join();
-    highscores = game.highscores;
 }
 
 void Client::setScreenManager(ScreenManager *screenManager) {
