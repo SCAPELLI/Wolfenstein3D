@@ -9,6 +9,7 @@
 class Map {
     std::vector<std::vector<CellMap>> matrix;
     std::vector<OpenableItem *> doors;
+    std::vector<Rocket *> rockets;
     double width;
     double height;
     GameLoader factory;
@@ -35,10 +36,12 @@ public:
 
     bool isADoor(Player &player, std::vector<AbstractEvent *> &newEvents);
 
-    void increaseCooldown();
+    int increaseCooldown(std::vector<AbstractEvent*>& newEvents);
 
-    void launchRocket(Rocket *rocket, Vector &direction,
+    Rocket* launchRocket(Player& player, Vector &direction,
                       std::vector<AbstractEvent *> &newEvents);
+
+    bool collide(Rocket* rocket, std::vector<AbstractEvent*>& newEvents);
 
     void insertItem(int &elem, int &pos1, int &pos2,
                     CellMap &tile, std::vector<AbstractEvent *> &newEvents);
@@ -50,6 +53,8 @@ public:
                     CellMap &tile, std::vector<AbstractEvent *> &newEvents);
 
     bool changeBecauseLockedDoor(Vector& doorPos, std::vector<AbstractEvent*>& newEvents);
+
+    void explodeAdyacents(Rocket* rocket);
 };
 
 

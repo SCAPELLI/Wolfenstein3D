@@ -62,6 +62,7 @@ void CGame::processEvent(PickUpKeyEvent& event) {
 
 void CGame::processEvent(DespawnEvent &event) {
     renderables.erase(event.id);
+    if(event.type == 53)
     soundQueue.push(PICKUP_SOUND, MIX_MAX_VOLUME);
 }
 
@@ -92,7 +93,7 @@ void CGame::processEvent(ChangeWeaponEvent& event){
 }
 
 void CGame::processEvent(ScoreChangeEvent& event){
-    //if (event.idPlayer != activePlayer.id) return;
+    if (event.idPlayer != activePlayer.id) return;
     activePlayer.increaseScore(event.score);
 }
 

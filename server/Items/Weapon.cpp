@@ -31,9 +31,9 @@ int Weapon::attack( int distance, double angle){
 
 }
 
-Rocket* Weapon::launchRocket(){
+void Weapon::setDamageByRocketLauncher(Rocket* rocket){
     int damage = generateRandom();
-    return new Rocket(damage);
+    rocket->damage = damage;
 }
 
 bool Weapon::doesHit(int distance, double angle){ // doesHit

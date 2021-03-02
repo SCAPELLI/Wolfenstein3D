@@ -135,10 +135,11 @@ bool Player::hasRocketLauncher() {
     return bag[idWeapon].name == "rocket launcher";
 }
 
-Rocket* Player::setRocket(){
-    Rocket* rocket = bag[idWeapon].launchRocket();
-    rocket->sender = this;
-    return rocket;
+void Player::setRocket(Vector direction, Rocket* rocket){
+    bag[idWeapon].setDamageByRocketLauncher(rocket); //setDamageByRocketLauncher
+    rocket->sender = this->id;
+    rocket->direction = direction;
+    rocket->currentPosition = position;
 }
 
 bool Player::pickupWeapon(Weapon weapon,

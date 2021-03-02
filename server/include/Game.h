@@ -24,10 +24,11 @@ public:
     int shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     bool openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     void getHighscores(std::map<std::string, std::vector<int>>& names);
-    void increaseCooldown();
+    void increaseCooldown( std::vector<AbstractEvent*>& newEvents);
     bool canShoot(int idPlayer, int otherPlayer);
     void respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     void reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents);
+    void notifyAllDamageByRocket(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     int getBullets(int idPlayer);
     bool GameFinished();
     int getWinnerId();
