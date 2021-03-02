@@ -2,7 +2,7 @@
 #include "client/include/StartScreen.h"
 #include "qpainter.h"
 #include "client/ui/ui_StartScreen.h"
-#include "common/Style.h"
+#include "common/include/Style.h"
 
 
 StartScreen::StartScreen(QWidget *parent, ScreenManager *screenManager)

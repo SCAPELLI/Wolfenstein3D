@@ -3,7 +3,7 @@
 
 #include "../../common/include/Thread.h"
 #include "../../common/include/Socket.h"
-#include "../../common/ProtectedEventsQueue.h"
+#include "common/include/ProtectedEventsQueue.h"
 /*Thread que se encarga de mandar información*/
 class ReceiverThread: public Thread{
     bool isDone;

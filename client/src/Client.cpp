@@ -1,16 +1,16 @@
 #include <iostream>
-#include <common/EventSerializer.h>
+#include <common/include/EventSerializer.h>
 #include "client/include/Client.h"
 #include "client/include/TCPClient.h"
 #include "client/include/CommunicationChannelClient.h"
-#include "../../common/BlockingEventsQueue.h"
-#include "../../common/ProtectedEventsQueue.h"
+#include "common/include/BlockingEventsQueue.h"
+#include "common/include/ProtectedEventsQueue.h"
 #include "../../common/ServerEvents/CreateMapEvent.h"
 #include "../../server/include/ReceiverThread.h"
 #include "../../server/include/SenderThread.h"
 #include "../../common/include/Message.h"
-#include "../../common/EventSerializer.h"
-#include "../../common/QuitEvent.h"
+#include "common/include/EventSerializer.h"
+#include "common/include/QuitEvent.h"
 #include "client/include/ScreenManager.h"
 
 #define FOV 0.66

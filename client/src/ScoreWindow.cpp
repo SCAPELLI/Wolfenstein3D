@@ -4,7 +4,7 @@
 #include <QtWidgets/QListWidget>
 #include "../include/ScoreWindow.h"
 
-#include "../../common/Style.h"
+#include "common/include/Style.h"
 #include "../cmake-build-debug/client/ui_ScoreWindow.h"
 
 #define FONT 25

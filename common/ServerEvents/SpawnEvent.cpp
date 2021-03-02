@@ -1,8 +1,8 @@
 
 
 #include "SpawnEvent.h"
-#include "../server/GameStage.h"
-#include "../EventSerializer.h"
+#include "server/include/GameStage.h"
+#include "common/include/EventSerializer.h"
 
 void SpawnEvent::runHandler(CGame& game) {
     game.processEvent (*this);

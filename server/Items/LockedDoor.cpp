@@ -1,7 +1,7 @@
 
 
 #include "LockedDoor.h"
-#include "../Player.h"
+#include "server/include/Player.h"
 LockedDoor::LockedDoor(int id,std::string name, int effect, int uniqueId)
         :  cooldown(0), openTimeLimit(2000),OpenableItem(id, name, effect, uniqueId){}
 

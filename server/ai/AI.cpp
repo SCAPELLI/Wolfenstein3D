@@ -2,16 +2,16 @@
 #include <iostream>
 #include <unistd.h>
 #include <vector>
-#include <common/ProtectedEventsQueue.h>
+#include <common/include/ProtectedEventsQueue.h>
 #include "../common/include/Exception.h"
-#include "server/PlayerInfo.h"
+#include "server/include/PlayerInfo.h"
 #include <yaml-cpp/yaml.h>
 #include <algorithm>
-#include "common/Event.h"
-#include "common/MovementEvent.h"
-#include "common/TurnEvent.h"
-#include "../../common/EventSerializer.h"
-#include "common/ShootingEvent.h"
+#include "common/include/Event.h"
+#include "common/include/MovementEvent.h"
+#include "common/include/TurnEvent.h"
+#include "common/include/EventSerializer.h"
+#include "common/include/ShootingEvent.h"
 #include "../../common/include/Message.h"
 
 extern "C" {

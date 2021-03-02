@@ -10,7 +10,7 @@
 #include <unistd.h>
 #include "client/include/GamesScreen.h"
 #include "client/ui/ui_GamesScreen.h"
-#include "../../common/Style.h"
+#include "common/include/Style.h"
 
 #define MAPA 0
 #define CANTIDAD_JUGADORES 1

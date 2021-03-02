@@ -1,10 +1,10 @@
 #ifndef GAME_H_POSITIONEVENT_H
 #define GAME_H_POSITIONEVENT_H
 
-#include "../AbstractEvent.h"
-#include "client/CGame.h"
-#include "../server/Player.h"
-#include "../Event.h"
+#include "common/include/AbstractEvent.h"
+#include "client/include/CGame.h"
+#include "server/include/Player.h"
+#include "common/include/Event.h"
 
 class PositionEvent : public AbstractEvent {
 public:

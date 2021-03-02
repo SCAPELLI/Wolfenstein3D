@@ -2,7 +2,7 @@
 #include <QtWidgets/QComboBox>
 #include "client/include/NewMatchScreen.h"
 #include "client/ui/ui_NewMatchScreen.h"
-#include "../../common/Style.h"
+#include "common/include/Style.h"
 
 #define BUTTON_FONT 20
 #define BUTTON_HEIGHT 50

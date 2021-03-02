@@ -11,7 +11,7 @@
 #include "../include/EditorScreen.h"
 #include "../include/TilemapScene.h"
 #include "ui_EditorScreen.h"
-#include "../../common/Style.h"
+#include "common/include/Style.h"
 
 #define FONT_SIZE 15
 #define BUTTON_HEIGHT 20

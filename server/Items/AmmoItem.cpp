@@ -1,7 +1,7 @@
 
 
 #include "AmmoItem.h"
-#include "../Player.h"
+#include "server/include/Player.h"
 
 AmmoItem::AmmoItem(int id, std::string name, int quantity, int uniqueId)
 : Item(id, name, quantity, uniqueId) {}

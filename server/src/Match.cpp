@@ -1,16 +1,16 @@
 
 #include "../include/Match.h"
 #include "../../common/include/Socket.h"
-#include "../GameStage.h"
+#include "server/include/GameStage.h"
 #include "../../server/include/CommunicationChannelServer.h"
-#include "../../common/ProtectedEventsQueue.h"
-#include "../../common/BlockingEventsQueue.h"
+#include "common/include/ProtectedEventsQueue.h"
+#include "common/include/BlockingEventsQueue.h"
 #include "../include/ReceiverThread.h"
 #include "../include/SenderThread.h"
 #include "../ai/AI.h"
 #include <unistd.h>
 #include <cctype>
-#include <common/EventSerializer.h>
+#include <common/include/EventSerializer.h>
 #include <algorithm>
 #include "../../common/include/Message.h"
 #include "../../server/include/ProtectedLobby.h"

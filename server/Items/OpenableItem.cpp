@@ -2,7 +2,7 @@
 
 #include "OpenableItem.h"
 #include "unistd.h"
-#include "../Player.h"
+#include "server/include/Player.h"
 
 OpenableItem::OpenableItem(int id,std::string name, int effect,int uniqueId)
 :  cooldown(0), openTimeLimit(2000), Item(id, name, effect, uniqueId){}

@@ -1,7 +1,7 @@
 
 
 #include "PickUpKeyEvent.h"
-#include "../EventSerializer.h"
+#include "common/include/EventSerializer.h"
 
 PickUpKeyEvent::PickUpKeyEvent (updateEventType eventType, int idPlayer)
 : eventType(eventType), idPlayer(idPlayer) {}

@@ -1,7 +1,7 @@
 #include "KillEvent.h"
-#include "client/CGame.h"
-#include "../Event.h"
-#include "../EventSerializer.h"
+#include "client/include/CGame.h"
+#include "common/include/Event.h"
+#include "common/include/EventSerializer.h"
 
 KillEvent::KillEvent (updateEventType eventType, int idPlayer)
     : eventType(eventType), idPlayer(idPlayer){}

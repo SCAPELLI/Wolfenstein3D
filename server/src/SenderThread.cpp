@@ -1,6 +1,6 @@
 #include <common/include/Protocol.h>
 #include "../include/SenderThread.h"
-#include "../../common/EventSerializer.h"
+#include "common/include/EventSerializer.h"
 
 
 SenderThread::SenderThread(Socket* skt, BlockingEventsQueue* eventsToSend, int playerId):

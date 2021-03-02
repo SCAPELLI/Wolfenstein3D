@@ -1,7 +1,7 @@
 #include <common/include/Message.h>
 #include <common/include/Protocol.h>
 #include "../include/ReceiverThread.h"
-#include "../../common/EventSerializer.h"
+#include "common/include/EventSerializer.h"
 #include "../../common/include/Message.h"
 
 

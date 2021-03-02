@@ -1,6 +1,6 @@
-#include "client/CGame.h"
+#include "client/include/CGame.h"
 #include "ScoreChangeEvent.h"
-#include "../EventSerializer.h"
+#include "common/include/EventSerializer.h"
 
 ScoreChangeEvent::ScoreChangeEvent (updateEventType eventType, int idPlayer, int score)
 :  eventType(eventType),idPlayer(idPlayer),score(score) {}

@@ -1,7 +1,7 @@
 #include "NicknameScreen.h"
 
 #include "ui_NicknameScreen.h"
-#include "../../common/Style.h"
+#include "common/include/Style.h"
 #include "qpainter.h"
 #include <QPaintEvent>
 #include <QtWidgets/QMessageBox>

@@ -1,7 +1,7 @@
 #include <SpriteFileManager.h>
 #include "SpriteTabs.h"
 #include "EditorScreen.h"
-#include "../../common/Style.h"
+#include "common/include/Style.h"
 #include <map>
 
 SpriteTabs::SpriteTabs(QWidget *parent, EditorScreen *editorScreen)

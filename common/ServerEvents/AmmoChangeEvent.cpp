@@ -1,6 +1,6 @@
 #include "AmmoChangeEvent.h"
-#include "client/CGame.h"
-#include "../EventSerializer.h"
+#include "client/include/CGame.h"
+#include "common/include/EventSerializer.h"
 
 AmmoChangeEvent::AmmoChangeEvent (updateEventType eventType, int idPlayer, int ammo)
 : eventType(eventType),idPlayer(idPlayer), ammo(ammo) {}

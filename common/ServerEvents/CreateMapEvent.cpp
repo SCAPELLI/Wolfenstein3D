@@ -1,5 +1,5 @@
 
-#include "../EventSerializer.h"
+#include "common/include/EventSerializer.h"
 #include "CreateMapEvent.h"
 
 CreateMapEvent::CreateMapEvent(updateEventType eventType, int width, int height)

@@ -4,7 +4,7 @@
 #include <QtGui/QPainter>
 #include "InfoScreen.h"
 #include "ui_InfoScreen.h"
-#include "../../common/Style.h"
+#include "common/include/Style.h"
 
 #define BUTTON_FONT 20
 #define BUTTON_HEIGHT 50

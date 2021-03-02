@@ -1,6 +1,6 @@
 #include "TextureList.h"
 #include "SpriteTabs.h"
-#include "../../common/Style.h"
+#include "common/include/Style.h"
 #include <QMouseEvent>
 #include <SpriteFileManager.h>
 #include <iostream>

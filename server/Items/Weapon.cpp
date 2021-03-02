@@ -1,8 +1,8 @@
 #include "Weapon.h"
 #include <bits/stdc++.h>
-#include "../common/Constants.h"
-#include "../Items/Rocket.h"
-#include "../Player.h"
+#include "common/include/Constants.h"
+#include "Rocket.h"
+#include "server/include/Player.h"
 #include <cmath>
 #define PRECISION 2
 Weapon::Weapon(int id, std::string& name, int uniqueId, int damage,
