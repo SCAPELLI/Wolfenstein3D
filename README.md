@@ -1,6 +1,6 @@
 # Wolfenstein3D - Trabajo práctico final
 
-## Instrucciones de compilación y ejecución del realese vXX desde raiz (en Linux).
+## Instrucciones de compilación y ejecución del realese v5.0 desde raiz (en Linux).
 ### Para compilar los programas servidor y cliente
     mkdir build
     cd build 
