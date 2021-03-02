@@ -24,7 +24,7 @@
     make
     ./Editor
 
-## ¿Como jugar?
+## ¿Cómo jugar?
     -Ejecutar el programa servidor. Es posible cambiar la configuración de las partidas y los balances del juego desde el archivo config.yaml ubicado en raiz
     -Ejecutar el programa cliente e ingresar los datos brindados por el servidor para conectarse.
     -Si la conexión es exitosa se solicitará un nombre de usuario, los nombres de usuario disponibles son aquellos no repetidos y no vacíos.
