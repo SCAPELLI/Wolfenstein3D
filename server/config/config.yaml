@@ -1,7 +1,7 @@
 Player:
   lifes: 3
   health: 100
-  radius: 2
+  radius: 1
   angle: 0
   bullets: 8
   speed: 5
@@ -12,13 +12,13 @@ Player:
   score: 0
 Weapons:
   knife:
-    damage: 10
+    damage: 3
     minBullets: 0
-    cooldownTimer: 50
+    cooldownTimer: 70
   pistol:
     damage: 20
     minBullets: 1
-    cooldownTimer: 100
+    cooldownTimer: 75
   machine gun:
     damage: 30
     minBullets: 5
