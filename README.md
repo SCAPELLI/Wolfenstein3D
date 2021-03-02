@@ -25,12 +25,12 @@
     ./Editor
 
 ## ¿Como jugar?
-    -Ejecutar el programa servidor, es posible cambiar la configuracion de las partidas y los balances del juego desde el archivo config.yaml ubicado en raiz
+    -Ejecutar el programa servidor. Es posible cambiar la configuración de las partidas y los balances del juego desde el archivo config.yaml ubicado en raiz
     -Ejecutar el programa cliente e ingresar los datos brindados por el servidor para conectarse.
-    -Si la conexion es exitosa se solicitará un nombre de usuario, los nombres de usuario disponibles son aquellos no repetidos y no vacios.
-    -En caso de ingresar un nombre valido se mostrara la ventana de partidas, desde aqui se pueden crear partidas o unirse a partidas existentes.
-    -Al ingresar join el programa quedara bloqueado hasta que el creador de la partida decida iniciarla, hacer multiples en join puede llevar a errores.
-    -Una vez que se acabaron las vidas o que solo un jugador quedo en pie se terminará la partida y se mostrará automaticamente una ventana con las estadisticas del juego hasta ese momento.
+    -Si la conexión es exitosa se solicitará un nombre de usuario, los nombres de usuario disponibles son aquellos no repetidos y no vacíos.
+    -En caso de ingresar un nombre válido se mostrará la ventana de partidas, desde aqui se pueden crear partidas o unirse a partidas existentes.
+    -Al ingresar join el programa quedará bloqueado hasta que el creador de la partida decida iniciarla, hacer multiples clicks en join puede llevar a errores.
+    -Una vez que se acabaron las vidas o que solo un jugador quedó en pie se terminará la partida y se mostrará automaticamente una ventana con las estadisticas del juego hasta ese momento.
 
 ## Librerias necesarias
 ### SDL:
