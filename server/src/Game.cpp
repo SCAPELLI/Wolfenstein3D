@@ -89,6 +89,8 @@ void Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& ne
     if (players[damaged].isGameOver()) {
         players[ids[sender]].updateKills();
         map.dropAllItems(players[damaged], newEvents);
+        AbstractEvent* event0 = new KillEvent(KillEventType, players[damaged].getId());
+        newEvents.push_back(event0);
         std::map<std::string, std::vector<int>> highscores;
         getHighscores(highscores);
         AbstractEvent *event = new GameOverEvent(GameOverEventType,
