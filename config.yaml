@@ -1,7 +1,7 @@
 port: 7777
 host: localhost
 Player:
-  lifes: 3
+  lifes: 1
   health: 100
   radius: 1
   angle: 0
@@ -14,7 +14,7 @@ Player:
   score: 0
 Weapons:
   knife:
-    damage: 3
+    damage: 300
     minBullets: 0
     cooldownTimer: 70
   pistol:

@@ -123,7 +123,7 @@ void Match::run() {
         i++;
     }
 
-    AI ai(levelId);
+    AI ai(levelId, 0);
     std::list<Message> messageEvents;
     while (!matchFinished){
         messageEvents = std::move(userEvents.popAll());

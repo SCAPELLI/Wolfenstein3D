@@ -7,6 +7,7 @@ typedef struct PlayerInfo{
     float y;
     double angle;
     int life;
+    bool isGameOver;
 }PlayerInfo;
 
 #endif

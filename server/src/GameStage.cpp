@@ -129,6 +129,7 @@ std::vector<PlayerInfo> GameStage::getPlayersInfo(){
         playerInfo.x =  (float)game.players[i].getPosition().x;
         playerInfo.y =  (float)game.players[i].getPosition().y;
         playerInfo.life =  game.players[i].getLifes();
+        playerInfo.isGameOver = game.players[i].isGameOver();
         playersInfo.push_back(playerInfo);
     }
     return playersInfo;

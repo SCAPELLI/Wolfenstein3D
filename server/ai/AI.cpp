@@ -20,11 +20,12 @@ extern "C" {
 #include <lauxlib.h>
 }
 
-AI::AI(int levelId) {
+const int COOLDOWN = 6;
+
+AI::AI(int levelId, int botId): botId(botId), cooldown(0) {
     L = luaL_newstate();
     luaL_openlibs(L);
 
-    botId = 0;
     std::vector<std::vector<int>> map;
     std::string levelPath = std::to_string(levelId) + ".yaml";
     YAML::Node file = YAML::LoadFile("../../server/maps/" + levelPath);
@@ -109,19 +110,24 @@ int AI::getBotActionId(std::vector<PlayerInfo>& players) {
     return actionId;
 }
 
-void addMovementEventToQueue(ProtectedEventsQueue& events) {
-    MovementEvent movementEvent(FORWARD, 0);
+void AI::addMovementEventToQueue(ProtectedEventsQueue& events, MovementDirection direction) {
+    if (cooldown < COOLDOWN) {
+        ++cooldown;
+        return;
+    }
+    cooldown = 0;
+    MovementEvent movementEvent(direction, 0);
     Event event(&movementEvent, MovementEventType);
     Message msg(EventSerializer::serialize(event));
     events.push(msg);
 }
-void addTurnEventToQueue(ProtectedEventsQueue& events, float sentido) {
-    TurnEvent turnEvent(0, PI/250 * sentido);
+void AI::addTurnEventToQueue(ProtectedEventsQueue& events, float sense) {
+    TurnEvent turnEvent(0, PI/250 * sense);
     Event event(&turnEvent, TurnEventType);
     Message msg(EventSerializer::serialize(event));
     events.push(msg);
 }
-void addShootingEventToQueue(ProtectedEventsQueue& events) {
+void AI::addShootingEventToQueue(ProtectedEventsQueue& events) {
     ShootingEvent shootingEvent(0);
     Event event(&shootingEvent, ShootingEventType);
     Message msg(EventSerializer::serialize(event));
@@ -132,14 +138,20 @@ bool AI::botIsDead(std::vector<PlayerInfo>* players) {
     auto it = std::find_if(
             players->begin(), players->end(),
             [&] (const PlayerInfo& player) { return player.idPlayer == botId;});
-    return (it->life<0);
+    //return (it->life<=0);
+    if ((it->isGameOver))
+        std::cout<<"hola";
+    return (it->isGameOver);
 }
 
 void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> players) {
-    if (botIsDead(&players)) return;
+    if (botIsDead(&players)) {
+
+        return;
+    }
     switch (getBotActionId(players)) {
         case MOVE_FOWARD:
-            addMovementEventToQueue(events);
+            addMovementEventToQueue(events, FORWARD);
             break;
         case TURN_ANTICLOCKWISE:
             addTurnEventToQueue(events, 1);
@@ -150,7 +162,8 @@ void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> pla
         case ATTACK:
             addShootingEventToQueue(events);
             break;
-        case DO_NOTHING:
+        case MOVE_BACKWARD:
+            addMovementEventToQueue(events, BACKWARD);
             break;
         default:
             break;

@@ -117,7 +117,6 @@ void Game::getHighscores(std::map<std::string, std::vector<int>>& names){
         highscores.push_back(players[i].getEnemiesKilled());
         highscores.push_back(players[i].getScore());
         names[players[i].getName()] = highscores;
-        //highscores.clear();
     }
 
 }
@@ -173,6 +172,7 @@ bool Game::GameFinished() {
 int Game::getWinnerId() {
     int playerId = 0;
     for(auto& player: players) {
+        //bool asd = player.isGameOver();
         if (player.getLifes()>0)
             playerId = player.getId();
     }

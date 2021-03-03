@@ -6,6 +6,7 @@ ATTACK_DISTANCE = 64
 SIGHTING_DISTANCE = 96
 NONE_PLAYER = "none player has been spotted"
 
+MOVE_BACKWARD = 0
 MOVE_FOWARD = 1
 TURN_ANTICLOCKWISE = 2
 TURN_CLOCKWISE = 3
@@ -83,6 +84,6 @@ function getBotActionId(players)
 	    	end
 		end
 	else
-		return DO_NOTHING
+		return ( math.random(0,3))
 	end
 end
