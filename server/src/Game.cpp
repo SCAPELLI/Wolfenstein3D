@@ -175,7 +175,8 @@ int Game::getWinnerId() {
     int playerId = 0;
     for(auto& player: players) {
         //bool asd = player.isGameOver();
-        if (player.getLifes()>0)
+        //if (player.getLifes()>0)
+        if (!player.isGameOver())
             playerId = player.getId();
     }
     return playerId;

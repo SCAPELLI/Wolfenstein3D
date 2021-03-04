@@ -160,7 +160,7 @@ void AI::generateEvent(ProtectedEventsQueue& events, std::vector<PlayerInfo> pla
             addTurnEventToQueue(events, -1);
             break;
         case ATTACK:
-            addShootingEventToQueue(events);
+            // addShootingEventToQueue(events);
             break;
         case MOVE_BACKWARD:
             addMovementEventToQueue(events, BACKWARD);

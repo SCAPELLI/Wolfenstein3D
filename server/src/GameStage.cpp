@@ -157,6 +157,15 @@ bool GameStage::gameFinished() {
 void GameStage::ifSomeoneWinNotifyHim() {
     bool gameFinished = game.GameFinished();
 
+    std::cout<<"gameFinished: "<<gameFinished<<std::endl;
+    std::cout<<"player back name: <"<<game.players.back().getName()<<"> id: "<<game.players.back().getId()<<std::endl;
+    std::cout<<"player back is dead : "<<game.players.back().isDead()<<std::endl;
+    std::cout<<"player back lifes   : "<<game.players.back().getLifes()<<std::endl;
+    std::cout<<"player front name: <"<<game.players.front().getName()<<"> id: "<<game.players.front().getId()<<std::endl;
+    std::cout<<"player front is dead: "<<game.players.front().isDead()<<std::endl;
+    std::cout<<"player front lifes  : "<<game.players.front().getLifes()<<std::endl;
+    std::cout<<"game: "<<game.players.back().isDead()<<std::endl;
+
     if (!gameFinished) return;
 
     int winnerId = game.getWinnerId();

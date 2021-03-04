@@ -23,6 +23,7 @@ class Client {
     bool gameIsPlaying;
     ScreenManager *screenManager;
 public:
+    bool matchStarted;
     std::map<std::string, std::vector<int>> highscores;
     Client();
         ~Client();

@@ -15,7 +15,7 @@
 
 #define FOV 0.66
 
-Client::Client(): userId(-1), matchId(-1), maximumNumberOfPlayers(-1), levelId(-1), gameIsPlaying(false) {
+Client::Client(): userId(-1), matchId(-1), maximumNumberOfPlayers(-1), levelId(-1), gameIsPlaying(false), matchStarted(false) {
         channel = new CommunicationChannelClient(userSocket);
 }
 Client::~Client() {
@@ -24,7 +24,8 @@ Client::~Client() {
 
 bool Client::tryToConnect(std::string port, std::string domain) {
     try {
-        userSocket = std::move(TCPClient::getClientSocket(domain.c_str(), port.c_str()));
+        //userSocket = std::move(TCPClient::getClientSocket(domain.c_str(), port.c_str()));
+        userSocket = std::move(TCPClient::getClientSocket("localhost", "7777"));
         return true;
     } catch (const std::exception& error) {
         return false;
@@ -118,7 +119,7 @@ void Client::catchEvents(BlockingEventsQueue& senderQueue){
 }
 
 void Client::playMatch() {
-    //EventsCatcher eventsCatcher(userId);
+    matchStarted = true;
     BlockingEventsQueue senderQueue;
     ProtectedEventsQueue receiverQueue;
 
