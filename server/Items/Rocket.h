@@ -16,6 +16,7 @@ public:
     Vector direction;
     Rocket(int id, std::string name, int effect, int uniqueId);
     void incrementCooldown(std::vector<AbstractEvent*>& newEvents);
+    Vector getPositionScaled();
 
 };
 

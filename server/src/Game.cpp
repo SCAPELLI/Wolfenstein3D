@@ -57,8 +57,8 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     }
     WallRay ray = WallRay(players[ids[idPlayer]].getPosition(), players[ids[idPlayer]].getAngle());
     int distanceToWall = ray.distanceToWall(map);
-    if (players[ids[idPlayer]].hasRocketLauncher()){ // hasActiveRocketLauncher
-        Vector shotDirection = calculateDirection(idPlayer) / players[ids[idPlayer]].getSpeed();
+    if (players[ids[idPlayer]].hasActiveRocketLauncher()){
+        Vector shotDirection = calculateDirection(idPlayer); // players[ids[idPlayer]].getSpeed();
         map.launchRocket(players[ids[idPlayer]], shotDirection, newEvents);
         return -1;
     }
@@ -71,7 +71,7 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
             if (!canShoot(idPlayer, i))
                 continue;
             int damage = players[ids[idPlayer]].hits(players[i]);
-            int newHp = players[i].getDamage(damage);
+            players[i].getDamage(damage);
             reactToDamage(i, idPlayer, newEvents);
             return players[i].getId();// devolves a quien le pegaste
         }
@@ -174,7 +174,6 @@ bool Game::GameFinished() {
 int Game::getWinnerId() {
     int playerId = 0;
     for(auto& player: players) {
-        //bool asd = player.isGameOver();
         if (player.getLifes()>0)
             playerId = player.getId();
     }

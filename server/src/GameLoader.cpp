@@ -48,6 +48,8 @@ Item* GameLoader::weaponLoader(int& idItem){
     if (elem == "machine gun" || elem == "chain gun" ||
         elem == "rocket launcher" || elem == "pistol") {
         YAML::Node data = idConfig["Weapons"][elem];
+        std::cout << idConfig["Weapons"][elem] << std::endl;
+        std::cout << data["cooldownTimer"].as<int>() << std::endl;
         Item* item = new Weapon(idItem - WEAPONSGAP, elem, uniqueId, data["damage"].as<int>(),
                                 data["minBullets"].as<int>(), data["cooldownTimer"].as<int>());
         uniqueId++;
@@ -78,11 +80,7 @@ Item* GameLoader::itemLoader(std::string& itemName) {
                     uniqueId++;
                     return item;
                 } if (itemName == "key") {
-                    Item* item = new KeyItem(it->first.as<int>(), itemName, value, uniqueId);
-                    uniqueId++;
-                    return item;
-                 } if (itemName == "rocket") {
-                    Item* item = new Rocket(it->first.as<int>(), itemName, value, uniqueId);
+                    Item *item = new KeyItem(it->first.as<int>(), itemName, value, uniqueId);
                     uniqueId++;
                     return item;
                 }

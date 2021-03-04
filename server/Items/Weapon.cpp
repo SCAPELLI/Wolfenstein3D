@@ -53,9 +53,6 @@ Weapon::Weapon() {
 
 
 
-int Weapon::getDamage()const {
-    return precision;
-}
 bool Weapon::operator<(const Weapon& t) const{
     return (this->id < t.id);
 }

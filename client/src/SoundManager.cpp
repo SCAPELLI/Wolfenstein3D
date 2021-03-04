@@ -3,7 +3,7 @@
 
 #define ROUTE "../../client/sounds/"
 #define EFFECT_EXTENTION ".wav"
-#define MAX_EFFECTS 8
+#define MAX_EFFECTS 9
 
 SoundManager::SoundManager():
     music(Mix_LoadMUS((ROUTE + std::string("music.mp3")).c_str())),

@@ -29,7 +29,7 @@ public:
     Player(int parsed_id,int relativeId, std::string name, Vector position, char* configPath);
 
     /*Jugador es dañado y baja su vida devolviendo si murió o no*/
-    int getDamage(int damage);
+    void getDamage(int damage);
 
     /*Devuelve daño causado y actualiza valores de balas cuando daña otro jugador*/
     int hits(Player& otherPlayer);  //cambiar nombre funcion
@@ -86,7 +86,7 @@ public:
     bool hasToChangeWeapon();
     double angleWithOther(Player& otherPlayer);
     void updateKills();
-    bool hasRocketLauncher();
+    bool hasActiveRocketLauncher();
     void setRocket(Vector direction, Rocket* rocket);
     void eraseCurrentWeapon();
     Vector getInitialPosition();

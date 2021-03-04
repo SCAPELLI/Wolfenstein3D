@@ -93,9 +93,6 @@ double Player::angleWithOther(Player& otherPlayer) {
     return angleFinal;
 }
 
-int Player::damageCurrentWeapon() {
-    return bag[idWeapon].getDamage();
-}
 
 void Player::move(Vector& newPos){
         position += newPos;
@@ -132,7 +129,7 @@ int Player::hits(Player& otherPlayer){
     return damage;
 }
 
-bool Player::hasRocketLauncher() {
+bool Player::hasActiveRocketLauncher() {
     return bag[idWeapon].name == "rocket launcher";
 }
 
@@ -183,13 +180,12 @@ void Player::respawn(){
     dead = false;
 }
 
-int Player::getDamage(int damage) {
+void Player::getDamage(int damage) {
     health -= damage;
     if (health <= 0){
         dead = true;
         health = 0;
     }
-    return health;
 }
 
 bool Player::collideWith(int distance, int radius) {

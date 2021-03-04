@@ -36,6 +36,7 @@ bool CellMap::isSolid(){
 }
 
 bool CellMap::impacts(Rocket* rocket){
+    if (occupied) return true;
     for (int i = 0; i < playerList.size(); i++){
         if (playerList[i].getId() != rocket->sender){
             rocket->impactPoint = playerList[i].getPosition();

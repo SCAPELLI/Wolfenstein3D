@@ -17,3 +17,7 @@ void Rocket::incrementCooldown(std::vector<AbstractEvent*>& newEvents){
                                        id, currentPosition.y,
                                        currentPosition.x ));
 }
+
+Vector Rocket::getPositionScaled(){
+    return currentPosition.scale();
+}
