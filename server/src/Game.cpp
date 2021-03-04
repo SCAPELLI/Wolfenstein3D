@@ -165,7 +165,7 @@ void Game::respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents){
 bool Game::GameFinished() {
     int playersAlive = 0;
     for(auto& player: players) {
-        if (player.getLifes()>0)
+        if(!player.isGameOver())
             ++playersAlive;
     }
     return playersAlive <= 1;

@@ -13,10 +13,8 @@ void UserThread::run() {
 	    while (userId == -1)
 	        userId = channel.respondUserNameSubmitFromClient();
 
-	    if (user.isAvailable()) {
-		    while (user.isAvailable())
+	    while (user.isAvailable())
 		        channel.respondMessageFromClient(userId);
-	    }
 		
 		user.doClose();
 	} catch(...) {}

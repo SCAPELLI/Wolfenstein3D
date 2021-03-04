@@ -128,8 +128,11 @@ std::vector<PlayerInfo> GameStage::getPlayersInfo(){
         playerInfo.angle =  anglePlayer;
         playerInfo.x =  (float)game.players[i].getPosition().x;
         playerInfo.y =  (float)game.players[i].getPosition().y;
-        playerInfo.life =  game.players[i].getLifes();
         playerInfo.isGameOver = game.players[i].isGameOver();
+        if (game.players[i].isGameOver())
+            playerInfo.life = -1;
+        else
+            playerInfo.life =  game.players[i].getLifes();
         playersInfo.push_back(playerInfo);
     }
     return playersInfo;
@@ -157,24 +160,17 @@ bool GameStage::gameFinished() {
 void GameStage::ifSomeoneWinNotifyHim() {
     bool gameFinished = game.GameFinished();
 
-    std::cout<<"gameFinished: "<<gameFinished<<std::endl;
-    std::cout<<"player back name: <"<<game.players.back().getName()<<"> id: "<<game.players.back().getId()<<std::endl;
-    std::cout<<"player back is dead : "<<game.players.back().isDead()<<std::endl;
-    std::cout<<"player back lifes   : "<<game.players.back().getLifes()<<std::endl;
-    std::cout<<"player front name: <"<<game.players.front().getName()<<"> id: "<<game.players.front().getId()<<std::endl;
-    std::cout<<"player front is dead: "<<game.players.front().isDead()<<std::endl;
-    std::cout<<"player front lifes  : "<<game.players.front().getLifes()<<std::endl;
-    std::cout<<"game: "<<game.players.back().isDead()<<std::endl;
-
     if (!gameFinished) return;
-
-    int winnerId = game.getWinnerId();
     std::map<std::string, std::vector<int>> names;
     game.getHighscores(names);
 
-    GameOverEvent gameOverEvent(GameOverEventType, winnerId, names);
-    Message msg1(EventSerializer::serialize(gameOverEvent));
-
+    std::list<Message> msgs;
+    for (auto& player: game.players) {
+        QuitEvent quitEvent(player.getId());
+        quitEvent.highscore = names;
+        msgs.emplace_back(EventSerializer::serialize(quitEvent));
+    }
     for (auto &queue: *queues)
-        queue.push(msg1);
+        for (auto& msg: msgs)
+            queue.push(msg);
 }
