@@ -22,11 +22,11 @@ Weapons:
   machine gun:
     damage: 30
     minBullets: 5
-    cooldownTimer: 100
+    cooldownTimer: 20
   chain gun:
     damage: 40
     minBullets: 1
-    cooldownTimer: 150
+    cooldownTimer: 20
   rocket launcher:
     damage: 50
     minBullets: 5
