@@ -35,7 +35,7 @@ function detectPlayersInASightingDistance(players, markedPlayerId)
 	if markedPlayerId == NONE_PLAYER then
 		for playerId,playerInfo in pairs(players) do
 			if playerId ~= botId then
-				if distace(players[botId].position, playerInfo.position) < SIGHTING_DISTANCE then
+				if distace(players[botId].position, playerInfo.position) < SIGHTING_DISTANCE and (playerInfo.life ~= -1) then
 					markedPlayerId = playerId
 					markedPlayerIdLife = playerInfo.life
 					break

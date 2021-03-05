@@ -128,6 +128,11 @@ void AI::addTurnEventToQueue(ProtectedEventsQueue& events, float sense) {
     events.push(msg);
 }
 void AI::addShootingEventToQueue(ProtectedEventsQueue& events) {
+    if (cooldown < 2) {
+        ++cooldown;
+        return;
+    }
+    cooldown = 0;
     ShootingEvent shootingEvent(0);
     Event event(&shootingEvent, ShootingEventType);
     Message msg(EventSerializer::serialize(event));
@@ -139,8 +144,6 @@ bool AI::botIsDead(std::vector<PlayerInfo>* players) {
             players->begin(), players->end(),
             [&] (const PlayerInfo& player) { return player.idPlayer == botId;});
     //return (it->life<=0);
-    if ((it->isGameOver))
-        std::cout<<"hola";
     return (it->isGameOver);
 }
 

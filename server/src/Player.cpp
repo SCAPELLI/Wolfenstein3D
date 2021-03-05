@@ -38,7 +38,7 @@ void Player::initializePlayer(bool dead){
     YAML::Node fileNode = YAML::LoadFile(configPath);
     GameLoader yamlItems;
     if (!dead) {
-        lifes = fileNode["Player"]["lifes"].as<int>();
+        lifes = fileNode["Player"]["respawns"].as<int>();
         bulletsShot = fileNode["Player"]["bulletsShot"].as<int>();
         playersKilled = fileNode["Player"]["playersKilled"].as<int>();
         score = fileNode["Player"]["score"].as<int>();

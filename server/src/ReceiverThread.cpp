@@ -10,6 +10,7 @@ ReceiverThread::ReceiverThread(Socket* skt, ProtectedEventsQueue* receivedBuffer
         isDone(false), skt(skt), receivedBuffer(receivedBuffer), playerId(playerId){}
 
 void ReceiverThread::run() {
+    try {
     Protocol protocol(skt);
     while(!isDone){
         std::string response;
@@ -20,6 +21,7 @@ void ReceiverThread::run() {
                  std::stoi(msg.getMessage().substr(3, 3)) == playerId;
         receivedBuffer->push(msg);
     }
+    } catch (std::exception& e){}
     isDone = true;
 }
 

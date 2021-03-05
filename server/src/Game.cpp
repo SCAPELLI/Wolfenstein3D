@@ -165,7 +165,7 @@ void Game::respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents){
 bool Game::GameFinished() {
     int playersAlive = 0;
     for(auto& player: players) {
-        if (player.getLifes()>0)
+        if(!player.isGameOver())
             ++playersAlive;
     }
     return playersAlive <= 1;
@@ -174,7 +174,9 @@ bool Game::GameFinished() {
 int Game::getWinnerId() {
     int playerId = 0;
     for(auto& player: players) {
-        if (player.getLifes()>0)
+        //bool asd = player.isGameOver();
+        //if (player.getLifes()>0)
+        if (!player.isGameOver())
             playerId = player.getId();
     }
     return playerId;

@@ -97,6 +97,7 @@ bool receiverThreadIsDead(ReceiverThread* t){
 
 void Match::run() {
 
+    try {
     for (auto& user: users)
         CommunicationChannelServer::sendMatchStartedSignal(usersSockets[user.second]);
     matchStarted = true;
@@ -149,6 +150,7 @@ void Match::run() {
 
     matchFinished = true;
     lobby->notifyAll();
+    } catch(...) {}
 }
 
 bool Match::notFinished() const {

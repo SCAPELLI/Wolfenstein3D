@@ -14,8 +14,9 @@ void SenderThread::run(){
             protocol.send(msg.getMessage());
             isDone = msg.getMessage().substr(0, 3) == std::string("016") &&
                     std::stoi(msg.getMessage().substr(3, 3)) == playerId;
-      }
-    } catch (std::exception e){}
+        }
+    } catch (std::exception& e){}
+    isDone = true;
 }
 
 bool SenderThread::isDead(){
