@@ -31,6 +31,7 @@ public:
     void notifyAllDamageByRocket(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     int getBullets(int idPlayer);
     bool GameFinished();
+    bool hasToChangeWeapon(int idPlayer);
     int getWinnerId();
     };
 

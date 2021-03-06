@@ -117,9 +117,9 @@ bool Player::hasToChangeWeapon(){
     if (bullets < bag[idWeapon].minBullets && idWeapon != 0){
         prevIdWeapon = idWeapon;
         idWeapon = 0;
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }
 
 int Player::hits(Player& otherPlayer){

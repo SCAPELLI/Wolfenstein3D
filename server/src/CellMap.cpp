@@ -51,7 +51,7 @@ void CellMap::explode(Rocket* rocket) {
     if(occupied) return;
     for (int i = 0; i < playerList.size(); i++){
         double distanceWithRocket = rocket->impactPoint.distance(playerList[i].getPosition());
-        playerList[i].getDamage(rocket->damage * 1/distanceWithRocket);
+        playerList[i].getDamage(rocket->damage * (double)1/distanceWithRocket);
     }
 }
 

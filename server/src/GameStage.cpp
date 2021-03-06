@@ -53,7 +53,7 @@ void GameStage::processEvent(ShootingEvent& event) {
         queues->at(i).push(msgShoot);
         queues->at(i).push(msgAmmo);
     }
-    if (idHit == -3) {
+    if (game.hasToChangeWeapon(event.idPlayer)) {
         ChangeWeaponEvent newEvent(event.idPlayer, 0);
         Event anotherEvent(&newEvent, ChangeWeaponType);
         Message msg(EventSerializer::serialize(anotherEvent));

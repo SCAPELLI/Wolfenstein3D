@@ -3,7 +3,7 @@ Player:
   health: 100
   radius: 1
   angle: 0
-  bullets: 8
+  bullets: 15
   speed: 5
   key: 0
   maxBullets: 50
