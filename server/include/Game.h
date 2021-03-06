@@ -28,7 +28,8 @@ public:
     bool canShoot(int idPlayer, int otherPlayer);
     void respawnPlayer(int idPlayer, std::vector<AbstractEvent*>& newEvents);
     void reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents);
-    void notifyAllDamageByRocket(int idPlayer, std::vector<AbstractEvent*>& newEvents);
+    void notifyAllDamageByRocket(std::vector<int>& damagedPlayers, int& sender,
+                                            std::vector<AbstractEvent*>& newEvents);
     int getBullets(int idPlayer);
     bool GameFinished();
     int getWinnerId();

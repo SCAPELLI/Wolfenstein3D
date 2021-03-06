@@ -79,9 +79,10 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     return -1;
 }
 
-void Game::notifyAllDamageByRocket(int idPlayer, std::vector<AbstractEvent*>& newEvents){
+void Game::notifyAllDamageByRocket(std::vector<int>& damagedPlayers, int& sender,
+                                                    std::vector<AbstractEvent*>& newEvents){
     for (int i = 0; i < players.size(); i++){
-        reactToDamage(i, idPlayer, newEvents);
+        reactToDamage(i, sender, newEvents);
     }
 }
 
@@ -145,11 +146,14 @@ bool Game::openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents){
 }
 
 void Game::increaseCooldown( std::vector<AbstractEvent*>& newEvents) {
-    int idPlayer = map.increaseCooldown(newEvents);
-    if (idPlayer != -1)
-        notifyAllDamageByRocket(idPlayer, newEvents);
-    for (int i = 0; i < players.size(); i++) {
-        players[i].incrementCooldown();
+    int sender;
+    std::vector<int> damagedPlayers = map.increaseCooldown(newEvents, sender);
+
+    if (!damagedPlayers.empty() && sender != -1) {
+        notifyAllDamageByRocket(damagedPlayers, sender, newEvents);
+    }
+    for (auto & player : players) {
+        player.incrementCooldown();
     }
 }
 

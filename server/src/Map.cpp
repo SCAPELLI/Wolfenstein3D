@@ -93,29 +93,29 @@ void Map::launchRocket(Player& player, Vector& direction,
     rockets.push_back(rocket);
 
 }
-bool Map::collide(Rocket* rocket, std::vector<AbstractEvent*>& newEvents) {
+bool Map::collide(Rocket* rocket, std::vector<int>& damagedPlayers,
+                    std::vector<AbstractEvent*>& newEvents) {
     Vector currentPos = rocket->currentPosition;
-    if (matrix[currentPos.y][currentPos.x].impacts(rocket)) {
+    if (matrix[currentPos.y][currentPos.x].impacts(rocket, damagedPlayers)) {
         rocket->impactPoint = Vector(currentPos.x, currentPos.y);
         newEvents.push_back(new DespawnEvent(DespawnEventType,
                                              rocket->getUniqueId(),
                                              rocket->getId()));
-        explodeAdyacents(rocket);
+        explodeAdyacents(rocket, damagedPlayers);
         return true;
     }
     return false;
 }
-void Map::explodeAdyacents(Rocket* rocket){
+void Map::explodeAdyacents(Rocket* rocket, std::vector<int>& damagedPlayers){
     Vector impact = rocket->impactPoint;
     if ((impact.y + 1) < width && (impact.y + 1) > 0)
-        matrix[impact.y + 1][impact.x].explode(rocket);
+        matrix[impact.y + 1][impact.x].explode(rocket, damagedPlayers);
     if ((impact.y - 1) < width && (impact.y - 1) > 0)
-        matrix[impact.y - 1][impact.x].explode(rocket);
+        matrix[impact.y - 1][impact.x].explode(rocket, damagedPlayers);
     if ((impact.x + 1) < height && (impact.x + 1) > 0)
-        matrix[impact.y][impact.x + 1].explode(rocket);
+        matrix[impact.y][impact.x + 1].explode(rocket, damagedPlayers);
     if ((impact.x - 1) < height && (impact.y - 1) > 0)
-        matrix[impact.y][impact.x - 1].explode(rocket);
-
+        matrix[impact.y][impact.x - 1].explode(rocket, damagedPlayers);
 }
 
 bool Map::isADoor(Player& player, std::vector<AbstractEvent*>& newEvents){
@@ -182,26 +182,28 @@ void Map::dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents){
      matrix[newPos.y][newPos.x].getItemsTile(player, newEvents);
 }
 
-int Map::increaseCooldown(std::vector<AbstractEvent*>& newEvents) {
+std::vector<int> Map::increaseCooldown(std::vector<AbstractEvent*>& newEvents, int& sender) {
     for (std::size_t i = 0; i < doors.size(); i++) {
         doors[i]->incrementCooldown();
     }
-    int idPlayer = -1;
+    sender = -1;
+    std::vector<int> damagedPlayers;
     auto it = rockets.begin();
     while (it != rockets.end()) {
         Vector posRocket = (*it)->currentPosition;
         if ( posRocket.y < width && posRocket.x < height &&
             !matrix[posRocket.y][posRocket.x].isSolid()) {
             (*it)->incrementCooldown(newEvents);
-            if (collide((*it), newEvents)) {
-                idPlayer = (*it)->sender;
+            if (collide((*it), damagedPlayers, newEvents)) {
+                sender = (*it)->sender;
                 delete (*it);
-            }else{
-              ++it;
             }
         }
+        else{
+              ++it;
+        }
     }
-    return idPlayer;
+    return damagedPlayers;
 }
 
 

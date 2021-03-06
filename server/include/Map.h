@@ -36,12 +36,13 @@ public:
 
     bool isADoor(Player &player, std::vector<AbstractEvent *> &newEvents);
 
-    int increaseCooldown(std::vector<AbstractEvent*>& newEvents);
+    std::vector<int> increaseCooldown(std::vector<AbstractEvent *>& newEvents, int& sender);
 
     void launchRocket(Player& player, Vector &direction,
                       std::vector<AbstractEvent *> &newEvents);
 
-    bool collide(Rocket* rocket, std::vector<AbstractEvent*>& newEvents);
+    bool collide(Rocket* rocket,std::vector<int>& damagedPlayers,
+                            std::vector<AbstractEvent *>& newEvents);
 
     void insertItem(int &elem, int &pos1, int &pos2,
                     CellMap &tile, std::vector<AbstractEvent *> &newEvents);
@@ -52,9 +53,9 @@ public:
     void insertDoor(int &elem, OpenableItem *door, int &pos1, int &pos2,
                     CellMap &tile, std::vector<AbstractEvent *> &newEvents);
 
-    bool changeBecauseLockedDoor(Vector& doorPos, std::vector<AbstractEvent*>& newEvents);
+    bool changeBecauseLockedDoor(Vector& doorPos, std::vector<AbstractEvent *>& newEvents);
 
-    void explodeAdyacents(Rocket* rocket);
+    void explodeAdyacents(Rocket* rocket, std::vector<int>& damagedPlayers);
 };
 
 
