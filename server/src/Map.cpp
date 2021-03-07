@@ -107,13 +107,13 @@ bool Map::collide(Rocket* rocket, std::vector<int>& damagedPlayers,
 }
 void Map::explodeAdyacents(Rocket* rocket, std::vector<int>& damagedPlayers){
     Vector impact = rocket->impactPoint;
-    if ((impact.y + 1) < width && (impact.y + 1) > 0)
+    if ((impact.y + 1) < height && (impact.y + 1) > 0)
         matrix[impact.y + 1][impact.x].explode(rocket, damagedPlayers);
-    if ((impact.y - 1) < width && (impact.y - 1) > 0)
+    if ((impact.y - 1) < height && (impact.y - 1) > 0)
         matrix[impact.y - 1][impact.x].explode(rocket, damagedPlayers);
-    if ((impact.x + 1) < height && (impact.x + 1) > 0)
+    if ((impact.x + 1) < width && (impact.x + 1) > 0)
         matrix[impact.y][impact.x + 1].explode(rocket, damagedPlayers);
-    if ((impact.x - 1) < height && (impact.y - 1) > 0)
+    if ((impact.x - 1) < width && (impact.x - 1) > 0)
         matrix[impact.y][impact.x - 1].explode(rocket, damagedPlayers);
 }
 

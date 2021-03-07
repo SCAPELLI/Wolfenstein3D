@@ -36,7 +36,7 @@ bool CellMap::isSolid(){
 }
 
 bool CellMap::impacts(Rocket* rocket, std::vector<int>& damagedPlayers) {
-    if(occupied) return !damagedPlayers.empty();
+    if(occupied || door != nullptr) return true;
     for (int i = 0; i < playerList.size(); i++){
         if (playerList[i].getId() != rocket->sender){
             rocket->impactPoint = playerList[i].getPosition();
@@ -47,7 +47,7 @@ bool CellMap::impacts(Rocket* rocket, std::vector<int>& damagedPlayers) {
 }
 
 void CellMap::explode(Rocket* rocket, std::vector<int>& damagedPlayers) {
-    if(occupied) return;
+    if(occupied || door != nullptr) return;
     for (int i = 0; i < playerList.size(); i++){
         damagedPlayers.push_back(playerList[i].getId());
     }

@@ -82,6 +82,7 @@ bool Game::hasToChangeWeapon(int idPlayer){
 void Game::notifyAllDamageByRocket(std::vector<int>& damagedPlayers, int& sender,
                                                     std::vector<AbstractEvent*>& newEvents){
     for (int i = 0; i < damagedPlayers.size(); i++){
+        //players[ids[sender]].hits(players[ids[damagedPlayers[i]]);
         players[ids[damagedPlayers[i]]].getDamage(30);
     }
     for (int i = 0; i < players.size(); i++){
