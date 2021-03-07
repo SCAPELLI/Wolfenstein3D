@@ -23,6 +23,7 @@ class Player {
     int idWeapon, bullets, score, keys;
     int bulletsShot, playersKilled;
     int prevIdWeapon;
+    Rocket* rocketLaunched;
     char* configPath;
 public:
     /*setea constructor del jugador*/
@@ -97,6 +98,8 @@ public:
     int getSpeed();
     std::string getName();
     int getBullets();
+    void deleteRocketLaunched();
+    int rocketInflictedDamage(Vector& positionVictim);
     ~Player();
 
 };

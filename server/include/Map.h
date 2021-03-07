@@ -36,7 +36,7 @@ public:
 
     bool isADoor(Player &player, std::vector<AbstractEvent *> &newEvents);
 
-    std::vector<int> increaseCooldown(std::vector<AbstractEvent *>& newEvents, int& sender);
+    std::vector<int> increaseCooldownAndAdvanceRocket(std::vector<AbstractEvent *>& newEvents, int& sender);
 
     void launchRocket(Player& player, Vector &direction,
                       std::vector<AbstractEvent *> &newEvents);

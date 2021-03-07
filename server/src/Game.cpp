@@ -82,12 +82,15 @@ bool Game::hasToChangeWeapon(int idPlayer){
 void Game::notifyAllDamageByRocket(std::vector<int>& damagedPlayers, int& sender,
                                                     std::vector<AbstractEvent*>& newEvents){
     for (int i = 0; i < damagedPlayers.size(); i++){
-        //players[ids[sender]].hits(players[ids[damagedPlayers[i]]);
-        players[ids[damagedPlayers[i]]].getDamage(30);
+        Vector positionOfVictim =  players[ids[damagedPlayers[i]]].getScaledPosition();
+        int damage = players[ids[sender]].rocketInflictedDamage(positionOfVictim);
+        players[ids[damagedPlayers[i]]].getDamage(damage);
+
     }
     for (int i = 0; i < players.size(); i++){
         reactToDamage(i, sender, newEvents);
     }
+    players[ids[sender]].deleteRocketLaunched();
 }
 
 void Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents ){
@@ -151,8 +154,7 @@ bool Game::openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents){
 
 void Game::increaseCooldown( std::vector<AbstractEvent*>& newEvents) {
     int sender;
-    std::vector<int> damagedPlayers = map.increaseCooldown(newEvents, sender);
-
+    std::vector<int> damagedPlayers = map.increaseCooldownAndAdvanceRocket(newEvents, sender);
     if (!damagedPlayers.empty() && sender != -1) {
         notifyAllDamageByRocket(damagedPlayers, sender, newEvents);
     }

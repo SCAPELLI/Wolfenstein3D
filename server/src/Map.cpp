@@ -181,7 +181,7 @@ void Map::dropAllItems(Player& player, std::vector<AbstractEvent*>& newEvents){
      matrix[newPos.y][newPos.x].getItemsTile(player, newEvents);
 }
 
-std::vector<int> Map::increaseCooldown(std::vector<AbstractEvent*>& newEvents, int& sender) {
+std::vector<int> Map::increaseCooldownAndAdvanceRocket(std::vector<AbstractEvent*>& newEvents, int& sender) {
     for (std::size_t i = 0; i < doors.size(); i++) {
         doors[i]->incrementCooldown();
     }
@@ -190,12 +190,12 @@ std::vector<int> Map::increaseCooldown(std::vector<AbstractEvent*>& newEvents, i
     auto it = rockets.begin();
     while (it != rockets.end()) {
         Vector posRocket = (*it)->getPositionScaled();
-        if ( posRocket.x < width && posRocket.y < height &&
+        if (posRocket.x < width && posRocket.y < height &&
             !matrix[posRocket.y][posRocket.x].isSolid()) {
             (*it)->moveRocket(newEvents);
             if (collide((*it), damagedPlayers, newEvents)) {
                 sender = (*it)->sender;
-                delete (*it);
+                //delete (*it);
                 it = rockets.erase(it);
             }
         }
