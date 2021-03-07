@@ -30,6 +30,7 @@ public:
     void reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents);
     void notifyAllDamageByRocket(std::vector<int>& damagedPlayers, int& sender,
                                             std::vector<AbstractEvent*>& newEvents);
+    bool hasToChangeWeapon(int idPlayer);
     int getBullets(int idPlayer);
     bool GameFinished();
     int getWinnerId();

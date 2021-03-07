@@ -132,7 +132,7 @@ int Player::hits(Player& otherPlayer){
     return damage;
 }
 
-bool Player::hasRocketLauncher() {
+bool Player::hasActiveRocketLauncher() {
     return bag[idWeapon].name == "rocket launcher";
 }
 

@@ -86,7 +86,6 @@ void Map::insertDoor(int& elem, OpenableItem* door, int& pos1, int& pos2,
 
 void Map::launchRocket(Player& player, Vector& direction,
                                     std::vector<AbstractEvent*>& newEvents) {
-    return;
     Rocket* rocket =  factory.createRocket();
     player.setRocket(direction, rocket);
     rocket->sender = player.getId();
@@ -95,7 +94,7 @@ void Map::launchRocket(Player& player, Vector& direction,
 }
 bool Map::collide(Rocket* rocket, std::vector<int>& damagedPlayers,
                     std::vector<AbstractEvent*>& newEvents) {
-    Vector currentPos = rocket->currentPosition;
+    Vector currentPos = rocket->getPositionScaled();
     if (matrix[currentPos.y][currentPos.x].impacts(rocket, damagedPlayers)) {
         rocket->impactPoint = Vector(currentPos.x, currentPos.y);
         newEvents.push_back(new DespawnEvent(DespawnEventType,
@@ -190,13 +189,14 @@ std::vector<int> Map::increaseCooldown(std::vector<AbstractEvent*>& newEvents, i
     std::vector<int> damagedPlayers;
     auto it = rockets.begin();
     while (it != rockets.end()) {
-        Vector posRocket = (*it)->currentPosition;
-        if ( posRocket.y < width && posRocket.x < height &&
+        Vector posRocket = (*it)->getPositionScaled();
+        if ( posRocket.x < width && posRocket.y < height &&
             !matrix[posRocket.y][posRocket.x].isSolid()) {
-            (*it)->incrementCooldown(newEvents);
+            (*it)->moveRocket(newEvents);
             if (collide((*it), damagedPlayers, newEvents)) {
                 sender = (*it)->sender;
                 delete (*it);
+                it = rockets.erase(it);
             }
         }
         else{

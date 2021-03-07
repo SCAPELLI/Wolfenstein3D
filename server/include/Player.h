@@ -86,7 +86,7 @@ public:
     bool hasToChangeWeapon();
     double angleWithOther(Player& otherPlayer);
     void updateKills();
-    bool hasRocketLauncher();
+    bool hasActiveRocketLauncher();
     void setRocket(Vector direction, Rocket* rocket);
     void eraseCurrentWeapon();
     Vector getInitialPosition();
