@@ -18,7 +18,7 @@
 #include "common/ServerEvents/PickUpKeyEvent.h"
 
 #define PICKUP_SOUND 7
-#define BOOM_SOUND 8
+#define BOOM_SOUND 7
 
 
 CGame::CGame(double x, double y, double fov, std::vector<std::vector<int>> map, int playerId, bool& isPlaying):

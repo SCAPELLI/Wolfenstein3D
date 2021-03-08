@@ -198,12 +198,11 @@ std::vector<int> Map::increaseCooldownAndAdvanceRocket(std::vector<AbstractEvent
             if (collide((*it), damagedPlayers, newEvents)) {
                 sender = (*it)->sender;
                 //delete (*it);
-                it = rockets.erase(it);
+                rockets.erase(it);
+                return damagedPlayers;
             }
         }
-        else{
-              ++it;
-        }
+        ++it;
     }
     return damagedPlayers;
 }
