@@ -4,7 +4,7 @@
 
 CPlayer::CPlayer(double x, double y, double fov, int id):
 	camera(x, y, fov), spawnPoint(x, y),
-	hp(100), lives(1), ammo(8), activeWeapon(1), score(0), id(id){}
+	hp(100), lives(4), ammo(8), activeWeapon(1), score(0), id(id){}
 
 void CPlayer::loadWeapons(SDL_Renderer* renderer, BagOfSprites& sprites){
     for (int i = 0; i < TOTAL_GUNS; i++){
