@@ -63,7 +63,8 @@ void Map::insertItem(int& elem, int& pos1, int& pos2,
                      CellMap& tile, std::vector<AbstractEvent*>& newEvents){
     Item* item = factory.itemLoader(elem);
     auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
-                                item->getId(), pos1 * TILE, pos2 * TILE);
+                                item->getId(),
+                                pos1 *  TILE + TILE/2, pos2 * TILE + TILE/2);
     newEvents.push_back(event);
     tile.addItem(item);
 }
@@ -72,7 +73,8 @@ void Map::insertWeapon(int& elem, int& pos1, int& pos2,
                      CellMap& tile, std::vector<AbstractEvent*>& newEvents){
     Item* item = factory.weaponLoader(elem);
     auto event = new SpawnEvent(SpawnEventType, item->getUniqueId(),
-                                item->getId() + WEAPONSGAP, pos1 * TILE, pos2 * TILE);
+                                item->getId() + WEAPONSGAP,
+                                pos1 *  TILE + TILE/2, pos2 * TILE + TILE/2);
     newEvents.push_back(event);
     tile.addItem(item);
 }
