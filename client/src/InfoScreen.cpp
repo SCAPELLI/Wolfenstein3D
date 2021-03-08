@@ -2,6 +2,7 @@
 #include <QtWidgets/QLineEdit>
 #include <iostream>
 #include <QtGui/QPainter>
+#include <QtWidgets/QMessageBox>
 #include "client/include/InfoScreen.h"
 #include "client/ui/ui_InfoScreen.h"
 #include "common/include/Style.h"
@@ -39,7 +40,9 @@ void InfoScreen::onAcceptButtonClick() {
     if (this->screenManager->tryToConnect(portLine->text().toStdString(), serverLine->text().toStdString())) {
         this->screenManager->goNext();
     } else {
-
+        QMessageBox badInputMessage;
+        badInputMessage.setText("Invalid port or server");
+        badInputMessage.exec();
         portLine->clear();
         serverLine->clear();
     }
