@@ -40,7 +40,7 @@ void InfoScreen::onAcceptButtonClick() {
     if (this->screenManager->tryToConnect(portLine->text().toStdString(), serverLine->text().toStdString())) {
         this->screenManager->goNext();
     } else {
-        QMessageBox badInputMessage;
+        QMessageBox badInputMessage; //ventana
         badInputMessage.setText("Invalid port or server");
         badInputMessage.exec();
         portLine->clear();
