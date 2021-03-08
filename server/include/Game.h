@@ -34,6 +34,7 @@ public:
     int getBullets(int idPlayer);
     bool GameFinished();
     int getWinnerId();
+    void removeResources();
     };
 
 

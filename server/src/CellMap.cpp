@@ -17,6 +17,12 @@
 CellMap::CellMap()
 : occupied(false), items(), playerList(), door(nullptr){}
 
+void CellMap::removeResources() {
+    for (auto& item: items) {
+        delete item;
+    }
+    delete door;
+}
 
 void CellMap::removePlayer(Player& player) {
     auto index = std::find(playerList.begin(), playerList.end(), player);

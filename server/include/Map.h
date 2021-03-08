@@ -56,6 +56,7 @@ public:
     bool changeBecauseLockedDoor(Vector& doorPos, std::vector<AbstractEvent *>& newEvents);
 
     void explodeAdyacents(Rocket* rocket, std::vector<int>& damagedPlayers);
+    void removeResources();
 };
 
 
