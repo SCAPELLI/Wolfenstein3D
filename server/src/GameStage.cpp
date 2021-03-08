@@ -11,6 +11,7 @@
 #include "common/ServerEvents/KillEvent.h"
 #include "common/include/EventSerializer.h"
 #include "common/ServerEvents/PositionEvent.h"
+#include "common/ServerEvents/StartEvent.h"
 #include "common/ServerEvents/GameOverEvent.h"
 #include "common/ServerEvents/HealthChangeEvent.h"
 #include "common/include/OpenDoorEvent.h"
@@ -27,6 +28,8 @@ GameStage::GameStage(std::vector<BlockingEventsQueue>* queues,
                      std::map<int, std::string>& playersNames, int levelId, char* configPath)
     : queues(queues), newEvents() {
     game = Game(newEvents, playersNames, levelId, configPath);
+    auto startEvent = new StartEvent(StartEventType);
+    newEvents.push_back(startEvent);
     pushNewEvents();
 }
 

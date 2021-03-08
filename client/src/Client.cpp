@@ -118,6 +118,30 @@ void Client::catchEvents(BlockingEventsQueue& senderQueue){
     }
 }
 
+std::vector<std::vector<int>> Client::generateMap(CreateMapEvent* start){
+    std::vector<std::vector<int>> map;
+    for (int i = 0; i <= start->height; i++){
+        std::vector<int> row;
+        for (int j = 0; j <= start->width; j++){
+            row.push_back(0);
+        }
+        map.push_back(row);
+    }
+    return map;
+}
+
+bool Client::receiveMap(std::list<Message>& messages, CGame& game) {
+    while (!messages.empty()) {
+        Event event = std::move(EventSerializer::deserialize(messages.front().getMessage()));
+        messages.pop_front();
+        if (event.thisIsTheStartEvent()){
+            return false;
+        }
+        event.runHandler(game);
+    }
+    return true;
+}
+
 void Client::playMatch() {
     matchStarted = true;
     BlockingEventsQueue senderQueue;
@@ -132,26 +156,15 @@ void Client::playMatch() {
             hasStarted = true;
         }
     }
-    //Event event = std::move(receiverQueue.pop());
-    SDL_Delay(2000); // este delay deberia ser reemplazado por un startgameevent
     std::list<Message> messageEvents = receiverQueue.popAll();
     Event event = std::move(EventSerializer::deserialize(messageEvents.front().getMessage()));
-    messageEvents.pop_front(); //ojo si sacas muchos elementos con el popAll acá, hay que procesarlos en algun lado
-                                //solo agrego las tres lineas de arriba como ejemplo de como quedo para desencolar.
+    messageEvents.pop_front();
 
 
     CreateMapEvent* start = (CreateMapEvent*) (event).event;
     double spawnPointX = start->startingLocations[userId].first;
     double spawnPointY = start->startingLocations[userId].second;
-
-    std::vector<std::vector<int>> map;
-    for (int i = 0; i <= start->height; i++){
-        std::vector<int> row;
-        for (int j = 0; j <= start->width; j++){
-            row.push_back(0);
-        }
-        map.push_back(row);
-    }
+    std::vector<std::vector<int>> map = std::move(generateMap(start));
 
     CGame game(spawnPointX, spawnPointY, FOV, map, userId, gameIsPlaying);
     for (auto it = start->startingLocations.begin(); it != start->startingLocations.end(); ++it){
@@ -159,6 +172,11 @@ void Client::playMatch() {
         game.spawnEnemy(it->first, Vector(start->startingLocations[it->first].first,
                                           start->startingLocations[it->first].second));
     }
+
+    while(receiveMap(messageEvents, game)){
+        messageEvents = receiverQueue.popAll();
+    }
+
 
     SenderThread s(&userSocket, &senderQueue, userId);
     s.start();

@@ -10,3 +10,7 @@ updateEventType AbstractEvent::getEventType() {
 std::string AbstractEvent::getSerialization() {
     return "";
 }
+
+bool AbstractEvent::thisIsTheStartEvent() {
+    return false;
+}

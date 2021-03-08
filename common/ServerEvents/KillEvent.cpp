@@ -14,6 +14,7 @@ void KillEvent::runHandler(CGame& game) {
 updateEventType KillEvent::getEventType() {
     return eventType;
 }
+
 std::string KillEvent::getSerialization() {
     return EventSerializer::serialize(*this);
 }

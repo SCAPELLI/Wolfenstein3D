@@ -26,6 +26,7 @@ public:
     std::string getSerialization();
 
     bool thisIsTheQuitEvent();
+    bool thisIsTheStartEvent();
     bool thisIsAValidEvent();
     ~Event();
 };

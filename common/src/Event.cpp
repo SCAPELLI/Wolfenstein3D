@@ -20,6 +20,8 @@
 #include "common/include/OpenDoorEvent.h"
 #include "common/ServerEvents/CreateMapEvent.h"
 #include "common/ServerEvents/PickUpKeyEvent.h"
+#include "common/ServerEvents/StartEvent.h"
+
 #define PI 3.141592
 /*----------*/
 
@@ -79,6 +81,9 @@ Event::Event(AbstractEvent* updateEvent, updateEventType eventType) {
             break;
         case PickUpKeyType:
             event = new PickUpKeyEvent(*(PickUpKeyEvent*)updateEvent);
+            break;
+        case StartEventType:
+            event = new StartEvent(*(StartEvent*)updateEvent);
             break;
         default:
             this->event = nullptr;
@@ -154,6 +159,12 @@ bool Event::thisIsTheQuitEvent() {
     if (event != nullptr) return event->thisIsTheQuitEvent();
     return false;
 }
+
+bool Event::thisIsTheStartEvent() {
+    if (event != nullptr) return event->thisIsTheStartEvent();
+    return false;
+}
+
 bool Event::thisIsAValidEvent() {
     return event != nullptr;
 }

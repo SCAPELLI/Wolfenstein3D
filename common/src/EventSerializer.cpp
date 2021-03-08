@@ -16,6 +16,7 @@
 #include "common/ServerEvents/PositionEvent.h"
 #include "common/ServerEvents/ScoreChangeEvent.h"
 #include "common/ServerEvents/SpawnEvent.h"
+#include "common/ServerEvents/StartEvent.h"
 #include "common/ServerEvents/SpawnNotMovableEvent.h"
 #include "common/ServerEvents/ScoreChangeEvent.h"
 #include "common/include/MovementEvent.h"
@@ -408,6 +409,8 @@ Event EventSerializer::deserialize(std::string eventString) {
             return createScoreChangeEvent(eventString);
         case QUIT_EVENT:
             return createQuitEvent(eventString);
+        case START_EVENT:
+            return createStartEvent(eventString);
         default:
             return event;
     }
@@ -591,4 +594,13 @@ std::string EventSerializer::serialize(QuitEvent& event) {
     }
 
     return response;
+}
+
+std::string EventSerializer::serialize(StartEvent &event) {
+    return START_EVENT_STRING;
+}
+
+Event EventSerializer::createStartEvent(std::string eventString) {
+    StartEvent e = StartEvent(StartEventType);
+    return Event(&e, StartEventType);
 }

@@ -60,6 +60,9 @@ const std::string SHOOTING_EVENT_STRING = "017";
 const int TURN_EVENT = 18;
 const std::string TURN_EVENT_STRING = "018";
 
+const int START_EVENT = 19;
+const std::string START_EVENT_STRING = "019";
+
 class Event;
 class AmmoChangeEvent;
 class ChangeWeaponEvent;
@@ -74,6 +77,7 @@ class PickUpWeaponEvent;
 class PositionEvent;
 class ScoreChangeEvent;
 class SpawnEvent;
+class StartEvent;
 class SpawnNotMovableEvent;
 class MovementEvent;
 class OpenDoorEvent;
@@ -102,6 +106,7 @@ public:
     static Event createShootingEvent(std::string eventString);
     static Event createTurnEvent(std::string eventString);
     static Event createSpawnEvent(std::string eventString);
+    static Event createStartEvent(std::string eventString);
 
     static Event deserialize(std::string eventString);
 
@@ -129,6 +134,7 @@ public:
     static std::string serialize(TurnEvent& event);
     static std::string serialize(Event& event);
     static std::string serialize(SpawnEvent& event);
+    static std::string serialize(StartEvent& event);
 };
 
 #endif

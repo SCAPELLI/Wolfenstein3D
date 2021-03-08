@@ -70,7 +70,6 @@ void CGame::processEvent(DespawnEvent &event) {
     soundQueue.push(PICKUP_SOUND, MIX_MAX_VOLUME);
 }
 
-
 void CGame::processEvent(ShootingEvent& event){
     int playerID = event.idPlayer;
     if (activePlayer.id == playerID) {

@@ -19,6 +19,7 @@ public:
     virtual ~AbstractEvent() = default;
 
     virtual bool thisIsTheQuitEvent();
+    virtual bool thisIsTheStartEvent();
 };
 
 #endif
