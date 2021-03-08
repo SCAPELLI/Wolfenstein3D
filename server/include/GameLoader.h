@@ -14,6 +14,7 @@ class GameLoader{
     YAML::Node idConfig;
     YAML::Node map;
 public:
+    GameLoader(char* configPath);
     GameLoader();
     Item* itemLoader(int& idItem);
     Item* weaponLoader(int& idItem);

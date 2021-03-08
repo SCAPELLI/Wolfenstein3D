@@ -15,7 +15,7 @@ class Map {
     GameLoader factory;
 public:
     Map(std::vector<Player> &players,
-        std::vector<AbstractEvent *> &newEvents, int levelId);
+        std::vector<AbstractEvent *> &newEvents, int levelId, char* configPath);
 
     Map();
 

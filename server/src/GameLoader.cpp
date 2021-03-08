@@ -7,12 +7,12 @@
 #include <string>
 #include "common/include/Exception.h"
 #include "server/Items/LockedDoor.h"
+GameLoader::GameLoader() {}
 
-
-GameLoader::GameLoader() : uniqueId(1){
+GameLoader::GameLoader(char* configPath) : uniqueId(1){
     sprites = YAML::LoadFile("../../Editor/sprites/sprites.yaml");
-    idConfig = YAML::LoadFile("../../server/config/config.yaml");
-    map = YAML::LoadFile("../../server/maps/1.yaml");
+    idConfig = YAML::LoadFile(configPath);
+
 }
 
 Item* GameLoader::itemLoader(int& idItem) {

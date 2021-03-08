@@ -23,7 +23,7 @@ Game::Game( std::vector<AbstractEvent*>& newEvents,
         players.emplace_back(Player(it->first, cont, it->second, Vector(0, 0), configPath));
         cont++;
     }
-    map = Map(players, newEvents ,levelId);
+    map = Map(players, newEvents ,levelId, configPath);
     auto startEvent = new CreateMapEvent(CreateMapType, map.getWidth(), map.getHeight());
     for (int i = 0; i < players.size(); i++){
         startEvent->addPlayer(players[i].getId(), players[i].getPosition());

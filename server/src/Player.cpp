@@ -37,7 +37,7 @@ Player::Player(int parsed_id, int relativeId, std::string name, Vector position,
 
 void Player::initializePlayer(bool dead){
     YAML::Node fileNode = YAML::LoadFile(configPath);
-    GameLoader yamlItems;
+    GameLoader yamlItems(configPath);
     if (!dead) {
         lifes = fileNode["Player"]["respawns"].as<int>();
         bulletsShot = fileNode["Player"]["bulletsShot"].as<int>();

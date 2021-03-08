@@ -1,7 +1,7 @@
 port: 7777
 host: localhost
 Player:
-  respawns: 0
+  respawns: 3
   health: 100
   radius: 1
   angle: 0
@@ -16,15 +16,15 @@ Weapons:
   knife:
     damage: 3
     minBullets: 0
-    cooldownTimer: 70
+    cooldownTimer: 50
   pistol:
     damage: 80
     minBullets: 1
-    cooldownTimer: 75
+    cooldownTimer: 50
   machine gun:
     damage: 30
     minBullets: 5
-    cooldownTimer: 10
+    cooldownTimer: 30
   chain gun:
     damage: 40
     minBullets: 1
@@ -32,4 +32,4 @@ Weapons:
   rocket launcher:
     damage: 50
     minBullets: 5
-    cooldownTimer: 0
+    cooldownTimer: 100

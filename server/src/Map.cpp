@@ -14,7 +14,8 @@
 Map::Map(){}
 
 Map::Map(std::vector<Player>& players,
-         std::vector<AbstractEvent*>& newEvents, int levelId): factory(){
+         std::vector<AbstractEvent*>& newEvents, int levelId, char* configPath)
+         : factory(GameLoader(configPath)){
     std::string pathLevel = "../../server/maps/" + std::to_string(levelId)+ ".yaml";
     YAML::Node config = YAML::LoadFile(pathLevel);
     std::vector<std::vector<int>> map = config["map"].as<std::vector<std::vector<int>>>();
