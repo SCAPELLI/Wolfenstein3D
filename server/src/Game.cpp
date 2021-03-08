@@ -52,13 +52,11 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
         return -2;
     }
     players[ids[idPlayer]].updateBullets();
-    if (!players[ids[idPlayer]].hasToChangeWeapon()) {
-        return -3;
-    }
+
     WallRay ray = WallRay(players[ids[idPlayer]].getPosition(), players[ids[idPlayer]].getAngle());
     int distanceToWall = ray.distanceToWall(map);
-    if (players[ids[idPlayer]].hasRocketLauncher()){ // hasActiveRocketLauncher
-        Vector shotDirection = calculateDirection(idPlayer) / players[ids[idPlayer]].getSpeed();
+    if (players[ids[idPlayer]].hasActiveRocketLauncher()){
+        Vector shotDirection = calculateDirection(idPlayer);
         map.launchRocket(players[ids[idPlayer]], shotDirection, newEvents);
         return -1;
     }
@@ -78,11 +76,21 @@ int Game::shoot(int idPlayer, std::vector<AbstractEvent*>& newEvents){
     }
     return -1;
 }
+bool Game::hasToChangeWeapon(int idPlayer){
+    return !players[ids[idPlayer]].hasToChangeWeapon();
+}
+void Game::notifyAllDamageByRocket(std::vector<int>& damagedPlayers, int& sender,
+                                                    std::vector<AbstractEvent*>& newEvents){
+    for (int i = 0; i < damagedPlayers.size(); i++){
+        Vector positionOfVictim =  players[ids[damagedPlayers[i]]].getScaledPosition();
+        int damage = players[ids[sender]].rocketInflictedDamage(positionOfVictim);
+        players[ids[damagedPlayers[i]]].getDamage(damage);
 
-void Game::notifyAllDamageByRocket(int idPlayer, std::vector<AbstractEvent*>& newEvents){
-    for (int i = 0; i < players.size(); i++){
-        reactToDamage(i, idPlayer, newEvents);
     }
+    for (int i = 0; i < players.size(); i++){
+        reactToDamage(i, sender, newEvents);
+    }
+    players[ids[sender]].deleteRocketLaunched();
 }
 
 void Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& newEvents ){
@@ -101,7 +109,7 @@ void Game::reactToDamage(int damaged, int sender,std::vector<AbstractEvent*>& ne
         players[ids[sender]].updateKills();
         AbstractEvent* event = new KillEvent(KillEventType, players[damaged].getId());
         newEvents.push_back(event);
-        map.dropAllItems(players[damaged], newEvents);// borrar directamente player aca?
+        map.dropAllItems(players[damaged], newEvents);
         respawnPlayer(players[damaged].getId(), newEvents);
     }
     else{
@@ -145,11 +153,13 @@ bool Game::openTheDoor(int idPlayer, std::vector<AbstractEvent*>& newEvents){
 }
 
 void Game::increaseCooldown( std::vector<AbstractEvent*>& newEvents) {
-    int idPlayer = map.increaseCooldown(newEvents);
-    if (idPlayer != -1)
-        notifyAllDamageByRocket(idPlayer, newEvents);
-    for (int i = 0; i < players.size(); i++) {
-        players[i].incrementCooldown();
+    int sender;
+    std::vector<int> damagedPlayers = map.increaseCooldownAndAdvanceRocket(newEvents, sender);
+    if (!damagedPlayers.empty() && sender != -1) {
+        notifyAllDamageByRocket(damagedPlayers, sender, newEvents);
+    }
+    for (auto & player : players) {
+        player.incrementCooldown();
     }
 }
 

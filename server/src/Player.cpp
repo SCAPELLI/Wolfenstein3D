@@ -28,7 +28,8 @@ Player::Player(int parsed_id, int relativeId, std::string name, Vector position,
     initialPosition(position),
     scaledPosition(position.scale()),
     dead(false),
-    configPath(configPath)
+    configPath(configPath),
+    rocketLaunched(nullptr)
 {
     initializePlayer(dead);
     prevIdWeapon = idWeapon;
@@ -132,7 +133,7 @@ int Player::hits(Player& otherPlayer){
     return damage;
 }
 
-bool Player::hasRocketLauncher() {
+bool Player::hasActiveRocketLauncher() {
     return bag[idWeapon].name == "rocket launcher";
 }
 
@@ -141,8 +142,19 @@ void Player::setRocket(Vector direction, Rocket* rocket){
     rocket->sender = this->id;
     rocket->direction = direction;
     rocket->currentPosition = position;
+    rocketLaunched = rocket;
 }
 
+int Player::rocketInflictedDamage(Vector& positionVictim){
+    int distance = rocketLaunched->impactPoint.distance(positionVictim);
+    if (distance == 0) return rocketLaunched->damage;
+    return rocketLaunched->damage * 1/(double)distance;
+}
+
+void Player::deleteRocketLaunched(){
+    delete(rocketLaunched);
+    rocketLaunched = nullptr;
+}
 bool Player::pickupWeapon(Weapon weapon,
                           std::vector<AbstractEvent*>& newEvents){
     for (auto const& arm : bag) {

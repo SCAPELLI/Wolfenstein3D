@@ -3,9 +3,6 @@
 #include "server/include/GameStage.h"
 #include "common/include/EventSerializer.h"
 
-
-
-
 ShootingEvent::ShootingEvent(int idPlayer) : idPlayer(idPlayer){}
 
 void ShootingEvent::runHandler(CGame& renderer) {
