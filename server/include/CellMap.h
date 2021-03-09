@@ -34,6 +34,7 @@ public:
     bool impacts(Rocket* rocket, std::vector<int>& damagedPlayers);
     void explode(Rocket* rocket, std::vector<int>& damagedPlayers);
     bool isLockedDoor();
+    void removeResources();
 
 };
 

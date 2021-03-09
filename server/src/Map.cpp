@@ -215,3 +215,9 @@ double Map::getWidth() {
 double Map::getHeight() {
     return height;
 }
+
+void Map::removeResources() {
+    for(auto& row: matrix)
+        for (auto& cellMap: row)
+            cellMap.removeResources();
+}
