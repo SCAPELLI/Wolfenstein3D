@@ -1,0 +1,6 @@
+Package: editor
+Version: 0.0.1
+Section: devel
+Priority: optional
+Depends: libc6(>=2.11), libgcc1(>=1:7)
+Architecture: all

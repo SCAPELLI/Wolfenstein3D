@@ -79,18 +79,22 @@ void ScoreWindow::addPlayer(std::string name, std::string kills, std::string bul
 
     QTableWidgetItem *nameItem = new QTableWidgetItem(QString::fromUtf8(name.c_str()));
     nameItem->setTextAlignment(Qt::AlignCenter);
+    nameItem->setFlags(Qt::ItemIsEnabled);
     dataTable->setItem(dataTable->rowCount() - 1, NAME_TABLE, nameItem);
 
     QTableWidgetItem *killsItem = new QTableWidgetItem(QString::fromUtf8(kills.c_str()));
     killsItem->setTextAlignment(Qt::AlignCenter);
+    killsItem->setFlags(Qt::ItemIsEnabled);
     dataTable->setItem(dataTable->rowCount() - 1, KILL_TABLE, killsItem);
 
     QTableWidgetItem *bulletsItem = new QTableWidgetItem(QString::fromUtf8(bullets.c_str()));
     bulletsItem->setTextAlignment(Qt::AlignCenter);
+    bulletsItem->setFlags(Qt::ItemIsEnabled);
     dataTable->setItem(dataTable->rowCount() - 1, BULLET_TABLE, bulletsItem);
 
     QTableWidgetItem *scoreItem = new QTableWidgetItem(QString::fromUtf8(score.c_str()));
     scoreItem->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+    scoreItem->setFlags(Qt::ItemIsEnabled);
     dataTable->setItem(dataTable->rowCount() - 1, SCORE_TABLE, scoreItem);
 }
 
