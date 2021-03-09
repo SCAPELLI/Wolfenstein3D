@@ -103,6 +103,11 @@ pertinente a tomar
 
 ![communication_diagram](https://github.com/SCAPELLI/Wolfenstein3D/blob/main/images/client_class_diagram.png?raw=true)
 
+- ScreenManager: cambia las pantallas de la interfaz de usuario y comunica al cliente el input del usuario.
+
+- StartScreen/InfoScreen/NicknameScreen/GamesScreen/NewMatchScreen/WaitingRoomScreen: son las distintas pantallas con las que puede interactuar el usuario. El input del usuario es comunicado al ScreenManager para que este pueda actualizar al cliente.
+
+
 ## Editor:
 
 Es una aplicación independiente del juego que permite diseñar mapas nuevos o cargar mapas ya existentes para su edición. Estos mapas pueden ser cargados en el juego. El editor solo permite mapas de dimensiones nxm, que contengan identificadores válidos que correspondan a los sprites listados en sprites.yamp y posean el formato correspondiente en el .yaml. En la carpeta Editor/maps/invalidos hay ejemplos de mapas que no pueden ser editados.
