@@ -191,3 +191,7 @@ int Game::getWinnerId() {
     }
     return playerId;
 }
+
+void Game::removeResources(){
+    map.removeResources();
+}

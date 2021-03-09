@@ -177,3 +177,7 @@ void GameStage::ifSomeoneWinNotifyHim() {
         for (auto& msg: msgs)
             queue.push(msg);
 }
+
+GameStage::~GameStage() {
+    game.removeResources();
+}

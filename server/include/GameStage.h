@@ -47,6 +47,7 @@ public:
 
     void ifSomeoneWinNotifyHim();
     bool gameFinished();
+    ~GameStage();
     };
 
 #endif
