@@ -30,7 +30,7 @@
     -Ejecutar el programa cliente e ingresar los datos brindados por el servidor para conectarse.
     -Si la conexión es exitosa se solicitará un nombre de usuario, los nombres de usuario disponibles son aquellos no repetidos y no vacíos.
     -En caso de ingresar un nombre válido se mostrará la ventana de partidas, desde aquí se pueden crear partidas o unirse a partidas existentes.
-    -Al ingresar join el programa quedará bloqueado hasta que el creador de la partida decida iniciarla, hacer multiples clicks en join puede llevar a errores.
+    -Al ingresar join el programa quedará bloqueado hasta que el creador de la partida decida iniciarla.
     -Una vez que se acabaron las vidas o que solo un jugador quedó en pie, se terminará la partida y se mostrará automaticamente una ventana con las estadisticas del juego hasta ese momento.
 
 ## Librerias necesarias
@@ -46,7 +46,12 @@
 - sudo apt-get install build-essential
 - sudo apt-get install qtcreator
 - sudo apt-get install qt5-default
-
+  
+### YAML
+- wget https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-0.6.3.zip
+- unzip yaml-cpp-0.6.3.zip
+- cd yaml-cpp-yaml-cpp-0.6.3/
+  
 ## Lógica:
 
 - La lógica del juego se desarrolló en la clase Game interactuando con el mapa del juego y los jugadores, desarrollando las acciones que fueron recibidas del GameStage. El GameStage se encarga de recibir los eventos del Match y  a su vez de encolar a las colas de usuarios los eventos generados a lo largo de la lógíca del juego.  
